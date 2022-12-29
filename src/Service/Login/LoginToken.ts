@@ -1,7 +1,7 @@
-import instance from "../../ConstantValue";
-import {getToken, removeToken, setToken} from "../TokenService";
 import {Link} from "react-router-dom";
 import React from "react";
+import instance from "../../ConstantValue";
+import {getToken, removeToken, setToken} from "../TokenService";
 
 export async function SignIn(email : any, password : any) {
     return instance.post("/login/signin",

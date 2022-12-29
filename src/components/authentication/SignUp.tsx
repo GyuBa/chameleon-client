@@ -1,6 +1,6 @@
 import React,{useCallback ,useState} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { SubmitButton, Button } from '../index';
+import { Link } from 'react-router-dom';
+import { SubmitButton } from '../index';
 import chameleon from '../../assets/images/chameleon.png';
 import {useStateContext} from "../../contexts/ContextProvider";
 import axios from 'axios';
@@ -37,7 +37,7 @@ export default function SignUp () {
             } else if (!Name) {
                 return alert("Name을 입력하세요.");
             } else {
-                await axios.post("http://abstr.net:30000/login/signup",
+                await axios.post("http://abstr.net:63001/login/signup",
                     {
                         email : Email,
                         password : Password,
