@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {SubmitButton} from '../index';
 import chameleon from '../../assets/images/chameleon.png';
 import {useStateContext} from "../../contexts/ContextProvider";
-import {SignIn} from "../../Service/Login/LoginToken"
+import {SignIn} from "../../Service/login/LoginToken"
 
 export default function Login() {
   const {currentColor} = useStateContext();
@@ -34,13 +34,13 @@ export default function Login() {
 
   return (
     <div className="h-screen">
-      <div className="px-6 h-full text-gray-800">
-        <div className="flex xl:justify-center justify-center items-center flex-wrap h-full g-6">
+      <div className="flex justify-center px-6 h-full text-gray-800">
+        <div className="h-full g-6">
           <div
-            className="flex justify-center grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 md:mb-0">
-            <img style={{width: '70%'}} className="mt-10 object-cover w-full" src={chameleon} alt="chameleon"/>
+            className="flex justify-center my-10">
+            <img style={{width: '30%'}} className="object-cover w-full" src={chameleon} alt="chameleon"/>
           </div>
-          <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
+          <div className="w-auto my-10">
             <form>
               <div className="flex flex-row items-center justify-center lg:justify-start">
                 <p className="text-sm mb-0 mr-4 dark:text-white text-black">Don't have an account?</p>

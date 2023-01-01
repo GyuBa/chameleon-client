@@ -4,8 +4,6 @@ import { FiShoppingBag } from 'react-icons/fi';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
 import { BiLogOut, BiLogIn, BiColorFill } from 'react-icons/bi';
 import { GiArtificialHive } from 'react-icons/gi';
-import { IoMdContacts } from 'react-icons/io';
-import { RiContactsLine, } from 'react-icons/ri';
 
 export const links = [
   {
@@ -21,16 +19,8 @@ export const links = [
     title: 'Models',
     links: [
       {
-        name: 'model1',
+        name: 'model',
         icon: <AiOutlineShoppingCart />,
-      },
-      {
-        name: 'model2',
-        icon: <IoMdContacts />,
-      },
-      {
-        name: 'model3',
-        icon: <RiContactsLine />,
       },
     ],
   },

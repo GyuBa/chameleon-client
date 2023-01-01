@@ -10,3 +10,4 @@ export {default as Login} from './authentication/Login';
 export {default as UserProfile} from './UserProfile';
 export {default as Main} from './Main';
 export {default as Cart} from './Cart';
+export {default as Layout} from './Layout';
