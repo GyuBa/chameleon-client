@@ -1,8 +1,8 @@
 import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import {Main, Login, SignUp, Layout, Model, History} from './components';
+import {Main, Login, SignUp, Layout ,History, Model} from './components';
+import WebSocket from './service/WebSocket';
 import './App.css';
-
 export default function App() {
   return (
       <BrowserRouter>
@@ -14,6 +14,7 @@ export default function App() {
           </Route>
           <Route path="/login" element={(<Login/>)}/>
           <Route path="/signup" element={(<SignUp/>)}/>
+          <Route path="/websocket" element={<WebSocket/>}/>
         </Routes>
       </BrowserRouter>
   );

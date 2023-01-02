@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {SubmitButton} from '../index';
 import chameleon from '../../assets/images/chameleon.png';
 import {useStateContext} from "../../contexts/ContextProvider";
-import {SignIn} from "../../service/login/LoginToken"
+import {Signin} from "../../service/login/LoginToken"
 
 export default function Login() {
   const {currentColor} = useStateContext();
@@ -19,7 +19,7 @@ export default function Login() {
     } else if (!Password) {
       return alert("Password를 입력하세요.");
     } else {
-      SignIn(Email, Password)
+      Signin(Email, Password)
           .then((response) => {
             alert('로그인 성공하셨습니다!');
             document.location.href = "../Main";

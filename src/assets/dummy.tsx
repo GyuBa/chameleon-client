@@ -1,17 +1,15 @@
 import React from 'react';
-import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { FiShoppingBag } from 'react-icons/fi';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
-import { BiLogOut, BiLogIn, BiColorFill } from 'react-icons/bi';
+import { BiLogOut, BiLogIn, BiColorFill, BiCool, BiCreditCard, BiFolder, BiCartAlt } from 'react-icons/bi';
 import { GiArtificialHive } from 'react-icons/gi';
 
 export const links = [
   {
-    title: 'Dashboard',
+    title: 'Marketplace',
     links: [
       {
         name: 'main',
-        icon: <FiShoppingBag />,
+        icon: <BiCartAlt />,
       },
     ],
   },
@@ -20,20 +18,29 @@ export const links = [
     links: [
       {
         name: 'model',
-        icon: <AiOutlineShoppingCart />,
+        icon: <BiFolder />,
       },
     ],
   },
   {
-    title: 'historys',
+    title: 'My Profile',
     links: [
       {
-        name: 'history',
+        name: 'Account',
+        icon: <BiCool />,
+      },
+
+      {
+        name: 'Payment',
+        icon: <BiCreditCard />,
+      },
+      {
+        name: 'Websocket',
         icon: <BiColorFill />,
       },
     ],
   },
-  {
+  /*{
     title: 'Authentication',
     links: [
       {
@@ -45,7 +52,7 @@ export const links = [
         icon: <BiLogOut />,
       },
     ],
-  },
+  }, */
 ];
 
 export const themeColors = [

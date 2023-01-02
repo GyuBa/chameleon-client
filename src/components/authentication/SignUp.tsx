@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {SubmitButton} from '../index';
 import chameleon from '../../assets/images/chameleon.png';
 import {useStateContext} from "../../contexts/ContextProvider";
-import axios from 'axios';
+import {Signup} from "../../service/login/LoginToken"
 
 export default function SignUp() {
   const {currentColor} = useStateContext();
@@ -37,17 +37,7 @@ export default function SignUp() {
       } else if (!Name) {
         return alert("Name을 입력하세요.");
       } else {
-        await axios.post("http://abstr.net:63001/login/signup",
-          {
-            email: Email,
-            password: Password,
-            name: Name,
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            }
-          }).then(function (response) {
+        Signup(Email, Password, Name).then(function (response) {
           console.log("가입 성공");
           alert("가입에 성공하셨습니다!");
           document.location.href = "/login";
