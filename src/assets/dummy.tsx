@@ -1,6 +1,6 @@
 import React from 'react';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
-import { BiLogOut, BiLogIn, BiColorFill, BiCool, BiCreditCard, BiFolder, BiCartAlt } from 'react-icons/bi';
+import { BiColorFill, BiCool, BiCreditCard, BiFolder, BiCartAlt } from 'react-icons/bi';
 import { GiArtificialHive } from 'react-icons/gi';
 
 export const links = [
@@ -29,7 +29,6 @@ export const links = [
         name: 'Account',
         icon: <BiCool />,
       },
-
       {
         name: 'Payment',
         icon: <BiCreditCard />,

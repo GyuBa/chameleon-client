@@ -150,7 +150,10 @@ export default function SignUp() {
                   bgColor={currentColor}
                   text="SignUp"
                   borderRadius="10px"
-                  width="full" icon={undefined} bgHoverColor={undefined} size={undefined}
+                  width="full"
+                  icon={undefined}
+                  bgHoverColor={undefined}
+                  size={undefined}
                 />
               </div>
             </form>

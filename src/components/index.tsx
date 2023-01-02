@@ -11,4 +11,6 @@ export {default as SignUp} from './authentication/SignUp';
 export {default as Login} from './authentication/Login';
 export {default as Main} from './pages/Main';
 export {default as Model} from './pages/Model';
-export {default as History} from './pages/History';
+export {default as Account} from './pages/Account';
+export {default as Payment} from './pages/Payment';
+export {default as Websocket} from './pages/Websocket';
