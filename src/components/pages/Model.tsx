@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Header} from '../components';
+import {Header} from '../index';
 import {useDropzone} from 'react-dropzone';
 
 type IFile = File & { preview?: string };

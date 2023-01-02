@@ -1,9 +1,9 @@
 import React from 'react';
 import {MdOutlineCancel} from 'react-icons/md';
 import {BsPersonCircle} from 'react-icons/bs';
-import {Button} from './index';
-import {userProfileData} from '../assets/dummy';
-import {useStateContext} from '../contexts/ContextProvider';
+import {Button} from '../index';
+import {userProfileData} from '../../assets/dummy';
+import {useStateContext} from '../../contexts/ContextProvider';
 import {Link} from 'react-router-dom';
 
 export default function UserProfile () {

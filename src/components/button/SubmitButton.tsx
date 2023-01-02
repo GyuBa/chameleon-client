@@ -1,11 +1,7 @@
 import React from 'react';
-import Login from  '../authentication/Login'
-import { useStateContext } from '../../contexts/ContextProvider';
 import { SubmitButtonData } from '../../types/Types';
 
-export default function({ icon, bgColor, color, bgHoverColor, size, text, borderRadius, width, onClick, Event} : SubmitButtonData) {
-    const { setIsClicked, initialState } = useStateContext();
-
+export default function SubmitButton({ icon, bgColor, color, bgHoverColor, size, text, borderRadius, width, onClick, Event} : SubmitButtonData) {
     return (
         <button
             type="button"
