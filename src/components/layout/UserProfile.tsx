@@ -18,7 +18,11 @@ export default function UserProfile () {
           color="rgb(153, 171, 180)"
           bgHoverColor="light-gray"
           size="2xl"
-          borderRadius="50%" bgColor={undefined} text={undefined} width={undefined}/>
+          borderRadius="50%"
+          padding="3"
+          bgColor={undefined}
+          text={undefined}
+          width={undefined}/>
       </div>
       <div className="flex gap-5 items-center mt-6 border-color border-b-1 pb-6">
         <BsPersonCircle className="w-24 h-24"/>
@@ -54,7 +58,11 @@ export default function UserProfile () {
             bgColor={currentColor}
             text="Logout"
             borderRadius="10px"
-            width="full" icon={undefined} bgHoverColor={undefined} size={undefined}
+            width="full"
+            padding="3"
+            icon={undefined}
+            bgHoverColor={undefined}
+            size={undefined}
           />
         </Link>
       </div>

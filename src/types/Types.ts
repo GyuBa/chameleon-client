@@ -12,6 +12,7 @@ type ButtonData = {
   text: any,
   borderRadius: any,
   width: any
+  padding: any
 }
 
 type SubmitButtonData = {

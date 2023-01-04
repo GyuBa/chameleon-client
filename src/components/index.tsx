@@ -14,3 +14,4 @@ export {default as Model} from './pages/Model';
 export {default as Account} from './pages/Account';
 export {default as Payment} from './pages/Payment';
 export {default as Websocket} from './pages/Websocket';
+export {default as ChangePW} from './pages/ChangePW';

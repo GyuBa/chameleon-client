@@ -26,32 +26,19 @@ export const links = [
     title: 'My Profile',
     links: [
       {
-        name: 'Account',
+        name: 'account',
         icon: <BiCool />,
       },
       {
-        name: 'Payment',
+        name: 'payment',
         icon: <BiCreditCard />,
       },
       {
-        name: 'Websocket',
+        name: 'websocket',
         icon: <BiColorFill />,
       },
     ],
   },
-  /*{
-    title: 'Authentication',
-    links: [
-      {
-        name: 'login',
-        icon: <BiLogIn />,
-      },
-      {
-        name: 'signup',
-        icon: <BiLogOut />,
-      },
-    ],
-  }, */
 ];
 
 export const themeColors = [
