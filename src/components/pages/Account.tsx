@@ -1,12 +1,16 @@
 import React from 'react';
-import {Button, Header} from '../index';
+import {Button, Header, ChangeName} from '../index';
 import {BsPersonCircle, BsFillPersonLinesFill} from "react-icons/bs";
 import {HiOutlineLockClosed} from "react-icons/hi";
 import {useStateContext} from "../../contexts/ContextProvider";
 import {Link} from "react-router-dom";
 
 export default function Account() {
-  const {currentColor} = useStateContext();
+  const {
+    currentColor,
+    handleClick,
+    isClicked
+  } = useStateContext();
   return (
     <div className="contents">
       <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
@@ -22,7 +26,7 @@ export default function Account() {
           <div className="flex mx-20 my-10">
             <BsFillPersonLinesFill className="w-10 h-10"/>
             <p className="w-full mx-10 p-2">최수연</p>
-            <div>
+            <div onClick={() => handleClick('changeName')}>
               <Button
                 color="white"
                 bgColor={currentColor}
@@ -35,6 +39,7 @@ export default function Account() {
                 size={undefined}
               />
             </div>
+            {isClicked.changeName && (<ChangeName/>)}
           </div>
           <div className="flex mx-20 my-4">
             <HiOutlineLockClosed className="w-10 h-10"/>

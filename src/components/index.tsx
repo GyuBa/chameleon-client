@@ -6,6 +6,7 @@ export {default as Footer} from './layout/Footer';
 export {default as Header} from './layout/Header';
 export {default as ThemeSettings} from './layout/ThemeSettings';
 export {default as UserProfile} from './layout/UserProfile';
+export {default as ChangeName} from './layout/ChangeName';
 export {default as Layout} from './layout/Layout';
 export {default as SignUp} from './authentication/SignUp';
 export {default as Login} from './authentication/Login';
