@@ -8,7 +8,7 @@ export default function Payment() {
 
   return (
     <div className="contents">
-      <div className="m-2 md:m-10 mt-24 w-96 p-2 md:p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
+      <div className="w-3/5 m-2 md:m-10 mt-24 w-96 p-2 md:p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
         <Header category="" title="비밀번호 변경"/>
         <p className="m-2 text-gray-500">* 비밀번호 변경 규칙 *</p>
         <p className="m-2 text-sm text-gray-500 whitespace-nowrap">숫자+영문자+특수문자 조합으로 8자리 이상</p>
@@ -45,35 +45,33 @@ export default function Payment() {
             id="pw-3"
             placeholder="새 비밀번호 확인"/>
         </div>
-        <div className="m-4">
-          <div className="flex gap-3 float-right mb-5">
-            <Link to="/account">
-              <Button
-                color="black"
-                bgColor="white"
-                text="취소"
-                borderRadius="10px"
-                width="16"
-                padding="2"
-                icon={undefined}
-                bgHoverColor={undefined}
-                size={undefined}
-              />
-            </Link>
-            <Link to="/account">
-              <Button
-                color="white"
-                bgColor={currentColor}
-                text="확인"
-                borderRadius="10px"
-                width="16"
-                padding="2"
-                icon={undefined}
-                bgHoverColor={undefined}
-                size={undefined}
-              />
-            </Link>
-          </div>
+        <div className="flex gap-3 float-right">
+          <Link to="/account">
+            <Button
+              color="black"
+              bgColor="white"
+              text="취소"
+              borderRadius="10px"
+              width="16"
+              padding="2"
+              icon={undefined}
+              bgHoverColor={undefined}
+              size={undefined}
+            />
+          </Link>
+          <Link to="/account">
+            <Button
+              color="white"
+              bgColor={currentColor}
+              text="확인"
+              borderRadius="10px"
+              width="16"
+              padding="2"
+              icon={undefined}
+              bgHoverColor={undefined}
+              size={undefined}
+            />
+          </Link>
         </div>
       </div>
     </div>
