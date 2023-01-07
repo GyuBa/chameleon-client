@@ -33,10 +33,9 @@ export default function Login() {
 
   return (
     <div className="h-screen">
-      <div className="flex justify-center px-6 h-full text-gray-800">
-        <div className="h-full g-6">
-          <div
-            className="flex justify-center my-10">
+      <div className="flex justify-center mt-10 px-6 text-gray-800">
+        <div className="mt-10 g-6">
+          <div className="flex justify-center my-10">
             <img style={{width: '30%'}} className="object-cover w-full" src={chameleon} alt="chameleon"/>
           </div>
           <div className="w-auto my-10">
@@ -86,18 +85,8 @@ export default function Login() {
               </div>
 
               <div className="text-center lg:text-left">
-                <SubmitButton
-                    Event = {Login}
-                    onClick = {login}
-                    color="white"
-                    bgColor={currentColor}
-                    text="Login"
-                    borderRadius="10px"
-                    width="full"
-                    icon={undefined}
-                    bgHoverColor={undefined}
-                    size={undefined}
-                />
+                <SubmitButton Event = {Login} onClick = {login} color="white" bgColor={currentColor} text="Login"
+                              borderRadius="10px" width="full" icon={undefined} bgHoverColor={undefined} size={undefined}/>
               </div>
             </form>
           </div>

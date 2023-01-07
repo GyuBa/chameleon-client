@@ -15,7 +15,7 @@ export default function Payment() {
         <div className="m-4">
           <input
             onChange={undefined}
-            type="text"
+            type="password"
             className="form-control block w-full px-4 py-2 text-base font-normal
                   text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
                   rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
@@ -26,7 +26,7 @@ export default function Payment() {
         <div className="m-4">
           <input
             onChange={undefined}
-            type="text"
+            type="password"
             className="form-control block w-full px-4 py-2 text-base font-normal
                   text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
                   rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
@@ -37,7 +37,7 @@ export default function Payment() {
         <div className="m-4">
           <input
             onChange={undefined}
-            type="text"
+            type="password"
             className="form-control block w-full px-4 py-2 text-base font-normal
                   text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
                   rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
@@ -47,30 +47,12 @@ export default function Payment() {
         </div>
         <div className="flex gap-3 float-right">
           <Link to="/account">
-            <Button
-              color="black"
-              bgColor="white"
-              text="취소"
-              borderRadius="10px"
-              width="16"
-              padding="2"
-              icon={undefined}
-              bgHoverColor={undefined}
-              size={undefined}
-            />
+            <Button color="black" bgColor="white" text="취소" borderRadius="10px" width="16"
+                    padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
           </Link>
           <Link to="/account">
-            <Button
-              color="white"
-              bgColor={currentColor}
-              text="확인"
-              borderRadius="10px"
-              width="16"
-              padding="2"
-              icon={undefined}
-              bgHoverColor={undefined}
-              size={undefined}
-            />
+            <Button color="white" bgColor={currentColor} text="확인" borderRadius="10px" width="16"
+                    padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
           </Link>
         </div>
       </div>
