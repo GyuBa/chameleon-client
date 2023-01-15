@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Header} from '../index';
+import {Header} from '../../components/index';
 import {useDropzone} from 'react-dropzone';
 
 type IFile = File & { preview?: string };
@@ -51,9 +51,8 @@ export default function Model() {
           <section className="container">
             <div {...getRootProps({className: 'dropzone'})}>
               <input {...getInputProps()} />
-              <p className="inline-block px-5 py-3 text-gray-500 hover:text-gray-700 hover:text-lg cursor-pointer">Drag
-                'n' drop some files here, or
-                click to select files</p>
+              <p className="inline-block px-5 py-3 text-gray-500 hover:text-gray-700 cursor-pointer">Drag
+                & drop some files here, or click to select files</p>
             </div>
             <aside className="px-5 py-2">{thumbs}</aside>
             <ul className="px-5 pb-5 pt-2">{acceptedFileItems}</ul>

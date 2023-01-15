@@ -86,3 +86,18 @@ export const userProfileData = [
     iconBg: 'rgb(235, 250, 242)',
   },
 ];
+
+export const createModel = [
+  {
+    name: 'tar file',
+    link: 'tarfile'
+  },
+  {
+    name: 'dockerfile',
+    link: 'dockerfile'
+  },
+  {
+    name: 'etc',
+    link: 'etc'
+  }
+]

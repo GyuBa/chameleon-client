@@ -5,7 +5,7 @@ import {MdOutlineCancel} from 'react-icons/md';
 import {links} from '../../assets/dummy';
 import {useStateContext} from '../../contexts/ContextProvider';
 
-export default function Sidebar () {
+export default function Sidebar() {
   const {currentColor, activeMenu, setActiveMenu, screenSize} = useStateContext();
 
   const handleCloseSideBar = () => {

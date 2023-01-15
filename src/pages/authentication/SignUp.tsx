@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import {Link} from 'react-router-dom';
-import {SubmitButton} from '../index';
+import {SubmitButton} from '../../components/index';
 import chameleon from '../../assets/images/chameleon.png';
 import {useStateContext} from "../../contexts/ContextProvider";
 import {Signup} from "../../service/login/LoginToken"

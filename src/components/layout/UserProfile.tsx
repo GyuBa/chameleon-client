@@ -1,13 +1,13 @@
 import React from 'react';
 import {MdOutlineCancel} from 'react-icons/md';
 import {BsPersonCircle} from 'react-icons/bs';
-import {Account, Button, Model} from '../index';
+import {Button} from '../index';
 import {userProfileData} from '../../assets/dummy';
 import {useStateContext} from '../../contexts/ContextProvider';
 import {Link, NavLink} from 'react-router-dom';
 
 export default function UserProfile() {
-  const {currentColor, handleClick, isClicked} = useStateContext();
+  const {currentColor} = useStateContext();
   return (
     <div className="nav-item absolute right-1 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
       <div className="flex justify-between items-center">
