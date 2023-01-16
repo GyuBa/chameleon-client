@@ -12,7 +12,7 @@ export default function CreateModel() {
       <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 dark:bg-secondary-dark-bg rounded-3xl">
         <Header category="" title="모델 생성"/>
         <div
-          className="flex grid gap-5 mt-10 mb-5 p-10 md:grid-cols-3 grid-cols-2 break-all">
+          className="flex grid gap-1 mt-10 mb-5 p-10 md:grid-cols-3 grid-cols-2 break-all">
           {createModel.map((item) => (
             <Link to={`/createmodel/${item.link}`}>
               <div className="w-5/6 px-5 py-10 bg-white rounded-3xl drop-shadow-lg hover:drop-shadow-xl">

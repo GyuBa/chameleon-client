@@ -1,65 +1,56 @@
-import React, {useEffect, useState} from 'react';
-import {Header} from '../../components/index';
-import {useDropzone} from 'react-dropzone';
-
-type IFile = File & { preview?: string };
+import React from 'react';
+import {Header} from "../../components";
+import {BsFillGrid3X3GapFill} from "react-icons/bs";
+import {FiGrid} from "react-icons/fi";
+import {TfiViewListAlt} from "react-icons/tfi";
+import {MyModel} from "../../assets/dummy";
+import {Link} from "react-router-dom";
+import {useStateContext} from "../../contexts/ContextProvider";
 
 export default function Model() {
-  const [files, setFiles] = useState<IFile[]>([]);
+  const {currentColor, menuState, onClickMenu} = useStateContext();
 
-  const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
-    accept: {
-      'image/*': []
-    },
-    onDrop: acceptedFiles => {
-      setFiles(acceptedFiles.map(file => Object.assign(file, {
-        preview: URL.createObjectURL(file)
-      })));
-    }
-  });
-
-  const acceptedFileItems = acceptedFiles.map(file => (
-    <li key={file.name}>
-      {file.name} - {file.size} bytes
-    </li>
-  ));
-
-  const thumbs = files.map(file => (
-    <div className="inline-flex rounded border border-black border-solid p-4" key={file.name}>
-      <img className="block w-auto h-full"
-           src={file.preview}
-           alt="model"
-           onLoad={() => {
-             URL.revokeObjectURL(file.preview as string)
-           }}
-      />
+  const Menu = () => (
+    <div className="nav-item absolute right-1 top-16 bg-violet-300 dark:bg-[#42464D] p-8 rounded-lg w-96">
+      <Link to="/createmodel">
+        <span>모델생성</span>
+      </Link>
+      <Link to="/">
+        <span>모델수정</span>
+      </Link>
+      <Link to="/">
+        <span>모델삭제</span>
+      </Link>
     </div>
-  ));
-
-  useEffect(() => {
-    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
-    return () => files.forEach(file => URL.revokeObjectURL(file.preview as string));
-  });
+  );
 
   return (
     <div className="contents">
       <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
-        <Header category="Model" title="Model"/>
-        <div className="mb-10 text-black dark:text-white">Model description</div>
-        <div className="my-4 md:p-5 rounded-3xl bg-slate-300 dark:bg-slate-300">
-          <p className="p-5 text-xl font-bold">Input</p>
-          <section className="container">
-            <div {...getRootProps({className: 'dropzone'})}>
-              <input {...getInputProps()} />
-              <p className="inline-block px-5 py-3 text-gray-500 hover:text-gray-700 cursor-pointer">Drag
-                & drop some files here, or click to select files</p>
-            </div>
-            <aside className="px-5 py-2">{thumbs}</aside>
-            <ul className="px-5 pb-5 pt-2">{acceptedFileItems}</ul>
-          </section>
+        <div className="flex justify-between items-center">
+          <div className="flex items-center">
+            <Header category="" title="My Models"/>
+            <button type="button" className="mx-2 text-xl rounded-full p-3 hover:bg-light-gray focus:bg-gray">
+              {<FiGrid size="24" className="text-gray-500"/>}
+            </button>
+            <button type="button" className=" text-xl rounded-full p-3 hover:bg-light-gray focus:bg-gray">
+              {<TfiViewListAlt size="21" className="text-gray-500"/>}
+            </button>
+          </div>
+          <button type="button" onClick={onClickMenu} className=" text-xl rounded-full p-3 hover:bg-light-gray focus:bg-gray">
+            {<BsFillGrid3X3GapFill size="24" color={currentColor}/>}
+          </button>
+          {menuState ? <Menu/> : null}
         </div>
-        <div className="my-4 md:p-5 rounded-3xl bg-slate-300 dark:bg-slate-300">
-          <p className="p-5 text-xl font-bold">Output</p>
+        <div className="grid grid-cols-3 gap-4 m-10">
+          {MyModel.map((item) => (
+              <Link to={`/executemodel/${item.link}`}>
+                <div className="w-auto px-5 pt-5 pb-10 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl">
+                  <p className="border-b-2 font-semibold text-xl">{item.name}</p>
+                  <p className="text-sm">{item.name} description</p>
+                </div>
+              </Link>
+          ))}
         </div>
       </div>
     </div>

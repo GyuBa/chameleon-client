@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {Layout} from './components';
-import {Main, Login, SignUp, Payment, Account, ChangePW, Model, CreateModel, Tarfile, Dockerfile} from './pages';
+import {Main, Login, SignUp, Payment, Account, ChangePW, Model, ExecuteModel, CreateModel, Tarfile, Dockerfile} from './pages';
 import WebSocket from './service/WebSocket';
 import './App.css';
 
@@ -16,6 +16,7 @@ export default function App() {
           <Route path="/payment" element={<Payment/>}/>
 
           <Route path="/model" element={<Model/>}/>
+          <Route path="/executemodel" element={<ExecuteModel/>}/>
           {/*경로 수정 필요*/}
           <Route path="/createmodel" element={<CreateModel/>}/>
           <Route path="/createmodel/tarfile" element={<Tarfile/>}/>

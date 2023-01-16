@@ -17,11 +17,13 @@ export const ContextProvider = ({children}) => {
   const [themeSettings, setThemeSettings] = useState(false);
   const [activeMenu, setActiveMenu] = useState(true);
   const [isClicked, setIsClicked] = useState(initialState);
+  const [menuState, setMenuState] = useState(false);
 
   const setMode = (e) => {
     setCurrentMode(e.target.value);
     localStorage.setItem('themeMode', e.target.value);
   };
+
 
   const setColor = (color) => {
     setCurrentColor(color);
@@ -29,6 +31,10 @@ export const ContextProvider = ({children}) => {
   };
 
   const handleClick = (clicked) => setIsClicked({...initialState, [clicked]: true});
+
+  const onClickMenu = () => {
+    setMenuState(prevState => prevState ? false : true )
+  }
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -38,17 +44,20 @@ export const ContextProvider = ({children}) => {
       activeMenu,
       screenSize,
       setScreenSize,
-      handleClick,
       isClicked,
       initialState,
       setIsClicked,
       setActiveMenu,
       setCurrentColor,
       setCurrentMode,
+      themeSettings,
+      setThemeSettings,
+      menuState,
+      setMenuState,
+      handleClick,
       setMode,
       setColor,
-      themeSettings,
-      setThemeSettings
+      onClickMenu
     }}>
       {children}
     </StateContext.Provider>

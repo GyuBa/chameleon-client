@@ -81,7 +81,7 @@ export const userProfileData = [
     icon: <GiArtificialHive />,
     title: 'My Models',
     name: 'model',
-    desc: 'My Model Lists',
+    desc: 'My ExecuteModel Lists',
     iconColor: 'rgb(0, 194, 146)',
     iconBg: 'rgb(235, 250, 242)',
   },
@@ -100,4 +100,42 @@ export const createModel = [
     name: 'etc',
     link: 'etc'
   }
+]
+export const MyModel = [
+  {
+    name: 'Model01',
+    link: 'model01'
+  },
+  {
+    name: 'Model02',
+    link: 'model02'
+  },
+  {
+    name: 'Model03',
+    link: 'model03'
+  },
+  {
+    name: 'Model04',
+    link: 'model04'
+  },
+  {
+    name: 'Model05',
+    link: 'model05'
+  },
+  {
+    name: 'Model06',
+    link: 'model06'
+  },
+  {
+    name: 'Model07',
+    link: 'model07'
+  },
+  {
+    name: 'Model08',
+    link: 'model08'
+  },
+  {
+    name: 'Model09',
+    link: 'model09'
+  },
 ]
