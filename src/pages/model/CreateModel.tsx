@@ -24,8 +24,10 @@ export default function CreateModel() {
         </div>
         <div>
           <div className="flex gap-3 float-right">
-            <Button color="white" bgColor={currentColor} text="취소" borderRadius="10px" width="16"
-                    padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
+            <Link to="/model">
+              <Button color="white" bgColor={currentColor} text="취소" borderRadius="10px" width="16"
+                      padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
+            </Link>
           </div>
         </div>
       </div>

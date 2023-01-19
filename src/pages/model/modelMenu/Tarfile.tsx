@@ -88,7 +88,7 @@ export default function Tarfile() {
             <Button color="black" bgColor="white" text="취소" borderRadius="10px" width="16"
                     padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
           </Link>
-          <Link to="/createmodel">
+          <Link to="/model">
             <Button color="white" bgColor={currentColor} text="생성" borderRadius="10px" width="16"
                     padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
           </Link>
