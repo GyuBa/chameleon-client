@@ -1,19 +1,15 @@
 import React from 'react';
-import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { FiShoppingBag } from 'react-icons/fi';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
-import { BiLogOut, BiLogIn, BiColorFill } from 'react-icons/bi';
+import { BiColorFill, BiCool, BiCreditCard, BiFolder, BiCartAlt } from 'react-icons/bi';
 import { GiArtificialHive } from 'react-icons/gi';
-import { IoMdContacts } from 'react-icons/io';
-import { RiContactsLine, } from 'react-icons/ri';
 
 export const links = [
   {
-    title: 'Dashboard',
+    title: 'Marketplace',
     links: [
       {
         name: 'main',
-        icon: <FiShoppingBag />,
+        icon: <BiCartAlt />,
       },
     ],
   },
@@ -21,38 +17,25 @@ export const links = [
     title: 'Models',
     links: [
       {
-        name: 'model1',
-        icon: <AiOutlineShoppingCart />,
-      },
-      {
-        name: 'model2',
-        icon: <IoMdContacts />,
-      },
-      {
-        name: 'model3',
-        icon: <RiContactsLine />,
+        name: 'model',
+        icon: <BiFolder />,
       },
     ],
   },
   {
-    title: 'historys',
+    title: 'My Profile',
     links: [
       {
-        name: 'history',
+        name: 'account',
+        icon: <BiCool />,
+      },
+      {
+        name: 'payment',
+        icon: <BiCreditCard />,
+      },
+      {
+        name: 'websocket',
         icon: <BiColorFill />,
-      },
-    ],
-  },
-  {
-    title: 'Authentication',
-    links: [
-      {
-        name: 'login',
-        icon: <BiLogIn />,
-      },
-      {
-        name: 'signup',
-        icon: <BiLogOut />,
       },
     ],
   },

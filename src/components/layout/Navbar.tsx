@@ -1,9 +1,8 @@
 import React, {useEffect} from 'react';
 import {AiOutlineMenu} from 'react-icons/ai';
-import {FiShoppingCart} from 'react-icons/fi';
 import {BsFillPersonFill} from 'react-icons/bs';
 import {MdKeyboardArrowDown} from 'react-icons/md';
-import {Cart, UserProfile} from '../index';
+import {UserProfile} from '../index';
 import {useStateContext} from '../../contexts/ContextProvider';
 import {NavButtonData} from '../../types/Types';
 
@@ -38,7 +37,7 @@ export default function Navbar () {
     window.addEventListener('resize', handleResize);
     handleResize();
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  });
 
   useEffect(() => {
     if (screenSize <= 900) {
@@ -54,8 +53,6 @@ export default function Navbar () {
     <div className="flex w-full justify-between p-2 relative">
       <NavButton customFunc={handleActiveMenu} color={currentColor} icon={<AiOutlineMenu/>} dotColor={undefined}/>
       <div className="flex">
-        <NavButton customFunc={() => handleClick('cart')} color={currentColor} icon={<FiShoppingCart/>}
-                   dotColor={undefined}/>
         <div
           className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"
           onClick={() => handleClick('userProfile')}
@@ -69,7 +66,6 @@ export default function Navbar () {
           </p>
           <MdKeyboardArrowDown className="text-gray-400 text-14"/>
         </div>
-        {isClicked.cart && (<Cart/>)}
         {isClicked.userProfile && (<UserProfile/>)}
       </div>
     </div>

@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {SubmitButton} from '../index';
 import chameleon from '../../assets/images/chameleon.png';
 import {useStateContext} from "../../contexts/ContextProvider";
-import {SignIn} from "../../Service/Login/LoginToken"
+import {Signin} from "../../service/login/LoginToken"
 
 export default function Login() {
   const {currentColor} = useStateContext();
@@ -19,7 +19,7 @@ export default function Login() {
     } else if (!Password) {
       return alert("Password를 입력하세요.");
     } else {
-      SignIn(Email, Password)
+      Signin(Email, Password)
           .then((response) => {
             alert('로그인 성공하셨습니다!');
             document.location.href = "../Main";
@@ -28,19 +28,18 @@ export default function Login() {
             alert('가입하지 않은 아이디거나, 잘못된 비밀번호입니다.');
             console.log(error)
           })
-
     }
   }
 
   return (
     <div className="h-screen">
-      <div className="px-6 h-full text-gray-800">
-        <div className="flex xl:justify-center justify-center items-center flex-wrap h-full g-6">
+      <div className="flex justify-center px-6 h-full text-gray-800">
+        <div className="h-full g-6">
           <div
-            className="flex justify-center grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 md:mb-0">
-            <img style={{width: '70%'}} className="mt-10 object-cover w-full" src={chameleon} alt="chameleon"/>
+            className="flex justify-center my-10">
+            <img style={{width: '30%'}} className="object-cover w-full" src={chameleon} alt="chameleon"/>
           </div>
-          <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
+          <div className="w-auto my-10">
             <form>
               <div className="flex flex-row items-center justify-center lg:justify-start">
                 <p className="text-sm mb-0 mr-4 dark:text-white text-black">Don't have an account?</p>
@@ -52,7 +51,9 @@ export default function Login() {
               <div className="mb-6">
                 <input
                   type="text"
-                  className="text-base form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  className="text-base form-control block w-full px-4 py-2 text-base font-normal
+                  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
+                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   id="li-email"
                   placeholder="Email address"
                   onChange = {(e) => setEmail(e.target.value)}
@@ -61,7 +62,9 @@ export default function Login() {
               <div className="mb-6">
                 <input
                   type="password"
-                  className="text-base form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  className="text-base form-control block w-full px-4 py-2 text-base font-normal
+                  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
+                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   id="li-password"
                   placeholder="Password"
                   onChange = {(e) => setPassword(e.target.value)}
@@ -71,7 +74,9 @@ export default function Login() {
                 <div className="form-group form-check">
                   <input
                     type="checkbox"
-                    className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                    className="form-check-input appearance-none h-4 w-4 border border-gray-300
+                    rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none
+                    transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                     id="remember"
                   />
                   <label className="form-check-label inline-block text-gray-800 dark:text-white" htmlFor="remember"
@@ -88,7 +93,10 @@ export default function Login() {
                     bgColor={currentColor}
                     text="Login"
                     borderRadius="10px"
-                    width="full" icon={undefined} bgHoverColor={undefined} size={undefined}
+                    width="full"
+                    icon={undefined}
+                    bgHoverColor={undefined}
+                    size={undefined}
                 />
               </div>
             </form>
