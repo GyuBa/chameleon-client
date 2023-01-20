@@ -33,10 +33,9 @@ export default function Login() {
 
   return (
     <div className="h-screen">
-      <div className="flex justify-center px-6 h-full text-gray-800">
-        <div className="h-full g-6">
-          <div
-            className="flex justify-center my-10">
+      <div className="flex justify-center mt-10 px-6 text-gray-800">
+        <div className="mt-10 g-6">
+          <div className="flex justify-center my-10">
             <img style={{width: '30%'}} className="object-cover w-full" src={chameleon} alt="chameleon"/>
           </div>
           <div className="w-auto my-10">
@@ -51,7 +50,7 @@ export default function Login() {
               <div className="mb-6">
                 <input
                   type="text"
-                  className="text-base form-control block w-full px-4 py-2 text-base font-normal
+                  className="form-control block w-full px-4 py-2 text-base font-normal
                   text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
                   rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   id="li-email"
@@ -62,7 +61,7 @@ export default function Login() {
               <div className="mb-6">
                 <input
                   type="password"
-                  className="text-base form-control block w-full px-4 py-2 text-base font-normal
+                  className="form-control block w-full px-4 py-2 text-base font-normal
                   text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
                   rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   id="li-password"
@@ -86,18 +85,8 @@ export default function Login() {
               </div>
 
               <div className="text-center lg:text-left">
-                <SubmitButton
-                    Event = {Login}
-                    onClick = {login}
-                    color="white"
-                    bgColor={currentColor}
-                    text="Login"
-                    borderRadius="10px"
-                    width="full"
-                    icon={undefined}
-                    bgHoverColor={undefined}
-                    size={undefined}
-                />
+                <SubmitButton Event = {Login} onClick = {login} color="white" bgColor={currentColor} text="Login"
+                              borderRadius="10px" width="full" icon={undefined} bgHoverColor={undefined} size={undefined}/>
               </div>
             </form>
           </div>

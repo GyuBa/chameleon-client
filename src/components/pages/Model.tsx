@@ -43,7 +43,7 @@ export default function Model() {
 
   return (
     <div className="contents">
-      <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
+      <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
         <Header category="Model" title="Model"/>
         <div className="mb-10 text-black dark:text-white">Model description</div>
         <div className="my-4 md:p-5 rounded-3xl bg-slate-300 dark:bg-slate-300">

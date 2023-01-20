@@ -56,7 +56,7 @@ export default function Layout() {
           </div>
           <div>
             {themeSettings && (<ThemeSettings/>)}
-            <div className="contents_area">
+            <div className="contents_area flex justify-center">
               <Outlet/>
             </div>
           </div>

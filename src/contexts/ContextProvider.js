@@ -7,6 +7,7 @@ const StateContext = createContext();
 
 const initialState = {
   userProfile: false,
+  ChangeName: false,
 };
 
 export const ContextProvider = ({children}) => {

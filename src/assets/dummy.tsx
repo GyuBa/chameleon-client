@@ -72,6 +72,7 @@ export const userProfileData = [
   {
     icon: <BsFillPersonLinesFill />,
     title: 'My Profile',
+    name: 'account',
     desc: 'Account Settings',
     iconColor: '#03C9D7',
     iconBg: '#E5FAFB',
@@ -79,6 +80,7 @@ export const userProfileData = [
   {
     icon: <GiArtificialHive />,
     title: 'My Models',
+    name: 'model',
     desc: 'My Model Lists',
     iconColor: 'rgb(0, 194, 146)',
     iconBg: 'rgb(235, 250, 242)',
