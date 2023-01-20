@@ -2,13 +2,11 @@
  * Context API
  */
 import React, {createContext, useContext, useState} from 'react';
+import {useMediaQuery} from "react-responsive";
 
 const StateContext = createContext();
 
-const initialState = {
-  userProfile: false,
-  ChangeName: false,
-};
+const initialState = { userProfile: false, ChangeName: false, };
 
 export const ContextProvider = ({children}) => {
   const [screenSize, setScreenSize] = useState(undefined);
@@ -33,8 +31,10 @@ export const ContextProvider = ({children}) => {
   const handleClick = (clicked) => setIsClicked({...initialState, [clicked]: true});
 
   const onClickMenu = () => {
-    setMenuState(prevState => prevState ? false : true )
+    setMenuState(prevState => !prevState )
   }
+
+  const isDesktopOrMobile = useMediaQuery({query: '(max-width:767px)'});
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -56,6 +56,7 @@ export const ContextProvider = ({children}) => {
       setMenuState,
       currentLayout,
       setCurrentLayout,
+      isDesktopOrMobile,
       handleClick,
       setMode,
       setColor,

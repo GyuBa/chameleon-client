@@ -1,5 +1,4 @@
 import React from 'react';
-import {useMediaQuery} from 'react-responsive';
 import {useStateContext} from "../../contexts/ContextProvider";
 import {Table} from "flowbite-react";
 import {Header} from "../../components";
@@ -11,8 +10,7 @@ import {RiDeleteBinLine} from "react-icons/ri";
 import {BiPencil, BiAddToQueue, BiDotsVerticalRounded, BiTrash} from "react-icons/bi";
 
 export default function Model() {
-  const {menuState, onClickMenu, currentLayout, setCurrentLayout} = useStateContext();
-  const isDesktopOrMobile = useMediaQuery({query: '(max-width:767px)'});
+  const {menuState, onClickMenu, currentLayout, setCurrentLayout, isDesktopOrMobile} = useStateContext();
 
   const ArrangeMenu = () => (
     <div className="flex items-center gap-2">
@@ -70,7 +68,7 @@ export default function Model() {
       ))}
     </div>
   );
-
+  //ListLayout 수정
   const ListLayout = () => (
     <div className="mt-10">
       <Table hoverable={true}>
@@ -127,11 +125,11 @@ export default function Model() {
           <div className="flex items-center">
             <Header category="" title="Model list"/>
             <button onClick={() => setCurrentLayout("GridLayout")} type="button"
-                    className="ml-2 mr-1 text-xl rounded-full p-2 hover:bg-light-gray focus:bg-gray">
+                    className={`ml-2 mr-1 text-xl rounded-full p-2 hover:bg-light-gray focus:bg-gray ${currentLayout === "GridLayout" ? "bg-light-gray" : null}`}>
               {<HiViewGrid size="21" className="text-gray-500"/>}
             </button>
             <button onClick={() => setCurrentLayout("ListLayout")} type="button"
-                    className=" text-xl rounded-full p-2 hover:bg-light-gray focus:bg-gray">
+                    className={`text-xl rounded-full p-2 hover:bg-light-gray focus:bg-gray ${currentLayout === "ListLayout" ? "bg-light-gray" : null}`}>
               {<FiList size="21" className="text-gray-500"/>}
             </button>
           </div>

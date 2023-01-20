@@ -7,15 +7,7 @@ import {useStateContext} from '../../contexts/ContextProvider';
 import {NavButton} from '../../components/index';
 
 export default function Navbar () {
-  const {
-    currentColor,
-    activeMenu,
-    setActiveMenu,
-    handleClick,
-    isClicked,
-    setScreenSize,
-    screenSize
-  } = useStateContext();
+  const { currentColor, activeMenu, setActiveMenu, handleClick, isClicked, setScreenSize, screenSize } = useStateContext();
 
   useEffect(() => {
     const handleResize = () => setScreenSize(window.innerWidth);
