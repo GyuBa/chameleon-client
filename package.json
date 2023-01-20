@@ -12,6 +12,7 @@
     "@types/react-dom": "^18.0.9",
     "axios": "^1.2.2",
     "bootstrap": "^5.2.3",
+    "http-proxy-middleware": "^2.0.6",
     "node-sass": "^8.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
