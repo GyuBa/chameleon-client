@@ -1,31 +1,122 @@
 import React from 'react';
+import {useMediaQuery} from 'react-responsive';
+import {useStateContext} from "../../contexts/ContextProvider";
+import {Table} from "flowbite-react";
 import {Header} from "../../components";
-import {BsFillGrid3X3GapFill} from "react-icons/bs";
-import {FiGrid} from "react-icons/fi";
-import {TfiViewListAlt} from "react-icons/tfi";
 import {MyModel} from "../../assets/dummy";
 import {Link} from "react-router-dom";
-import {useStateContext} from "../../contexts/ContextProvider";
-import {AiOutlinePlus} from "react-icons/ai";
-import {MdOutlineAutoFixNormal, MdOutlineDelete} from "react-icons/md";
+import {HiViewGrid} from "react-icons/hi";
+import {FiList} from "react-icons/fi";
+import {RiDeleteBinLine} from "react-icons/ri";
+import {BiPencil, BiAddToQueue, BiDotsVerticalRounded, BiTrash} from "react-icons/bi";
 
 export default function Model() {
-  const {currentColor, menuState, onClickMenu} = useStateContext();
+  const {menuState, onClickMenu, currentLayout, setCurrentLayout} = useStateContext();
+  const isDesktopOrMobile = useMediaQuery({query: '(max-width:767px)'});
+
+  const ArrangeMenu = () => (
+    <div className="flex items-center gap-2">
+      <Link to="/createmodel" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
+        <BiAddToQueue size="25" color="#484848" className="pl-1"/>
+        <span className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">모델생성</span>
+      </Link>
+      <Link to="/" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
+        <BiPencil size="25" color="#484848" className="pl-1"/>
+        <span className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">모델수정</span>
+      </Link>
+      <Link to="/" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
+        <BiTrash size="25" color="#484848" className="pl-1"/>
+        <span className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">모델삭제</span>
+      </Link>
+    </div>
+  );
+
+  const DropdownMenu = () => (
+    <div>
+      <button type="button" onClick={onClickMenu}
+              className="relative text-xl rounded-full p-1 hover:bg-light-gray focus:bg-gray">
+        {<BiDotsVerticalRounded aria-hidden="true" size="30"/>}
+      </button>
+      {menuState ? <Menu/> : null}
+    </div>
+  );
 
   const Menu = () => (
-    <div className="nav-item absolute right-20 top-48 bg-white drop-shadow-lg py-2 px-4 rounded-lg w-36">
-      <Link to="/createmodel" className="flex border-b-1 border-gray-400 hover:bg-gray-100 items-center">
-        <AiOutlinePlus size="25" color="#484848"/>
+    <div className="nav-item absolute right-4 top-30 bg-white drop-shadow-lg py-2 px-4 rounded-lg w-36">
+      <Link to="/createmodel" className="flex gap-1 border-b-1 border-gray-400 hover:bg-gray-100 items-center">
+        <BiAddToQueue size="25" color="#484848" className="pl-1"/>
         <span className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">모델생성</span>
       </Link>
       <Link to="/" className="flex gap-1 border-b-1 border-gray-400 hover:bg-gray-100 items-center">
-        <MdOutlineAutoFixNormal size="25" color="#484848"/>
+        <BiPencil size="25" color="#484848" className="pl-1"/>
         <span className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">모델수정</span>
       </Link>
       <Link to="/" className="flex gap-1 hover:bg-gray-100 items-center">
-        <MdOutlineDelete size="25" color="#484848"/>
+        <RiDeleteBinLine size="25" color="#484848" className="pl-1"/>
         <span className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">모델삭제</span>
       </Link>
+    </div>
+  );
+
+  const GridLayout = () => (
+    <div className="grid grid-cols-3 gap-4 mt-10">
+      {MyModel.map((item) => (
+        <Link to={`/executemodel/${item.link}`}>
+          <div className="w-auto px-5 pt-5 pb-10 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl">
+            <p className="border-b-2 font-semibold text-xl">{item.name}</p>
+            <p className="text-sm">{item.name} description</p>
+          </div>
+        </Link>
+      ))}
+    </div>
+  );
+
+  const ListLayout = () => (
+    <div className="mt-10">
+      <Table hoverable={true}>
+        <Table.Head>
+          <Table.HeadCell>
+            Model Name
+          </Table.HeadCell>
+          <Table.HeadCell>
+            Input Type
+          </Table.HeadCell>
+          <Table.HeadCell>
+            Output Type
+          </Table.HeadCell>
+          <Table.HeadCell>
+            Constructor
+          </Table.HeadCell>
+          <Table.HeadCell>
+            Last Modified Date
+          </Table.HeadCell>
+          <Table.HeadCell>
+            Size
+          </Table.HeadCell>
+        </Table.Head>
+        <Table.Body className="divide-y">
+          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+              Model01
+            </Table.Cell>
+            <Table.Cell>
+              Text
+            </Table.Cell>
+            <Table.Cell>
+              Text
+            </Table.Cell>
+            <Table.Cell>
+              최수연
+            </Table.Cell>
+            <Table.Cell>
+              2023.01.20.
+            </Table.Cell>
+            <Table.Cell>
+              20KB
+            </Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table>
     </div>
   );
 
@@ -34,30 +125,19 @@ export default function Model() {
       <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
-            <Header category="" title="My Models"/>
-            <button type="button" className="mx-2 text-xl rounded-full p-3 hover:bg-light-gray focus:bg-gray">
-              {<FiGrid size="24" className="text-gray-500"/>}
+            <Header category="" title="Model list"/>
+            <button onClick={() => setCurrentLayout("GridLayout")} type="button"
+                    className="ml-2 mr-1 text-xl rounded-full p-2 hover:bg-light-gray focus:bg-gray">
+              {<HiViewGrid size="21" className="text-gray-500"/>}
             </button>
-            <button type="button" className=" text-xl rounded-full p-3 hover:bg-light-gray focus:bg-gray">
-              {<TfiViewListAlt size="21" className="text-gray-500"/>}
+            <button onClick={() => setCurrentLayout("ListLayout")} type="button"
+                    className=" text-xl rounded-full p-2 hover:bg-light-gray focus:bg-gray">
+              {<FiList size="21" className="text-gray-500"/>}
             </button>
           </div>
-          <button type="button" onClick={onClickMenu}
-                  className=" text-xl rounded-full p-3 hover:bg-light-gray focus:bg-gray">
-            {<BsFillGrid3X3GapFill size="24" color={currentColor}/>}
-          </button>
-          {menuState ? <Menu/> : null}
+          {!isDesktopOrMobile ? <ArrangeMenu/> : <DropdownMenu/>}
         </div>
-        <div className="grid grid-cols-3 gap-4 m-10">
-          {MyModel.map((item) => (
-            <Link to={`/executemodel/${item.link}`}>
-              <div className="w-auto px-5 pt-5 pb-10 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl">
-                <p className="border-b-2 font-semibold text-xl">{item.name}</p>
-                <p className="text-sm">{item.name} description</p>
-              </div>
-            </Link>
-          ))}
-        </div>
+        {currentLayout === "GridLayout" ? <GridLayout/> : <ListLayout/>}
       </div>
     </div>
   );

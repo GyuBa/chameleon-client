@@ -104,38 +104,83 @@ export const createModel = [
 export const MyModel = [
   {
     name: 'Model01',
-    link: 'model01'
+    link: 'model01',
+    input: 'Text',
+    output: 'Text',
+    constructor: '최수연',
+    date: '2023.01.20.',
+    size: '20KB',
   },
   {
     name: 'Model02',
-    link: 'model02'
+    link: 'model02',
+    input: 'Text',
+    output: 'Text',
+    constructor: '최수연',
+    date: '2023.01.20.',
+    size: '20KB',
   },
   {
     name: 'Model03',
-    link: 'model03'
+    link: 'model03',
+    input: 'Text',
+    output: 'Text',
+    constructor: '최수연',
+    date: '2023.01.20.',
+    size: '20KB',
   },
   {
     name: 'Model04',
-    link: 'model04'
+    link: 'model04',
+    input: 'Text',
+    output: 'Text',
+    constructor: '최수연',
+    date: '2023.01.20.',
+    size: '20KB',
   },
   {
     name: 'Model05',
-    link: 'model05'
+    link: 'model05',
+    input: 'Text',
+    output: 'Text',
+    constructor: '최수연',
+    date: '2023.01.20.',
+    size: '20KB',
   },
   {
     name: 'Model06',
-    link: 'model06'
+    link: 'model06',
+    input: 'Text',
+    output: 'Text',
+    constructor: '최수연',
+    date: '2023.01.20.',
+    size: '20KB',
   },
   {
     name: 'Model07',
-    link: 'model07'
+    link: 'model07',
+    input: 'Text',
+    output: 'Text',
+    constructor: '최수연',
+    date: '2023.01.20.',
+    size: '20KB',
   },
   {
     name: 'Model08',
-    link: 'model08'
+    link: 'model08',
+    input: 'Text',
+    output: 'Text',
+    constructor: '최수연',
+    date: '2023.01.20.',
+    size: '20KB',
   },
   {
     name: 'Model09',
-    link: 'model09'
+    link: 'model09',
+    input: 'Text',
+    output: 'Text',
+    constructor: '최수연',
+    date: '2023.01.20.',
+    size: '20KB',
   },
 ]

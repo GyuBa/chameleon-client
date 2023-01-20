@@ -18,12 +18,12 @@ export const ContextProvider = ({children}) => {
   const [activeMenu, setActiveMenu] = useState(true);
   const [isClicked, setIsClicked] = useState(initialState);
   const [menuState, setMenuState] = useState(false);
+  const [currentLayout, setCurrentLayout] = useState('GridLayout');
 
   const setMode = (e) => {
     setCurrentMode(e.target.value);
     localStorage.setItem('themeMode', e.target.value);
   };
-
 
   const setColor = (color) => {
     setCurrentColor(color);
@@ -54,6 +54,8 @@ export const ContextProvider = ({children}) => {
       setThemeSettings,
       menuState,
       setMenuState,
+      currentLayout,
+      setCurrentLayout,
       handleClick,
       setMode,
       setColor,
