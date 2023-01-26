@@ -133,7 +133,7 @@ export const myModel = {
       size: '20KB',
     },
     {
-      name: 'Model04152451451532',
+      name: 'Model04',
       link: 'model04',
       input: 'Text',
       output: 'Text',

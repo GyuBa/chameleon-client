@@ -2,7 +2,7 @@ import instance from "../../ConstantValue";
 import {getToken, removeToken, setToken} from "../TokenService";
 
 export async function Signin(email : any, password : any) {
-    return instance.post("/login/signin",
+    return instance.post("/login/sign-in",
         {
             'email' : email,
             'password' : password,
@@ -22,7 +22,7 @@ export async function Signin(email : any, password : any) {
 }
 
 export async function Signup(email : any, password : any, name : any) {
-    return instance.post("/login/signup",
+    return instance.post("/login/sign-up",
         {
             'email' : email,
             'password' : password,
