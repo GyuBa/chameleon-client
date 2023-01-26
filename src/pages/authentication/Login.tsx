@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
-import {SubmitButton} from '../index';
+import {SubmitButton} from '../../components/index';
 import chameleon from '../../assets/images/chameleon.png';
 import {useStateContext} from "../../contexts/ContextProvider";
 import {Signin} from "../../service/login/LoginToken"
@@ -10,7 +10,7 @@ export default function Login() {
   const [Email, setEmail] = useState<String>("")
   const [Password, setPassword] = useState<String>("")
 
-  const login = async (e:any) => {
+  const login = async (e: any) => {
     e.preventDefault();
     if (!Email && !Password) {
       return alert("Email과 Password를 입력하세요.");
@@ -20,14 +20,14 @@ export default function Login() {
       return alert("Password를 입력하세요.");
     } else {
       Signin(Email, Password)
-          .then((response) => {
-            alert('로그인 성공하셨습니다!');
-            document.location.href = "../Main";
-          })
-          .catch((error) => {
-            alert('가입하지 않은 아이디거나, 잘못된 비밀번호입니다.');
-            console.log(error)
-          })
+        .then((response) => {
+          alert('로그인 성공하셨습니다!');
+          document.location.href = "../Main";
+        })
+        .catch((error) => {
+          alert('가입하지 않은 아이디거나, 잘못된 비밀번호입니다.');
+          console.log(error)
+        })
     }
   }
 
@@ -55,7 +55,7 @@ export default function Login() {
                   rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   id="li-email"
                   placeholder="Email address"
-                  onChange = {(e) => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="mb-6">
@@ -66,7 +66,7 @@ export default function Login() {
                   rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   id="li-password"
                   placeholder="Password"
-                  onChange = {(e) => setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div className="flex justify-between items-center mb-6">
@@ -85,8 +85,9 @@ export default function Login() {
               </div>
 
               <div className="text-center lg:text-left">
-                <SubmitButton Event = {Login} onClick = {login} color="white" bgColor={currentColor} text="Login"
-                              borderRadius="10px" width="full" icon={undefined} bgHoverColor={undefined} size={undefined}/>
+                <SubmitButton Event={Login} onClick={login} color="white" bgColor={currentColor} text="Login"
+                              borderRadius="10px" width="full" icon={undefined} bgHoverColor={undefined}
+                              size={undefined}/>
               </div>
             </form>
           </div>

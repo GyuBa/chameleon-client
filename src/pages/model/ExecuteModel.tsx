@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Header} from '../index';
+import {Header} from '../../components/index';
 import {useDropzone} from 'react-dropzone';
 
 type IFile = File & { preview?: string };
 
-export default function Model() {
+export default function ExecuteModel() {
   const [files, setFiles] = useState<IFile[]>([]);
 
   const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
@@ -44,16 +44,15 @@ export default function Model() {
   return (
     <div className="contents">
       <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
-        <Header category="Model" title="Model"/>
+        <Header category="ExecuteModel" title="ExecuteModel"/>
         <div className="mb-10 text-black dark:text-white">Model description</div>
         <div className="my-4 md:p-5 rounded-3xl bg-slate-300 dark:bg-slate-300">
           <p className="p-5 text-xl font-bold">Input</p>
           <section className="container">
             <div {...getRootProps({className: 'dropzone'})}>
               <input {...getInputProps()} />
-              <p className="inline-block px-5 py-3 text-gray-500 hover:text-gray-700 hover:text-lg cursor-pointer">Drag
-                'n' drop some files here, or
-                click to select files</p>
+              <p className="inline-block px-5 py-3 text-gray-500 hover:text-gray-700 cursor-pointer">
+                Drag & drop some files here, or click to select files</p>
             </div>
             <aside className="px-5 py-2">{thumbs}</aside>
             <ul className="px-5 pb-5 pt-2">{acceptedFileItems}</ul>

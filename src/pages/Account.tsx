@@ -1,15 +1,15 @@
 import React from 'react';
-import {Button, Header} from '../index';
+import {Button, Header} from '../components/index';
 import {BsPersonCircle} from "react-icons/bs";
 import {HiOutlineLockClosed} from "react-icons/hi";
-import {useStateContext} from "../../contexts/ContextProvider";
+import {useStateContext} from "../contexts/ContextProvider";
 import {Link} from "react-router-dom";
 
 export default function Account() {
   const {currentColor, handleClick, isClicked, setIsClicked, initialState} = useStateContext();
   return (
     <div className="contents">
-      <div className="w-3/5 m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
+      <div className="w-2/3 m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
         <Header category="Account" title="Account"/>
         <div className="my-4 border-gray-400 rounded-3xl border-1 p-6">
           <p className="text-xs text-gray-600 mb-1 pb-2">기본정보</p>

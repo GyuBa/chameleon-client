@@ -4,33 +4,10 @@ import {BsFillPersonFill} from 'react-icons/bs';
 import {MdKeyboardArrowDown} from 'react-icons/md';
 import {UserProfile} from '../index';
 import {useStateContext} from '../../contexts/ContextProvider';
-import {NavButtonData} from '../../types/Types';
-
-const NavButton = ({customFunc, icon, color, dotColor}: NavButtonData) => (
-  <button
-    type="button"
-    onClick={() => customFunc()}
-    style={{color}}
-    className="relative text-xl rounded-full p-3 hover:bg-light-gray"
-  >
-      <span
-        style={{background: dotColor}}
-        className="absolute inline-flex rounded-full h-2 w-2 right-2 top-2"
-      />
-    {icon}
-  </button>
-);
+import {NavButton} from '../../components/index';
 
 export default function Navbar () {
-  const {
-    currentColor,
-    activeMenu,
-    setActiveMenu,
-    handleClick,
-    isClicked,
-    setScreenSize,
-    screenSize
-  } = useStateContext();
+  const { currentColor, activeMenu, setActiveMenu, handleClick, isClicked, setScreenSize, screenSize } = useStateContext();
 
   useEffect(() => {
     const handleResize = () => setScreenSize(window.innerWidth);

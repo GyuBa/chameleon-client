@@ -2,13 +2,11 @@
  * Context API
  */
 import React, {createContext, useContext, useState} from 'react';
+import {useMediaQuery} from "react-responsive";
 
 const StateContext = createContext();
 
-const initialState = {
-  userProfile: false,
-  ChangeName: false,
-};
+const initialState = { userProfile: false, ChangeName: false, };
 
 export const ContextProvider = ({children}) => {
   const [screenSize, setScreenSize] = useState(undefined);
@@ -17,6 +15,8 @@ export const ContextProvider = ({children}) => {
   const [themeSettings, setThemeSettings] = useState(false);
   const [activeMenu, setActiveMenu] = useState(true);
   const [isClicked, setIsClicked] = useState(initialState);
+  const [menuState, setMenuState] = useState(false);
+  const [currentLayout, setCurrentLayout] = useState('GridLayout');
 
   const setMode = (e) => {
     setCurrentMode(e.target.value);
@@ -30,6 +30,12 @@ export const ContextProvider = ({children}) => {
 
   const handleClick = (clicked) => setIsClicked({...initialState, [clicked]: true});
 
+  const onClickMenu = () => {
+    setMenuState(prevState => !prevState )
+  }
+
+  const isDesktopOrMobile = useMediaQuery({query: '(max-width:767px)'});
+
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <StateContext.Provider value={{
@@ -38,17 +44,23 @@ export const ContextProvider = ({children}) => {
       activeMenu,
       screenSize,
       setScreenSize,
-      handleClick,
       isClicked,
       initialState,
       setIsClicked,
       setActiveMenu,
       setCurrentColor,
       setCurrentMode,
+      themeSettings,
+      setThemeSettings,
+      menuState,
+      setMenuState,
+      currentLayout,
+      setCurrentLayout,
+      isDesktopOrMobile,
+      handleClick,
       setMode,
       setColor,
-      themeSettings,
-      setThemeSettings
+      onClickMenu
     }}>
       {children}
     </StateContext.Provider>
