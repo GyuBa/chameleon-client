@@ -2,12 +2,13 @@ import React from 'react';
 import {useStateContext} from "../../contexts/ContextProvider";
 import {Table} from "flowbite-react";
 import {Header} from "../../components";
-import {MyModel} from "../../assets/dummy";
+import {myModel} from "../../assets/dummy";
 import {Link} from "react-router-dom";
 import {HiViewGrid} from "react-icons/hi";
 import {FiList} from "react-icons/fi";
 import {RiDeleteBinLine} from "react-icons/ri";
 import {BiPencil, BiAddToQueue, BiDotsVerticalRounded, BiTrash} from "react-icons/bi";
+import {VscDebugStart} from "react-icons/vsc";
 
 export default function Model() {
   const {menuState, onClickMenu, currentLayout, setCurrentLayout, isDesktopOrMobile} = useStateContext();
@@ -58,7 +59,7 @@ export default function Model() {
 
   const GridLayout = () => (
     <div className="grid grid-cols-3 gap-4 mt-10">
-      {MyModel.map((item) => (
+      {myModel.data.map((item) => (
         <Link to={`/executemodel/${item.link}`}>
           <div className="w-auto px-5 pt-5 pb-10 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl">
             <p className="border-b-2 font-semibold text-xl">{item.name}</p>
@@ -68,51 +69,32 @@ export default function Model() {
       ))}
     </div>
   );
-  //ListLayout 수정
+
   const ListLayout = () => (
     <div className="mt-10">
       <Table hoverable={true}>
         <Table.Head>
-          <Table.HeadCell>
-            Model Name
-          </Table.HeadCell>
-          <Table.HeadCell>
-            Input Type
-          </Table.HeadCell>
-          <Table.HeadCell>
-            Output Type
-          </Table.HeadCell>
-          <Table.HeadCell>
-            Constructor
-          </Table.HeadCell>
-          <Table.HeadCell>
-            Last Modified Date
-          </Table.HeadCell>
-          <Table.HeadCell>
-            Size
-          </Table.HeadCell>
+          {myModel.header.map((item) => (
+            <Table.HeadCell>{item}</Table.HeadCell>
+          ))}
         </Table.Head>
         <Table.Body className="divide-y">
-          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-              Model01
-            </Table.Cell>
-            <Table.Cell>
-              Text
-            </Table.Cell>
-            <Table.Cell>
-              Text
-            </Table.Cell>
-            <Table.Cell>
-              최수연
-            </Table.Cell>
-            <Table.Cell>
-              2023.01.20.
-            </Table.Cell>
-            <Table.Cell>
-              20KB
-            </Table.Cell>
-          </Table.Row>
+          {myModel.data.map((item) => (
+            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+              <Table.Cell
+                className="whitespace-nowrap font-medium text-gray-900 dark:text-white">{item.name}</Table.Cell>
+              <Table.Cell>{item.input}</Table.Cell>
+              <Table.Cell>{item.output}</Table.Cell>
+              <Table.Cell>{item.constructor}</Table.Cell>
+              <Table.Cell>{item.date}</Table.Cell>
+              <Table.Cell>{item.size}</Table.Cell>
+              <Table.Cell>
+                <Link to={`/executemodel/${item.link}`}>
+                  <VscDebugStart className="text-white py-1 w-10 h-6 rounded bg-blue-500 hover:bg-blue-600 hover:drop-shadow-lg"/>
+                </Link>
+              </Table.Cell>
+            </Table.Row>
+          ))}
         </Table.Body>
       </Table>
     </div>
