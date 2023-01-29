@@ -1,7 +1,9 @@
 import React from 'react';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
-import { BiColorFill, BiCool, BiCreditCard, BiFolder, BiCartAlt } from 'react-icons/bi';
+import { BiColorFill, BiCool, BiCreditCard, BiFolder, BiCartAlt, BiTransfer } from 'react-icons/bi';
 import { GiArtificialHive } from 'react-icons/gi';
+import tar from "./images/tar.png";
+import dockerfile from "./images/dockerfile.png";
 
 export const links = [
   {
@@ -20,6 +22,10 @@ export const links = [
         name: 'model',
         icon: <BiFolder />,
       },
+      {
+        name: 'websocket',
+        icon: <BiTransfer />,
+      },
     ],
   },
   {
@@ -32,10 +38,6 @@ export const links = [
       {
         name: 'payment',
         icon: <BiCreditCard />,
-      },
-      {
-        name: 'websocket',
-        icon: <BiColorFill />,
       },
     ],
   },
@@ -188,3 +190,23 @@ export const myModel = {
     },
   ],
 }
+
+export const tabsData = [
+  {
+    label: "TarFile",
+    content:
+        "Ut irure mollit nulla eiusmod excepteur laboris elit sit anim magna tempor excepteur labore nulla.",
+    img : tar
+  },
+  {
+    label: "DockerFile",
+    content:
+        "Fugiat dolor et quis in incididunt aute. Ullamco voluptate consectetur dolor officia sunt est dolor sint.",
+    img : dockerfile
+  },
+  {
+    label: "Etc",
+    content:
+        "Fugiat dolor et quis in incididunt aute. Ullamco voluptate consectetur dolor officia sunt est dolor sint.",
+  },
+];
