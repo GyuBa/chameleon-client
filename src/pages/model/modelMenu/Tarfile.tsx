@@ -35,7 +35,7 @@ export default function Tarfile() {
 
   return (
     <div className="contents">
-      <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
+      <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
         <div className="flex items-end">
           <Header category="" title="모델 생성"/>
           <h1 className="mx-2 text-gray-500">tarfile</h1>

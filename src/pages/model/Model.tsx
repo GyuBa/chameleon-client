@@ -80,9 +80,9 @@ export default function Model() {
         </Table.Head>
         <Table.Body className="divide-y">
           {myModel.data.map((item) => (
-            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+            <Table.Row className="bg-white">
               <Table.Cell
-                className="whitespace-nowrap font-medium text-gray-900 dark:text-white">{item.name}</Table.Cell>
+                className="whitespace-nowrap font-medium text-gray-900">{item.name}</Table.Cell>
               <Table.Cell>{item.input}</Table.Cell>
               <Table.Cell>{item.output}</Table.Cell>
               <Table.Cell>{item.constructor}</Table.Cell>
@@ -102,7 +102,7 @@ export default function Model() {
 
   return (
     <div className="contents">
-      <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
+      <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <Header category="" title="Model list"/>

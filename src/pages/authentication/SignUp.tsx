@@ -102,7 +102,7 @@ export default function SignUp() {
           <div className="w-auto my-10">
             <form>
               <div className="flex flex-row items-center justify-center lg:justify-start">
-                <p className="text-sm mb-0 mr-4 dark:text-white text-black">Already have an Account?</p>
+                <p className="text-sm mb-0 mr-4 text-black">Already have an Account?</p>
                 <Link to="/login"
                       className="text-sm text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
                 >Login</Link>
