@@ -41,7 +41,7 @@ export default function Login() {
           <div className="w-auto my-10">
             <form>
               <div className="flex flex-row items-center justify-center lg:justify-start">
-                <p className="text-sm mb-0 mr-4 dark:text-white text-black">Don't have an account?</p>
+                <p className="text-sm mb-0 mr-4 text-black">Don't have an account?</p>
                 <Link to="/signup"
                       className="text-sm text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
                 >Register</Link>
@@ -78,10 +78,10 @@ export default function Login() {
                     transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                     id="remember"
                   />
-                  <label className="form-check-label inline-block text-gray-800 dark:text-white" htmlFor="remember"
+                  <label className="form-check-label inline-block text-gray-800" htmlFor="remember"
                   >Remember me</label>
                 </div>
-                <Link to="#!" className="text-gray-800 dark:text-white">Forgot password?</Link>
+                <Link to="#!" className="text-gray-800">Forgot password?</Link>
               </div>
 
               <div className="text-center lg:text-left">
