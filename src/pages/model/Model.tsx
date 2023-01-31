@@ -60,7 +60,8 @@ export default function Model() {
   const GridLayout = () => (
     <div className="grid grid-cols-3 gap-4 mt-10">
       {myModel.data.map((item) => (
-        <Link to={`/executemodel/${item.link}`}>
+        // <Link to={`/executemodel/${item.link}`}>
+        <Link to={`/executemodel`}>
           <div className="w-auto px-5 pt-5 pb-10 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl">
             <p className="border-b-2 font-semibold text-xl">{item.name}</p>
             <p className="text-sm">{item.name} description</p>
@@ -89,7 +90,8 @@ export default function Model() {
               <Table.Cell>{item.date}</Table.Cell>
               <Table.Cell>{item.size}</Table.Cell>
               <Table.Cell>
-                <Link to={`/executemodel/${item.link}`}>
+                {/*<Link to={`/executemodel/${item.link}`}>*/}
+                <Link to={`/executemodel`}>
                   <VscDebugStart className="text-white py-1 w-10 h-6 rounded bg-blue-500 hover:bg-blue-600 hover:drop-shadow-lg"/>
                 </Link>
               </Table.Cell>

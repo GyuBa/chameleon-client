@@ -44,8 +44,10 @@ export default function ExecuteModel() {
   return (
     <div className="contents">
       <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-        <Header category="ExecuteModel" title="ExecuteModel"/>
-        <div className="mb-10 text-black">Model description</div>
+        <div className="my-4 md:p-5 rounded-3xl bg-slate-300">
+
+        </div>
+
         <div className="my-4 md:p-5 rounded-3xl bg-slate-300">
           <p className="p-5 text-xl font-bold">Input</p>
           <section className="container">
@@ -58,6 +60,7 @@ export default function ExecuteModel() {
             <ul className="px-5 pb-5 pt-2">{acceptedFileItems}</ul>
           </section>
         </div>
+
         <div className="my-4 md:p-5 rounded-3xl bg-slate-300">
           <p className="p-5 text-xl font-bold">Output</p>
         </div>
