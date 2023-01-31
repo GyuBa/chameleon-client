@@ -5,62 +5,40 @@ import React, {createContext, useContext, useState} from 'react';
 import {useMediaQuery} from "react-responsive";
 
 const StateContext = createContext();
-
+const currentColor = '#1E4DB7';
 const initialState = { userProfile: false, ChangeName: false, };
 
 export const ContextProvider = ({children}) => {
   const [screenSize, setScreenSize] = useState(undefined);
-  const [currentColor, setCurrentColor] = useState('#03C9D7');
-  const [currentMode, setCurrentMode] = useState('Light');
-  const [themeSettings, setThemeSettings] = useState(false);
   const [activeMenu, setActiveMenu] = useState(true);
   const [isClicked, setIsClicked] = useState(initialState);
   const [menuState, setMenuState] = useState(false);
   const [currentLayout, setCurrentLayout] = useState('GridLayout');
 
-  const setMode = (e) => {
-    setCurrentMode(e.target.value);
-    localStorage.setItem('themeMode', e.target.value);
-  };
-
-  const setColor = (color) => {
-    setCurrentColor(color);
-    localStorage.setItem('colorMode', color);
-  };
-
   const handleClick = (clicked) => setIsClicked({...initialState, [clicked]: true});
 
-  const onClickMenu = () => {
-    setMenuState(prevState => !prevState )
-  }
+  const onClickMenu = () => {setMenuState(prevState => !prevState )};
 
   const isDesktopOrMobile = useMediaQuery({query: '(max-width:767px)'});
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <StateContext.Provider value={{
+      initialState,
+      isDesktopOrMobile,
       currentColor,
-      currentMode,
       activeMenu,
+      setActiveMenu,
       screenSize,
       setScreenSize,
       isClicked,
-      initialState,
       setIsClicked,
-      setActiveMenu,
-      setCurrentColor,
-      setCurrentMode,
-      themeSettings,
-      setThemeSettings,
       menuState,
       setMenuState,
       currentLayout,
       setCurrentLayout,
-      isDesktopOrMobile,
       handleClick,
-      setMode,
-      setColor,
-      onClickMenu
+      onClickMenu,
     }}>
       {children}
     </StateContext.Provider>
