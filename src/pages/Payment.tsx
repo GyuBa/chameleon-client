@@ -107,7 +107,7 @@ export default function Payment() {
 
     return (
         <div className="contents">
-            <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
+            <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
                 <Header category="Payment" title="포인트 충전하기"/>
                 <div className="my-4 border-gray-400 rounded-3xl border-1 p-6 grid grid-cols-3 divide-x">
                     <div className = "text-center">

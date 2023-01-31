@@ -36,7 +36,7 @@ export default function CreateModel() {
 
   return (
       <div className="contents">
-        <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
+        <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
           <div>
             <div className="flex space-x-3 border-b">
               {/* Loop through tab data and render button for each. */}

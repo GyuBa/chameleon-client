@@ -46,10 +46,9 @@ export default function Websocket() {
 
     return (
         <div className="contents">
-            <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
-                <Header category="Model" title="Model"/>
-                <div className="mb-10 text-black dark:text-white">Model description</div>
-                <div className="my-4 md:p-5 rounded-3xl bg-slate-300 dark:bg-slate-300">
+            <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+                <Header category="Websocket" title="Websocket"/>
+                <div className="my-4 md:p-5 rounded-3xl bg-slate-300">
                     <p className="p-5 text-xl font-bold">Input</p>
                     <section className="container">
                         <div {...getRootProps({className: 'dropzone'})}>
@@ -76,7 +75,7 @@ export default function Websocket() {
               size={undefined}
           />
         </span>
-                <div className="my-4 md:p-5 rounded-3xl bg-slate-300 dark:bg-slate-300">
+                <div className="my-4 md:p-5 rounded-3xl bg-slate-300">
                     <p className="p-5 text-xl font-bold">Output</p>
                 </div>
             </div>

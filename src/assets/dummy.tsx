@@ -1,6 +1,6 @@
 import React from 'react';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
-import { BiColorFill, BiCool, BiCreditCard, BiFolder, BiCartAlt, BiTransfer } from 'react-icons/bi';
+import { BiCool, BiCreditCard, BiFolder, BiCartAlt, BiTransfer } from 'react-icons/bi';
 import { GiArtificialHive } from 'react-icons/gi';
 import tar from "./images/tar.png";
 import dockerfile from "./images/dockerfile.png";
@@ -88,21 +88,6 @@ export const userProfileData = [
     iconBg: 'rgb(235, 250, 242)',
   },
 ];
-
-export const createModel = [
-  {
-    name: 'tar file',
-    link: 'tarfile'
-  },
-  {
-    name: 'dockerfile',
-    link: 'dockerfile'
-  },
-  {
-    name: 'etc',
-    link: 'etc'
-  }
-]
 
 export const myModel = {
   header: ['Model Name', 'Input Type', 'Output Type', 'Constructor', 'Last Modified Date', 'Size', ''],
