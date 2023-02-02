@@ -1,6 +1,6 @@
 import React from 'react';
 import {useStateContext} from "../../contexts/ContextProvider";
-import {Table} from "flowbite-react";
+import {Badge, Table} from "flowbite-react";
 import {Header} from "../../components";
 import {myModel} from "../../assets/dummy";
 import {Link} from "react-router-dom";
@@ -60,11 +60,20 @@ export default function Model() {
   const GridLayout = () => (
     <div className="grid grid-cols-3 gap-4 mt-10">
       {myModel.data.map((item) => (
-        // <Link to={`/executemodel/${item.link}`}>
-        <Link to={`/executemodel`}>
-          <div className="w-auto px-5 pt-5 pb-10 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl">
+        // <Link to={`/description/${item.link}`}>
+        <Link to={`/description`}>
+          <div className="w-auto px-5 p-5 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl">
             <p className="border-b-2 font-semibold text-xl">{item.name}</p>
-            <p className="text-sm">{item.name} description</p>
+            <div className="flex">
+              {/*<div className="py-3"><div className="bg-indigo-100 text-indigo-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded border border-indigo-400">Input: text</div></div>*/}
+              {/*<div className="py-3"><div className="bg-purple-100 text-purple-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded border border-purple-400">Output: binary</div></div>*/}
+              <div className="py-3"><Badge color="indigo">Input: text</Badge></div>
+              <div className="p-3"><Badge color="purple">Output: binary</Badge></div>
+            </div>
+            <p className="text-sm pb-3">{item.name} description</p>
+            <div className="text-sm text-gray-500 mt-10">
+              Updated 2022.03.01. · 최수연 · 20KB
+            </div>
           </div>
         </Link>
       ))}
@@ -84,15 +93,22 @@ export default function Model() {
             <Table.Row className="bg-white">
               <Table.Cell
                 className="whitespace-nowrap font-medium text-gray-900">{item.name}</Table.Cell>
-              <Table.Cell>{item.input}</Table.Cell>
-              <Table.Cell>{item.output}</Table.Cell>
-              <Table.Cell>{item.constructor}</Table.Cell>
+              <Table.Cell>
+                <div className="flex"><Badge color="indigo">{item.input}</Badge></div>
+                {/*<div className="flex"><div className="bg-indigo-100 text-indigo-800 text-xs font-medium px-2 py-0.5 rounded border border-indigo-400">text</div></div>*/}
+              </Table.Cell>
+              <Table.Cell>
+                <div className="flex"><Badge color="purple">{item.output}</Badge></div>
+                {/*<div className="flex"><div className="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-0.5 rounded border border-purple-400">binary</div></div>*/}
+              </Table.Cell>
+              <Table.Cell>{item.developer}</Table.Cell>
               <Table.Cell>{item.date}</Table.Cell>
               <Table.Cell>{item.size}</Table.Cell>
               <Table.Cell>
-                {/*<Link to={`/executemodel/${item.link}`}>*/}
-                <Link to={`/executemodel`}>
-                  <VscDebugStart className="text-white py-1 w-10 h-6 rounded bg-blue-500 hover:bg-blue-600 hover:drop-shadow-lg"/>
+                {/*<Link to={`/description/${item.link}`}>*/}
+                <Link to={`/description`}>
+                  <VscDebugStart
+                    className="text-white py-1 w-10 h-6 rounded bg-blue-500 hover:bg-blue-600 hover:drop-shadow-lg"/>
                 </Link>
               </Table.Cell>
             </Table.Row>
@@ -106,7 +122,7 @@ export default function Model() {
     <div className="contents">
       <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
         <div className="flex justify-between items-center">
-          <div className="flex items-center">
+          <div className="flex">
             <Header category="" title="Model list"/>
             <button onClick={() => setCurrentLayout("GridLayout")} type="button"
                     className={`ml-2 mr-1 text-xl rounded-full p-2 hover:bg-light-gray focus:bg-gray ${currentLayout === "GridLayout" ? "bg-light-gray" : null}`}>
