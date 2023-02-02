@@ -54,7 +54,7 @@ export default function ExecuteModel() {
                     padding="1.5" size="sm" icon={undefined} bgHoverColor={undefined}/>
           </Link>
         </div>
-        <div className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
+        <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
           <div className="row-span-2 md:p-2 rounded-lg border-1 border-gray-300">
             <p className="text-xl font-bold">Parameter</p>
           </div>
