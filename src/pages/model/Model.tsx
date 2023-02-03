@@ -66,6 +66,7 @@ export default function Model() {
     </div>
   );
 
+  // 창 크기에 맞게 그리드 갯수 조절
   const GridLayout = () => (
     <div className="grid grid-cols-3 gap-4 mt-10">
       {myModel.data.map((item) => (
@@ -78,7 +79,6 @@ export default function Model() {
             <div className="py-3"><Badge color="indigo">Input: text</Badge></div>
             <div className="p-3"><Badge color="purple">Output: binary</Badge></div>
           </div>
-          <p className="text-sm pb-3">{item.name} description</p>
           <div className="text-sm text-gray-500 mt-10">
             Updated 2022.03.01. · 최수연 · 20KB
           </div>
