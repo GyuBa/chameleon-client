@@ -68,14 +68,16 @@ export default function Model() {
 
   // 창 크기에 맞게 그리드 갯수 조절
   const GridLayout = () => (
-    <div className="grid grid-cols-3 gap-4 mt-10">
+    <div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 gap-4 mt-10">
       {myModel.data.map((item) => (
         <div onClick={selectModel}
              className="w-auto px-5 p-5 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl cursor-pointer">
-          <p className="border-b-2 font-semibold text-xl">{item.name}</p>
+          <p className="border-b-2 font-semibold text-xl break-all">{item.name}</p>
+          {/*<div className="flex">*/}
+          {/*  <div className="py-3"><div className="bg-indigo-100 text-indigo-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded border border-indigo-400">Input: text</div></div>*/}
+          {/*  <div className="py-3"><div className="bg-purple-100 text-purple-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded border border-purple-400">Output: binary</div></div>*/}
+          {/*</div>*/}
           <div className="flex">
-            {/*<div className="py-3"><div className="bg-indigo-100 text-indigo-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded border border-indigo-400">Input: text</div></div>*/}
-            {/*<div className="py-3"><div className="bg-purple-100 text-purple-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded border border-purple-400">Output: binary</div></div>*/}
             <div className="py-3"><Badge color="indigo">Input: text</Badge></div>
             <div className="p-3"><Badge color="purple">Output: binary</Badge></div>
           </div>

@@ -66,8 +66,8 @@ export const myModel = {
   header: ['Model Name', 'Input Type', 'Output Type', 'Developer', 'Last Modified Date', 'Size', ''],
   data: [
     {
-      name: 'Model01',
-      link: 'model01',
+      name: 'SwinIR GAN CCTV',
+      link: 'SwinIR GAN CCTV',
       input: 'text',
       output: 'binary',
       developer: '최수연',
@@ -75,8 +75,8 @@ export const myModel = {
       size: '20KB',
     },
     {
-      name: 'Model0223123',
-      link: 'model02',
+      name: 'SentenceGenerator',
+      link: 'SentenceGenerator',
       input: 'text',
       output: 'binary',
       developer: '최수연',
@@ -84,8 +84,8 @@ export const myModel = {
       size: '20KB',
     },
     {
-      name: 'Model03',
-      link: 'model03',
+      name: 'BaseSR',
+      link: 'BaseSR',
       input: 'text',
       output: 'binary',
       developer: '최수연',
@@ -93,8 +93,8 @@ export const myModel = {
       size: '20KB',
     },
     {
-      name: 'Model04',
-      link: 'model04',
+      name: 'HAT',
+      link: 'HAT',
       input: 'text',
       output: 'binary',
       developer: '최수연',
@@ -102,8 +102,8 @@ export const myModel = {
       size: '20KB',
     },
     {
-      name: 'Model05',
-      link: 'model05',
+      name: 'SwinIR GAN Blackbox',
+      link: 'SwinIR GAN Blackbox',
       input: 'text',
       output: 'binary',
       developer: '최수연',
@@ -111,8 +111,8 @@ export const myModel = {
       size: '20KB',
     },
     {
-      name: 'Model06',
-      link: 'model06',
+      name: 'roberta-base',
+      link: 'roberta-base',
       input: 'text',
       output: 'binary',
       developer: '최수연',
@@ -120,8 +120,8 @@ export const myModel = {
       size: '20KB',
     },
     {
-      name: 'Model07',
-      link: 'model07',
+      name: 'gpt2',
+      link: 'gpt2',
       input: 'text',
       output: 'binary',
       developer: '최수연',
@@ -129,8 +129,8 @@ export const myModel = {
       size: '20KB',
     },
     {
-      name: 'Model08',
-      link: 'model08',
+      name: 'bert-base-uncased',
+      link: 'bert-base-uncased',
       input: 'text',
       output: 'binary',
       developer: '최수연',
@@ -138,8 +138,8 @@ export const myModel = {
       size: '20KB',
     },
     {
-      name: 'Model09',
-      link: 'model09',
+      name: 'keras-io',
+      link: 'keras-io',
       input: 'text',
       output: 'binary',
       developer: '최수연',
