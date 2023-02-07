@@ -1,6 +1,6 @@
 import React from 'react';
 import {useStateContext} from "../../contexts/ContextProvider";
-import {Table} from "flowbite-react";
+import {Badge, Table} from "flowbite-react";
 import {Header} from "../../components";
 import {myModel} from "../../assets/dummy";
 import {Link} from "react-router-dom";
@@ -9,9 +9,18 @@ import {FiList} from "react-icons/fi";
 import {RiDeleteBinLine} from "react-icons/ri";
 import {BiPencil, BiAddToQueue, BiDotsVerticalRounded, BiTrash} from "react-icons/bi";
 import {VscDebugStart} from "react-icons/vsc";
+import {Description} from "../index";
 
 export default function Model() {
-  const {menuState, onClickMenu, currentLayout, setCurrentLayout, isDesktopOrMobile} = useStateContext();
+  const {
+    menuState,
+    onClickMenu,
+    selectModel,
+    modelState,
+    currentLayout,
+    setCurrentLayout,
+    isDesktopOrMobile
+  } = useStateContext();
 
   const ArrangeMenu = () => (
     <div className="flex items-center gap-2">
@@ -58,14 +67,20 @@ export default function Model() {
   );
 
   const GridLayout = () => (
-    <div className="grid grid-cols-3 gap-4 mt-10">
+    <div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 gap-4 mt-10">
       {myModel.data.map((item) => (
-        <Link to={`/executemodel/${item.link}`}>
-          <div className="w-auto px-5 pt-5 pb-10 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl">
-            <p className="border-b-2 font-semibold text-xl">{item.name}</p>
-            <p className="text-sm">{item.name} description</p>
+        <div onClick={selectModel}
+             className="w-auto px-5 p-5 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl cursor-pointer">
+          <p className="border-b-2 font-semibold text-xl break-all">{item.name}</p>
+          <div className="flex">
+            <div className="py-3"><Badge color="indigo">Input: text</Badge></div>
+            <div className="p-3"><Badge color="purple">Output: binary</Badge></div>
           </div>
-        </Link>
+          <div className="flex mt-10 justify-between">
+            <div className="text-sm text-gray-500 py-3">Updated 2022.03.01. · 최수연 · 20KB</div>
+            <div className="py-3"><Badge color="gray">Mongle</Badge></div>
+          </div>
+        </div>
       ))}
     </div>
   );
@@ -83,15 +98,18 @@ export default function Model() {
             <Table.Row className="bg-white">
               <Table.Cell
                 className="whitespace-nowrap font-medium text-gray-900">{item.name}</Table.Cell>
-              <Table.Cell>{item.input}</Table.Cell>
-              <Table.Cell>{item.output}</Table.Cell>
-              <Table.Cell>{item.constructor}</Table.Cell>
+              <Table.Cell>
+                <div className="flex"><Badge color="indigo">{item.input}</Badge></div>
+              </Table.Cell>
+              <Table.Cell>
+                <div className="flex"><Badge color="purple">{item.output}</Badge></div>
+              </Table.Cell>
+              <Table.Cell>{item.developer}</Table.Cell>
               <Table.Cell>{item.date}</Table.Cell>
               <Table.Cell>{item.size}</Table.Cell>
               <Table.Cell>
-                <Link to={`/executemodel/${item.link}`}>
-                  <VscDebugStart className="text-white py-1 w-10 h-6 rounded bg-blue-500 hover:bg-blue-600 hover:drop-shadow-lg"/>
-                </Link>
+                <VscDebugStart onClick={selectModel}
+                               className="text-white py-1 w-10 h-6 rounded bg-blue-500 hover:bg-blue-600 hover:drop-shadow-lg"/>
               </Table.Cell>
             </Table.Row>
           ))}
@@ -102,10 +120,10 @@ export default function Model() {
 
   return (
     <div className="contents">
-      <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+      <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl overflow-auto">
         <div className="flex justify-between items-center">
-          <div className="flex items-center">
-            <Header category="" title="Model list"/>
+          <div className="flex">
+            <Header category="" title="Models"/>
             <button onClick={() => setCurrentLayout("GridLayout")} type="button"
                     className={`ml-2 mr-1 text-xl rounded-full p-2 hover:bg-light-gray focus:bg-gray ${currentLayout === "GridLayout" ? "bg-light-gray" : null}`}>
               {<HiViewGrid size="21" className="text-gray-500"/>}
@@ -119,6 +137,7 @@ export default function Model() {
         </div>
         {currentLayout === "GridLayout" ? <GridLayout/> : <ListLayout/>}
       </div>
+      {modelState ? <Description/> : null}
     </div>
   );
 };

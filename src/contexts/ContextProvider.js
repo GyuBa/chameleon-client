@@ -13,11 +13,14 @@ export const ContextProvider = ({children}) => {
   const [activeMenu, setActiveMenu] = useState(true);
   const [isClicked, setIsClicked] = useState(initialState);
   const [menuState, setMenuState] = useState(false);
+  const [modelState, setModelState] = useState(false);
   const [currentLayout, setCurrentLayout] = useState('GridLayout');
 
   const handleClick = (clicked) => setIsClicked({...initialState, [clicked]: true});
 
   const onClickMenu = () => {setMenuState(prevState => !prevState )};
+
+  const selectModel = () => {setModelState(prevState => !prevState)};
 
   const isDesktopOrMobile = useMediaQuery({query: '(max-width:767px)'});
 
@@ -37,8 +40,11 @@ export const ContextProvider = ({children}) => {
       setMenuState,
       currentLayout,
       setCurrentLayout,
+      modelState,
+      setModelState,
       handleClick,
       onClickMenu,
+      selectModel
     }}>
       {children}
     </StateContext.Provider>
