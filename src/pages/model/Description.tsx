@@ -28,6 +28,18 @@ export default function Description() {
             <p className="text-lg font-bold">Model Developer:ㅤ</p>
             <p>최수연</p>
           </div>
+          <div className="flex my-2 items-center">
+            <p className="text-lg font-bold">Region:ㅤ</p>
+            <p>Mongle</p>
+          </div>
+          <div className="flex">
+            <div className="py-3"><Badge color="indigo">Input: text</Badge></div>
+            <div className="p-3"><Badge color="purple">Output: binary</Badge></div>
+          </div>
+          <div className="flex my-2 items-center">
+            <p className="text-lg font-bold">Parameter:ㅤ</p>
+            <p>~~</p>
+          </div>
           <div className="my-2 whitespace-pre-wrap">
             <p className="text-lg font-bold">Model Description:ㅤ</p>
             <div className="whitespace-pre-wrap">Hey everyone!
@@ -36,20 +48,6 @@ export default function Description() {
               You will never know.
             </div>
             <div className="text-blue-600 underline cursor-pointer whitespace-pre-wrap">https://portal.koreatech.ac.kr</div>
-          </div>
-          <div className="flex my-2 items-center">
-            <p className="text-lg font-bold">Region:ㅤ</p>
-            <p>~~</p>
-          </div>
-          <div className="flex my-2 items-center">
-            <p className="text-lg font-bold">Parameter:ㅤ</p>
-            <p>~~</p>
-          </div>
-          <div className="flex">
-            {/*<div className="py-3"><div className="bg-indigo-100 text-indigo-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded border border-indigo-400">Input: text</div></div>*/}
-            {/*<div className="py-3"><div className="bg-purple-100 text-purple-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded border border-purple-400">Output: binary</div></div>*/}
-            <div className="py-3"><Badge color="indigo">Input: text</Badge></div>
-            <div className="p-3"><Badge color="purple">Output: binary</Badge></div>
           </div>
         </div>
       </div>
