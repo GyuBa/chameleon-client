@@ -149,8 +149,8 @@ export default function CreateModel() {
                 <Button color="black" bgColor="white" text="back" borderRadius="10px" width="16"
                         padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
               </Link>
-              <Link to="/model">
-                <Button color="white" bgColor={currentColor} text="create" borderRadius="10px" width="16"
+              <Link to="/createmodel/description">
+                <Button color="white" bgColor={currentColor} text="next" borderRadius="10px" width="16"
                         padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
               </Link>
             </div>

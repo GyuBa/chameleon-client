@@ -14,7 +14,7 @@ import {
   Tarfile,
   Dockerfile,
   WebSocket,
-  Description
+  CreateDescription
 } from './pages';
 import './App.css';
 
@@ -30,9 +30,9 @@ export default function App() {
           <Route path="/websocket" element={<WebSocket/>}/>
           {/*경로 수정 필요*/}
           <Route path="/model" element={<Model/>}/>
-          <Route path="/description" element={<Description/>}/>
           <Route path="/executemodel" element={<ExecuteModel/>}/>
           <Route path="/createmodel" element={<CreateModel/>}/>
+          <Route path="/createmodel/description" element={<CreateDescription/>}/>
           <Route path="/createmodel/tarfile" element={<Tarfile/>}/>
           <Route path="/createmodel/dockerfile" element={<Dockerfile/>}/>
         </Route>
