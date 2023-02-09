@@ -5,7 +5,7 @@ module.exports = function (app) {
   backendPaths.forEach(path => {
     app.use(
       createProxyMiddleware(path, {
-        target: 'http://localhost:5000',
+        target: 'https://dev-platform.chameleon.best/',
         changeOrigin: true
       })
     )

@@ -67,7 +67,7 @@ export default function Model() {
   );
 
   const GridLayout = () => (
-    <div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 gap-4 mt-10">
+    <div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 gap-4 mt-10 overflow-auto overflow-scroll max-h-screen">
       {myModel.data.map((item) => (
         <div onClick={selectModel}
              className="w-auto px-5 p-5 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl cursor-pointer">
@@ -86,7 +86,7 @@ export default function Model() {
   );
 
   const ListLayout = () => (
-    <div className="mt-10">
+    <div className="mt-10 overflow-auto overflow-scroll max-h-screen">
       <Table hoverable={true}>
         <Table.Head>
           {myModel.header.map((item) => (
