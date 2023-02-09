@@ -63,16 +63,11 @@ export default function Websocket() {
                 </div>
                 <span className="y-5 plg:text-left">
           <WebSocket
-              message = "hi"
               Event = {WebSocket}
               color="white"
               bgColor={currentColor}
-              text="WebSocket Send"
               borderRadius="10px"
               width="full"
-              icon={undefined}
-              bgHoverColor={undefined}
-              size={undefined}
           />
         </span>
                 <div className="my-4 md:p-5 rounded-3xl bg-slate-300">
