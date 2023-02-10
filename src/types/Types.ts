@@ -36,10 +36,10 @@ type NavButtonData = {
 }
 
 type WebSocketData = {
-  bgColor: any,
-  color: any,
-  borderRadius: any,
-  width: any,
+  bgColor: string,
+  color: string,
+  borderRadius: string,
+  width: string,
   Event: any
 }
 

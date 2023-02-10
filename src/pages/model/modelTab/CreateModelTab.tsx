@@ -45,7 +45,6 @@ export default function CreateModelTab(number : number) {
                     <div className="mb-2">
                         <h1 className="md:py-3 text-xl font-bold">Model Name</h1>
                         <input
-                            onChange={undefined}
                             type="text"
                             className="form-control block w-full px-4 py-2 text-base font-normal
                   text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
