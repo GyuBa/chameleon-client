@@ -1,7 +1,9 @@
 import React from 'react';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
-import { BiColorFill, BiCool, BiCreditCard, BiFolder, BiCartAlt } from 'react-icons/bi';
+import { BiCool, BiCreditCard, BiFolder, BiCartAlt, BiTransfer } from 'react-icons/bi';
 import { GiArtificialHive } from 'react-icons/gi';
+import tar from "./images/tar.png";
+import dockerfile from "./images/dockerfile.png";
 
 export const links = [
   {
@@ -20,6 +22,10 @@ export const links = [
         name: 'model',
         icon: <BiFolder />,
       },
+      {
+        name: 'websocket',
+        icon: <BiTransfer />,
+      },
     ],
   },
   {
@@ -32,10 +38,6 @@ export const links = [
       {
         name: 'payment',
         icon: <BiCreditCard />,
-      },
-      {
-        name: 'websocket',
-        icon: <BiColorFill />,
       },
     ],
   },
@@ -60,104 +62,109 @@ export const userProfileData = [
   },
 ];
 
-export const createModel = [
-  {
-    name: 'tar file',
-    link: 'tarfile'
-  },
-  {
-    name: 'dockerfile',
-    link: 'dockerfile'
-  },
-  {
-    name: 'etc',
-    link: 'etc'
-  }
-]
-
 export const myModel = {
-  header: ['Model Name', 'Input Type', 'Output Type', 'Constructor', 'Last Modified Date', 'Size', ''],
+  header: ['Model Name', 'Input Type', 'Output Type', 'Developer', 'Last Modified Date', 'Size', ''],
   data: [
     {
-      name: 'Model01',
-      link: 'model01',
-      input: 'Text',
-      output: 'Text',
-      constructor: '최수연',
+      name: 'SwinIR GAN CCTV',
+      link: 'SwinIR GAN CCTV',
+      input: 'text',
+      output: 'binary',
+      developer: '최수연',
       date: '2023.01.20.',
       size: '20KB',
     },
     {
-      name: 'Model0223123',
-      link: 'model02',
-      input: 'Text',
-      output: 'Text',
-      constructor: '최수연',
+      name: 'SentenceGenerator',
+      link: 'SentenceGenerator',
+      input: 'text',
+      output: 'binary',
+      developer: '최수연',
       date: '2023.01.20.',
       size: '20KB',
     },
     {
-      name: 'Model03',
-      link: 'model03',
-      input: 'Text',
-      output: 'Text',
-      constructor: '최수연',
+      name: 'BaseSR',
+      link: 'BaseSR',
+      input: 'text',
+      output: 'binary',
+      developer: '최수연',
       date: '2023.01.20.',
       size: '20KB',
     },
     {
-      name: 'Model04',
-      link: 'model04',
-      input: 'Text',
-      output: 'Text',
-      constructor: '최수연',
+      name: 'HAT',
+      link: 'HAT',
+      input: 'text',
+      output: 'binary',
+      developer: '최수연',
       date: '2023.01.20.',
       size: '20KB',
     },
     {
-      name: 'Model05',
-      link: 'model05',
-      input: 'Text',
-      output: 'Text',
-      constructor: '최수연',
+      name: 'SwinIR GAN Blackbox',
+      link: 'SwinIR GAN Blackbox',
+      input: 'text',
+      output: 'binary',
+      developer: '최수연',
       date: '2023.01.20.',
       size: '20KB',
     },
     {
-      name: 'Model06',
-      link: 'model06',
-      input: 'Text',
-      output: 'Text',
-      constructor: '최수연',
+      name: 'roberta-base',
+      link: 'roberta-base',
+      input: 'text',
+      output: 'binary',
+      developer: '최수연',
       date: '2023.01.20.',
       size: '20KB',
     },
     {
-      name: 'Model07',
-      link: 'model07',
-      input: 'Text',
-      output: 'Text',
-      constructor: '최수연',
+      name: 'gpt2',
+      link: 'gpt2',
+      input: 'text',
+      output: 'binary',
+      developer: '최수연',
       date: '2023.01.20.',
       size: '20KB',
     },
     {
-      name: 'Model08',
-      link: 'model08',
-      input: 'Text',
-      output: 'Text',
-      constructor: '최수연',
+      name: 'bert-base-uncased',
+      link: 'bert-base-uncased',
+      input: 'text',
+      output: 'binary',
+      developer: '최수연',
       date: '2023.01.20.',
       size: '20KB',
     },
     {
-      name: 'Model09',
-      link: 'model09',
-      input: 'Text',
-      output: 'Text',
-      constructor: '최수연',
+      name: 'keras-io',
+      link: 'keras-io',
+      input: 'text',
+      output: 'binary',
+      developer: '최수연',
       date: '2023.01.20.',
       size: '20KB',
     },
   ],
 }
+
+export const tabsData = [
+  {
+    label: "TarFile",
+    content:
+        "Ut irure mollit nulla eiusmod excepteur laboris elit sit anim magna tempor excepteur labore nulla.",
+    img : tar
+  },
+  {
+    label: "DockerFile",
+    content:
+        "Fugiat dolor et quis in incididunt aute. Ullamco voluptate consectetur dolor officia sunt est dolor sint.",
+    img : dockerfile
+  },
+  {
+    label: "Etc",
+    content:
+        "Fugiat dolor et quis in incididunt aute. Ullamco voluptate consectetur dolor officia sunt est dolor sint.",
+  },
+];

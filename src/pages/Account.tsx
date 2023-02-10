@@ -53,7 +53,7 @@ export default function Account() {
                   onClick={() => setIsClicked(initialState)}
                   style={{backgroundColor: `${currentColor}`, color: 'white', borderRadius: '10px'}}
                   className={` text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
-                >{"이름 수정"}</button>
+                >{"이름 변경"}</button>
               )}
             </div>
           </div>

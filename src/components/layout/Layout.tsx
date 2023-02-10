@@ -9,7 +9,7 @@ export default function Layout() {
   return (
       <div className="flex relative">
         {activeMenu ? (
-          <div className="w-72 fixed sidebar bg-white">
+          <div className="w-72 fixed sidebar bg-white z-50">
             <Sidebar/>
           </div>
         ) : (

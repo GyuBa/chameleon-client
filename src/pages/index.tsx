@@ -2,10 +2,12 @@ export {default as SignUp} from './authentication/SignUp';
 export {default as Login} from './authentication/Login';
 export {default as Main} from '../pages/Main';
 export {default as Model} from './model/Model';
+export {default as Description} from './model/Description';
 export {default as ExecuteModel} from './model/ExecuteModel';
 export {default as CreateModel} from '../pages/model/CreateModel';
 export {default as Account} from '../pages/Account';
 export {default as Payment} from '../pages/Payment';
 export {default as ChangePW} from '../pages/ChangePW';
+export {default as WebSocket} from '../pages/Websocket'
 export {default as Tarfile} from '../pages/model/modelMenu/Tarfile';
 export {default as Dockerfile} from '../pages/model/modelMenu/Dockerfile';
