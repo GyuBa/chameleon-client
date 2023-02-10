@@ -5,6 +5,7 @@ export {default as Model} from './model/Model';
 export {default as Description} from './model/Description';
 export {default as ExecuteModel} from './model/ExecuteModel';
 export {default as CreateModel} from '../pages/model/CreateModel';
+export {default as SetParameter} from '../pages/model/SetParameter';
 export {default as Account} from '../pages/Account';
 export {default as Payment} from '../pages/Payment';
 export {default as ChangePW} from '../pages/ChangePW';

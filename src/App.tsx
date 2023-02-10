@@ -14,7 +14,8 @@ import {
   Tarfile,
   Dockerfile,
   WebSocket,
-  Description
+  Description,
+  SetParameter
 } from './pages';
 import './App.css';
 
@@ -33,6 +34,7 @@ export default function App() {
           <Route path="/description" element={<Description/>}/>
           <Route path="/executemodel" element={<ExecuteModel/>}/>
           <Route path="/createmodel" element={<CreateModel/>}/>
+          <Route path="/setParameter" element={<SetParameter/>}/>
           <Route path="/createmodel/tarfile" element={<Tarfile/>}/>
           <Route path="/createmodel/dockerfile" element={<Dockerfile/>}/>
         </Route>
