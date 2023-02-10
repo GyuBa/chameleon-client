@@ -1,7 +1,9 @@
 import React from 'react';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
-import { BiCool, BiCreditCard, BiFolder, BiCartAlt, BiTransfer } from 'react-icons/bi';
+import { BiCreditCard, BiFolder, BiCartAlt, BiTransfer } from 'react-icons/bi';
+import { RiHistoryFill } from 'react-icons/ri';
 import { GiArtificialHive } from 'react-icons/gi';
+import { MdOutlineAccountCircle } from 'react-icons/md';
 import tar from "./images/tar.png";
 import dockerfile from "./images/dockerfile.png";
 
@@ -10,7 +12,7 @@ export const links = [
     title: 'Marketplace',
     links: [
       {
-        name: 'main',
+        name: 'marketplace',
         icon: <BiCartAlt />,
       },
     ],
@@ -23,6 +25,10 @@ export const links = [
         icon: <BiFolder />,
       },
       {
+        name: 'history',
+        icon: <RiHistoryFill />,
+      },
+      {
         name: 'websocket',
         icon: <BiTransfer />,
       },
@@ -33,7 +39,7 @@ export const links = [
     links: [
       {
         name: 'account',
-        icon: <BiCool />,
+        icon: <MdOutlineAccountCircle />,
       },
       {
         name: 'payment',

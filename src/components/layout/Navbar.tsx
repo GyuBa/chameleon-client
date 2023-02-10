@@ -28,7 +28,7 @@ export default function Navbar () {
 
   return (
     <div className="flex w-full justify-between p-2 relative">
-      <NavButton customFunc={handleActiveMenu} color={currentColor} icon={<AiOutlineMenu/>} dotColor={undefined}/>
+      <NavButton customFunc={handleActiveMenu} color={currentColor} icon={<AiOutlineMenu/>}/>
       <div className="flex">
         <div
           className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"

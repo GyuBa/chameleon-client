@@ -31,8 +31,7 @@ type SubmitButtonData = {
 type NavButtonData = {
   customFunc: any,
   icon: any,
-  color: any,
-  dotColor: any
+  color: any
 }
 
 type WebSocketData = {

@@ -20,9 +20,9 @@ export default function Sidebar() {
   return (
     <div className="h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10">
       {activeMenu && (
-        <>
+        <div>
           <div className="flex justify-between items-center">
-            <Link to="/" onClick={handleCloseSideBar}
+            <Link to="/main" onClick={handleCloseSideBar}
                   className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight text-slate-900">
               <GiChameleonGlyph/> <span>Chameleon</span>
             </Link>
@@ -58,7 +58,7 @@ export default function Sidebar() {
               </div>
             ))}
           </div>
-        </>
+        </div>
       )}
     </div>
   );
