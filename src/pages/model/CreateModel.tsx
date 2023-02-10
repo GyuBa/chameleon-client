@@ -77,18 +77,6 @@ export default function CreateModel() {
                     placeholder="Model Name"/>
                 </div>
                 <div className="mb-3">
-                  <h1 className="md:py-5 text-xl font-bold">Model Region</h1>
-                  <select id="countries"
-                          className="form-control block w-full px-4 py-2 text-base font-normal
-                  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
-                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
-                  focus:border-blue-600 focus:outline-none">
-                    <option selected value="mongle">Mongle</option>
-                    <option value="ripper">Ripper</option>
-                    <option value="snowly">Snowly</option>
-                  </select>
-                </div>
-                <div className="mb-3">
                   <h1 className="md:py-5 text-xl font-bold">Input Type</h1>
                   <select id="Input"
                           className="form-control block w-full px-4 py-2 text-base font-normal
@@ -116,6 +104,18 @@ export default function CreateModel() {
               </div>
               <div>
                 <div className="mb-3">
+                  <h1 className="md:py-5 text-xl font-bold">Model Region</h1>
+                  <select id="countries"
+                          className="form-control block w-full px-4 py-2 text-base font-normal
+                  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
+                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
+                  focus:border-blue-600 focus:outline-none">
+                    <option selected value="mongle">Mongle</option>
+                    <option value="ripper">Ripper</option>
+                    <option value="snowly">Snowly</option>
+                  </select>
+                </div>
+                <div className="mb-3">
                   {/*파일 삭제 버튼 및 tar 파일 업로드 추가*/}
                   <h1 className="md:py-5 text-xl font-bold">File Upload</h1>
                   <div className="md:py-10 pt-5 rounded border border-solid border-gray-300 text-center item-center">
@@ -131,16 +131,6 @@ export default function CreateModel() {
                       <ul className="px-5 pb-5 pt-2">{acceptedFileItems}</ul>
                     </section>
                   </div>
-                </div>
-                <div className="mb-3">
-                  <h1 className="md:py-5 text-xl font-bold">Model Description</h1>
-                  <textarea
-                    className="form-control block w-full px-4 py-2 text-base font-normal
-                  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
-                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
-                  focus:border-blue-600 focus:outline-none h-48"
-                    id="model-description"
-                    placeholder="Model Description"/>
                 </div>
               </div>
             </div>
