@@ -2,22 +2,21 @@ import useWebSocket, {ReadyState} from "react-use-websocket"
 import React, {useCallback, useState} from 'react';
 import {WebSocketData} from "../types/Types";
 
-export default function WebSocket({message, icon, bgColor, color, bgHoverColor, size, text, borderRadius, width, Event} : WebSocketData) {
-    const [messageHistory, setMessageHistory] = useState([]);
+export default function WebSocket({bgColor, color, borderRadius, width, Event} : WebSocketData) {
     const {
         sendMessage,
-        // sendJsonMessage,
         readyState,
         // eslint-disable-next-line no-restricted-globals
     } = useWebSocket((location.protocol.startsWith('https') ? 'wss://' : 'ws://') + location.host + '/websocket', {
         shouldReconnect: (closeEvent) => true,
         onMessage: (message) => {
             let data = JSON.parse(message.data);
+
         }
     });
 
 
-    const handleClickSendMessage = useCallback(() => sendMessage(message), []);
+    const handleClickSendMessage = useCallback(() => sendMessage('Hello'), []);
 
     const connectionStatus = {
         [ReadyState.CONNECTING]: 'Connecting',
@@ -32,11 +31,12 @@ export default function WebSocket({message, icon, bgColor, color, bgHoverColor, 
             type="button"
             onClick = {handleClickSendMessage}
             style={{ backgroundColor: bgColor, color, borderRadius }}
-            className={` text-${size} p-3 w-${width} hover:drop-shadow-xl hover:bg-${bgHoverColor}`}
+            className={` p-3 w-${width} hover:drop-shadow-xl`}
             disabled={readyState !== ReadyState.OPEN}
         >
-            {icon}{text}
+            {'The WebSocket is currently'}{connectionStatus}
             {Event}
         </button>
+
     );
 }
