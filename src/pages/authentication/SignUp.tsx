@@ -57,7 +57,7 @@ export default function SignUp() {
         Signup(email, password, name).then(function (response) {
           console.log("가입 성공");
           alert("가입에 성공하셨습니다!");
-          document.location.href = "/login";
+          document.location.href = "/auth/sign-in";
 
         })
           .catch((error) => {
@@ -120,7 +120,7 @@ export default function SignUp() {
             <form>
               <div className="flex flex-row items-center justify-center lg:justify-start">
                 <p className="text-sm mb-0 mr-4 text-black">Already have an Account?</p>
-                <Link to="/login"
+                <Link to="/auth/sign-in"
                       className="text-sm text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
                 >Login</Link>
               </div>

@@ -3,7 +3,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {Layout} from './components';
 import {
   Main,
-  Login,
+  SignIn,
   SignUp,
   Payment,
   Account,
@@ -38,8 +38,8 @@ export default function App() {
           <Route path="/create-model/tar-file" element={<Tarfile/>}/>
           <Route path="/create-model/dockerfile" element={<Dockerfile/>}/>
         </Route>
-        <Route path="/login" element={(<Login/>)}/>
-        <Route path="/signup" element={(<SignUp/>)}/>
+        <Route path="/auth/sign-in" element={(<SignIn/>)}/>
+        <Route path="/auth/sign-up" element={(<SignUp/>)}/>
       </Routes>
     </BrowserRouter>
   );

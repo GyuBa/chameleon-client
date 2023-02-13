@@ -39,7 +39,7 @@ export default function SetParameter() {
                         />
                     </div>
                     <div className="flex gap-3 float-right">
-                        <Link to="/createmodel">
+                        <Link to="/create-model">
                             <Button color="black" bgColor="white" text="취소" borderRadius="10px" width="16"
                                     padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
                         </Link>

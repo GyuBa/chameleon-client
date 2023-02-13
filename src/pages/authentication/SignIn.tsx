@@ -44,7 +44,7 @@ export default function Signin() {
       SignIn(email, password)
         .then((response) => {
           alert('로그인 성공하셨습니다!');
-          document.location.href = "../Main";
+          document.location.href = "../../Main";
         })
         .catch((error) => {
           alert('가입하지 않은 이메일이거나, 잘못된 비밀번호입니다.');
@@ -64,7 +64,7 @@ export default function Signin() {
             <form>
               <div className="flex flex-row items-center justify-center lg:justify-start">
                 <p className="text-sm mb-0 mr-4 text-black">Don't have an account?</p>
-                <Link to="/signup"
+                <Link to="/auth/sign-up"
                       className="text-sm text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
                 >Register</Link>
               </div>
@@ -107,7 +107,7 @@ export default function Signin() {
               </div>
 
               <div className="text-center lg:text-left">
-                <SubmitButton Event={Signin} onClick={signIn} color="white" bgColor={currentColor} text="Signin"
+                <SubmitButton Event={SignIn} onClick={signIn} color="white" bgColor={currentColor} text="Login"
                               borderRadius="10px" width="full" icon={undefined} bgHoverColor={undefined}
                               size={undefined}/>
               </div>

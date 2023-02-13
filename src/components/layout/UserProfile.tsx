@@ -45,7 +45,7 @@ export default function UserProfile() {
         ))}
       </div>
       <div className="mt-5">
-        <Link to="/login"
+        <Link to="/auth/sign-in"
               className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight text-slate-900">
           <Button color="white" bgColor={currentColor} text="Logout" borderRadius="10px" width="full"
                   padding="3" icon={undefined} bgHoverColor={undefined} size={undefined}/>

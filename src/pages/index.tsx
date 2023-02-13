@@ -1,5 +1,5 @@
 export {default as SignUp} from './authentication/SignUp';
-export {default as Login} from './authentication/Signin';
+export {default as SignIn} from './authentication/SignIn';
 export {default as Main} from '../pages/Main';
 export {default as Model} from './model/list/Model';
 export {default as Description} from './model/list/Description';
