@@ -6,8 +6,7 @@ export default function WebSocket({bgColor, color, borderRadius, width, Event} :
     const {
         sendMessage,
         readyState,
-        // eslint-disable-next-line no-restricted-globals
-    } = useWebSocket((location.protocol.startsWith('https') ? 'wss://' : 'ws://') + location.host + '/websocket', {
+    } = useWebSocket((window.location.protocol.startsWith('https') ? 'wss://' : 'ws://') + window.location.host + '/websocket', {
         shouldReconnect: (closeEvent) => true,
         onMessage: (message) => {
             let data = JSON.parse(message.data);
