@@ -3,53 +3,70 @@ import {Link} from 'react-router-dom';
 import {SubmitButton} from '../../components/index';
 import chameleon from '../../assets/images/chameleon.png';
 import {useStateContext} from "../../contexts/ContextProvider";
-import {Signup} from "../../service/login/LoginToken"
+import instance from "../../ConstantValue";
+import {setToken} from "../../service/TokenService";
+
+function Signup(email : any, password : any, name : any) {
+  return instance.post("/login/sign-up",
+      {
+        'email' : email,
+        'password' : password,
+        'name' : name,
+      },
+      {
+        headers: {
+          'Content-Type' : 'application/json',
+        }
+      }
+  )
+      .then(function(response) {
+        setToken(response.data.access_token);
+        if(response.data.code === 401) {
+          alert('가입에 실패하셨습니다. 가입하고자 하는 Email을 재확인바랍니다.');
+        }
+      });
+}
 
 export default function SignUp() {
   const {currentColor} = useStateContext();
-  const [Email, setEmail] = useState<string>("");
-  const [Password, setPassword] = useState<string>("");
-  const [Name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [name, setName] = useState<string>("");
 
-  const [EmailMessage, setEmailMessage] = useState<string>("");
-  const [PasswordMessage, setPasswordMessage] = useState<string>("");
-  const [NameMessage, setNameMessage] = useState<string>("");
+  const [emailMessage, setEmailMessage] = useState<string>("");
+  const [passwordMessage, setPasswordMessage] = useState<string>("");
+  const [nameMessage, setNameMessage] = useState<string>("");
 
-  const [IsEmail, setIsEmail] = useState<boolean>(false);
-  const [IsPassword, setIsPassword] = useState<boolean>(false);
-  const [IsName, setIsName] = useState<boolean>(false);
+  const [isEmail, setIsEmail] = useState<boolean>(false);
+  const [isPassword, setIsPassword] = useState<boolean>(false);
+  const [isName, setIsName] = useState<boolean>(false);
 
-  const signup = useCallback(
+  const signUp = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      if (!Email && !Password && !Name) {
-        return alert("Name과 Email과 Password를 입력하세요.");
-      } else if (!Email && !Password) {
-        return alert("Email과 Password을 입력하세요.");
-      } else if (!Email && !Name) {
-        return alert("Name과 Email을 입력하세요.");
-      } else if (!Password && !Name) {
-        return alert("Name과 Password를 입력하세요.")
-      } else if (!Email) {
-        return alert("Email을 입력하세요.");
-      } else if (!Password) {
-        return alert("Password를 입력하세요.");
-      } else if (!Name) {
-        return alert("Name을 입력하세요.");
+      if (!name) {
+        alert("이름을 입력하세요.");
+        return;
+      } else if (!password) {
+        alert("비밀번호를 입력하세요.");
+        return;
+      } else if (!email) {
+        alert("이메일을 입력하세요.");
+        return;
       } else {
-        Signup(Email, Password, Name).then(function (response) {
+        Signup(email, password, name).then(function (response) {
           console.log("가입 성공");
           alert("가입에 성공하셨습니다!");
           document.location.href = "/login";
 
         })
           .catch((error) => {
-            alert('가입에 실패하셨습니다. 가입하고자 하는 Email을 재확인바랍니다.');
+            alert('가입에 실패하셨습니다. 가입하고자 하는 이메일을 재확인바랍니다.');
             console.log(error);
           })
       }
     },
-    [Name, Email, Password]
+    [name, email, password]
   )
 
   const onChangeName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -119,7 +136,7 @@ export default function SignUp() {
                   id="su-name"
                   placeholder="Name"
                 />
-                {Name.length > 0 && <span className={`message ${IsName ? 'success' : 'error'}`}>{NameMessage} </span>}
+                {name.length > 0 && <span className={`message ${isName ? 'success' : 'error'}`}>{nameMessage} </span>}
 
               </div>
               <div className="mb-6">
@@ -133,8 +150,8 @@ export default function SignUp() {
                   id="su-email"
                   placeholder="Email address"
                 />
-                {Email.length > 0 &&
-                  <span className={`message ${IsEmail ? 'success' : 'error'}`}>{EmailMessage} </span>}
+                {email.length > 0 &&
+                  <span className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage} </span>}
               </div>
               <div className="mb-6">
                 <input
@@ -146,11 +163,11 @@ export default function SignUp() {
                   id="su-password"
                   placeholder="Password"
                 />
-                {Password.length > 0 &&
-                  <span className={`message ${IsPassword ? 'success' : 'error'}`}>{PasswordMessage} </span>}
+                {password.length > 0 &&
+                  <span className={`message ${isPassword ? 'success' : 'error'}`}>{passwordMessage} </span>}
               </div>
               <div className="text-center lg:text-left">
-                <SubmitButton Event={SignUp} onClick={signup} color="white" bgColor={currentColor} text="SignUp"
+                <SubmitButton Event={SignUp} onClick={signUp} color="white" bgColor={currentColor} text="SignUp"
                               borderRadius="10px" width="full" icon={undefined} bgHoverColor={undefined} size={undefined}/>
               </div>
             </form>

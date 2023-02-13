@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {tabsData} from "../../assets/dummy"
-import CreateModelTab from "../model/modelTab/CreateModelTab";
+import CreateModelTab from "./tab/CreateModelTab";
 
 export default function CreateModel() {
   const [activeTabIndex, setActiveTabIndex] = useState(0);

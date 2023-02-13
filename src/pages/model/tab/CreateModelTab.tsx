@@ -113,7 +113,7 @@ export default function CreateModelTab(number : number) {
                     <Button color="black" bgColor="white" text="취소" borderRadius="10px" width="16"
                             padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
                 </Link>
-                <Link to="/SetParameter">
+                <Link to="/set-parameter">
                     <Button color="white" bgColor={currentColor} text="파라미터 설정" borderRadius="10px" width="32"
                             padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
                 </Link>

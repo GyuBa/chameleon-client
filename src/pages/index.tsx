@@ -8,7 +8,7 @@ export {default as CreateModel} from '../pages/model/CreateModel';
 export {default as SetParameter} from '../pages/model/SetParameter';
 export {default as Account} from '../pages/Account';
 export {default as Payment} from '../pages/Payment';
-export {default as ChangePW} from '../pages/ChangePW';
+export {default as ChangePassword} from './ChangePassword';
 export {default as WebSocket} from '../pages/Websocket'
-export {default as Tarfile} from '../pages/model/modelMenu/Tarfile';
-export {default as Dockerfile} from '../pages/model/modelMenu/Dockerfile';
+export {default as Tarfile} from './model/menu/Tarfile';
+export {default as Dockerfile} from './model/menu/Dockerfile';

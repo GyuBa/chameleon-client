@@ -7,7 +7,7 @@ import {
   SignUp,
   Payment,
   Account,
-  ChangePW,
+  ChangePassword,
   Model,
   ExecuteModel,
   CreateModel,
@@ -26,17 +26,17 @@ export default function App() {
         <Route path="/" element={(<Layout/>)}>
           <Route path="/main" element={(<Main/>)}/>
           <Route path="/account" element={<Account/>}/>
-          <Route path="/changepw" element={<ChangePW/>}/>
+          <Route path="/change-password" element={<ChangePassword/>}/>
           <Route path="/payment" element={<Payment/>}/>
           <Route path="/ws-test" element={<WebSocket/>}/>
           {/*경로 수정 필요*/}
           <Route path="/model" element={<Model/>}/>
           <Route path="/description" element={<Description/>}/>
-          <Route path="/executemodel" element={<ExecuteModel/>}/>
-          <Route path="/createmodel" element={<CreateModel/>}/>
-          <Route path="/setParameter" element={<SetParameter/>}/>
-          <Route path="/createmodel/tarfile" element={<Tarfile/>}/>
-          <Route path="/createmodel/dockerfile" element={<Dockerfile/>}/>
+          <Route path="/execute-model" element={<ExecuteModel/>}/>
+          <Route path="/create-model" element={<CreateModel/>}/>
+          <Route path="/set-parameter" element={<SetParameter/>}/>
+          <Route path="/create-model/tar-file" element={<Tarfile/>}/>
+          <Route path="/create-model/dockerfile" element={<Dockerfile/>}/>
         </Route>
         <Route path="/login" element={(<Login/>)}/>
         <Route path="/signup" element={(<SignUp/>)}/>

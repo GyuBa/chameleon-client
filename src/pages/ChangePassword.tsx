@@ -3,7 +3,7 @@ import {Button, Header} from '../components/index';
 import {useStateContext} from "../contexts/ContextProvider";
 import {Link} from "react-router-dom";
 
-export default function Payment() {
+export default function ChangePassword() {
   const {currentColor} = useStateContext();
 
   return (

@@ -3,29 +3,51 @@ import {Link} from 'react-router-dom';
 import {SubmitButton} from '../../components/index';
 import chameleon from '../../assets/images/chameleon.png';
 import {useStateContext} from "../../contexts/ContextProvider";
-import {Signin} from "../../service/login/LoginToken"
+import instance from "../../ConstantValue";
+import {setToken} from "../../service/TokenService";
+
+function Signin (email : any, password : any) {
+  return instance.post("/login/sign-in",
+      {
+        'email' : email,
+        'password' : password,
+      },
+      {
+        withCredentials: true,
+        headers: {
+          'Content-Type' : 'application/json',
+        }
+      }
+  )
+      .then(function(response) {
+        setToken(response.data.access_token);
+        if(response.data.code === 401) {
+          alert('가입에 실패하셨습니다. 가입하고자 하는 Email을 재확인바랍니다.');
+        }
+      });
+}
 
 export default function Login() {
   const {currentColor} = useStateContext();
-  const [Email, setEmail] = useState<String>("")
-  const [Password, setPassword] = useState<String>("")
+  const [email, setEmail] = useState<String>("")
+  const [password, setPassword] = useState<String>("")
 
   const login = async (e: any) => {
     e.preventDefault();
-    if (!Email && !Password) {
-      return alert("Email과 Password를 입력하세요.");
-    } else if (!Email) {
-      return alert("ID를 입력하세요.");
-    } else if (!Password) {
-      return alert("Password를 입력하세요.");
+    if (!email) {
+      alert("이메일을 입력하세요.");
+      return;
+    } else if (!password) {
+      alert("비밀번호를 입력하세요.");
+      return;
     } else {
-      Signin(Email, Password)
+      Signin(email, password)
         .then((response) => {
           alert('로그인 성공하셨습니다!');
           document.location.href = "../Main";
         })
         .catch((error) => {
-          alert('가입하지 않은 아이디거나, 잘못된 비밀번호입니다.');
+          alert('가입하지 않은 이메일이거나, 잘못된 비밀번호입니다.');
           console.log(error)
         })
     }
@@ -81,7 +103,7 @@ export default function Login() {
                   <label className="form-check-label inline-block text-gray-800" htmlFor="remember"
                   >Remember me</label>
                 </div>
-                <Link to="#!" className="text-gray-800">Forgot password?</Link>
+                <Link to="/change-password" className="text-gray-800">Forgot password?</Link>
               </div>
 
               <div className="text-center lg:text-left">

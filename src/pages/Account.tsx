@@ -63,7 +63,7 @@ export default function Account() {
           <div className="flex items-center">
             <HiOutlineLockClosed className="mx-4 w-10 h-10"/>
             <p className="w-full p-2">비밀번호</p>
-            <Link to="/changepw">
+            <Link to="/change-password">
               <Button color="white" bgColor={currentColor} text="수정" borderRadius="10px"
                       padding="2" size="sm" width={undefined} icon={undefined} bgHoverColor={undefined}/>
             </Link>

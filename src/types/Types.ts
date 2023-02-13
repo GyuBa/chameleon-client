@@ -3,7 +3,7 @@ type HeaderData = {
   title: string;
 }
 
-type ButtonData = {
+type DefaultButtonData = {
   icon: any,
   bgColor: any,
   color: any,
@@ -43,4 +43,4 @@ type WebSocketData = {
   Event: any
 }
 
-export type {HeaderData, ButtonData, NavButtonData, SubmitButtonData, WebSocketData};
+export type {HeaderData, DefaultButtonData, NavButtonData, SubmitButtonData, WebSocketData};

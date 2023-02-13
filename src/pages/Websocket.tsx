@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Header} from "../components";
 import {useStateContext} from "../contexts/ContextProvider";
 import {useDropzone} from 'react-dropzone';
-import WebSocket from "../service/WebSocket"
+import WebSocket from "../components/button/ConnectWebsocket"
 
 type IFile = File & { preview?: string };
 

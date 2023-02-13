@@ -1,8 +1,8 @@
 import React from 'react';
 import { useStateContext } from '../../contexts/ContextProvider';
-import { ButtonData } from '../../types/Types';
+import { DefaultButtonData } from '../../types/Types';
 
-export default function Button({ icon, bgColor, color, bgHoverColor, size, text, borderRadius, width, padding }: ButtonData){
+export default function Button({ icon, bgColor, color, bgHoverColor, size, text, borderRadius, width, padding }: DefaultButtonData){
   const { setIsClicked, initialState } = useStateContext();
 
   return (
