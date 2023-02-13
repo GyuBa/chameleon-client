@@ -1,8 +1,8 @@
 import React from 'react';
-import {Button, Header} from '../components/index';
+import {Button, Header} from '../../components/index';
 import {BsPersonCircle} from "react-icons/bs";
 import {HiOutlineLockClosed} from "react-icons/hi";
-import {useStateContext} from "../contexts/ContextProvider";
+import {useStateContext} from "../../contexts/ContextProvider";
 import {Link} from "react-router-dom";
 
 export default function Account() {

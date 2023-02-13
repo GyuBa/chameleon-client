@@ -1,6 +1,6 @@
 import React from 'react';
-import {Button, Header} from '../components/index';
-import {useStateContext} from "../contexts/ContextProvider";
+import {Button, Header} from '../../components/index';
+import {useStateContext} from "../../contexts/ContextProvider";
 import {Link} from "react-router-dom";
 
 export default function ChangePassword() {

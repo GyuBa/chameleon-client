@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {Header, Button} from "../../components";
+import {Header, Button} from "../../../components";
 import {Link} from "react-router-dom";
-import {useStateContext} from "../../contexts/ContextProvider";
+import {useStateContext} from "../../../contexts/ContextProvider";
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
-import {schema, uischema} from "../../assets/dummy"
+import {schema, uischema} from "../../../assets/dummy"
 import {BiCheckCircle} from "react-icons/bi";
 const initialData = {};
 

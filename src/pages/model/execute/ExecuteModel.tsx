@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
-import {Button, Header} from "../../components";
+import {Button, Header} from "../../../components";
 import {Link} from "react-router-dom";
-import {useStateContext} from "../../contexts/ContextProvider";
+import {useStateContext} from "../../../contexts/ContextProvider";
 
 type IFile = File & { preview?: string };
 

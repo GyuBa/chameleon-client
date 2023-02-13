@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import {Button, Header} from "../../components";
-import {useStateContext} from "../../contexts/ContextProvider";
+import {Button, Header} from "../../../components";
+import {useStateContext} from "../../../contexts/ContextProvider";
 import {Badge} from "flowbite-react";
 
 export default function Description() {

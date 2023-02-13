@@ -1,15 +1,15 @@
 import React from 'react';
-import {useStateContext} from "../../contexts/ContextProvider";
+import {useStateContext} from "../../../contexts/ContextProvider";
 import {Badge, Table} from "flowbite-react";
-import {Header} from "../../components";
-import {myModel} from "../../assets/dummy";
+import {Header} from "../../../components";
+import {myModel} from "../../../assets/dummy";
 import {Link} from "react-router-dom";
 import {HiViewGrid} from "react-icons/hi";
 import {FiList} from "react-icons/fi";
 import {RiDeleteBinLine} from "react-icons/ri";
 import {BiPencil, BiAddToQueue, BiDotsVerticalRounded, BiTrash} from "react-icons/bi";
 import {VscDebugStart} from "react-icons/vsc";
-import {Description} from "../index";
+import {Description} from "../../index";
 
 export default function Model() {
   const {

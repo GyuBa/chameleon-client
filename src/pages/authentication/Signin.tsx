@@ -6,7 +6,7 @@ import {useStateContext} from "../../contexts/ContextProvider";
 import instance from "../../ConstantValue";
 import {setToken} from "../../service/TokenService";
 
-function Signin (email : any, password : any) {
+function SignIn (email : any, password : any) {
   return instance.post("/login/sign-in",
       {
         'email' : email,
@@ -27,12 +27,12 @@ function Signin (email : any, password : any) {
       });
 }
 
-export default function Login() {
+export default function Signin() {
   const {currentColor} = useStateContext();
   const [email, setEmail] = useState<String>("")
   const [password, setPassword] = useState<String>("")
 
-  const login = async (e: any) => {
+  const signIn = async (e: any) => {
     e.preventDefault();
     if (!email) {
       alert("이메일을 입력하세요.");
@@ -41,7 +41,7 @@ export default function Login() {
       alert("비밀번호를 입력하세요.");
       return;
     } else {
-      Signin(email, password)
+      SignIn(email, password)
         .then((response) => {
           alert('로그인 성공하셨습니다!');
           document.location.href = "../Main";
@@ -107,7 +107,7 @@ export default function Login() {
               </div>
 
               <div className="text-center lg:text-left">
-                <SubmitButton Event={Login} onClick={login} color="white" bgColor={currentColor} text="Login"
+                <SubmitButton Event={Signin} onClick={signIn} color="white" bgColor={currentColor} text="Signin"
                               borderRadius="10px" width="full" icon={undefined} bgHoverColor={undefined}
                               size={undefined}/>
               </div>
