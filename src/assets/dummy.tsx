@@ -23,7 +23,7 @@ export const links = [
         icon: <BiFolder />,
       },
       {
-        name: 'websocket',
+        name: 'ws-test',
         icon: <BiTransfer />,
       },
     ],

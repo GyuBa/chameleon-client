@@ -28,7 +28,7 @@ export default function App() {
           <Route path="/account" element={<Account/>}/>
           <Route path="/changepw" element={<ChangePW/>}/>
           <Route path="/payment" element={<Payment/>}/>
-          <Route path="/websocket" element={<WebSocket/>}/>
+          <Route path="/ws-test" element={<WebSocket/>}/>
           {/*경로 수정 필요*/}
           <Route path="/model" element={<Model/>}/>
           <Route path="/description" element={<Description/>}/>
