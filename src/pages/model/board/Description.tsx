@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import {Button, Header} from "../../components";
-import {useStateContext} from "../../contexts/ContextProvider";
+import {Button, Header} from "../../../components";
+import {useStateContext} from "../../../contexts/ContextProvider";
 import {Badge} from "flowbite-react";
 import MDEditor from "@uiw/react-md-editor";
 
@@ -13,9 +13,9 @@ export default function Description() {
         <div className="flex justify-between items-center pb-6 border-b-1 border-gray-300">
           <Header category="" title="Model01"/>
           <div className="flex gap-2">
-            <Link to="/executemodel">
-              <Button color="white" bgColor={currentColor} text="start" borderRadius="10px" width="full"
-                      padding="1.5" size="sm" icon={undefined} bgHoverColor={undefined}/>
+            <Link to="/execute-model">
+              <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                      className="text-sm w-full p-1.5" text="start"/>
             </Link>
           </div>
         </div>

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Header} from "../../components/index";
-import {useStateContext} from "../../contexts/ContextProvider";
+import {Button, Header} from "../../../components/index";
+import {useStateContext} from "../../../contexts/ContextProvider";
 import {Link} from "react-router-dom";
 import {useDropzone} from "react-dropzone";
-import {tabsData} from "../../assets/dummy"
+import {tabsData} from "../../../assets/Dummy"
 
 type IFile = File & { preview?: string };
 
@@ -67,7 +67,6 @@ export default function CreateModel() {
                 <div className="md:mt-0 mt-5 mb-3">
                   <h1 className="md:py-5 text-xl font-bold">Model Name</h1>
                   <input
-                    onChange={undefined}
                     type="text"
                     className="form-control block w-full px-4 py-2 text-base font-normal
                   text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
@@ -135,13 +134,13 @@ export default function CreateModel() {
               </div>
             </div>
             <div className="flex gap-3 float-right">
-              <Link to="/model">
-                <Button color="black" bgColor="white" text="back" borderRadius="10px" width="16"
-                        padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
+              <Link to="/board">
+                <Button style={{backgroundColor: "white", color: "black", borderRadius: "10px"}}
+                        className="w-16 p-2" text="back"/>
               </Link>
-              <Link to="/createmodel/description">
-                <Button color="white" bgColor={currentColor} text="next" borderRadius="10px" width="16"
-                        padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
+              <Link to="/create/description">
+                <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                        className="w-16 p-2" text="next"/>
               </Link>
             </div>
           </div>

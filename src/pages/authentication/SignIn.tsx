@@ -3,13 +3,13 @@ import {Link} from 'react-router-dom';
 import {SubmitButton} from '../../components/index';
 import chameleon from '../../assets/images/chameleon.png';
 import {useStateContext} from "../../contexts/ContextProvider";
-import {Signin} from "../../service/login/LoginToken"
+import {authSignIn} from "../../service/login/LoginToken"
 
-export default function Login() {
+export default function SignIn() {
   const {currentColor} = useStateContext();
   const [Email, setEmail] = useState<String>("")
   const [Password, setPassword] = useState<String>("")
-
+  // signup, login 명칭 수정 필요 => login(x), signIn(o) / signup(x), signUp(o)
   const login = async (e: any) => {
     e.preventDefault();
     if (!Email && !Password) {
@@ -19,7 +19,7 @@ export default function Login() {
     } else if (!Password) {
       return alert("Password를 입력하세요.");
     } else {
-      Signin(Email, Password)
+      authSignIn(Email, Password)
         .then((response) => {
           alert('로그인 성공하셨습니다!');
           document.location.href = "../Main";
@@ -42,7 +42,7 @@ export default function Login() {
             <form>
               <div className="flex flex-row items-center justify-center lg:justify-start">
                 <p className="text-sm mb-0 mr-4 text-black">Don't have an account?</p>
-                <Link to="/signup"
+                <Link to="/sign-up"
                       className="text-sm text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
                 >Register</Link>
               </div>
@@ -85,9 +85,8 @@ export default function Login() {
               </div>
 
               <div className="text-center lg:text-left">
-                <SubmitButton Event={Login} onClick={login} color="white" bgColor={currentColor} text="Login"
-                              borderRadius="10px" width="full" icon={undefined} bgHoverColor={undefined}
-                              size={undefined}/>
+                <SubmitButton style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                        className="w-full" text="Login" Event={SignIn} onClick={login}/>
               </div>
             </form>
           </div>

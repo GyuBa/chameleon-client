@@ -1,22 +1,22 @@
 import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {Layout} from './components';
+import './App.css';
 import {
   Main,
-  Login,
+  SignIn,
   SignUp,
   Payment,
   Account,
-  ChangePW,
+  ChangePassword,
   Model,
   ExecuteModel,
   CreateModel,
-  Tarfile,
+  TarFile,
   Dockerfile,
   WebSocket,
   CreateDescription
 } from './pages';
-import './App.css';
 
 export default function App() {
   return (
@@ -25,19 +25,19 @@ export default function App() {
         <Route path="/" element={(<Layout/>)}>
           <Route path="/main" element={(<Main/>)}/>
           <Route path="/account" element={<Account/>}/>
-          <Route path="/changepw" element={<ChangePW/>}/>
+          <Route path="/change-password" element={<ChangePassword/>}/>
           <Route path="/payment" element={<Payment/>}/>
           <Route path="/websocket" element={<WebSocket/>}/>
-          {/*경로 수정 필요*/}
+          {/*모델별 경로 고려*/}
           <Route path="/model" element={<Model/>}/>
-          <Route path="/executemodel" element={<ExecuteModel/>}/>
-          <Route path="/createmodel" element={<CreateModel/>}/>
-          <Route path="/createmodel/description" element={<CreateDescription/>}/>
-          <Route path="/createmodel/tarfile" element={<Tarfile/>}/>
-          <Route path="/createmodel/dockerfile" element={<Dockerfile/>}/>
+          <Route path="/execute-model" element={<ExecuteModel/>}/>
+          <Route path="/create/model" element={<CreateModel/>}/>
+          <Route path="/create/description" element={<CreateDescription/>}/>
+          <Route path="/menu/tar-file" element={<TarFile/>}/>
+          <Route path="/menu/dockerfile" element={<Dockerfile/>}/>
         </Route>
-        <Route path="/login" element={(<Login/>)}/>
-        <Route path="/signup" element={(<SignUp/>)}/>
+        <Route path="/sign-in" element={(<SignIn/>)}/>
+        <Route path="/sign-up" element={(<SignUp/>)}/>
       </Routes>
     </BrowserRouter>
   );

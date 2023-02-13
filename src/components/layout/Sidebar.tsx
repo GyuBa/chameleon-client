@@ -2,7 +2,7 @@ import React from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import {GiChameleonGlyph} from 'react-icons/gi';
 import {MdOutlineCancel} from 'react-icons/md';
-import {links} from '../../assets/dummy';
+import {links} from '../../assets/Dummy';
 import {useStateContext} from '../../contexts/ContextProvider';
 
 export default function Sidebar() {

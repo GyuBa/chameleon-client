@@ -70,9 +70,6 @@ export default function Websocket() {
               text="WebSocket Send"
               borderRadius="10px"
               width="full"
-              icon={undefined}
-              bgHoverColor={undefined}
-              size={undefined}
           />
         </span>
                 <div className="my-4 md:p-5 rounded-3xl bg-slate-300">

@@ -1,6 +1,5 @@
 export {default as Button} from './button/Button';
 export {default as SubmitButton} from './button/SubmitButton';
-export {default as NavButton} from './button/NavButton';
 export {default as Sidebar} from './layout/Sidebar';
 export {default as Navbar} from './layout/Navbar';
 export {default as Footer} from './layout/Footer';

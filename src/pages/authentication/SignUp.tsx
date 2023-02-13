@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {SubmitButton} from '../../components/index';
 import chameleon from '../../assets/images/chameleon.png';
 import {useStateContext} from "../../contexts/ContextProvider";
-import {Signup} from "../../service/login/LoginToken"
+import {authSignUp} from "../../service/login/LoginToken"
 
 export default function SignUp() {
   const {currentColor} = useStateContext();
@@ -18,7 +18,7 @@ export default function SignUp() {
   const [IsEmail, setIsEmail] = useState<boolean>(false);
   const [IsPassword, setIsPassword] = useState<boolean>(false);
   const [IsName, setIsName] = useState<boolean>(false);
-
+  // signup, login 명칭 수정 필요 => login(x), signIn(o) / signup(x), signUp(o)
   const signup = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -37,10 +37,10 @@ export default function SignUp() {
       } else if (!Name) {
         return alert("Name을 입력하세요.");
       } else {
-        Signup(Email, Password, Name).then(function (response) {
+        authSignUp(Email, Password, Name).then(function (response) {
           console.log("가입 성공");
           alert("가입에 성공하셨습니다!");
-          document.location.href = "/login";
+          document.location.href = "/sign-in";
 
         })
           .catch((error) => {
@@ -103,7 +103,7 @@ export default function SignUp() {
             <form>
               <div className="flex flex-row items-center justify-center lg:justify-start">
                 <p className="text-sm mb-0 mr-4 text-black">Already have an Account?</p>
-                <Link to="/login"
+                <Link to="/sign-in"
                       className="text-sm text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
                 >Login</Link>
               </div>
@@ -150,8 +150,8 @@ export default function SignUp() {
                   <span className={`message ${IsPassword ? 'success' : 'error'}`}>{PasswordMessage} </span>}
               </div>
               <div className="text-center lg:text-left">
-                <SubmitButton Event={SignUp} onClick={signup} color="white" bgColor={currentColor} text="SignUp"
-                              borderRadius="10px" width="full" icon={undefined} bgHoverColor={undefined} size={undefined}/>
+                <SubmitButton style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                              className="w-full" text="SignUp" Event={SignUp} onClick={signup}/>
               </div>
             </form>
           </div>

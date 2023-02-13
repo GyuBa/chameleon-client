@@ -1,7 +1,7 @@
 import React from "react";
-import {Button} from "../../components";
+import {Button} from "../../../components";
 import {Link} from "react-router-dom";
-import {useStateContext} from "../../contexts/ContextProvider";
+import {useStateContext} from "../../../contexts/ContextProvider";
 import MDEditor from '@uiw/react-md-editor';
 
 export default function CreateDescription() {
@@ -15,13 +15,13 @@ export default function CreateDescription() {
           <MDEditor.Markdown className="py-5" source={value} style={{whiteSpace: 'pre-wrap'}}/>
         </div>
         <div className="flex gap-3 float-right">
-          <Link to="/createmodel">
-            <Button color="black" bgColor="white" text="back" borderRadius="10px" width="16"
-                    padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
+          <Link to="/create/model">
+            <Button style={{backgroundColor: "white", color: "black", borderRadius: "10px"}}
+                    className="w-16 p-2" text="back"/>
           </Link>
-          <Link to="/createmodel/parameter">
-            <Button color="white" bgColor={currentColor} text="next" borderRadius="10px" width="16"
-                    padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
+          <Link to="/create/parameter">
+            <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                    className="w-16 p-2" text="next"/>
           </Link>
         </div>
       </div>

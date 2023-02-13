@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {Header} from "../components";
-import kakao from '../assets/images/kakao.png'
-import payco from '../assets/images/payco.png'
-import toss from '../assets/images/toss.png'
-import instance from "../ConstantValue";
+import {Header} from "../../components";
+import instance from "../../ConstantValue";
+import kakao from '../../assets/images/kakao.png'
+import payco from '../../assets/images/payco.png'
+import toss from '../../assets/images/toss.png'
 
 export interface Iamport {
     init: (accountID: string) => void;
