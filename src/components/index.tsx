@@ -6,3 +6,4 @@ export {default as Footer} from './layout/Footer';
 export {default as Header} from './layout/Header';
 export {default as UserProfile} from './layout/UserProfile';
 export {default as Layout} from './layout/Layout';
+export {default as Description} from './layout/Description';

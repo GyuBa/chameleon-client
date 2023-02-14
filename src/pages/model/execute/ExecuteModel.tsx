@@ -48,7 +48,7 @@ export default function ExecuteModel() {
       <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
         <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
           <Header category="" title="Model01"/>
-          <Link to="/board">
+          <Link to="/model">
             <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
                     className="text-sm w-full p-1.5" text="back"/>
           </Link>

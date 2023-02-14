@@ -34,9 +34,6 @@ export default function WebSocket({message, icon, bgColor, color, bgHoverColor, 
             style={{ backgroundColor: bgColor, color, borderRadius }}
             className={` text-${size} p-3 w-${width} hover:drop-shadow-xl hover:bg-${bgHoverColor}`}
             disabled={readyState !== ReadyState.OPEN}
-        >
-            {icon}{text}
-            {Event}
-        </button>
+        >{icon}{text}{Event}</button>
     );
 }

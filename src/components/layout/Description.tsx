@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import {Button, Header} from "../../../components";
-import {useStateContext} from "../../../contexts/ContextProvider";
 import {Badge} from "flowbite-react";
 import MDEditor from "@uiw/react-md-editor";
+import {Button, Header} from "../index";
+import {useStateContext} from "../../contexts/ContextProvider";
 
 export default function Description() {
   const {currentColor, value} = useStateContext();

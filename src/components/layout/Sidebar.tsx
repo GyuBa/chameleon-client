@@ -8,11 +8,7 @@ import {useStateContext} from '../../contexts/ContextProvider';
 export default function Sidebar() {
   const {currentColor, activeMenu, setActiveMenu, screenSize} = useStateContext();
 
-  const handleCloseSideBar = () => {
-    if (activeMenu !== undefined && screenSize <= 900) {
-      setActiveMenu(false);
-    }
-  };
+  const handleCloseSideBar = () => {if (activeMenu !== undefined && screenSize <= 900) setActiveMenu(false);};
 
   const activeLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-white text-md m-2';
   const normalLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 hover:bg-light-gray m-2';
@@ -24,16 +20,14 @@ export default function Sidebar() {
           <div className="flex justify-between items-center">
             <Link to="/main" onClick={handleCloseSideBar}
                   className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight text-slate-900">
-              <GiChameleonGlyph/> <span>Chameleon</span>
+              <GiChameleonGlyph/><span>Chameleon</span>
             </Link>
             <button
               type="button"
               onClick={() => setActiveMenu(!activeMenu)}
               style={{color: currentColor}}
-              className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block md:hidden"
-            >
-              <MdOutlineCancel/>
-            </button>
+              className="text-xl rounded-full p-2 hover:bg-light-gray mt-4 mr-2 block md:hidden"
+            ><MdOutlineCancel/></button>
           </div>
           <div className="mt-10 ">
             {links.map((item) => (
@@ -43,9 +37,9 @@ export default function Sidebar() {
                 </p>
                 {item.links.map((link) => (
                   <NavLink
+                    onClick={handleCloseSideBar}
                     to={`/${link.name}`}
                     key={link.name}
-                    onClick={handleCloseSideBar}
                     style={({isActive}) => ({
                       backgroundColor: isActive ? currentColor : '',
                     })}
