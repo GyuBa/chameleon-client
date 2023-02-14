@@ -9,7 +9,6 @@ const currentColor = '#1E4DB7';
 const initialState = { userProfile: false, ChangeName: false, };
 
 export const ContextProvider = ({children}) => {
-  const [screenSize, setScreenSize] = useState(undefined);
   const [activeMenu, setActiveMenu] = useState(true);
   const [isClicked, setIsClicked] = useState(initialState);
   const [menuState, setMenuState] = useState(false);
@@ -61,6 +60,8 @@ export default function App() {
 
   const isDesktopOrMobile = useMediaQuery({query: '(max-width:767px)'});
 
+  const handleCloseSideBar = () => {if (activeMenu !== undefined) setActiveMenu(false);};
+
   return (
     <StateContext.Provider value={{
       initialState,
@@ -68,8 +69,6 @@ export default function App() {
       currentColor,
       activeMenu,
       setActiveMenu,
-      screenSize,
-      setScreenSize,
       isClicked,
       setIsClicked,
       menuState,
@@ -84,6 +83,7 @@ export default function App() {
       onClickMenu,
       selectModel,
       handleActiveMenu,
+      handleCloseSideBar
     }}>
       {children}
     </StateContext.Provider>
