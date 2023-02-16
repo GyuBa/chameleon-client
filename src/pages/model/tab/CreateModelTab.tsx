@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Header} from "../../../components";
-import {tabsData} from "../../../assets/dummy";
+import {tabsData} from "../../../assets/Dummy";
 import {Link} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
 import {useDropzone} from "react-dropzone";

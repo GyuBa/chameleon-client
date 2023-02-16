@@ -2,7 +2,7 @@ import React from 'react';
 import {useStateContext} from "../../../contexts/ContextProvider";
 import {Badge, Table} from "flowbite-react";
 import {Header} from "../../../components";
-import {myModel} from "../../../assets/dummy";
+import {myModel} from "../../../assets/Dummy";
 import {Link} from "react-router-dom";
 import {HiViewGrid} from "react-icons/hi";
 import {FiList} from "react-icons/fi";

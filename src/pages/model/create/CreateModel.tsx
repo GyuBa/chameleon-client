@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {tabsData} from "../../../assets/dummy"
+import {tabsData} from "../../../assets/Dummy"
 import CreateModelTab from "../tab/CreateModelTab";
 
 export default function CreateModel() {

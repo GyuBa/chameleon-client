@@ -2,7 +2,7 @@ import React from 'react';
 import {MdOutlineCancel} from 'react-icons/md';
 import {BsPersonCircle} from 'react-icons/bs';
 import {Button} from '../index';
-import {userProfileData} from '../../assets/dummy';
+import {userProfileData} from '../../assets/Dummy';
 import {useStateContext} from '../../contexts/ContextProvider';
 import {Link, NavLink} from 'react-router-dom';
 

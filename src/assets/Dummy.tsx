@@ -169,7 +169,7 @@ export const tabsData = [
   },
 ];
 
-export const schema = {
+/* export const schema = {
   definitions: {
     string: {
       type: "object",
@@ -486,4 +486,17 @@ export const uischema = {
       scope: "#/properties/parameter"
     },
   ]
-};
+}; */
+
+export const dSchema = {
+  properties: {
+    name: {
+      type: "string"
+    }
+  }
+}
+
+export const dUIschema = {
+  type: "Control",
+  scope: "#/properties/name"
+}
