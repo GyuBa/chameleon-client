@@ -500,3 +500,12 @@ export const dUIschema = {
   type: "Control",
   scope: "#/properties/name"
 }
+
+export const paramtab = [
+  {
+    label : "Parameters",
+  },
+  {
+    label : "Parameters(JSON)"
+  },
+];
