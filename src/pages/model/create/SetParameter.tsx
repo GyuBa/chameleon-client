@@ -10,6 +10,7 @@ import MonaCoEditor from "@monaco-editor/react"
 
 const url = "https://jsonforms.io/examples/basic"
 const initialData = {};
+
 function TransForm(stschema : string, stuischema : string) {
     const {currentColor} = useStateContext();
     const [data, setData] = useState(initialData);
@@ -30,7 +31,7 @@ function TransForm(stschema : string, stuischema : string) {
                         setData(data);
                     }}
                 />
-                <Link to="/execute-model" state = {{data : data, schema : mschema, uischema : muischema}}>
+                <Link to="/execute-model" state = {{schema : mschema, uischema : muischema}}>
                     <Button color="white" bgColor={currentColor} text="파라미터 test" borderRadius="10px" width="32"
                             padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
                 </Link>
