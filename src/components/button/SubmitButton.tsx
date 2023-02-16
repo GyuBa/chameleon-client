@@ -7,7 +7,7 @@ export default function SubmitButton({ style, className, icon, text, onClick, Ev
             type="button"
             onClick={onClick}
             style={style}
-            className={`hover:drop-shadow-xl whitespace-nowrap p-3 ` + className}
+            className={`flex hover:drop-shadow-xl whitespace-nowrap p-3 ` + className}
         >{icon}{text}{Event}</button>
     );
 };

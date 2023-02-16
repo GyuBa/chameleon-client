@@ -137,7 +137,11 @@ export default function Model() {
         </div>
         {currentLayout === "GridLayout" ? <GridLayout/> : <ListLayout/>}
       </div>
-      {modelState ? <Description/> : null}
+      {modelState?
+        <div className="w-2/6 ease-in-out duration-300 translate-x-0"><Description/></div>
+        :
+        <div className="ease-in-out duration-300 translate-x-full">{null}</div>
+      }
     </div>
   );
 };

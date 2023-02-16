@@ -9,7 +9,7 @@ export default function Description() {
   const {currentColor, value} = useStateContext();
   return (
     <div className="contents">
-      <div className="w-2/4 m-2 md:my-10 md:mr-10 mt-24 p-2 md:p-10 bg-white rounded-3xl overflow-auto">
+      <div className="m-2 md:my-10 mt-24 p-2 md:pr-5 md:py-10 bg-white rounded-3xl overflow-auto">
         <div className="flex justify-between items-center pb-6 border-b-1 border-gray-300">
           <Header category="" title="Model01"/>
           <div className="flex gap-2">

@@ -2,6 +2,7 @@ import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {Layout} from './components';
 import './App.css';
+import './styles/Dropzone.css';
 import {
   Main,
   SignIn,
