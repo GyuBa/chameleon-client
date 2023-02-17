@@ -9,7 +9,7 @@ export default function Button({style, className, icon, text}: DefaultButtonData
       type="button"
       onClick={() => setIsClicked(initialState)}
       style={style}
-      className={`hover:drop-shadow-xl whitespace-nowrap ` + className}
+      className={`hover:drop-shadow-xl whitespace-nowrap ${className}`}
     >{icon}{text}</button>
   );
 };
