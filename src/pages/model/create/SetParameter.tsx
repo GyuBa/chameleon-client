@@ -38,9 +38,7 @@ function TransForm(stschema : string, stuischema : string) {
             </div>
         );
 
-    } catch {
-
-    }
+    } catch {}
 
 }
 

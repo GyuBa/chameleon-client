@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from 'react';
+import OutputModule from "../module/Output"
+import OutputDescriptionModule from "../module/OutputDescription"
 import {useDropzone} from 'react-dropzone';
 import {Button, Header} from "../../../components";
 import {Link, useLocation} from "react-router-dom";
@@ -114,12 +116,8 @@ export default function ExecuteModel() {
               <ul className="px-5 pb-5 pt-2">{acceptedFileItems}</ul>
             </section>
           </div>
-          <div className="row-span-3 col-span-2 md:p-2 rounded-lg border-1 border-gray-300">
-            <p className="text-xl font-bold">Output</p>
-          </div>
-          <div className="row-span-1 col-span-2 md:p-2 rounded-lg border-1 border-gray-300">
-            <p className="text-xl font-bold">Output Description</p>
-          </div>
+          <OutputModule/>
+          <OutputDescriptionModule/>
         </div>
       </div>
     </div>
