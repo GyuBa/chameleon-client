@@ -69,8 +69,8 @@ export default function SetParameter() {
                         </div>
                         <div className="gap-4 grid md:pt-10 md:px-5 md:my-2 md:grid-cols-2">
                             <div>
-                                <div className="mb-2">
-                                    <h1 className="md:py-3 text-xl font-bold">Schema</h1>
+                                <h1 className="md:py-3 text-xl font-bold">Schema</h1>
+                                <div className="block max-w-sm rounded-lg bg-white p-6 shadow-lg dark:bg-neutral-700">
                                     <MonaCoEditor
                                         language="json"
                                         height={300}
@@ -88,6 +88,7 @@ export default function SetParameter() {
                                 </div>
                                 <div className="mb-2">
                                     <h1 className="md:py-3 text-xl font-bold">UISchema</h1>
+                                    <div className="block max-w-sm rounded-lg bg-white p-6 shadow-lg dark:bg-neutral-700">
                                     <MonaCoEditor
                                         language="json"
                                         height={300}
@@ -102,6 +103,7 @@ export default function SetParameter() {
                                             automaticLayout: true,
                                         }}
                                     />
+                                    </div>
                                 </div>
                             </div>
                             <div className="mb-2">

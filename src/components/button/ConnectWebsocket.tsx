@@ -10,7 +10,6 @@ export default function WebSocket({bgColor, color, borderRadius, width, Event} :
         shouldReconnect: (closeEvent) => true,
         onMessage: (message) => {
             let data = JSON.parse(message.data);
-
         }
     });
 
