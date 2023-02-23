@@ -25,6 +25,7 @@ type SubmitButtonData = {
   borderRadius: any,
   width: any,
   onClick: any,
+  disabled?: any,
   Event: any
 }
 

@@ -6,12 +6,12 @@ import {useStateContext} from "../../contexts/ContextProvider";
 import instance from "../../ConstantValue";
 import {setToken} from "../../service/TokenService";
 
-function Signup(email : any, password : any, name : any) {
+function Signup(email : string, password : string, userName : string) {
   return instance.post("/login/sign-up",
       {
         'email' : email,
         'password' : password,
-        'name' : name,
+        'userName' : userName,
       },
       {
         headers: {
@@ -31,7 +31,7 @@ export default function SignUp() {
   const {currentColor} = useStateContext();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [name, setName] = useState<string>("");
+  const [userName, setuserName] = useState<string>("");
 
   const [emailMessage, setEmailMessage] = useState<string>("");
   const [passwordMessage, setPasswordMessage] = useState<string>("");
@@ -39,13 +39,13 @@ export default function SignUp() {
 
   const [isEmail, setIsEmail] = useState<boolean>(false);
   const [isPassword, setIsPassword] = useState<boolean>(false);
-  const [isName, setIsName] = useState<boolean>(false);
+  const [isuserName, setIsuserName] = useState<boolean>(false);
 
   const signUp = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      if (!name) {
-        alert("이름을 입력하세요.");
+      if (!userName) {
+        alert("사용자명을 입력하세요.");
         return;
       } else if (!password) {
         alert("비밀번호를 입력하세요.");
@@ -54,7 +54,7 @@ export default function SignUp() {
         alert("이메일을 입력하세요.");
         return;
       } else {
-        Signup(email, password, name).then(function (response) {
+        Signup(email, password, userName).then(function (response) {
           console.log("가입 성공");
           alert("가입에 성공하셨습니다!");
           document.location.href = "/auth/sign-in";
@@ -66,17 +66,17 @@ export default function SignUp() {
           })
       }
     },
-    [name, email, password]
+    [userName, email, password]
   )
 
-  const onChangeName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value)
-    if (e.target.value.length < 2 || e.target.value.length > 5) {
-      setNameMessage('2글자 이상 5글자 미만으로 입력!')
-      setIsName(false)
+  const onChangeuserName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setuserName(e.target.value)
+    if (e.target.value.length < 2 || e.target.value.length > 16) {
+      setNameMessage('2글자 이상 16글자 미만으로 입력!')
+      setIsuserName(false)
     } else {
-      setNameMessage('올바른 이름 형식입니다.');
-      setIsName(true)
+      setNameMessage('올바른 사용자명 형식입니다.');
+      setIsuserName(true)
     }
   }, [])
   const onChangeEmail = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -127,16 +127,16 @@ export default function SignUp() {
               <div className="flex my-4 flex-1 border-t-1 border-gray-300 mt-0.5"/>
               <div className="mb-6">
                 <input
-                  onChange={onChangeName}
+                  onChange={onChangeuserName}
                   type="text"
                   className="text-base form-control block w-full px-4 py-2 text-base font-normal
                   text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
                   rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
                   focus:border-blue-600 focus:outline-none"
                   id="su-name"
-                  placeholder="Name"
+                  placeholder="User name"
                 />
-                {name.length > 0 && <span className={`message ${isName ? 'success' : 'error'}`}>{nameMessage} </span>}
+                {userName.length > 0 && <span className={`message ${isuserName ? 'success' : 'error'}`}>{nameMessage} </span>}
 
               </div>
               <div className="mb-6">
@@ -167,7 +167,8 @@ export default function SignUp() {
                   <span className={`message ${isPassword ? 'success' : 'error'}`}>{passwordMessage} </span>}
               </div>
               <div className="text-center lg:text-left">
-                <SubmitButton Event={SignUp} onClick={signUp} color="white" bgColor={currentColor} text="SignUp"
+                <SubmitButton disabled = {!(isuserName && isEmail && isPassword)}
+                              Event={SignUp} onClick={signUp} color="white" bgColor={currentColor} text="SignUp"
                               borderRadius="10px" width="full" icon={undefined} bgHoverColor={undefined} size={undefined}/>
               </div>
             </form>
