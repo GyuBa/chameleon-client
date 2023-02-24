@@ -2,7 +2,7 @@ import useWebSocket, {ReadyState} from "react-use-websocket"
 import React, {useCallback, useState} from 'react';
 import {WebSocketData} from "../types/Types";
 
-export default function WebSocket({bgColor, color, borderRadius, width, Event} : WebSocketData) {
+export default function WebSocket({bgColor, color, borderRadius, width, event} : WebSocketData) {
     const {
         sendMessage,
         readyState,
@@ -32,10 +32,6 @@ export default function WebSocket({bgColor, color, borderRadius, width, Event} :
             style={{ backgroundColor: bgColor, color, borderRadius }}
             className={` p-3 w-${width} hover:drop-shadow-xl`}
             disabled={readyState !== ReadyState.OPEN}
-        >
-            {'The WebSocket is currently'}{connectionStatus}
-            {Event}
-        </button>
-
+        >{'The WebSocket is currently'}{connectionStatus}{event}</button>
     );
 }

@@ -1,23 +1,24 @@
 import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {Layout} from './components';
+import './App.css';
+import './styles/Dropzone.css';
 import {
   Main,
-  Login,
+  SignIn,
   SignUp,
   Payment,
   Account,
-  ChangePW,
+  ChangePassword,
   Model,
   ExecuteModel,
   CreateModel,
-  Tarfile,
+  TarFile,
   Dockerfile,
   WebSocket,
-  Description,
-  SetParameter
+  CreateDescription,
+  CreateParameter
 } from './pages';
-import './App.css';
 
 export default function App() {
   return (
@@ -26,20 +27,20 @@ export default function App() {
         <Route path="/" element={(<Layout/>)}>
           <Route path="/main" element={(<Main/>)}/>
           <Route path="/account" element={<Account/>}/>
-          <Route path="/changepw" element={<ChangePW/>}/>
+          <Route path="/change-password" element={<ChangePassword/>}/>
           <Route path="/payment" element={<Payment/>}/>
           <Route path="/ws-test" element={<WebSocket/>}/>
-          {/*경로 수정 필요*/}
+          {/*모델별 경로 고려*/}
           <Route path="/model" element={<Model/>}/>
-          <Route path="/description" element={<Description/>}/>
-          <Route path="/executemodel" element={<ExecuteModel/>}/>
-          <Route path="/createmodel" element={<CreateModel/>}/>
-          <Route path="/setParameter" element={<SetParameter/>}/>
-          <Route path="/createmodel/tarfile" element={<Tarfile/>}/>
-          <Route path="/createmodel/dockerfile" element={<Dockerfile/>}/>
+          <Route path="/model/execute" element={<ExecuteModel/>}/>
+          <Route path="/model/create" element={<CreateModel/>}/>
+          <Route path="/model/create/description" element={<CreateDescription/>}/>
+          <Route path="/model/create/parameter" element={<CreateParameter/>}/>
+          <Route path="/menu/tar-file" element={<TarFile/>}/>
+          <Route path="/menu/dockerfile" element={<Dockerfile/>}/>
         </Route>
-        <Route path="/login" element={(<Login/>)}/>
-        <Route path="/signup" element={(<SignUp/>)}/>
+        <Route path="/sign-in" element={(<SignIn/>)}/>
+        <Route path="/sign-up" element={(<SignUp/>)}/>
       </Routes>
     </BrowserRouter>
   );

@@ -1,37 +1,43 @@
 import React, {useEffect, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
-import {Button, Header} from "../../components";
+import {Button, Header, SubmitButton} from "../../../components";
 import {Link} from "react-router-dom";
-import {useStateContext} from "../../contexts/ContextProvider";
+import {useStateContext} from "../../../contexts/ContextProvider";
 
 type IFile = File & { preview?: string };
 
 export default function ExecuteModel() {
   const {currentColor} = useStateContext();
   const [files, setFiles] = useState<IFile[]>([]);
+  const [hideDrop, setHideDrop] = useState<boolean>(false);
 
   const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
     accept: {
       'image/*': []
     },
     onDrop: acceptedFiles => {
+      setHideDrop(true);
       setFiles(acceptedFiles.map(file => Object.assign(file, {
         preview: URL.createObjectURL(file)
       })));
     }
   });
 
+  const removeFile = () => {
+    setFiles([]);
+  }
+
   const acceptedFileItems = acceptedFiles.map(file => (
     <li key={file.name}>
-      {file.name} - {file.size} bytes
+      {file.name} - {file.size} bytes{" "}
     </li>
   ));
 
   const thumbs = files.map(file => (
-    <div className="inline-flex rounded border border-black border-solid p-4" key={file.name}>
+    <div key={file.name}>
       <img className="block w-auto h-full"
            src={file.preview}
-           alt="model"
+           alt="file"
            onLoad={() => {
              URL.revokeObjectURL(file.preview as string)
            }}
@@ -40,7 +46,6 @@ export default function ExecuteModel() {
   ));
 
   useEffect(() => {
-    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
     return () => files.forEach(file => URL.revokeObjectURL(file.preview as string));
   });
 
@@ -50,25 +55,36 @@ export default function ExecuteModel() {
         <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
           <Header category="" title="Model01"/>
           <Link to="/model">
-            <Button color="white" bgColor={currentColor} text="back" borderRadius="10px" width="full"
-                    padding="1.5" size="sm" icon={undefined} bgHoverColor={undefined}/>
+            <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                    className="text-sm w-full p-1.5" text="back"/>
           </Link>
         </div>
         <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
           <div className="row-span-2 md:p-2 rounded-lg border-1 border-gray-300">
             <p className="text-xl font-bold">Parameter</p>
           </div>
-          <div className="row-span-2 md:p-2 rounded-lg border-1 border-gray-300">
-            <p className="text-xl font-bold">Input upload</p>
-            <section className="container">
-              <div {...getRootProps({className: 'dropzone'})}>
-                <input {...getInputProps()} />
-                <p className="inline-block px-5 py-3 text-gray-500 hover:text-gray-700 cursor-pointer">
-                  Drag & drop some files here, or click to select files</p>
+          <div className="row-span-2 md:p-2 rounded-lg border-1 border-gray-300 overflow-auto">
+            <div className="flex justify-between items-center">
+              <p className="text-xl font-bold">Input upload</p>
+              <div className="flex items-center gap-4">
+                <SubmitButton onClick={removeFile}
+                              style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                              className="text-sm w-full py-1 px-1.5" text="Remove"/>
+                <SubmitButton onClick={undefined}
+                              style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                              className="text-sm w-full py-1 px-1.5" text="Submit"/>
               </div>
-              <aside className="px-5 py-2 w-80">{thumbs}</aside>
-              <ul className="px-5 pb-5 pt-2">{acceptedFileItems}</ul>
-            </section>
+            </div>
+              <section className="container">
+                <div {...getRootProps()}
+                     className={hideDrop ? "hidden dropzone cursor-pointer" : "dropzone cursor-pointer"}>
+                  <input {...getInputProps()}/>
+                  <p className="inline-block px-1 text-gray-500 hover:text-gray-700">
+                    Drag & drop some files here, or click to select files</p>
+                </div>
+                <aside className="px-5 py-2 w-48">{thumbs}</aside>
+                <ul className="px-5 pb-5 pt-2">{acceptedFileItems}</ul>
+              </section>
           </div>
           <div className="row-span-3 col-span-2 md:p-2 rounded-lg border-1 border-gray-300">
             <p className="text-xl font-bold">Output</p>

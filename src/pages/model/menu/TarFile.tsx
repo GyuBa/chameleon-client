@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Tarfile() {
+export default function TarFile() {
   return (
     <div className="contents">
     </div>

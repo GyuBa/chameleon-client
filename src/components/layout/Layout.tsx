@@ -9,22 +9,22 @@ export default function Layout() {
   return (
       <div className="flex relative">
         {activeMenu ? (
-          <div className="w-72 fixed sidebar bg-white z-50">
+          <div className="w-72 fixed sidebar bg-white z-50 ease-in-out duration-300 translate-x-0">
             <Sidebar/>
           </div>
         ) : (
-          <div className="w-0">
+          <div className="w-0 ease-in-out duration-300 translate-x-1">
             <Sidebar/>
           </div>
         )}
         <div
           className={
             activeMenu
-              ? 'bg-main-bg w-full min-h-screen md:ml-72'
-              : 'bg-main-bg w-full min-h-screen flex-2'
+              ? 'w-full min-h-screen md:ml-72'
+              : 'w-full min-h-screen'
           }
         >
-          <div className="fixed md:static bg-main-bg navbar w-full">
+          <div className="fixed md:static navbar w-full">
             <Navbar/>
           </div>
           <div>

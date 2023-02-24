@@ -1,46 +1,38 @@
+import {CSSProperties, ReactNode} from "react";
+
 type HeaderData = {
-  category: string;
-  title: string;
+  category?: string;
+  title?: string;
 }
 
-type ButtonData = {
-  icon: any,
-  bgColor: any,
-  color: any,
-  bgHoverColor: any,
-  size: any,
-  text: any,
-  borderRadius: any,
-  width: any
-  padding: any
+type DefaultButtonData = {
+  style?: CSSProperties | undefined,
+  className?: string,
+  icon?: ReactNode,
+  text?: string,
 }
 
 type SubmitButtonData = {
-  icon: any,
-  bgColor: any,
-  color: any,
-  bgHoverColor: any,
-  size: any,
-  text: any,
-  borderRadius: any,
-  width: any,
-  onClick: any,
-  Event: any
-}
+  style?: CSSProperties | undefined,
+  className?: string,
+  icon?: ReactNode,
+  text?: string,
+  onClick?: Promise<void> | any,
+  event?: JSX.Element | any,
+} // onClick, event type 수정 필요
 
-type NavButtonData = {
-  customFunc: any,
-  icon: any,
-  color: any,
-  dotColor: any
-}
-
+// WebSocketData type 수정 필요
 type WebSocketData = {
-  bgColor: string,
-  color: string,
-  borderRadius: string,
-  width: string,
-  Event: any
+  message?: any,
+  icon?: ReactNode,
+  bgColor?: string,
+  color?: string,
+  bgHoverColor?: string,
+  size?: string,
+  text?: string,
+  borderRadius?: string,
+  width?: string,
+  event?: any
 }
 
-export type {HeaderData, ButtonData, NavButtonData, SubmitButtonData, WebSocketData};
+export type {HeaderData, DefaultButtonData, SubmitButtonData, WebSocketData};

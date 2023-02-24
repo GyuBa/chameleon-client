@@ -1,15 +1,15 @@
 import React from 'react';
-import {useStateContext} from "../../contexts/ContextProvider";
 import {Badge, Table} from "flowbite-react";
-import {Header} from "../../components";
-import {myModel} from "../../assets/dummy";
+import {myModel} from "../../../assets/Dummy";
 import {Link} from "react-router-dom";
+import {useStateContext} from "../../../contexts/ContextProvider";
+import {Header} from "../../../components";
+import {Description} from "../../../components/index";
 import {HiViewGrid} from "react-icons/hi";
 import {FiList} from "react-icons/fi";
 import {RiDeleteBinLine} from "react-icons/ri";
 import {BiPencil, BiAddToQueue, BiDotsVerticalRounded, BiTrash} from "react-icons/bi";
 import {VscDebugStart} from "react-icons/vsc";
-import {Description} from "../index";
 
 export default function Model() {
   const {
@@ -24,7 +24,7 @@ export default function Model() {
 
   const ArrangeMenu = () => (
     <div className="flex items-center gap-2">
-      <Link to="/createmodel" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
+      <Link to="/model/create" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
         <BiAddToQueue size="25" color="#484848" className="pl-1"/>
         <span className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">모델생성</span>
       </Link>
@@ -51,7 +51,7 @@ export default function Model() {
 
   const Menu = () => (
     <div className="nav-item absolute right-4 top-30 bg-white drop-shadow-lg py-2 px-4 rounded-lg w-36">
-      <Link to="/createmodel" className="flex gap-1 border-b-1 border-gray-400 hover:bg-gray-100 items-center">
+      <Link to="/model/create" className="flex gap-1 border-b-1 border-gray-400 hover:bg-gray-100 items-center">
         <BiAddToQueue size="25" color="#484848" className="pl-1"/>
         <span className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">모델생성</span>
       </Link>
@@ -67,7 +67,7 @@ export default function Model() {
   );
 
   const GridLayout = () => (
-    <div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 gap-4 mt-10">
+    <div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 gap-4 mt-10 overflow-auto overflow-scroll max-h-screen">
       {myModel.data.map((item) => (
         <div onClick={selectModel}
              className="w-auto px-5 p-5 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl cursor-pointer">
@@ -86,7 +86,7 @@ export default function Model() {
   );
 
   const ListLayout = () => (
-    <div className="mt-10">
+    <div className="mt-10 overflow-auto overflow-scroll max-h-screen">
       <Table hoverable={true}>
         <Table.Head>
           {myModel.header.map((item) => (
@@ -137,7 +137,11 @@ export default function Model() {
         </div>
         {currentLayout === "GridLayout" ? <GridLayout/> : <ListLayout/>}
       </div>
-      {modelState ? <Description/> : null}
+      {modelState?
+        <div className="w-2/6 ease-in-out duration-300 translate-x-0"><Description/></div>
+        :
+        <div className="w-0 ease-in-out duration-300 translate-x-full"><Description/></div>
+      }
     </div>
   );
 };
