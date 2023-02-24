@@ -25,13 +25,13 @@ type SubmitButtonData = {
 type WebSocketData = {
   message?: any,
   icon?: ReactNode,
-  bgColor?: any,
-  color?: any,
-  bgHoverColor?: any,
-  size?: any,
-  text?: any,
-  borderRadius?: any,
-  width?: any,
+  bgColor?: string,
+  color?: string,
+  bgHoverColor?: string,
+  size?: string,
+  text?: string,
+  borderRadius?: string,
+  width?: string,
   Event?: any
 }
 

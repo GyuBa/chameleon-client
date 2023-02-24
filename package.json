@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@jsonforms/material-renderers": "^3.0.0",
     "@jsonforms/react": "^3.0.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -21,6 +22,7 @@
     "katex": "^0.16.4",
     "mermaid": "^9.3.0",
     "node-sass": "^8.0.0",
+    "reacct": "^0.0.1-security",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
