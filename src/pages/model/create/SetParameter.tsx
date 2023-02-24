@@ -32,8 +32,8 @@ function TransForm(stschema : string, stuischema : string) {
                     }}
                 />
                 <Link to="/execute-model" state = {{schema : mschema, uischema : muischema}}>
-                    <Button color="white" bgColor={currentColor} text="파라미터 test" borderRadius="10px" width="32"
-                            padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
+                    <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                            className="w-32 p-2" text="Parameter Test"/>
                 </Link>
             </div>
         );
@@ -111,13 +111,13 @@ export default function SetParameter() {
                         </div>
                     </div>
                     <div className="flex gap-3 float-right">
-                        <Link to="/create-model">
-                            <Button color="black" bgColor="white" text="취소" borderRadius="10px" width="16"
-                                    padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
+                        <Link to="/board">
+                            <Button style={{backgroundColor: "white", color: "black", borderRadius: "10px"}}
+                                    className="w-16 p-2" text="back"/>
                         </Link>
-                        <Link to="/model">
-                            <Button color="white" bgColor={currentColor} text="생성" borderRadius="10px" width="32"
-                                    padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
+                        <Link to="/create/description">
+                            <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                                    className="w-16 p-2" text="next"/>
                         </Link>
                     </div>
                 </div>

@@ -22,10 +22,11 @@ export const ContextProvider = ({children}) => {
 
   const selectModel = () => {setModelState(prevState => !prevState)};
 
+  const handleActiveMenu = () => setActiveMenu(!activeMenu);
+
   const isDesktopOrMobile = useMediaQuery({query: '(max-width:767px)'});
 
   return (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
     <StateContext.Provider value={{
       initialState,
       isDesktopOrMobile,
@@ -44,7 +45,8 @@ export const ContextProvider = ({children}) => {
       setModelState,
       handleClick,
       onClickMenu,
-      selectModel
+      selectModel,
+        handleActiveMenu
     }}>
       {children}
     </StateContext.Provider>

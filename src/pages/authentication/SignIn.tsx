@@ -6,8 +6,8 @@ import {useStateContext} from "../../contexts/ContextProvider";
 import instance from "../../ConstantValue";
 import {setToken} from "../../service/TokenService";
 
-function SignIn (email : any, password : any) {
-  return instance.post("/login/sign-in",
+function authSignIn(email : any, password : any) {
+  return instance.post("/auth/sign-in",
       {
         'email' : email,
         'password' : password,
@@ -22,17 +22,17 @@ function SignIn (email : any, password : any) {
       .then(function(response) {
         setToken(response.data.access_token);
         if(response.data.code === 401) {
-          alert('가입에 실패하셨습니다. 가입하고자 하는 Email을 재확인바랍니다.');
+          alert('로그인에 실패하셨습니다.');
         }
       });
 }
 
-export default function Signin() {
+export default function SignIn() {
   const {currentColor} = useStateContext();
   const [email, setEmail] = useState<String>("")
   const [password, setPassword] = useState<String>("")
 
-  const signIn = async (e: any) => {
+  const signin = async (e: any) => {
     e.preventDefault();
     if (!email) {
       alert("이메일을 입력하세요.");
@@ -41,7 +41,7 @@ export default function Signin() {
       alert("비밀번호를 입력하세요.");
       return;
     } else {
-      SignIn(email, password)
+      authSignIn(email, password)
         .then((response) => {
           alert('로그인 성공하셨습니다!');
           document.location.href = "../../Main";
@@ -64,7 +64,7 @@ export default function Signin() {
             <form>
               <div className="flex flex-row items-center justify-center lg:justify-start">
                 <p className="text-sm mb-0 mr-4 text-black">Don't have an account?</p>
-                <Link to="/auth/sign-up"
+                <Link to="/sign-up"
                       className="text-sm text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
                 >Register</Link>
               </div>
@@ -107,9 +107,8 @@ export default function Signin() {
               </div>
 
               <div className="text-center lg:text-left">
-                <SubmitButton Event={SignIn} onClick={signIn} color="white" bgColor={currentColor} text="Login"
-                              borderRadius="10px" width="full" icon={undefined} bgHoverColor={undefined}
-                              size={undefined}/>
+                <SubmitButton style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                              className="w-full" text="Login" Event={SignIn} onClick={signin}/>
               </div>
             </form>
           </div>

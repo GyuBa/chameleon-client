@@ -6,8 +6,8 @@ import {useStateContext} from "../../contexts/ContextProvider";
 import instance from "../../ConstantValue";
 import {setToken} from "../../service/TokenService";
 
-function Signup(email : string, password : string, userName : string) {
-  return instance.post("/login/sign-up",
+function authSignUp(email : string, password : string, userName : string) {
+  return instance.post("/auth/sign-up",
       {
         'email' : email,
         'password' : password,
@@ -41,7 +41,7 @@ export default function SignUp() {
   const [isPassword, setIsPassword] = useState<boolean>(false);
   const [isuserName, setIsuserName] = useState<boolean>(false);
 
-  const signUp = useCallback(
+  const signup = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (!userName) {
@@ -54,7 +54,7 @@ export default function SignUp() {
         alert("이메일을 입력하세요.");
         return;
       } else {
-        Signup(email, password, userName).then(function (response) {
+        authSignUp(email, password, userName).then(function (response) {
           console.log("가입 성공");
           alert("가입에 성공하셨습니다!");
           document.location.href = "/auth/sign-in";
@@ -120,7 +120,7 @@ export default function SignUp() {
             <form>
               <div className="flex flex-row items-center justify-center lg:justify-start">
                 <p className="text-sm mb-0 mr-4 text-black">Already have an Account?</p>
-                <Link to="/auth/sign-in"
+                <Link to="/sign-in"
                       className="text-sm text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
                 >Login</Link>
               </div>
@@ -167,9 +167,9 @@ export default function SignUp() {
                   <span className={`message ${isPassword ? 'success' : 'error'}`}>{passwordMessage} </span>}
               </div>
               <div className="text-center lg:text-left">
-                <SubmitButton disabled = {!(isuserName && isEmail && isPassword)}
-                              Event={SignUp} onClick={signUp} color="white" bgColor={currentColor} text="SignUp"
-                              borderRadius="10px" width="full" icon={undefined} bgHoverColor={undefined} size={undefined}/>
+                <SubmitButton style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                              className="w-full" text="SignUp" Event={SignUp} onClick={signup}
+                              disabled = {!(isuserName && isEmail && isPassword)}/>
               </div>
             </form>
           </div>

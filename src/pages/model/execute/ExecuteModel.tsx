@@ -62,8 +62,8 @@ export default function ExecuteModel() {
         <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
           <Header category="" title="Model01"/>
           <Link to="/model">
-            <Button color="white" bgColor={currentColor} text="back" borderRadius="10px" width="full"
-                    padding="1.5" size="sm" icon={undefined} bgHoverColor={undefined}/>
+            <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+              className="text-sm w-full p-1.5" text="back"/>
           </Link>
         </div>
         <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">

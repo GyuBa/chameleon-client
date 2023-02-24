@@ -110,12 +110,12 @@ export default function CreateModelTab(number : number) {
             </div>
             <div className="flex gap-3 float-right">
                 <Link to="/model">
-                    <Button color="black" bgColor="white" text="취소" borderRadius="10px" width="16"
-                            padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
+                    <Button style={{backgroundColor: "white", color: "black", borderRadius: "10px"}}
+                            className="w-16 p-2" text="back"/>
                 </Link>
-                <Link to="/set-parameter">
-                    <Button color="white" bgColor={currentColor} text="파라미터 설정" borderRadius="10px" width="32"
-                            padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
+                <Link to="/create/description">
+                    <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                            className="w-16 p-2" text="next"/>
                 </Link>
             </div>
         </div>

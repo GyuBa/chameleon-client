@@ -24,7 +24,7 @@ export default function Model() {
 
   const ArrangeMenu = () => (
     <div className="flex items-center gap-2">
-      <Link to="/create-model" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
+      <Link to="/create/model" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
         <BiAddToQueue size="25" color="#484848" className="pl-1"/>
         <span className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">모델생성</span>
       </Link>
@@ -51,7 +51,7 @@ export default function Model() {
 
   const Menu = () => (
     <div className="nav-item absolute right-4 top-30 bg-white drop-shadow-lg py-2 px-4 rounded-lg w-36">
-      <Link to="/create-model" className="flex gap-1 border-b-1 border-gray-400 hover:bg-gray-100 items-center">
+      <Link to="/create/model" className="flex gap-1 border-b-1 border-gray-400 hover:bg-gray-100 items-center">
         <BiAddToQueue size="25" color="#484848" className="pl-1"/>
         <span className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">모델생성</span>
       </Link>

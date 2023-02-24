@@ -11,10 +11,10 @@ import {
   Model,
   ExecuteModel,
   CreateModel,
-  Tarfile,
+  TarFile,
   Dockerfile,
   WebSocket,
-  Description,
+  CreateDescription,
   SetParameter
 } from './pages';
 import './App.css';
@@ -31,15 +31,15 @@ export default function App() {
           <Route path="/ws-test" element={<WebSocket/>}/>
           {/*경로 수정 필요*/}
           <Route path="/model" element={<Model/>}/>
-          <Route path="/description" element={<Description/>}/>
           <Route path="/execute-model" element={<ExecuteModel/>}/>
-          <Route path="/create-model" element={<CreateModel/>}/>
-          <Route path="/set-parameter" element={<SetParameter/>}/>
-          <Route path="/create-model/tar-file" element={<Tarfile/>}/>
-          <Route path="/create-model/dockerfile" element={<Dockerfile/>}/>
+          <Route path="/create/model" element={<CreateModel/>}/>
+          <Route path="/create/description" element={<CreateDescription/>}/>
+          <Route path="/create/parameter" element={<SetParameter/>}/>
+          <Route path="/menu/tar-file" element={<TarFile/>}/>
+          <Route path="/menu/dockerfile" element={<Dockerfile/>}/>
         </Route>
-        <Route path="/auth/sign-in" element={(<SignIn/>)}/>
-        <Route path="/auth/sign-up" element={(<SignUp/>)}/>
+        <Route path="/sign-in" element={(<SignIn/>)}/>
+        <Route path="/sign-up" element={(<SignUp/>)}/>
       </Routes>
     </BrowserRouter>
   );

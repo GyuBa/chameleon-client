@@ -4,10 +4,17 @@ import {BsFillPersonFill} from 'react-icons/bs';
 import {MdKeyboardArrowDown} from 'react-icons/md';
 import {UserProfile} from '../index';
 import {useStateContext} from '../../contexts/ContextProvider';
-import {NavButton} from '../../components/index';
 
 export default function Navbar () {
-  const { currentColor, activeMenu, setActiveMenu, handleClick, isClicked, setScreenSize, screenSize } = useStateContext();
+  const {
+    currentColor,
+    setActiveMenu,
+    handleClick,
+    isClicked,
+    handleActiveMenu,
+    setScreenSize,
+    screenSize
+  } = useStateContext();
 
   useEffect(() => {
     const handleResize = () => setScreenSize(window.innerWidth);
@@ -24,11 +31,11 @@ export default function Navbar () {
     }
   }, [screenSize]);
 
-  const handleActiveMenu = () => setActiveMenu(!activeMenu);
-
   return (
     <div className="flex w-full justify-between p-2 relative">
-      <NavButton customFunc={handleActiveMenu} color={currentColor} icon={<AiOutlineMenu/>} dotColor={undefined}/>
+      <button type="button" onClick={handleActiveMenu} style={{color: `${currentColor}`}}
+              className="relative text-xl rounded-full p-3 hover:bg-light-gray"
+      ><AiOutlineMenu/></button>
       <div className="flex">
         <div
           className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"

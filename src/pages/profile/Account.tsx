@@ -6,7 +6,7 @@ import {useStateContext} from "../../contexts/ContextProvider";
 import {Link} from "react-router-dom";
 
 export default function Account() {
-  const {currentColor, handleClick, isClicked, setIsClicked, initialState} = useStateContext();
+  const {currentColor, handleClick, isClicked} = useStateContext();
   return (
     <div className="contents">
       <div className="w-2/3 m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
@@ -34,26 +34,14 @@ export default function Account() {
             <div onClick={() => handleClick('changeName')}>
               {isClicked.changeName ? (
                 <div className="flex gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setIsClicked(initialState)}
-                    style={{backgroundColor: 'white', color: 'black', borderRadius: '10px'}}
-                    className={` text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
-                  >{"취소"}</button>
-                  <button
-                    type="button"
-                    onClick={() => setIsClicked(initialState)}
-                    style={{backgroundColor: `${currentColor}`, color: 'white', borderRadius: '10px'}}
-                    className={` text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
-                  >{"확인"}</button>
+                  <Button style={{backgroundColor: "white", color: "black", borderRadius: "10px"}}
+                          className="text-sm p-2" text="취소"/>
+                  <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                          className="text-sm p-2" text="확인"/>
                 </div>
               ) : (
-                <button
-                  type="button"
-                  onClick={() => setIsClicked(initialState)}
-                  style={{backgroundColor: `${currentColor}`, color: 'white', borderRadius: '10px'}}
-                  className={` text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
-                >{"이름 변경"}</button>
+                  <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                          className="text-sm p-2" text="이름 변경"/>
               )}
             </div>
           </div>
@@ -64,8 +52,8 @@ export default function Account() {
             <HiOutlineLockClosed className="mx-4 w-10 h-10"/>
             <p className="w-full p-2">비밀번호</p>
             <Link to="/change-password">
-              <Button color="white" bgColor={currentColor} text="수정" borderRadius="10px"
-                      padding="2" size="sm" width={undefined} icon={undefined} bgHoverColor={undefined}/>
+              <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                      className="text-sm p-2" text="수정"/>
             </Link>
           </div>
         </div>
