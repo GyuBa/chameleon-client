@@ -37,7 +37,7 @@ export default function ExecuteModel() {
     <div key={file.name}>
       <img className="block w-auto h-full"
            src={file.preview}
-           alt="model"
+           alt="file"
            onLoad={() => {
              URL.revokeObjectURL(file.preview as string)
            }}
@@ -67,14 +67,19 @@ export default function ExecuteModel() {
             <div className="flex justify-between items-center">
               <p className="text-xl font-bold">Input upload</p>
               <div className="flex items-center gap-4">
-                <SubmitButton onClick={removeFile} style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}} className="text-sm w-full py-1 px-1.5" text="Remove"/>
-                <SubmitButton onClick={undefined} style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}} className="text-sm w-full py-1 px-1.5" text="Submit"/>
+                <SubmitButton onClick={removeFile}
+                              style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                              className="text-sm w-full py-1 px-1.5" text="Remove"/>
+                <SubmitButton onClick={undefined}
+                              style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                              className="text-sm w-full py-1 px-1.5" text="Submit"/>
               </div>
             </div>
               <section className="container">
-                <div {...getRootProps()} className={hideDrop ? "hidden dropzone" : "dropzone"}>
+                <div {...getRootProps()}
+                     className={hideDrop ? "hidden dropzone cursor-pointer" : "dropzone cursor-pointer"}>
                   <input {...getInputProps()}/>
-                  <p className="inline-block px-5 py-3 text-gray-500 hover:text-gray-700 cursor-pointer">
+                  <p className="inline-block px-1 text-gray-500 hover:text-gray-700">
                     Drag & drop some files here, or click to select files</p>
                 </div>
                 <aside className="px-5 py-2 w-48">{thumbs}</aside>

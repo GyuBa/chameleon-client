@@ -17,7 +17,7 @@ import {
   Dockerfile,
   WebSocket,
   CreateDescription,
-  SetParameter
+  CreateParameter
 } from './pages';
 
 export default function App() {
@@ -32,10 +32,10 @@ export default function App() {
           <Route path="/ws-test" element={<WebSocket/>}/>
           {/*모델별 경로 고려*/}
           <Route path="/model" element={<Model/>}/>
-          <Route path="/execute-model" element={<ExecuteModel/>}/>
-          <Route path="/create/model" element={<CreateModel/>}/>
-          <Route path="/create/description" element={<CreateDescription/>}/>
-          <Route path="/setParameter" element={<SetParameter/>}/>
+          <Route path="/model/execute" element={<ExecuteModel/>}/>
+          <Route path="/model/create" element={<CreateModel/>}/>
+          <Route path="/model/create/description" element={<CreateDescription/>}/>
+          <Route path="/model/create/parameter" element={<CreateParameter/>}/>
           <Route path="/menu/tar-file" element={<TarFile/>}/>
           <Route path="/menu/dockerfile" element={<Dockerfile/>}/>
         </Route>

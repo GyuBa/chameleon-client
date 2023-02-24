@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
-import {Header, Button} from "../../components";
+import {Header, Button} from "../../../components";
 import {Link} from "react-router-dom";
-import {useStateContext} from "../../contexts/ContextProvider";
+import {useStateContext} from "../../../contexts/ContextProvider";
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
-import {schema, uischema} from "../../assets/dummy"
+import {schema, uischema} from "../../../assets/Dummy"
 import {BiCheckCircle} from "react-icons/bi";
 const initialData = {};
 
-export default function SetParameter() {
+export default function CreateParameter() {
     const {currentColor} = useStateContext();
     const [data, setData] = useState(initialData);
     const url = "https://jsonforms.io/examples/basic"
@@ -39,13 +39,13 @@ export default function SetParameter() {
                         />
                     </div>
                     <div className="flex gap-3 float-right">
-                        <Link to="/createmodel">
-                            <Button color="black" bgColor="white" text="취소" borderRadius="10px" width="16"
-                                    padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
+                        <Link to="/model/create/description">
+                            <Button style={{backgroundColor: "white", color: "black", borderRadius: "10px"}}
+                                    className="w-16 p-2" text="back"/>
                         </Link>
                         <Link to="/model">
-                            <Button color="white" bgColor={currentColor} text="생성" borderRadius="10px" width="32"
-                                    padding="2" icon={undefined} bgHoverColor={undefined} size={undefined}/>
+                            <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                                    className="w-16 p-2" text="create"/>
                         </Link>
                     </div>
                 </div>

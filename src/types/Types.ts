@@ -18,8 +18,8 @@ type SubmitButtonData = {
   icon?: ReactNode,
   text?: string,
   onClick?: Promise<void> | any,
-  Event?: JSX.Element | any,
-} // onClick, Event type 수정 필요
+  event?: JSX.Element | any,
+} // onClick, event type 수정 필요
 
 // WebSocketData type 수정 필요
 type WebSocketData = {
@@ -32,7 +32,7 @@ type WebSocketData = {
   text?: string,
   borderRadius?: string,
   width?: string,
-  Event?: any
+  event?: any
 }
 
 export type {HeaderData, DefaultButtonData, SubmitButtonData, WebSocketData};

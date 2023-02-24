@@ -13,7 +13,7 @@ export default function Description() {
         <div className="flex justify-between items-center pb-6 border-b-1 border-gray-300">
           <Header category="" title="Model01"/>
           <div className="flex gap-2">
-            <Link to="/execute-model">
+            <Link to="/model/execute">
               <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
                       className="text-sm w-full p-1.5" text="start"/>
             </Link>

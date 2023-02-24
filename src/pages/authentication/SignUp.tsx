@@ -151,7 +151,7 @@ export default function SignUp() {
               </div>
               <div className="text-center lg:text-left">
                 <SubmitButton style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
-                              className="w-full" text="SignUp" Event={SignUp} onClick={signup}/>
+                              className="w-full" text="SignUp" event={SignUp} onClick={signup}/>
               </div>
             </form>
           </div>
