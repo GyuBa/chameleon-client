@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Header} from "../components";
 import {useStateContext} from "../contexts/ContextProvider";
 import {useDropzone} from 'react-dropzone';
-import WebSocket from "../service/WebSocket"
+import WebSocket from "../components/button/ConnectWebsocket"
 
 type IFile = File & { preview?: string };
 
@@ -63,11 +63,9 @@ export default function Websocket() {
                 </div>
                 <span className="y-5 plg:text-left">
           <WebSocket
-              event = {WebSocket}
-              color="white"
-              bgColor={currentColor}
-              borderRadius="10px"
-              width="full"
+              style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
+              className="w-full"
+              event={WebSocket}
           />
         </span>
                 <div className="my-4 md:p-5 rounded-3xl bg-slate-300">

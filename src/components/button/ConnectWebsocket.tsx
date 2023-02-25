@@ -1,8 +1,8 @@
 import useWebSocket, {ReadyState} from "react-use-websocket"
-import React, {useCallback, useState} from 'react';
-import {WebSocketData} from "../types/Types";
+import React, {useCallback} from 'react';
+import {WebSocketData} from "../../types/Types";
 
-export default function WebSocket({bgColor, color, borderRadius, width, event} : WebSocketData) {
+export default function WebSocket({style, className, event}: WebSocketData) {
     const {
         sendMessage,
         readyState,
@@ -10,7 +10,6 @@ export default function WebSocket({bgColor, color, borderRadius, width, event} :
         shouldReconnect: (closeEvent) => true,
         onMessage: (message) => {
             let data = JSON.parse(message.data);
-
         }
     });
 
@@ -28,10 +27,14 @@ export default function WebSocket({bgColor, color, borderRadius, width, event} :
     return (
         <button
             type="button"
-            onClick = {handleClickSendMessage}
-            style={{ backgroundColor: bgColor, color, borderRadius }}
-            className={` p-3 w-${width} hover:drop-shadow-xl`}
+            onClick={handleClickSendMessage}
+            style={style}
+            className={`hover:drop-shadow-xl whitespace-nowrap p-3 ${className}`}
             disabled={readyState !== ReadyState.OPEN}
-        >{'The WebSocket is currently'}{connectionStatus}{event}</button>
+        >
+            {'The WebSocket is currently'}{connectionStatus}
+            {event}
+        </button>
+
     );
 }

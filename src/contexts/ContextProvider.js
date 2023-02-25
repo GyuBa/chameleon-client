@@ -6,16 +6,16 @@ import {useMediaQuery} from "react-responsive";
 
 const StateContext = createContext();
 const currentColor = '#1E4DB7';
-const initialState = { userProfile: false, ChangeName: false, };
+const initialState = {userProfile: false, ChangeName: false,};
 
 export const ContextProvider = ({children}) => {
-  const [activeMenu, setActiveMenu] = useState(true);
-  const [isClicked, setIsClicked] = useState(initialState);
-  const [menuState, setMenuState] = useState(false);
-  const [modelState, setModelState] = useState(false);
-  const [currentLayout, setCurrentLayout] = useState('GridLayout');
-  const [value, setValue] = useState(
-    `A simple markdown editor with preview, implemented with React.js and TypeScript. This React Component aims to provide a simple Markdown editor with syntax highlighting support. This is based on \`textarea\` encapsulation, so it does not depend on any modern code editors such as Acs, CodeMirror, Monaco etc.
+    const [activeMenu, setActiveMenu] = useState(true);
+    const [isClicked, setIsClicked] = useState(initialState);
+    const [menuState, setMenuState] = useState(false);
+    const [modelState, setModelState] = useState(false);
+    const [currentLayout, setCurrentLayout] = useState('GridLayout');
+    const [value, setValue] = useState(
+        `A simple markdown editor with preview, implemented with React.js and TypeScript. This React Component aims to provide a simple Markdown editor with syntax highlighting support. This is based on \`textarea\` encapsulation, so it does not depend on any modern code editors such as Acs, CodeMirror, Monaco etc.
 ### Features
 - 📑 Indent line or selected text by pressing tab key, with customizable indentation.
 - ♻️ Based on \`textarea\` encapsulation, does not depend on any modern code editors.
@@ -50,44 +50,50 @@ export default function App() {
 }
 \`\`\``);
 
-  const handleClick = (clicked) => setIsClicked({...initialState, [clicked]: true});
+    const handleClick = (clicked) => setIsClicked({...initialState, [clicked]: true});
 
-  const onClickMenu = () => {setMenuState(prevState => !prevState )};
+    const onClickMenu = () => {
+        setMenuState(prevState => !prevState)
+    };
 
-  const selectModel = () => {setModelState(prevState => !prevState)};
+    const selectModel = () => {
+        setModelState(prevState => !prevState)
+    };
 
-  const handleActiveMenu = () => setActiveMenu(!activeMenu);
+    const handleActiveMenu = () => setActiveMenu(!activeMenu);
 
-  const isDesktopOrMobile = useMediaQuery({query: '(max-width:767px)'});
+    const isDesktopOrMobile = useMediaQuery({query: '(max-width:767px)'});
 
-  const handleCloseSideBar = () => {if (activeMenu !== undefined) setActiveMenu(false);};
+    const handleCloseSideBar = () => {
+        if (activeMenu !== undefined) setActiveMenu(false);
+    };
 
-  return (
-    <StateContext.Provider value={{
-      initialState,
-      isDesktopOrMobile,
-      currentColor,
-      activeMenu,
-      setActiveMenu,
-      isClicked,
-      setIsClicked,
-      menuState,
-      setMenuState,
-      currentLayout,
-      setCurrentLayout,
-      modelState,
-      setModelState,
-      value,
-      setValue,
-      handleClick,
-      onClickMenu,
-      selectModel,
-      handleActiveMenu,
-      handleCloseSideBar
-    }}>
-      {children}
-    </StateContext.Provider>
-  );
+    return (
+        <StateContext.Provider value={{
+            initialState,
+            isDesktopOrMobile,
+            currentColor,
+            activeMenu,
+            setActiveMenu,
+            isClicked,
+            setIsClicked,
+            menuState,
+            setMenuState,
+            currentLayout,
+            setCurrentLayout,
+            modelState,
+            setModelState,
+            value,
+            setValue,
+            handleClick,
+            onClickMenu,
+            selectModel,
+            handleActiveMenu,
+            handleCloseSideBar
+        }}>
+            {children}
+        </StateContext.Provider>
+    );
 };
 
 export const useStateContext = () => useContext(StateContext);
