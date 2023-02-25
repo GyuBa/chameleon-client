@@ -15,7 +15,6 @@ type DefaultButtonData = {
 type SubmitButtonData = {
     style?: CSSProperties | undefined,
     className?: string,
-    icon?: ReactNode,
     text?: string,
     onClick?: Promise<void> | any,
     event?: JSX.Element | any,
