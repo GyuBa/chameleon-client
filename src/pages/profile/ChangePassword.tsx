@@ -14,7 +14,6 @@ export default function ChangePassword() {
         <p className="m-2 text-sm text-gray-500 whitespace-nowrap">숫자+영문자+특수문자 조합으로 8자리 이상</p>
         <div className="m-4">
           <input
-            onChange={undefined}
             type="password"
             className="form-control block w-full px-4 py-2 text-base font-normal
                   text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
@@ -25,7 +24,6 @@ export default function ChangePassword() {
         </div>
         <div className="m-4">
           <input
-            onChange={undefined}
             type="password"
             className="form-control block w-full px-4 py-2 text-base font-normal
                   text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
@@ -36,7 +34,6 @@ export default function ChangePassword() {
         </div>
         <div className="m-4">
           <input
-            onChange={undefined}
             type="password"
             className="form-control block w-full px-4 py-2 text-base font-normal
                   text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300

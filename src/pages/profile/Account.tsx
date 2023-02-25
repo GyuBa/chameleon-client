@@ -40,8 +40,8 @@ export default function Account() {
                           className="text-sm p-2" text="확인"/>
                 </div>
               ) : (
-                  <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
-                          className="text-sm p-2" text="이름 변경"/>
+                <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                        className="text-sm p-2" text="이름 변경"/>
               )}
             </div>
           </div>
@@ -59,8 +59,8 @@ export default function Account() {
         </div>
         <div className="pt-2">
           <button type="button"
-                  className="float-right p-2 text-sm text-gray-500 hover:drop-shadow-xl whitespace-nowrap">
-            {'회원탈퇴>'}</button>
+                  className="float-right p-2 text-sm text-gray-500 hover:drop-shadow-xl whitespace-nowrap"
+          >회원탈퇴</button>
         </div>
       </div>
     </div>

@@ -29,19 +29,19 @@ function authSignIn(email : any, password : any) {
 
 export default function SignIn() {
   const {currentColor} = useStateContext();
-  const [email, setEmail] = useState<String>("")
-  const [password, setPassword] = useState<String>("")
-
+  const [Email, setEmail] = useState<String>("")
+  const [Password, setPassword] = useState<String>("")
+  // signup, login 명칭 수정 필요 => login(x), signIn(o) / signup(x), signUp(o)
   const signin = async (e: any) => {
     e.preventDefault();
-    if (!email) {
+    if (!Email) {
       alert("이메일을 입력하세요.");
       return;
-    } else if (!password) {
+    } else if (!Password) {
       alert("비밀번호를 입력하세요.");
       return;
     } else {
-      authSignIn(email, password)
+      authSignIn(Email, Password)
         .then((response) => {
           alert('로그인 성공하셨습니다!');
           document.location.href = "../../Main";
@@ -103,12 +103,11 @@ export default function SignIn() {
                   <label className="form-check-label inline-block text-gray-800" htmlFor="remember"
                   >Remember me</label>
                 </div>
-                <Link to="/change-password" className="text-gray-800">Forgot password?</Link>
+                <Link to="#!" className="text-gray-800">Forgot password?</Link>
               </div>
-
               <div className="text-center lg:text-left">
                 <SubmitButton style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
-                              className="w-full" text="Login" Event={SignIn} onClick={signin}/>
+                        className="w-full" text="Login" event={SignIn} onClick={signin}/>
               </div>
             </form>
           </div>

@@ -1,19 +1,19 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import {Button, Header} from "../../../components";
-import {useStateContext} from "../../../contexts/ContextProvider";
 import {Badge} from "flowbite-react";
 import MDEditor from "@uiw/react-md-editor";
+import {Button, Header} from "../index";
+import {useStateContext} from "../../contexts/ContextProvider";
 
 export default function Description() {
   const {currentColor, value} = useStateContext();
   return (
     <div className="contents">
-      <div className="w-2/4 m-2 md:my-10 md:mr-10 mt-24 p-2 md:p-10 bg-white rounded-3xl overflow-auto">
+      <div className="m-2 md:my-10 mt-24 p-2 md:pr-5 md:py-10 bg-white rounded-3xl overflow-auto">
         <div className="flex justify-between items-center pb-6 border-b-1 border-gray-300">
           <Header category="" title="Model01"/>
           <div className="flex gap-2">
-            <Link to="/execute-model " state = {{}}>
+            <Link to="/model/execute" state = {{}}>
               <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
                       className="text-sm w-full p-1.5" text="start"/>
             </Link>

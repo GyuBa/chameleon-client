@@ -31,7 +31,7 @@ function TransForm(stschema : string, stuischema : string) {
                         setData(data);
                     }}
                 />
-                <Link to="/execute-model" state = {{schema : mschema, uischema : muischema}}>
+                <Link to="/model/execute" state = {{schema : mschema, uischema : muischema}}>
                     <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
                             className="w-32 p-2" text="Parameter Test"/>
                 </Link>
@@ -87,20 +87,20 @@ export default function SetParameter() {
                                 <div className="mb-2">
                                     <h1 className="md:py-3 text-xl font-bold">UISchema</h1>
                                     <div className="block max-w-sm rounded-lg bg-white p-6 shadow-lg dark:bg-neutral-700">
-                                    <MonaCoEditor
-                                        language="json"
-                                        height={300}
-                                        width = {400}
-                                        theme="vs-light"
-                                        value = {uischema}
-                                        onChange={(value) => setUISchema(value)}
-                                        options={{
-                                            minimap: {
-                                                enabled: false,
-                                            },
-                                            automaticLayout: true,
-                                        }}
-                                    />
+                                        <MonaCoEditor
+                                            language="json"
+                                            height={300}
+                                            width = {400}
+                                            theme="vs-light"
+                                            value = {uischema}
+                                            onChange={(value) => setUISchema(value)}
+                                            options={{
+                                                minimap: {
+                                                    enabled: false,
+                                                },
+                                                automaticLayout: true,
+                                            }}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -111,13 +111,13 @@ export default function SetParameter() {
                         </div>
                     </div>
                     <div className="flex gap-3 float-right">
-                        <Link to="/board">
+                        <Link to="/model/create/description">
                             <Button style={{backgroundColor: "white", color: "black", borderRadius: "10px"}}
                                     className="w-16 p-2" text="back"/>
                         </Link>
-                        <Link to="/create/description">
+                        <Link to="/model">
                             <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
-                                    className="w-16 p-2" text="next"/>
+                                    className="w-16 p-2" text="create"/>
                         </Link>
                     </div>
                 </div>

@@ -29,35 +29,35 @@ function authSignUp(email : string, password : string, userName : string) {
 
 export default function SignUp() {
   const {currentColor} = useStateContext();
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [userName, setuserName] = useState<string>("");
+  const [Email, setEmail] = useState<string>("");
+  const [Password, setPassword] = useState<string>("");
+  const [UserName, setUserName] = useState<string>("");
 
-  const [emailMessage, setEmailMessage] = useState<string>("");
-  const [passwordMessage, setPasswordMessage] = useState<string>("");
-  const [nameMessage, setNameMessage] = useState<string>("");
+  const [EmailMessage, setEmailMessage] = useState<string>("");
+  const [PasswordMessage, setPasswordMessage] = useState<string>("");
+  const [UserNameMessage, setUserNameMessage] = useState<string>("");
 
-  const [isEmail, setIsEmail] = useState<boolean>(false);
-  const [isPassword, setIsPassword] = useState<boolean>(false);
-  const [isuserName, setIsuserName] = useState<boolean>(false);
+  const [IsEmail, setIsEmail] = useState<boolean>(false);
+  const [IsPassword, setIsPassword] = useState<boolean>(false);
+  const [IsUserName, setIsUserName] = useState<boolean>(false);
 
   const signup = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      if (!userName) {
+      if (!UserName) {
         alert("사용자명을 입력하세요.");
         return;
-      } else if (!password) {
+      } else if (!Password) {
         alert("비밀번호를 입력하세요.");
         return;
-      } else if (!email) {
+      } else if (!Email) {
         alert("이메일을 입력하세요.");
         return;
       } else {
-        authSignUp(email, password, userName).then(function (response) {
+        authSignUp(Email, Password, UserName).then(function (response) {
           console.log("가입 성공");
           alert("가입에 성공하셨습니다!");
-          document.location.href = "/auth/sign-in";
+          document.location.href = "/sign-in";
 
         })
           .catch((error) => {
@@ -66,17 +66,17 @@ export default function SignUp() {
           })
       }
     },
-    [userName, email, password]
+    [UserName, Email, Password]
   )
 
-  const onChangeuserName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setuserName(e.target.value)
+  const onChangeUserName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserName(e.target.value)
     if (e.target.value.length < 2 || e.target.value.length > 16) {
-      setNameMessage('2글자 이상 16글자 미만으로 입력!')
-      setIsuserName(false)
+      setUserNameMessage('2글자 이상 16글자 미만으로 입력해주시기 바랍니다.')
+      setIsUserName(false)
     } else {
-      setNameMessage('올바른 사용자명 형식입니다.');
-      setIsuserName(true)
+      setUserNameMessage('올바른 사용자명 형식입니다.');
+      setIsUserName(true)
     }
   }, [])
   const onChangeEmail = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,10 +100,10 @@ export default function SignUp() {
     setPassword(passwordCurrent)
 
     if (!passwordRegex.test(passwordCurrent)) {
-      setPasswordMessage('숫자+영문자+특수문자 조합으로 8자리 이상 입력 부탁드립니다!')
+      setPasswordMessage('숫자+영문자+특수문자 조합으로 8자리 이상 입력 부탁드립니다.')
       setIsPassword(false)
     } else {
-      setPasswordMessage('안전한 비밀번호에요')
+      setPasswordMessage('올바른 비밀번호입니다.')
       setIsPassword(true)
     }
   }, [])
@@ -127,16 +127,16 @@ export default function SignUp() {
               <div className="flex my-4 flex-1 border-t-1 border-gray-300 mt-0.5"/>
               <div className="mb-6">
                 <input
-                  onChange={onChangeuserName}
+                  onChange={onChangeUserName}
                   type="text"
                   className="text-base form-control block w-full px-4 py-2 text-base font-normal
                   text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
                   rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
                   focus:border-blue-600 focus:outline-none"
                   id="su-name"
-                  placeholder="User name"
+                  placeholder="UserName"
                 />
-                {userName.length > 0 && <span className={`message ${isuserName ? 'success' : 'error'}`}>{nameMessage} </span>}
+                {UserName.length > 0 && <span className={`message ${IsUserName ? 'success' : 'error'}`}>{UserNameMessage} </span>}
 
               </div>
               <div className="mb-6">
@@ -150,8 +150,8 @@ export default function SignUp() {
                   id="su-email"
                   placeholder="Email address"
                 />
-                {email.length > 0 &&
-                  <span className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage} </span>}
+                {Email.length > 0 &&
+                  <span className={`message ${IsEmail ? 'success' : 'error'}`}>{EmailMessage} </span>}
               </div>
               <div className="mb-6">
                 <input
@@ -163,13 +163,13 @@ export default function SignUp() {
                   id="su-password"
                   placeholder="Password"
                 />
-                {password.length > 0 &&
-                  <span className={`message ${isPassword ? 'success' : 'error'}`}>{passwordMessage} </span>}
+                {Password.length > 0 &&
+                  <span className={`message ${IsPassword ? 'success' : 'error'}`}>{PasswordMessage} </span>}
               </div>
               <div className="text-center lg:text-left">
                 <SubmitButton style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
-                              className="w-full" text="SignUp" Event={SignUp} onClick={signup}
-                              disabled = {!(isuserName && isEmail && isPassword)}/>
+                              className="w-full" text="SignUp" event={SignUp} onClick={signup}
+                              disabled = {!(IsUserName && IsEmail && IsPassword)}/>
               </div>
             </form>
           </div>
