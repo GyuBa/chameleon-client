@@ -1,8 +1,8 @@
 import useWebSocket, {ReadyState} from "react-use-websocket"
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import {WebSocketData} from "../../types/Types";
 
-export default function WebSocket({style, className, Event} : WebSocketData) {
+export default function WebSocket({style, className, event}: WebSocketData) {
     const {
         sendMessage,
         readyState,
@@ -27,13 +27,13 @@ export default function WebSocket({style, className, Event} : WebSocketData) {
     return (
         <button
             type="button"
-            onClick = {handleClickSendMessage}
-            style = {style}
-            className={`hover:drop-shadow-xl whitespace-nowrap p-3 ` + className}
+            onClick={handleClickSendMessage}
+            style={style}
+            className={`hover:drop-shadow-xl whitespace-nowrap p-3 ${className}`}
             disabled={readyState !== ReadyState.OPEN}
         >
             {'The WebSocket is currently'}{connectionStatus}
-            {Event}
+            {event}
         </button>
 
     );

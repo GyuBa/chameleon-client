@@ -63,9 +63,9 @@ export default function Websocket() {
                 </div>
                 <span className="y-5 plg:text-left">
           <WebSocket
-              style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+              style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
               className="w-full"
-              Event = {WebSocket}
+              event={WebSocket}
           />
         </span>
                 <div className="my-4 md:p-5 rounded-3xl bg-slate-300">

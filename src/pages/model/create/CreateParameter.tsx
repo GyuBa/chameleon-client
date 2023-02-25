@@ -11,7 +11,7 @@ import MonaCoEditor from "@monaco-editor/react"
 const url = "https://jsonforms.io/examples/basic"
 const initialData = {};
 
-function TransForm(stschema : string, stuischema : string) {
+function TransForm(stschema: string, stuischema: string) {
     const {currentColor} = useStateContext();
     const [data, setData] = useState(initialData);
 
@@ -31,19 +31,20 @@ function TransForm(stschema : string, stuischema : string) {
                         setData(data);
                     }}
                 />
-                <Link to="/model/execute" state = {{schema : mschema, uischema : muischema}}>
-                    <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                <Link to="/model/execute" state={{schema: mschema, uischema: muischema}}>
+                    <Button style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
                             className="w-32 p-2" text="Parameter Test"/>
                 </Link>
             </div>
         );
 
-    } catch {}
+    } catch {
+    }
 
 }
 
 export default function SetParameter() {
-    const toJson = (val : any) => JSON.stringify(val, null, 2);
+    const toJson = (val: any) => JSON.stringify(val, null, 2);
     const StringSchema = toJson(dSchema)
     const StringUISchema = toJson(dUIschema)
     const [schema, setSchema] = React.useState<string | undefined>(StringSchema);
@@ -60,9 +61,12 @@ export default function SetParameter() {
                                 <Header category="" title="Set Parameter"/>
                                 <h1 className="mx-2 text-gray-500">JSONForms</h1>
                             </div>
-                            <button onClick={()=>{window.open(url)}} className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
+                            <button onClick={() => {
+                                window.open(url)
+                            }} className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
                                 <BiCheckCircle size="25" color="#484848" className="pl-1"/>
-                                <span className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">참고사이트</span>
+                                <span
+                                    className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">참고사이트</span>
                             </button>
                         </div>
                         <div className="gap-4 grid md:pt-10 md:px-5 md:my-2 md:grid-cols-2">
@@ -72,9 +76,9 @@ export default function SetParameter() {
                                     <MonaCoEditor
                                         language="json"
                                         height={300}
-                                        width = {400}
+                                        width={400}
                                         theme="vs-light"
-                                        value = {schema}
+                                        value={schema}
                                         onChange={(value) => setSchema(value)}
                                         options={{
                                             minimap: {
@@ -86,13 +90,14 @@ export default function SetParameter() {
                                 </div>
                                 <div className="mb-2">
                                     <h1 className="md:py-3 text-xl font-bold">UISchema</h1>
-                                    <div className="block max-w-sm rounded-lg bg-white p-6 shadow-lg dark:bg-neutral-700">
+                                    <div
+                                        className="block max-w-sm rounded-lg bg-white p-6 shadow-lg dark:bg-neutral-700">
                                         <MonaCoEditor
                                             language="json"
                                             height={300}
-                                            width = {400}
+                                            width={400}
                                             theme="vs-light"
-                                            value = {uischema}
+                                            value={uischema}
                                             onChange={(value) => setUISchema(value)}
                                             options={{
                                                 minimap: {
@@ -116,7 +121,7 @@ export default function SetParameter() {
                                     className="w-16 p-2" text="back"/>
                         </Link>
                         <Link to="/model">
-                            <Button style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
+                            <Button style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
                                     className="w-16 p-2" text="create"/>
                         </Link>
                     </div>
