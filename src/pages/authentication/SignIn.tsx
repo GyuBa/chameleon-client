@@ -29,19 +29,19 @@ function authSignIn(email : any, password : any) {
 
 export default function SignIn() {
   const {currentColor} = useStateContext();
-  const [Email, setEmail] = useState<String>("")
-  const [Password, setPassword] = useState<String>("")
+  const [email, setEmail] = useState<String>("")
+  const [password, setPassword] = useState<String>("")
   // signup, login 명칭 수정 필요 => login(x), signIn(o) / signup(x), signUp(o)
   const signin = async (e: any) => {
     e.preventDefault();
-    if (!Email) {
+    if (!email) {
       alert("이메일을 입력하세요.");
       return;
-    } else if (!Password) {
+    } else if (!password) {
       alert("비밀번호를 입력하세요.");
       return;
     } else {
-      authSignIn(Email, Password)
+      authSignIn(email, password)
         .then((response) => {
           alert('로그인 성공하셨습니다!');
           document.location.href = "../../Main";

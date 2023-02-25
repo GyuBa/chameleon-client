@@ -29,33 +29,23 @@ function authSignUp(email : string, password : string, userName : string) {
 
 export default function SignUp() {
   const {currentColor} = useStateContext();
-  const [Email, setEmail] = useState<string>("");
-  const [Password, setPassword] = useState<string>("");
-  const [UserName, setUserName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [userName, setUserName] = useState<string>("");
 
-  const [EmailMessage, setEmailMessage] = useState<string>("");
-  const [PasswordMessage, setPasswordMessage] = useState<string>("");
-  const [UserNameMessage, setUserNameMessage] = useState<string>("");
+  const [emailMessage, setEmailMessage] = useState<string>("");
+  const [passwordMessage, setPasswordMessage] = useState<string>("");
+  const [userNameMessage, setUserNameMessage] = useState<string>("");
 
-  const [IsEmail, setIsEmail] = useState<boolean>(false);
-  const [IsPassword, setIsPassword] = useState<boolean>(false);
+  const [isEmail, setIsEmail] = useState<boolean>(false);
+  const [isPassword, setIsPassword] = useState<boolean>(false);
   // signup, login 명칭 수정 필요 => login(x), signIn(o) / signup(x), signUp(o)
-  const [IsUserName, setIsUserName] = useState<boolean>(false);
+  const [isUserName, setIsUserName] = useState<boolean>(false);
 
   const signup = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      if (!UserName) {
-        alert("사용자명을 입력하세요.");
-        return;
-      } else if (!Password) {
-        alert("비밀번호를 입력하세요.");
-        return;
-      } else if (!Email) {
-        alert("이메일을 입력하세요.");
-        return;
-      } else {
-        authSignUp(Email, Password, UserName).then(function (response) {
+        authSignUp(email, password, userName).then(function (response) {
           console.log("가입 성공");
           alert("가입에 성공하셨습니다!");
           document.location.href = "/sign-in";
@@ -65,9 +55,8 @@ export default function SignUp() {
             alert('가입에 실패하셨습니다. 가입하고자 하는 이메일을 재확인바랍니다.');
             console.log(error);
           })
-      }
-    },
-    [UserName, Email, Password]
+      },
+    [userName, email, password]
   )
 
   const onChangeUserName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -137,7 +126,7 @@ export default function SignUp() {
                   id="su-name"
                   placeholder="UserName"
                 />
-                {UserName.length > 0 && <span className={`message ${IsUserName ? 'success' : 'error'}`}>{UserNameMessage} </span>}
+                {userName.length > 0 && <span className={`message ${isUserName ? 'success' : 'error'}`}>{userNameMessage} </span>}
 
               </div>
               <div className="mb-6">
@@ -151,8 +140,8 @@ export default function SignUp() {
                   id="su-email"
                   placeholder="Email address"
                 />
-                {Email.length > 0 &&
-                  <span className={`message ${IsEmail ? 'success' : 'error'}`}>{EmailMessage} </span>}
+                {email.length > 0 &&
+                  <span className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage} </span>}
               </div>
               <div className="mb-6">
                 <input
@@ -164,13 +153,13 @@ export default function SignUp() {
                   id="su-password"
                   placeholder="Password"
                 />
-                {Password.length > 0 &&
-                  <span className={`message ${IsPassword ? 'success' : 'error'}`}>{PasswordMessage} </span>}
+                {password.length > 0 &&
+                  <span className={`message ${isPassword ? 'success' : 'error'}`}>{passwordMessage} </span>}
               </div>
               <div className="text-center lg:text-left">
                 <SubmitButton style={{backgroundColor: `${currentColor}`, color: "white", borderRadius: "10px"}}
                               className="w-full" text="SignUp" event={SignUp} onClick={signup}
-                              disabled = {!(IsUserName && IsEmail && IsPassword)}/>
+                              disabled = {!(isUserName && isEmail && isPassword)}/>
               </div>
             </form>
           </div>
