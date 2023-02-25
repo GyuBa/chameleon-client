@@ -1,6 +1,6 @@
 import useWebSocket, {ReadyState} from "react-use-websocket"
 import React, {useCallback, useState} from 'react';
-import {WebSocketData} from "../../types/Types";
+import {WebSocketData} from "../types/Types";
 
 export default function WebSocket({style, className, Event} : WebSocketData) {
     const {

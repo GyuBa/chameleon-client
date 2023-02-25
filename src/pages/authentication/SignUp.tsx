@@ -39,6 +39,7 @@ export default function SignUp() {
 
   const [IsEmail, setIsEmail] = useState<boolean>(false);
   const [IsPassword, setIsPassword] = useState<boolean>(false);
+  // signup, login 명칭 수정 필요 => login(x), signIn(o) / signup(x), signUp(o)
   const [IsUserName, setIsUserName] = useState<boolean>(false);
 
   const signup = useCallback(

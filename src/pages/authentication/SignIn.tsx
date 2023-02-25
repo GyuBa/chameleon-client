@@ -32,7 +32,7 @@ export default function SignIn() {
   const [Email, setEmail] = useState<String>("")
   const [Password, setPassword] = useState<String>("")
   // signup, login 명칭 수정 필요 => login(x), signIn(o) / signup(x), signUp(o)
-  const signin = async (e: any) => {
+  const login = async (e: any) => {
     e.preventDefault();
     if (!Email) {
       alert("이메일을 입력하세요.");
