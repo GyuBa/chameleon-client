@@ -2,54 +2,22 @@ import React, {useState} from 'react';
 import {Header, Button} from "../../../components";
 import {Link} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
-import {JsonForms} from "@jsonforms/react";
-import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
-import {dSchema, dUIschema} from "../../../assets/Dummy"
+import {crparamTab} from "../../../assets/Dummy"
 import {BiCheckCircle} from "react-icons/bi";
-import MonaCoEditor from "@monaco-editor/react"
+import {CreateSimpleParam} from "./modelTab/CreateSimpleParam";
+import CreateComplexParam from "./modelTab/CreateComplexParam"
 
 const url = "https://jsonforms.io/examples/basic"
-const initialData = {};
-
-function TransForm(stschema: string, stuischema: string) {
-    const {currentColor} = useStateContext();
-    const [data, setData] = useState(initialData);
-
-    try {
-        const mschema = JSON.parse(stschema)
-        const muischema = JSON.parse(stuischema)
-
-        return (
-            <div>
-                <JsonForms
-                    schema={mschema}
-                    uischema={muischema}
-                    data={data}
-                    renderers={materialRenderers}
-                    cells={materialCells}
-                    onChange={({errors, data}) => {
-                        setData(data);
-                    }}
-                />
-                <Link to="/model/execute" state={{schema: mschema, uischema: muischema}}>
-                    <Button style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                            className="w-32 p-2" text="Parameter Test"/>
-                </Link>
-            </div>
-        );
-
-    } catch {
-    }
-
-}
 
 export default function SetParameter() {
-    const toJson = (val: any) => JSON.stringify(val, null, 2);
-    const StringSchema = toJson(dSchema)
-    const StringUISchema = toJson(dUIschema)
-    const [schema, setSchema] = React.useState<string | undefined>(StringSchema);
-    const [uischema, setUISchema] = React.useState<string | undefined>(StringUISchema);
+    const [activeTabIndex, setActiveTabIndex] = useState(0);
     const {currentColor} = useStateContext();
+
+    const [parameters, setParameters] = useState([
+        { name: 'name', type: 'string', maxLength: 20, minLength: 5 },
+        { name: 'age', type: 'number', maxLength: 3, minLength: 1 },
+        { name: 'gender', type: 'string', enum: ['male', 'female'] },
+    ]);
 
     return (
         <div className="contents">
@@ -69,49 +37,30 @@ export default function SetParameter() {
                                     className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">참고사이트</span>
                             </button>
                         </div>
-                        <div className="gap-4 grid md:pt-10 md:px-5 md:my-2 md:grid-cols-2">
-                            <div>
-                                <h1 className="md:py-3 text-xl font-bold">Schema</h1>
-                                <div className="block max-w-sm rounded-lg bg-white p-6 shadow-lg dark:bg-neutral-700">
-                                    <MonaCoEditor
-                                        language="json"
-                                        height={300}
-                                        width={400}
-                                        theme="vs-light"
-                                        value={schema}
-                                        onChange={(value) => setSchema(value)}
-                                        options={{
-                                            minimap: {
-                                                enabled: false,
-                                            },
-                                            automaticLayout: true,
-                                        }}
-                                    />
-                                </div>
-                                <div className="mb-2">
-                                    <h1 className="md:py-3 text-xl font-bold">UISchema</h1>
-                                    <div
-                                        className="block max-w-sm rounded-lg bg-white p-6 shadow-lg dark:bg-neutral-700">
-                                        <MonaCoEditor
-                                            language="json"
-                                            height={300}
-                                            width={400}
-                                            theme="vs-light"
-                                            value={uischema}
-                                            onChange={(value) => setUISchema(value)}
-                                            options={{
-                                                minimap: {
-                                                    enabled: false,
-                                                },
-                                                automaticLayout: true,
-                                            }}
-                                        />
-                                    </div>
-                                </div>
+                        <div className="flex space-x-3 border-b">
+                            {/* Loop through tab data and render button for each. */}
+                            {crparamTab.map((tab, idx) => {
+                                return (
+                                    <button
+                                        key={idx}
+                                        className={`py-2 border-b-4 transition-colors duration-300 ${
+                                            idx === activeTabIndex
+                                                ? "border-teal-500"
+                                                : "border-transparent hover:border-gray-200"
+                                        }`}
+                                        // Change the active tab on click.
+                                        onClick={() => setActiveTabIndex(idx)}>
+                                        {tab.label}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                        <div className="tab-content tab-space">
+                            <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
+                                <CreateSimpleParam />
                             </div>
-                            <div className="mb-2">
-                                <h1 className="md:py-3 text-xl font-bold">Result</h1>
-                                {TransForm(schema as string, uischema as string)}
+                            <div className={activeTabIndex === 1 ? "block" : "hidden"} id="link2">
+                                <CreateComplexParam/>
                             </div>
                         </div>
                     </div>

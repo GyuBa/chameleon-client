@@ -5,7 +5,7 @@ import {Link, useLocation} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
 import OutputModule from "../module/Output"
 import OutputDescriptionModule from "../module/OutputDescription"
-import {paramTab} from "../../../assets/Dummy";
+import {exparamTab} from "../../../assets/Dummy";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonForms} from "@jsonforms/react";
 import {JsonViewer} from "@textea/json-viewer";
@@ -75,7 +75,7 @@ export default function ExecuteModel() {
                     <div className="overflow-auto row-span-2 md:p-2 rounded-lg border-1 border-gray-300">
                         <div className="flex space-x-3 border-b">
                             {/* Loop through tab data and render button for each. */}
-                            {paramTab.map((tab, idx) => {
+                            {exparamTab.map((tab, idx) => {
                                 return (
                                     <button
                                         key={idx}
