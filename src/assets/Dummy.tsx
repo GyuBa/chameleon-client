@@ -227,26 +227,6 @@ export const myModel = {
     ],
 }
 
-export const tabsData = [
-    {
-        label: "TarFile",
-        content:
-            "Ut irure mollit nulla eiusmod excepteur laboris elit sit anim magna tempor excepteur labore nulla.",
-        img: tar
-    },
-    {
-        label: "Dockerfile",
-        content:
-            "Fugiat dolor et quis in incididunt aute. Ullamco voluptate consectetur dolor officia sunt est dolor sint.",
-        img: dockerfile
-    },
-    {
-        label: "Etc",
-        content:
-            "Fugiat dolor et quis in incididunt aute. Ullamco voluptate consectetur dolor officia sunt est dolor sint.",
-    },
-];
-
 export const dSchema = {
     properties: {
         name: {
@@ -268,6 +248,48 @@ export const dUIschema = {
     ]
 }
 
+export const ischema = {
+    type: 'object',
+    properties: {
+        parameters: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    name: {type: 'string', label : 'name'},
+                    type: {
+                        type: 'string',
+                        enum: ['string', 'number', 'integer', 'date', 'time', 'date-time', 'email']
+                    },
+                    enums: {
+                        type: 'array',
+                        items: {type: 'string'},
+                        uniqueItems: true
+                    },
+                    min: {type: 'number'},
+                    max: {type: 'number'},
+                    description: {type: 'string'},
+                    required: {type: 'boolean'}
+                }
+            }
+        }
+    }
+};
+
+export const iuischema = {
+    type: "VerticalLayout",
+    elements: [
+        {
+            type: "Control",
+            scope: "#/properties/parameters",
+            options: {
+                "trim": true,
+                "showLabel": false
+            }
+        }
+    ]
+};
+
 export const exparamTab = [
     {
         label: "Parameters",
@@ -284,4 +306,18 @@ export const crparamTab = [
     {
         label: "Complex"
     }
+];
+
+export const tabsData = [
+    {
+        label: "TarFile",
+        img: tar
+    },
+    {
+        label: "Dockerfile",
+        img: dockerfile
+    },
+    {
+        label: "Etc",
+    },
 ];

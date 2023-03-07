@@ -1,119 +1,122 @@
 import React, {useState} from 'react';
 import {JsonForms} from "@jsonforms/react";
-import { UISchemaElement } from '@jsonforms/core';
-import { JsonSchema } from '@jsonforms/core';
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
+import {ischema, iuischema} from "../../../../assets/Dummy"
+import {SubmitButton} from "../../../../components";
+import {useStateContext} from "../../../../contexts/ContextProvider";
+import {JsonSchema} from '@jsonforms/core';
 
-const schema = {
-    type: 'object',
-    properties: {
-        items: {
-            type: 'array',
-            items: {
-                type: 'object',
-                properties: {
-                    name: {type: 'string'},
-                    type: {type: 'string'},
-                    enums: {
-                        type: 'array',
-                        items: {type: 'string'},
-                        uniqueItems: true
-                    },
-                    minLength: {type: 'number'},
-                    maxLength: {type: 'number'}
-                }
-            }
-        }
-    }
-};
-
-const uischema = {
-    type: 'Control',
-    scope: '#/properties/items'
-};
-
-interface Field {
+interface Parameter {
     name: string;
     type: string;
-    minLength?: number;
-    maxLength?: number;
-    enums?: string[];
+    min: number;
+    max: number;
+    required: boolean;
+    description: string;
 }
 
-interface Schema {
+interface UISchemaElement {
     type: string;
-    properties: {
-        [key: string]: {
-            type: string;
-            minLength?: number;
-            maxLength?: number;
-            enum?: string[];
-        };
-    };
+    elements?: UISchemaElement[];
+    label?: string;
+    options?: any;
 }
 
-function convertToSchema(fields: Field[]): Schema {
-    const properties: Schema['properties'] = {};
+const initialData = {};
 
-    fields.forEach(({ name, type, minLength, maxLength, enums }) => {
-        const fieldSchema: Schema['properties'][string] = {
-            type,
+function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
+    const properties: any = {};
+
+    // Iterate through the parameters and generate a JSONForms schema for each one
+    parameters.forEach((param, index) => {
+        const paramName = param.name.trim();
+
+        properties[paramName] = {
+            type: param.type,
+            minimum: param.min,
+            maximum: param.max,
+            required: param.required,
+            description: param.description,
+            label: `Parameter ${index + 1}: ${paramName}`,
         };
-
-        if (minLength) {
-            fieldSchema.minLength = minLength;
-        }
-
-        if (maxLength) {
-            fieldSchema.maxLength = maxLength;
-        }
-
-        if (enums?.length) {
-            fieldSchema.enum = enums;
-        }
-
-        properties[name] = fieldSchema;
     });
 
     return {
         type: 'object',
-        properties,
+        properties: properties,
+    };
+}
+
+function generateUISchema(parameters: Parameter[]): UISchemaElement {
+    const properties: any = {};
+
+    parameters.forEach((param, index) => {
+        const paramName = param.name.trim();
+
+        properties[paramName] = {
+            type: 'Control',
+            scope: '#/properties/${className}'
+        };
+    });
+
+    return {
+        type: "VerticalLayout",
+        elements: [
+            properties
+        ]
     };
 }
 
 export const CreateSimpleParam = () => {
-    const [formData, setFormData] = useState<Field[]>([]);
-    const convertSchema = convertToSchema(formData)
-    const [converformData, setconverformData] = useState( {items: []});
+    const {currentColor} = useStateContext();
+    const [formData, setFormData] = React.useState(initialData);
+    const [transformData, setTransformData] = React.useState(initialData);
+    const [transschema, setTransschema] = React.useState(initialData);
+    const [transuischema, setTransuischema] = React.useState<UISchemaElement | undefined>(iuischema)
 
-    const handleSubmit = (ev: React.FormEvent) => {
-        ev.preventDefault();
-        console.log(convertSchema);
+    const handleDataChange = (data: any) => {
+        setFormData(data);
+    };
+
+    const handletransDataChange = (data: any) => {
+        setTransformData(data);
+    };
+
+    const handleSubmit = () => {
+        alert(`Submitted Data: ${JSON.stringify(formData)}`);
+        console.log(JSON.stringify(formData))
+
+        setTransschema(generateJsonFormsSchema(formData as Parameter[]))
+        setTransuischema(generateUISchema(formData as Parameter[]))
     };
 
     return (
         <div className="gap-4 grid md:pt-10 md:px-5 md:my-2 md:grid-cols-2">
             <div>
-                <form onSubmit={handleSubmit}>
-                    <JsonForms
-                        schema={schema}
-                        uischema={uischema}
-                        data={formData}
-                        renderers={materialRenderers}
-                        cells={materialCells}
-                        onChange={({data}) => setFormData(data)}
-                    />
-                    <button type="submit">Submit</button>
-                </form>
+                <JsonForms
+                    data={formData}
+                    schema={ischema}
+                    uischema={iuischema}
+                    renderers={materialRenderers}
+                    cells={materialCells}
+                    onChange={({data}) => handleDataChange(data)}
+                />
+                <div className="flex float-right text-center md:py-5">
+                    <SubmitButton
+                        style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
+                        className="w-18 p-2" text="Submit" onClick={() => handleSubmit()}/>
+                </div>
             </div>
-            <JsonForms
-                schema={convertSchema}
-                uischema={uischema}
-                data={converformData}
-                renderers={materialRenderers}
-                cells={materialCells}
-                onChange={({data}) => setconverformData(data)}
-            />
+            <div>
+                <JsonForms
+                    data={transformData}
+                    schema={transschema}
+                    uischema={transuischema}
+                    renderers={materialRenderers}
+                    cells={materialCells}
+                    onChange={({data}) => handletransDataChange(data)}
+                />
+            </div>
         </div>
     );
 };
