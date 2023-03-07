@@ -92,7 +92,7 @@ export const CreateSimpleParam = () => {
 
     return (
         <div className="gap-4 grid md:pt-10 md:px-5 md:my-2 md:grid-cols-2">
-            <div>
+            <div className="mb-2">
                 <JsonForms
                     data={formData}
                     schema={ischema}
@@ -107,7 +107,8 @@ export const CreateSimpleParam = () => {
                         className="w-18 p-2" text="Submit" onClick={() => handleSubmit()}/>
                 </div>
             </div>
-            <div>
+            <div className="mb-2">
+                <h1 className="md:py-3 text-xl font-bold">Result</h1>
                 <JsonForms
                     data={transformData}
                     schema={transschema}
