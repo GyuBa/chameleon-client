@@ -1,41 +1,53 @@
 import React, {useState} from 'react';
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
-import {ischema, iuischema} from "../../../../assets/Dummy"
-import {SubmitButton} from "../../../../components";
+import {uschema} from "../../../../assets/Dummy"
+import {Button, SubmitButton} from "../../../../components";
 import {useStateContext} from "../../../../contexts/ContextProvider";
 import {JsonSchema} from '@jsonforms/core';
+import ErrorBoundary from "../../module/ParamErrorboundary"
+import {Link} from "react-router-dom";
+
+const initialData = {};
 
 interface Parameter {
     name: string;
-    type: string;
-    min: number;
-    max: number;
-    required: boolean;
-    description: string;
+    type?: string;
+    min?: number;
+    max?: number;
+    description?: string;
 }
 
 interface UISchemaElement {
-    type: string;
+    type?: string;
     elements?: UISchemaElement[];
     label?: string;
     options?: any;
 }
 
-const initialData = {};
+const initialParameters: Parameter[] = [
+    {name: 'name', type: 'string', min: 1, max: 12}
+];
+var schema = generateJsonFormsSchema(initialParameters);
+const duischema = {
+    type: 'VerticalLayout',
+    elements: [
+        {
+            type: 'Control',
+            scope: '#/properties/parameters'
+        }
+    ]
+}
 
 function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
     const properties: any = {};
 
-    // Iterate through the parameters and generate a JSONForms schema for each one
     parameters.forEach((param, index) => {
-        const paramName = param.name.trim();
-
+        const paramName = param.name;
         properties[paramName] = {
             type: param.type,
             minimum: param.min,
             maximum: param.max,
-            required: param.required,
             description: param.description,
             label: `Parameter ${index + 1}: ${paramName}`,
         };
@@ -45,78 +57,67 @@ function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
         type: 'object',
         properties: properties,
     };
-}
 
-function generateUISchema(parameters: Parameter[]): UISchemaElement {
-    const properties: any = {};
-
-    parameters.forEach((param, index) => {
-        const paramName = param.name.trim();
-
-        properties[paramName] = {
-            type: 'Control',
-            scope: '#/properties/${className}'
-        };
-    });
-
-    return {
-        type: "VerticalLayout",
-        elements: [
-            properties
-        ]
-    };
 }
 
 export const CreateSimpleParam = () => {
     const {currentColor} = useStateContext();
-    const [formData, setFormData] = React.useState(initialData);
-    const [transformData, setTransformData] = React.useState(initialData);
-    const [transschema, setTransschema] = React.useState(initialData);
-    const [transuischema, setTransuischema] = React.useState<UISchemaElement | undefined>(iuischema)
-
-    const handleDataChange = (data: any) => {
-        setFormData(data);
-    };
-
-    const handletransDataChange = (data: any) => {
-        setTransformData(data);
-    };
+    const [formData, setFormData] = useState(initialParameters);
+    const [transformData, settransFormData] = useState(initialData);
 
     const handleSubmit = () => {
         alert(`Submitted Data: ${JSON.stringify(formData)}`);
-        console.log(JSON.stringify(formData))
+    };
 
-        setTransschema(generateJsonFormsSchema(formData as Parameter[]))
-        setTransuischema(generateUISchema(formData as Parameter[]))
+    try {
+        schema = generateJsonFormsSchema(formData);
+    } catch {
+    }
+
+    const uischema = {
+        type: 'VerticalLayout',
+        elements: formData.map((param, index) => ({
+            type: 'Control',
+            scope: `#/properties/${param.name}`
+        }))
     };
 
     return (
         <div className="gap-4 grid md:pt-10 md:px-5 md:my-2 md:grid-cols-2">
             <div className="mb-2">
                 <JsonForms
-                    data={formData}
-                    schema={ischema}
-                    uischema={iuischema}
+                    data={{parameters: formData}} // formData 객체를 'parameters' 속성을 가진 객체로 감싸기
+                    schema={uschema}
+                    uischema={duischema}
                     renderers={materialRenderers}
                     cells={materialCells}
-                    onChange={({data}) => handleDataChange(data)}
+                    onChange={({data}) => setFormData(data.parameters)}
                 />
                 <div className="flex float-right text-center md:py-5">
                     <SubmitButton
                         style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                        className="w-18 p-2" text="Submit" onClick={() => handleSubmit()}/>
+                        className="w-18 p-2"
+                        text="Submit"
+                        onClick={handleSubmit}
+                    />
                 </div>
             </div>
             <div className="mb-2">
                 <h1 className="md:py-3 text-xl font-bold">Result</h1>
-                <JsonForms
-                    data={transformData}
-                    schema={transschema}
-                    uischema={transuischema}
-                    renderers={materialRenderers}
-                    cells={materialCells}
-                    onChange={({data}) => handletransDataChange(data)}
-                />
+                <ErrorBoundary>
+                    <JsonForms
+                        data={transformData}
+                        schema={schema}
+                        uischema={uischema}
+                        renderers={materialRenderers}
+                        cells={materialCells}
+                        onChange={({data}) => settransFormData(data)}
+                    />
+                </ErrorBoundary>
+                <Link to="/model/execute" state={{schema: schema, uischema: uischema}}>
+                    <Button style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
+                            className="w-32 p-2" text="Parameter Test"/>
+                </Link>
             </div>
         </div>
     );

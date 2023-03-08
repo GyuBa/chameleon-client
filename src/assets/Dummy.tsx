@@ -290,6 +290,25 @@ export const iuischema = {
     ]
 };
 
+export const uschema = {
+    type: 'object',
+    properties: {
+        parameters: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    name: {type: 'string'},
+                    type: {type: 'string', enum : ["string", "number", "integer"]},
+                    min: {type: 'number'},
+                    max: {type: 'number'},
+                    description: {type: 'string'}
+                }
+            }
+        }
+    }
+}
+
 export const exparamTab = [
     {
         label: "Parameters",
