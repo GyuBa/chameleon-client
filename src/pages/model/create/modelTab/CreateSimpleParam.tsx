@@ -18,18 +18,13 @@ interface Parameter {
     description?: string;
 }
 
-interface UISchemaElement {
-    type?: string;
-    elements?: UISchemaElement[];
-    label?: string;
-    options?: any;
-}
-
 const initialParameters: Parameter[] = [
     {name: 'name', type: 'string', min: 1, max: 12}
 ];
+
 var schema = generateJsonFormsSchema(initialParameters);
-const duischema = {
+
+const uischema = {
     type: 'VerticalLayout',
     elements: [
         {
@@ -69,12 +64,9 @@ export const CreateSimpleParam = () => {
         alert(`Submitted Data: ${JSON.stringify(formData)}`);
     };
 
-    try {
-        schema = generateJsonFormsSchema(formData);
-    } catch {
-    }
+    schema = generateJsonFormsSchema(formData);
 
-    const uischema = {
+    const transuischema = {
         type: 'VerticalLayout',
         elements: formData.map((param, index) => ({
             type: 'Control',
@@ -88,7 +80,7 @@ export const CreateSimpleParam = () => {
                 <JsonForms
                     data={{parameters: formData}} // formData 객체를 'parameters' 속성을 가진 객체로 감싸기
                     schema={uschema}
-                    uischema={duischema}
+                    uischema={uischema}
                     renderers={materialRenderers}
                     cells={materialCells}
                     onChange={({data}) => setFormData(data.parameters)}
@@ -108,13 +100,13 @@ export const CreateSimpleParam = () => {
                     <JsonForms
                         data={transformData}
                         schema={schema}
-                        uischema={uischema}
+                        uischema={transuischema}
                         renderers={materialRenderers}
                         cells={materialCells}
                         onChange={({data}) => settransFormData(data)}
                     />
                 </ErrorBoundary>
-                <Link to="/model/execute" state={{schema: schema, uischema: uischema}}>
+                <Link to="/model/execute" state={{schema: schema, uischema: transuischema}}>
                     <Button style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
                             className="w-32 p-2" text="Parameter Test"/>
                 </Link>
