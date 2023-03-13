@@ -256,50 +256,8 @@ export const ischema = {
             items: {
                 type: 'object',
                 properties: {
-                    name: {type: 'string', label : 'name'},
-                    type: {
-                        type: 'string',
-                        enum: ['string', 'number', 'integer', 'date', 'time', 'date-time', 'email']
-                    },
-                    enums: {
-                        type: 'array',
-                        items: {type: 'string'},
-                        uniqueItems: true
-                    },
-                    min: {type: 'number'},
-                    max: {type: 'number'},
-                    description: {type: 'string'},
-                    required: {type: 'boolean'}
-                }
-            }
-        }
-    }
-};
-
-export const iuischema = {
-    type: "VerticalLayout",
-    elements: [
-        {
-            type: "Control",
-            scope: "#/properties/parameters",
-            options: {
-                "trim": true,
-                "showLabel": false
-            }
-        }
-    ]
-};
-
-export const uschema = {
-    type: 'object',
-    properties: {
-        parameters: {
-            type: 'array',
-            items: {
-                type: 'object',
-                properties: {
                     name: {type: 'string'},
-                    type: {type: 'string', enum : ["string", "number", "integer"]},
+                    type: {type: 'string', enum : ["string", "number", "integer", "boolean", "date", "time", "datetime", "email"]},
                     min: {type: 'number'},
                     max: {type: 'number'},
                     description: {type: 'string'}
@@ -307,6 +265,16 @@ export const uschema = {
             }
         }
     }
+}
+
+export const iuischema = {
+    type: 'VerticalLayout',
+    elements: [
+        {
+            type: 'Control',
+            scope: '#/properties/parameters'
+        }
+    ]
 }
 
 export const exparamTab = [
