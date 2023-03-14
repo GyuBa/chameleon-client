@@ -260,6 +260,9 @@ export const ischema = {
                     type: {type: 'string', enum : ["string", "number", "integer", "boolean", "date", "time", "datetime", "email"]},
                     min: {type: 'number'},
                     max: {type: 'number'},
+                    default : {type: 'number'},
+                    enum: {
+                        type: 'array', items: {type: 'string'}, uniqueItems: true},
                     description: {type: 'string'}
                 }
             }
@@ -272,7 +275,10 @@ export const iuischema = {
     elements: [
         {
             type: 'Control',
-            scope: '#/properties/parameters'
+            scope: '#/properties/parameters',
+            options: {
+                label : false
+            }
         }
     ]
 }
