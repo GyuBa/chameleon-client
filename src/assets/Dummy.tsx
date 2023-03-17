@@ -227,7 +227,7 @@ export const myModel = {
     ],
 }
 
-export const dSchema = {
+export const defaultSchema = {
     properties: {
         name: {
             type: "string"
@@ -235,7 +235,7 @@ export const dSchema = {
     }
 }
 
-export const dUIschema = {
+export const defaultUIschema = {
     type: "VerticalLayout",
     elements: [
         {
@@ -248,7 +248,7 @@ export const dUIschema = {
     ]
 }
 
-export const ischema = {
+export const userSchema = {
     type: 'object',
     properties: {
         parameters: {
@@ -274,7 +274,7 @@ export const ischema = {
     }
 }
 
-export const iuischema = {
+export const userUIschema = {
     type: 'VerticalLayout',
     elements: [
         {

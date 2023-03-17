@@ -4,20 +4,14 @@ import {Link} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
 import {crparamTab} from "../../../assets/Dummy"
 import {BiCheckCircle} from "react-icons/bi";
-import {CreateSimpleParam} from "./modelTab/CreateSimpleParam";
-import CreateComplexParam from "./modelTab/CreateComplexParam"
+import {CreateSimpleParam} from "./tab/CreateSimpleParam";
+import CreateComplexParam from "./tab/CreateComplexParam"
 
 const url = "https://jsonforms.io/examples/basic"
 
-export default function SetParameter() {
+export default function CreateParameter() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const {currentColor} = useStateContext();
-
-    const [parameters, setParameters] = useState([
-        { name: 'name', type: 'string', maxLength: 20, minLength: 5 },
-        { name: 'age', type: 'number', maxLength: 3, minLength: 1 },
-        { name: 'gender', type: 'string', enum: ['male', 'female'] },
-    ]);
 
     return (
         <div className="contents">
