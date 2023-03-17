@@ -1,17 +1,28 @@
 import React from "react";
-import domtoimage from "dom-to-image";
-import {saveAs} from "file-saver";
+import axios from 'axios';
 import {BiDownload} from "react-icons/bi"
 
+interface DownloadButtonProps {
+    url: string;
+    format: string;
+    filename: string;
+}
 
 export default function OutputModule() {
 
-    const onDownloadBtn = () => {
-        domtoimage
-            .toBlob(document.querySelector('.card') as Node)
-            .then((blob) => {
-                saveAs(blob, 'card.png');
+    const DownloadButton = ({url, format, filename}: DownloadButtonProps) => {
+        const handleClick = async () => {
+            const response = await axios.get(`${url}?format=${format}`, {
+                responseType: 'blob',
             });
+            const blob = new Blob([response.data], {type: response.headers['content-type']});
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = `${filename}.${format}`;
+            link.click();
+        };
+
+        return <button onClick={handleClick}>Download {format.toUpperCase()}</button>;
     };
 
     return (
@@ -20,7 +31,7 @@ export default function OutputModule() {
                 <p className="text-xl font-bold">Output</p>
                 <div className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
                     <BiDownload size="25" color="#484848" className="pl-1"/>
-                    <button onClick={onDownloadBtn}>Download</button>
+                    <DownloadButton url='api/' format="jpg" filename="data"/>
                 </div>
             </div>
             <p className="px-2 pt-2">Output Format : </p>

@@ -28,4 +28,14 @@ type WebSocketData = {
     event?: JSX.Element | any,
 }
 
-export type {HeaderData, DefaultButtonData, SubmitButtonData, WebSocketData};
+type Parameter = {
+    name: string;
+    type?: string;
+    min?: number;
+    max?: number;
+    default?: number;
+    enum?: [enums: string],
+    description?: string;
+}
+
+export type {Parameter, HeaderData, DefaultButtonData, SubmitButtonData, WebSocketData};

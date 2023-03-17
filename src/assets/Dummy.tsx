@@ -257,12 +257,16 @@ export const ischema = {
                 type: 'object',
                 properties: {
                     name: {type: 'string'},
-                    type: {type: 'string', enum : ["string", "number", "integer", "boolean", "date", "time", "datetime", "email"]},
+                    type: {
+                        type: 'string',
+                        enum: ["string", "number", "integer", "boolean", "date", "time", "datetime", "email"]
+                    },
                     min: {type: 'number'},
                     max: {type: 'number'},
-                    default : {type: 'number'},
+                    default: {type: 'number'},
                     enum: {
-                        type: 'array', items: {type: 'string'}, uniqueItems: true},
+                        type: 'array', items: {type: 'string'}, uniqueItems: true
+                    },
                     description: {type: 'string'}
                 }
             }
@@ -277,7 +281,7 @@ export const iuischema = {
             type: 'Control',
             scope: '#/properties/parameters',
             options: {
-                label : false
+                label: false
             }
         }
     ]
