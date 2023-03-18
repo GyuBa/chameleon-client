@@ -227,346 +227,7 @@ export const myModel = {
     ],
 }
 
-export const tabsData = [
-    {
-        label: "TarFile",
-        content:
-            "Ut irure mollit nulla eiusmod excepteur laboris elit sit anim magna tempor excepteur labore nulla.",
-        img: tar
-    },
-    {
-        label: "Dockerfile",
-        content:
-            "Fugiat dolor et quis in incididunt aute. Ullamco voluptate consectetur dolor officia sunt est dolor sint.",
-        img: dockerfile
-    },
-    {
-        label: "Etc",
-        content:
-            "Fugiat dolor et quis in incididunt aute. Ullamco voluptate consectetur dolor officia sunt est dolor sint.",
-    },
-];
-
-/* export const schema = {
-  definitions: {
-    string: {
-      type: "object",
-      title: "String",
-      properties: {
-        Schema: {
-          type : 'object',
-          properties : {
-            minLength: {
-              type: 'number',
-            },
-            maxLength: {
-              type: 'number',
-            },
-            Enum: {
-              type: 'string',
-              minLength: 1
-            },
-            Description: {
-              type: 'string',
-              minLength: 1
-            },
-            Required: {
-              type: 'boolean'
-            }
-          }
-        },
-        UISchema : {
-          type : 'object',
-          properties : {
-            MultiOption: {
-              type: 'boolean',
-              Label: 'Turn on Multiline'
-            },
-            TrimOption: {
-              type: 'boolean'
-            },
-            RestrictOption: {
-              type: 'boolean'
-            },
-            ShowUnfocusedDescription: {
-              type: 'boolean'
-            },
-            hideRequiredAsterisk : {
-              type: 'boolean'
-            }
-          }
-        }
-      },
-    },
-    number: {
-      type: "object",
-      title: "Number",
-      properties: {
-        Schema: {
-          type : 'object',
-          properties : {
-            maximum: {
-              type: 'number',
-            },
-            minimum: {
-              type: 'number',
-            },
-            default: {
-              type: 'number',
-            },
-            Description: {
-              type: 'string',
-              minLength: 1
-            },
-            Required: {
-              type: 'boolean'
-            }
-          }
-        },
-        UISchema : {
-          type : 'object',
-          properties : {
-            SliderOption: {
-              type: 'boolean'
-            },
-          }
-        }
-      },
-    },
-    integer: {
-      type: "object",
-      title: "Integer",
-      properties: {
-        Schema: {
-          type : 'object',
-          properties : {
-            maximum: {
-              type: 'number',
-            },
-            minimum: {
-              type: 'number',
-            },
-            default: {
-              type: 'number',
-            },
-            Description: {
-              type: 'string',
-              minLength: 1
-            },
-            Required: {
-              type: 'boolean'
-            }
-          }
-        },
-        UISchema : {
-          type : 'object',
-          properties : {
-            SliderOption: {
-              type: 'boolean'
-            },
-          }
-        }
-      },
-    },
-    boolean: {
-      type: "object",
-      title: "Boolean",
-      properties: {
-        Schema: {
-          type : 'object',
-          properties : {
-            Description: {
-              type: 'string',
-              minLength: 1
-            },
-            Required: {
-              type: 'boolean'
-            }
-          }
-        },
-        UISchema : {
-          type : 'object',
-          properties : {
-            ToggleOption: {
-              type: 'boolean'
-            },
-          }
-        }
-      },
-    },
-    items: {
-      type: "array",
-      title: "Items",
-      items : {
-        type: 'object',
-        properties: {
-          Name: {
-            type: 'string',
-            minLength: 1
-          },
-          Type: {
-            type: 'string',
-            enum: ['string', 'integer', 'number', 'boolean', 'date', 'time', 'date-time', 'email']
-          },
-          Enum: {
-            type: 'string',
-            minLength: 1
-          },
-          Description: {
-            type: 'string',
-            minLength: 1
-          },
-          Required: {
-            type: 'boolean'
-          }
-        }
-      }
-    },
-
-    date: {
-      type: "object",
-      title: "Date",
-      properties: {
-        Schema: {
-          type : 'object',
-          properties : {
-            Description: {
-              type: 'string',
-              minLength: 1
-            },
-            Required: {
-              type: 'boolean'
-            }
-          }
-        },
-      },
-    },
-
-    time: {
-      type: "object",
-      title: "Date",
-      properties: {
-        Schema: {
-          type : 'object',
-          properties : {
-            Description: {
-              type: 'string',
-              minLength: 1
-            },
-            Required: {
-              type: 'boolean'
-            }
-          }
-        },
-      },
-    },
-
-    datetime: {
-      type: "object",
-      title: "Date",
-      properties: {
-        Schema: {
-          type : 'object',
-          properties : {
-            Description: {
-              type: 'string',
-              minLength: 1
-            },
-            Required: {
-              type: 'boolean'
-            }
-          }
-        },
-      },
-    },
-
-    email: {
-      type: "object",
-      title: "Email",
-      properties: {
-        Schema: {
-          type : 'object',
-          properties : {
-            Description: {
-              type: 'string',
-              minLength: 1
-            },
-            Required: {
-              type: 'boolean'
-            }
-          }
-        },
-      },
-    }
-  },
-  type: "object",
-  properties: {
-    parameter : {
-      type: 'array',
-      items: {
-        type: 'object',
-        properties: {
-          Name: {
-            type: 'string',
-            minLength: 1
-          },
-          Type: {
-            oneOf: [
-              {
-                title : 'string',
-                $ref: "#/definitions/string"
-              },
-              {
-                title : 'number',
-                $ref: "#/definitions/number"
-              },
-              {
-                title : 'integer',
-                $ref: "#/definitions/integer"
-              },
-              {
-                title : 'boolean',
-                $ref: "#/definitions/boolean"
-              },
-              {
-                title : 'array',
-                $ref: "#/definitions/items"
-              },
-              {
-                title : 'date',
-                $ref: "#/definitions/date"
-              },
-              {
-                title : 'time',
-                $ref: "#/definitions/time"
-              },
-              {
-                title : 'datetime',
-                $ref: "#/definitions/datetime"
-              },
-              {
-                title : 'email',
-                $ref: "#/definitions/email"
-              }
-            ]
-          }
-        }
-      }
-    }
-  }
-};
-export const uischema = {
-  type: "VerticalLayout",
-  elements: [
-    {
-      type: "Control",
-      label: "Parameter",
-      scope: "#/properties/parameter"
-    },
-  ]
-}; */
-
-export const dSchema = {
+export const defaultSchema = {
     properties: {
         name: {
             type: "string"
@@ -574,16 +235,86 @@ export const dSchema = {
     }
 }
 
-export const dUIschema = {
-    type: "Control",
-    scope: "#/properties/name"
+export const defaultUIschema = {
+    type: "VerticalLayout",
+    elements: [
+        {
+            type: "Control",
+            scope: "#/properties/name",
+            options: {
+                "trim": true
+            }
+        }
+    ]
 }
 
-export const paramTab = [
+export const userSchema = {
+    type: 'object',
+    properties: {
+        parameters: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    name: {type: 'string'},
+                    type: {
+                        type: 'string',
+                        enum: ["string", "number", "integer", "boolean", "date", "time", "date-time", "email"]
+                    },
+                    min: {type: 'number'},
+                    max: {type: 'number'},
+                    default: {type: 'number'},
+                    enum: {
+                        type: 'array', items: {type: 'string'}, uniqueItems: true
+                    },
+                    description: {type: 'string'}
+                }
+            }
+        }
+    }
+}
+
+export const userUIschema = {
+    type: 'VerticalLayout',
+    elements: [
+        {
+            type: 'Control',
+            scope: '#/properties/parameters',
+            options: {
+                label: false
+            }
+        }
+    ]
+}
+
+export const exparamTab = [
     {
         label: "Parameters",
     },
     {
         label: "Parameters(JSON)"
+    },
+];
+
+export const crparamTab = [
+    {
+        label: "Simple"
+    },
+    {
+        label: "Complex"
+    }
+];
+
+export const tabsData = [
+    {
+        label: "TarFile",
+        img: tar
+    },
+    {
+        label: "Dockerfile",
+        img: dockerfile
+    },
+    {
+        label: "Etc",
     },
 ];
