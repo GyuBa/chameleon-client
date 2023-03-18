@@ -22,11 +22,11 @@ export default function CreateComplexParam() {
     const [data, setData] = useState(initialData);
 
     try {
-        const parsedschema = JSON.parse(schema)
-        const parseduischema = JSON.parse(uischema)
+        const parsedSchema = JSON.parse(schema)
+        const parsedUIschema = JSON.parse(uischema)
 
-        changedSchema = parsedschema
-        changedUISchema = parseduischema
+        changedSchema = parsedSchema
+        changedUISchema = parsedUIschema
 
     } catch {
 
@@ -44,7 +44,7 @@ export default function CreateComplexParam() {
                         width={400}
                         theme="vs-light"
                         value={schema}
-                        onChange={(value) => setSchema(value as string)}
+                        onChange={(value) => setSchema(value || '')}
                         options={{
                             minimap: {
                                 enabled: false,
@@ -63,7 +63,7 @@ export default function CreateComplexParam() {
                             width={400}
                             theme="vs-light"
                             value={uischema}
-                            onChange={(value) => setUISchema(value as string)}
+                            onChange={(value) => setUISchema(value || '')}
                             options={{
                                 minimap: {
                                     enabled: false,

@@ -26,7 +26,7 @@ function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
         if (param.enum?.length) {
             const num = param.enum.map(e => parseInt(e))
             properties[paramName] = {
-                type: paramType,
+                type: (paramType == "date" || paramType == "time" || paramType == "date-time" || paramType == "email") ? "string" : paramType,
                 format: paramType,
                 minLength: param.min,
                 maxLength: param.max,
@@ -37,7 +37,7 @@ function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
             };
         } else {
             properties[paramName] = {
-                type: paramType,
+                type: (paramType == "date" || paramType == "time" || paramType == "date-time" || paramType == "email") ? "string" : paramType,
                 format: paramType,
                 minLength: param.min,
                 maxLength: param.max,

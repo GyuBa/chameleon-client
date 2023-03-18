@@ -259,7 +259,7 @@ export const userSchema = {
                     name: {type: 'string'},
                     type: {
                         type: 'string',
-                        enum: ["string", "number", "integer", "boolean", "date", "time", "datetime", "email"]
+                        enum: ["string", "number", "integer", "boolean", "date", "time", "date-time", "email"]
                     },
                     min: {type: 'number'},
                     max: {type: 'number'},
