@@ -1,7 +1,7 @@
 import {BiDownload} from "react-icons/bi";
 import React from "react";
 import {DownloadButtonProps} from "../../../../types/Types";
-import axios from "axios/index";
+import axios from "axios";
 
 export default function SingleImageViewer() {
 

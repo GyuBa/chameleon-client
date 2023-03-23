@@ -3,7 +3,7 @@ import axios from "axios";
 import {BiDownload} from "react-icons/bi";
 import React from "react";
 
-export default function SingleBinaryViewer() {
+export default function SingleVideoViewer() {
 
     const DownloadButton = ({url, format, filename}: DownloadButtonProps) => {
         const handleClick = async () => {
