@@ -35,15 +35,11 @@ export default function useGetUserInfo(userId: any) {
     };
   }, []);
 
-  if (!loading && !error && user) {
-    return {
-      userName: user.name,
-      userEmail: user.email,
-    };
+  if (loading) {
+    return {userName: "불러오는 중...", userEmail: "불러오는 중..."};
+  } else if (!loading && !error && user) {
+    return {userName: user.name, userEmail: user.email};
+  } else {
+    return {userName: "사용자 이름", userEmail: "사용자 이메일"};
   }
-
-  return {
-    userName: "사용자 이름",
-    userEmail: "사용자 이메일",
-  };
 }
