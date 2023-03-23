@@ -29,9 +29,9 @@ function authSignIn(email: any, password: any) {
 
 export default function SignIn() {
     const {currentColor} = useStateContext();
-    const [email, setEmail] = useState<String>("")
-    const [password, setPassword] = useState<String>("")
-    // signup, login 명칭 수정 필요 => login(x), signIn(o) / signup(x), signUp(o)
+    const [email, setEmail] = useState<String>("");
+    const [password, setPassword] = useState<String>("");
+
     const signIn = async (e: any) => {
         e.preventDefault();
         if (!email) {

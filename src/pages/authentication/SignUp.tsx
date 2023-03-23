@@ -14,6 +14,7 @@ function authSignUp(email: string, password: string, userName: string) {
             'userName': userName,
         },
         {
+            withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -39,10 +40,9 @@ export default function SignUp() {
 
     const [isEmail, setIsEmail] = useState<boolean>(false);
     const [isPassword, setIsPassword] = useState<boolean>(false);
-    // signup, login 명칭 수정 필요 => login(x), signIn(o) / signup(x), signUp(o)
     const [isUsername, setIsUsername] = useState<boolean>(false);
 
-    const signup = useCallback(
+    const signUp = useCallback(
         async (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
             authSignUp(email, password, username).then(function (response) {
@@ -161,7 +161,7 @@ export default function SignUp() {
                             <div className="text-center lg:text-left">
                                 <SubmitButton
                                     style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                                    className="w-full" text="SignUp" event={SignUp} onClick={signup}
+                                    className="w-full" text="SignUp" event={SignUp} onClick={signUp}
                                     disabled={!(isUsername && isEmail && isPassword)}/>
                             </div>
                         </form>

@@ -3,10 +3,14 @@ import {Button, Header} from '../../components/index';
 import {BsPersonCircle} from "react-icons/bs";
 import {HiOutlineLockClosed} from "react-icons/hi";
 import {useStateContext} from "../../contexts/ContextProvider";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
+import useGetUserInfo from "../../service/userInfo/UserInfoService";
 
 export default function Account() {
     const {currentColor, handleClick, isClicked} = useStateContext();
+    const params = useParams();
+    const {userName, userEmail} = useGetUserInfo(params.id);
+
     return (
         <div className="contents">
             <div className="w-2/3 m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
@@ -27,9 +31,9 @@ export default function Account() {
                                     placeholder="최수연"
                                 />
                             ) : (
-                                <p className="font-extrabold text-xl">최수연</p>
+                                <p className="font-extrabold text-xl">{userName}</p>
                             )}
-                            <p>tndus502@koreatech.ac.kr</p>
+                            <p>{userEmail}</p>
                         </div>
                         <div onClick={() => handleClick('changeName')}>
                             {isClicked.changeName ? (
