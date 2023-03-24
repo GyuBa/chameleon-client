@@ -11,6 +11,7 @@ const initialState = {userProfile: false, ChangeName: false,};
 export const ContextProvider = ({children}) => {
     const [activeMenu, setActiveMenu] = useState(true);
     const [isClicked, setIsClicked] = useState(initialState);
+    const [isClickedButton, setIsClickedButton] = useState(initialState);
     const [menuState, setMenuState] = useState(false);
     const [modelState, setModelState] = useState(false);
     const [currentLayout, setCurrentLayout] = useState('GridLayout');
@@ -50,9 +51,19 @@ export default function App() {
 }
 \`\`\``);
 
-    const handleClick = (clicked) => setIsClicked({...initialState, [clicked]: true});
+  const handleClick = (clicked) => setIsClicked({...initialState, [clicked]: true});
 
-    const onClickMenu = () => {
+  const onClickButton = (buttonName) => {
+    if (buttonName === 'changeName') {
+      console.log("check_1");
+      setIsClickedButton({...isClickedButton, changeName: !isClickedButton.changeName});
+    } else {
+      console.log("check_2");
+      setIsClickedButton({...isClickedButton, changeName: false});
+    }
+  };
+
+  const onClickMenu = () => {
         setMenuState(prevState => !prevState)
     };
 
@@ -77,6 +88,8 @@ export default function App() {
             setActiveMenu,
             isClicked,
             setIsClicked,
+            isClickedButton,
+            setIsClickedButton,
             menuState,
             setMenuState,
             currentLayout,
@@ -86,6 +99,7 @@ export default function App() {
             value,
             setValue,
             handleClick,
+            onClickButton,
             onClickMenu,
             selectModel,
             handleActiveMenu,

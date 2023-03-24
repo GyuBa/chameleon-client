@@ -7,7 +7,7 @@ import {Link, useParams} from "react-router-dom";
 import useGetUserInfo from "../../service/userInfo/UserInfoService";
 
 export default function Account() {
-    const {currentColor, handleClick, isClicked} = useStateContext();
+    const {currentColor, onClickButton, isClickedButton} = useStateContext();
     const params = useParams();
     const {userName, userEmail} = useGetUserInfo(params.id);
 
@@ -20,23 +20,23 @@ export default function Account() {
                     <div className="flex items-center">
                         <BsPersonCircle className="w-20 h-20"/>
                         <div className="w-full p-3">
-                            {isClicked.changeName ? (
+                            {isClickedButton.changeName ? (
                                 <input
                                     type="text"
                                     className="form-control block w-3/4 px-4 py-2 text-base font-normal
-                  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
-                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
-                  focus:border-blue-600 focus:outline-none"
+                                    text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
+                                    rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
+                                    focus:border-blue-600 focus:outline-none"
                                     id="change-name"
-                                    placeholder="최수연"
+                                    placeholder={userName}
                                 />
                             ) : (
                                 <p className="font-extrabold text-xl">{userName}</p>
                             )}
                             <p>{userEmail}</p>
                         </div>
-                        <div onClick={() => handleClick('changeName')}>
-                            {isClicked.changeName ? (
+                        <div onClick={() => onClickButton('changeName')}>
+                            {isClickedButton.changeName ? (
                                 <div className="flex gap-3">
                                     <Button style={{backgroundColor: "white", color: "black", borderRadius: "10px"}}
                                             className="text-sm p-2" text="취소"/>

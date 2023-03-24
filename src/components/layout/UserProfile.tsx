@@ -23,7 +23,6 @@ export default function UserProfile() {
                 <BsPersonCircle className="w-24 h-24"/>
                 <div>
                     <p className="font-semibold text-xl"> {userName} </p>
-                    {/*<p className="text-gray-500 text-sm"> 컴퓨터공학부 20학번 </p>*/}
                     <p className="text-gray-500 text-sm font-semibold"> {userEmail} </p>
                 </div>
             </div>
