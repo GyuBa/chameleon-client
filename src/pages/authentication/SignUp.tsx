@@ -98,8 +98,14 @@ export default function SignUp() {
         }
     }, [])
 
+    const handleKeyPress = (e: any) => {
+        if (e.key == 'Enter') {
+            signUp(e);
+        }
+    }
+
     return (
-        <div className="h-screen">
+        <div className="h-screen" onKeyPress={handleKeyPress}>
             <div className="flex justify-center px-6 mt-10 text-gray-800">
                 <div className="mt-10 g-6">
                     <div
