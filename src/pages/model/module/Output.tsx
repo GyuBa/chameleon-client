@@ -7,7 +7,7 @@ import SingleVideoViewer from "../module/Output/SingleVideoViewer"
 const modules = [SingleImageViewer, SingleTextViewer, SingleVideoViewer, ZipGalleryViewer];
 
 export default function OutputModule() {
-    const Module = modules[0];
+    const Module = modules[1];
 
     return (
         <div className="row-span-3 col-span-2 md:p-2 rounded-lg border-1 overflow-scroll border-gray-300">
