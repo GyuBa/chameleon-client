@@ -4,13 +4,11 @@ import {BsFillPersonFill} from 'react-icons/bs';
 import {MdKeyboardArrowDown} from 'react-icons/md';
 import {UserProfile} from '../index';
 import {useStateContext} from '../../contexts/ContextProvider';
-import {useParams} from "react-router-dom";
 import useGetUserInfo from "../../service/userInfo/UserInfoService";
 
 export default function Navbar() {
     const {currentColor, handleClick, isClicked, handleActiveMenu} = useStateContext();
-    const params = useParams();
-    const {userName} = useGetUserInfo(params.id);
+    const {userName} = useGetUserInfo();
 
     return (
         <div className="flex w-full justify-between p-2 relative">

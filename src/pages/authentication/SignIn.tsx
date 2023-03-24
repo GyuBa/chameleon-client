@@ -54,7 +54,7 @@ export default function SignIn() {
   }
 
   const handleKeyPress = (e: any) => {
-    if (e.key == 'Enter') {
+    if (e.key === 'Enter') {
       signIn(e);
     }
   }

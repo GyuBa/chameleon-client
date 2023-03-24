@@ -99,7 +99,7 @@ export default function SignUp() {
   }, [])
 
   const handleKeyPress = (e: any) => {
-    if (e.key == 'Enter') {
+    if (e.key === 'Enter') {
       signUp(e);
     }
   }

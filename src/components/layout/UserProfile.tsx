@@ -4,13 +4,12 @@ import {BsPersonCircle} from 'react-icons/bs';
 import {Button} from '../index';
 import {userProfileData} from '../../assets/Dummy';
 import {useStateContext} from '../../contexts/ContextProvider';
-import {Link, NavLink, useParams} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import useGetUserInfo from "../../service/userInfo/UserInfoService";
 
 export default function UserProfile() {
     const {currentColor} = useStateContext();
-    const params = useParams();
-    const {userName, userEmail} = useGetUserInfo(params.id);
+    const {userName, userEmail} = useGetUserInfo();
 
     return (
         <div className="nav-item absolute right-1 top-16 bg-white p-8 rounded-lg w-96">
