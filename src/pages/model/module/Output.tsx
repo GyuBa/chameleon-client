@@ -10,7 +10,7 @@ export default function OutputModule() {
     const Module = modules[0];
 
     return (
-        <div className="row-span-3 col-span-2 md:p-2 rounded-lg border-1 border-gray-300">
+        <div className="row-span-3 col-span-2 md:p-2 rounded-lg border-1 overflow-scroll border-gray-300">
             {Module && <Module/>}
         </div>
     );
