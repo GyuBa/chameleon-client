@@ -4,7 +4,7 @@ import {BsFillPersonFill} from 'react-icons/bs';
 import {MdKeyboardArrowDown} from 'react-icons/md';
 import {UserProfile} from '../index';
 import {useStateContext} from '../../contexts/ContextProvider';
-import useGetUserInfo from "../../service/userInfo/UserInfoService";
+import useGetUserInfo from "../../service/authentication/UserInfoService";
 
 export default function Navbar() {
     const {currentColor, handleClick, isClicked, handleActiveMenu} = useStateContext();

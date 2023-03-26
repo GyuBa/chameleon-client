@@ -5,7 +5,7 @@ import {Button} from '../index';
 import {userProfileData} from '../../assets/Dummy';
 import {useStateContext} from '../../contexts/ContextProvider';
 import {Link, NavLink} from 'react-router-dom';
-import useGetUserInfo from "../../service/userInfo/UserInfoService";
+import useGetUserInfo from "../../service/authentication/UserInfoService";
 
 export default function UserProfile() {
     const {currentColor} = useStateContext();

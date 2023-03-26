@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import {Badge} from "flowbite-react";
 import MDEditor from "@uiw/react-md-editor";
-import {Button, Header} from "../index";
+import {Button} from "../index";
 import {useStateContext} from "../../contexts/ContextProvider";
 
 export default function Description() {

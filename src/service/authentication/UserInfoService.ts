@@ -17,7 +17,7 @@ export default function useGetUserInfo() {
 
     (async function get() {
       try {
-        const res = await instance.get(`auth/info`, {
+        const res = await instance.get(`/auth/info`, {
           timeout: 5000,
           withCredentials: true,
           headers: {

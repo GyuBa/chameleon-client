@@ -4,7 +4,7 @@ import {SubmitButton} from '../../components/index';
 import chameleon from '../../assets/images/chameleon.png';
 import {useStateContext} from "../../contexts/ContextProvider";
 import instance from "../../ConstantValue";
-import {setToken} from "../../service/TokenService";
+import {setToken} from "../../service/token/TokenService";
 
 function authSignIn(email: any, password: any) {
   return instance.post("/auth/sign-in",
