@@ -1,11 +1,28 @@
 import React from "react";
-import {Button, Header} from "../../../components";
+import {Button, Header, SubmitButton} from "../../../components";
 import {Link} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
 import MDEditor from '@uiw/react-md-editor';
+import instance from "../../../ConstantValue";
+
+const sendData = async (data: string) => {
+    try {
+        await instance.post('/model/upload', {
+            markdown: data
+        });
+        console.log('success');
+        console.log(data);
+    } catch (error) {
+        console.error(error);
+    }
+};
 
 export default function CreateDescription() {
     const {currentColor, value, setValue} = useStateContext();
+
+    const handleSendData = () => {
+        sendData(value);
+    };
 
     return (
         <div className="contents">
@@ -25,6 +42,9 @@ export default function CreateDescription() {
                                 className="w-16 p-2" text="next"/>
                     </Link>
                 </div>
+                {/*임시 데이터 전송 버튼*/}
+                <SubmitButton style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
+                              className="w-20 p-2" text="submit" onClick={handleSendData}/>
             </div>
         </div>
     );
