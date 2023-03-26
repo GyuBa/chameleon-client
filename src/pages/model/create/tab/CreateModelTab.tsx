@@ -11,6 +11,45 @@ type IFile = File & { preview?: string };
 export default function CreateModelTab(number: number) {
   const {currentColor} = useStateContext();
   const [files, setFiles] = useState<IFile[]>([]);
+  const [modelName, setModelName] = useState<string>('');
+  const [inputType, setInputType] = useState<string>('none');
+  const [outputType, setOutputType] = useState<string>('image');
+  const [modelRegion, setModelRegion] = useState<string>('');
+
+  const handleModelNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {setModelName(event.target.value);};
+  const handleInputTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {setInputType(event.target.value);};
+  const handleOutputTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {setOutputType(event.target.value);};
+  const handleModelRegionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {setModelRegion(event.target.value);};
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append('modelName', modelName);
+    formData.append('inputType', inputType);
+    formData.append('outputType', outputType);
+    formData.append('modelRegion', modelRegion);
+    formData.append('file', files[0]);
+
+    console.log(modelName);
+    console.log(inputType);
+    console.log(outputType);
+    console.log(modelRegion);
+    console.log(files);
+
+    try {
+      const res = await axios.post(`/model/upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log('data');
+      console.log(res.data);
+      return res.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
     accept: {
@@ -33,48 +72,6 @@ export default function CreateModelTab(number: number) {
     // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
     return () => files.forEach(file => URL.revokeObjectURL(file.preview as string));
   });
-
-  const [modelName, setModelName] = useState<string>('');
-  const [inputType, setInputType] = useState<string>('none');
-  const [outputType, setOutputType] = useState<string>('image');
-  const [modelRegion, setModelRegion] = useState<string>('');
-
-  const handleModelNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setModelName(event.target.value);
-  };
-  const handleInputTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setInputType(event.target.value);
-  };
-  const handleOutputTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setOutputType(event.target.value);
-  };
-  const handleModelRegionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setModelRegion(event.target.value);
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const formData = new FormData();
-    formData.append('modelName', modelName);
-    formData.append('inputType', inputType);
-    formData.append('outputType', outputType);
-    formData.append('modelRegion', modelRegion);
-    formData.append('file', files[0]);
-
-    try {
-      const res = await axios.post(`/model/upload`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log('data');
-      console.log(res.data);
-      return res.data;
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <div className="py-4">
@@ -174,7 +171,7 @@ export default function CreateModelTab(number: number) {
       </div>
       {/*임시 데이터 전송 버튼*/}
       <SubmitButton style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                    className="w-16 p-2" text="submit" onClick={handleSubmit}/>
+                    className="w-20 p-2" text="submit" onClick={handleSubmit}/>
     </div>
   );
 };
