@@ -1,6 +1,9 @@
 import {DownloadButtonProps} from "../../../../types/Types";
 import axios from "axios";
+import Lightbox from "yet-another-react-lightbox"
+import fetchProgress from "fetch-progress"
 import {BiDownload} from "react-icons/bi";
+import {BlobReader, BlobWriter, ZipReader} from "@zip.js/zip.js"
 import React from "react";
 
 export default function ZipGalleryViewer() {
