@@ -4,7 +4,7 @@ import {tabsData} from "../../../../assets/Dummy";
 import {Link} from "react-router-dom";
 import {useStateContext} from "../../../../contexts/ContextProvider";
 import {useDropzone} from "react-dropzone";
-import axios from 'axios';
+import instance from "../../../../ConstantValue";
 
 type IFile = File & { preview?: string };
 
@@ -14,12 +14,12 @@ export default function CreateModelTab(number: number) {
   const [modelName, setModelName] = useState<string>('');
   const [inputType, setInputType] = useState<string>('none');
   const [outputType, setOutputType] = useState<string>('image');
-  const [modelRegion, setModelRegion] = useState<string>('');
+  const [regionName, setRegionName] = useState<string>('');
 
   const handleModelNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {setModelName(event.target.value);};
   const handleInputTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {setInputType(event.target.value);};
   const handleOutputTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {setOutputType(event.target.value);};
-  const handleModelRegionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {setModelRegion(event.target.value);};
+  const handleRegionNameChange = (event: React.ChangeEvent<HTMLSelectElement>) => {setRegionName(event.target.value);};
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -28,17 +28,18 @@ export default function CreateModelTab(number: number) {
     formData.append('modelName', modelName);
     formData.append('inputType', inputType);
     formData.append('outputType', outputType);
-    formData.append('modelRegion', modelRegion);
+    formData.append('regionName', regionName);
     formData.append('file', files[0]);
 
     console.log(modelName);
     console.log(inputType);
     console.log(outputType);
-    console.log(modelRegion);
+    console.log(regionName);
     console.log(files);
 
     try {
-      const res = await axios.post(`/model/upload`, formData, {
+      const res = await instance.post(`/model/upload`, formData, {
+        timeout: 10000,
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -132,8 +133,8 @@ export default function CreateModelTab(number: number) {
                   text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
                   rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
                   focus:border-blue-600 focus:outline-none"
-                    value={modelRegion}
-                    onChange={handleModelRegionChange}>
+                    value={regionName}
+                    onChange={handleRegionNameChange}>
               <option selected></option>
               <option value="mongle">Mongle</option>
               <option value="ripper">Ripper</option>

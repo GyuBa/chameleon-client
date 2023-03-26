@@ -17,7 +17,7 @@ export default function useGetUserInfo() {
 
     (async function get() {
       try {
-        const response = await instance.get(`/auth/info`, {
+        const res = await instance.get(`auth/info`, {
           timeout: 5000,
           withCredentials: true,
           headers: {
@@ -28,7 +28,7 @@ export default function useGetUserInfo() {
 
         if (!completed) {
           setLoading(false);
-          setUser(response.data);
+          setUser(res.data);
         }
       } catch (error) {
         console.error(error);
