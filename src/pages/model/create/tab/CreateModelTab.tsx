@@ -16,10 +16,18 @@ export default function CreateModelTab(number: number) {
   const [outputType, setOutputType] = useState<string>('image');
   const [regionName, setRegionName] = useState<string>('');
 
-  const handleModelNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {setModelName(event.target.value);};
-  const handleInputTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {setInputType(event.target.value);};
-  const handleOutputTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {setOutputType(event.target.value);};
-  const handleRegionNameChange = (event: React.ChangeEvent<HTMLSelectElement>) => {setRegionName(event.target.value);};
+  const handleModelNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setModelName(event.target.value);
+  };
+  const handleInputTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setInputType(event.target.value);
+  };
+  const handleOutputTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setOutputType(event.target.value);
+  };
+  const handleRegionNameChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setRegionName(event.target.value);
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -30,11 +38,8 @@ export default function CreateModelTab(number: number) {
     formData.append('outputType', outputType);
     formData.append('regionName', regionName);
     formData.append('file', files[0]);
-    formData.append('description', 'test'); // test
-    formData.append('host', 'test'); // test
-    formData.append('port', 'test'); // test
-    formData.append('repository', 'test'); // test
-    formData.append('tags', 'test'); // test
+    // Test Data
+    formData.append('description', 'test');
 
     console.log(formData);
 
@@ -45,47 +50,16 @@ export default function CreateModelTab(number: number) {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log('data');
       console.log(res.data);
       return res.data;
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.response && error.response.status === 501) {
+        console.error(error.response.data);
+      } else {
+        console.error(error);
+      }
     }
   };
-
-  // async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-  //   event.preventDefault();
-  //
-  //   const formData = {
-  //     modelName,
-  //     inputType,
-  //     outputType,
-  //     regionName,
-  //     file: files,
-  //     description: 'test', // test
-  //     host: 'test', // test
-  //     port: 'test', // test
-  //     repository: 'test', // test
-  //     tags: 'test', // test
-  //   };
-  //
-  //   console.log(formData);
-  //
-  //   try {
-  //     const res = await instance.post(`/model/upload`, formData, {
-  //       timeout: 10000,
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-  //     console.log('data');
-  //     console.log(res.data);
-  //     return res.data;
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
 
   const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
     accept: {
