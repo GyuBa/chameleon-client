@@ -1,8 +1,8 @@
-import {BiDownload} from "react-icons/bi";
 import React, {useEffect, useState} from "react";
-import ReactPlayer from 'react-player'
 import SubmitButton from "../../../../components/button/SubmitButton";
 import {DownloadUtils, FileUtils} from "../../../../utils/Utils";
+import {BiDownload} from "react-icons/bi";
+import ReactPlayer from 'react-player'
 
 const videoURL = '/videos/sloth.mp4'
 
@@ -64,7 +64,7 @@ export default function SingleVideoViewer() {
             </div>
             <p className="px-2 pt-2">Output Format : {outputExtensions} </p>
             <p className="px-2 pt-2">Size : {FileUtils.formatBytes(size)} </p>
-            <ReactPlayer url={url} type="video/mp4 " controls={true} loop={true} playing = {true} volume={0.2} width='50%' height='50%' />
+            <ReactPlayer url={url} type="video/mp4 " controls={true} loop={true} playing = {true} volume={0.2} width='100%' height='100%' />
         </div>
 
     );

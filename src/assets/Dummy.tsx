@@ -329,9 +329,6 @@ export const testOutputTabs = [
     },
     {
         label: "video",
-    },
-    {
-        label: "zipgallery",
     }
 ];
 

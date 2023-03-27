@@ -5,18 +5,16 @@ import ZipGalleryViewer from "../module/Output/ZipGalleryViewer"
 import SingleVideoViewer from "../module/Output/SingleVideoViewer"
 import {testOutputTabs} from "../../../assets/Dummy";
 
-const modules = [SingleImageViewer, SingleTextViewer, SingleVideoViewer, ZipGalleryViewer];
+const modules = [SingleImageViewer, SingleTextViewer, SingleVideoViewer];
 
 export default function OutputModule() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const Module0 = modules[0];
     const Module1 = modules[1];
     const Module2 = modules[2];
-    const Module3 = modules[3];
-
 
     return (
-        <div className="row-span-3 col-span-2 md:p-2 rounded-lg border-1 overflow-scroll border-gray-300">
+        <div className="row-span-3 col-span-2 md:p-2 rounded-lg  overflow-scroll border-1 border-gray-300">
             <div className="tab-content tab-space">
                 <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
                     {Module0 && <Module0/>}
@@ -26,9 +24,6 @@ export default function OutputModule() {
                 </div>
                 <div className={activeTabIndex === 2 ? "block" : "hidden"} id="link3">
                     {Module2 && <Module2/>}
-                </div>
-                <div className={activeTabIndex === 3 ? "block" : "hidden"} id="link4">
-                    {Module3 && <Module3/>}
                 </div>
             </div>
             <div className="flex space-x-3 border-t">
