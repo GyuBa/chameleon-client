@@ -30,12 +30,13 @@ export default function CreateModelTab(number: number) {
     formData.append('outputType', outputType);
     formData.append('regionName', regionName);
     formData.append('file', files[0]);
+    formData.append('description', 'test'); // test
+    formData.append('host', 'test'); // test
+    formData.append('port', 'test'); // test
+    formData.append('repository', 'test'); // test
+    formData.append('tags', 'test'); // test
 
-    console.log(modelName);
-    console.log(inputType);
-    console.log(outputType);
-    console.log(regionName);
-    console.log(files);
+    console.log(formData);
 
     try {
       const res = await instance.post(`/model/upload`, formData, {
@@ -51,6 +52,40 @@ export default function CreateModelTab(number: number) {
       console.error(error);
     }
   };
+
+  // async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  //   event.preventDefault();
+  //
+  //   const formData = {
+  //     modelName,
+  //     inputType,
+  //     outputType,
+  //     regionName,
+  //     file: files,
+  //     description: 'test', // test
+  //     host: 'test', // test
+  //     port: 'test', // test
+  //     repository: 'test', // test
+  //     tags: 'test', // test
+  //   };
+  //
+  //   console.log(formData);
+  //
+  //   try {
+  //     const res = await instance.post(`/model/upload`, formData, {
+  //       timeout: 10000,
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
+  //     console.log('data');
+  //     console.log(res.data);
+  //     return res.data;
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+
 
   const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
     accept: {
