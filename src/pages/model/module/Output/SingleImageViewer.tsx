@@ -58,7 +58,7 @@ export default function SingleImageViewer() {
 
     return (
         <div>
-            <div className="py-2 flex justify-between items-center space-x-3 border-b">
+            <div className="py-2 flex justify-between items-center space-x-3 border-b rounded-lg">
                 <p className="text-xl font-bold">Output</p>
                 <div className="flex items-center rounded-full hover:bg-light-gray focus:bg-gray">
                     <BiDownload size="25" color="#484848" className="pl-1"/>
