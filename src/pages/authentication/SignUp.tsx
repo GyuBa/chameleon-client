@@ -6,13 +6,9 @@ import {useStateContext} from "../../contexts/ContextProvider";
 import instance from "../../ConstantValue";
 import {setToken} from "../../service/TokenService";
 
-function authSignUp(email: string, password: string, userName: string) {
+function authSignUp(email: string, password: string, username: string) {
     return instance.post("/auth/sign-up",
-        {
-            'email': email,
-            'password': password,
-            'userName': userName,
-        },
+        {email, password, username},
         {
             headers: {
                 'Content-Type': 'application/json',
@@ -24,6 +20,9 @@ function authSignUp(email: string, password: string, userName: string) {
             if (response.data.code === 401) {
                 alert('가입에 실패했습니다. 가입 이메일이 잘못되었습니다.');
             }
+        })
+        .catch((error) => {
+            console.log(error);
         });
 }
 

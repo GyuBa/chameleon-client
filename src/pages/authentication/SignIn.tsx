@@ -8,10 +8,7 @@ import {setToken} from "../../service/TokenService";
 
 function authSignIn(email: any, password: any) {
     return instance.post("/auth/sign-in",
-        {
-            'email': email,
-            'password': password,
-        },
+        {email, password},
         {
             withCredentials: true,
             headers: {
@@ -24,7 +21,11 @@ function authSignIn(email: any, password: any) {
             if (response.data.code === 401) {
                 alert('로그인에 실패하셨습니다.');
             }
+        })
+        .catch((error) => {
+            console.log(error);
         });
+
 }
 
 export default function SignIn() {
