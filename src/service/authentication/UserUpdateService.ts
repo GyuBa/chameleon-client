@@ -8,10 +8,10 @@ interface User {
 }
 
 export default function useUpdateUserInfo() {
-  const {userName, userEmail} = useGetUserInfo();
+  const {username, userEmail} = useGetUserInfo();
   // TODO: 이름 및 비밀번호 변경 백엔 코드 수정 시 작업
   // @ts-ignore
-  const [user, setUser] = useState<User>({email: {userName}, name: {userEmail} });
+  const [user, setUser] = useState<User>({name: {username}, email: {userEmail} });
 
   async function updateUser(newName: { name: string }) {
     try {
@@ -19,10 +19,10 @@ export default function useUpdateUserInfo() {
         name: newName,
       });
 
-      const updatedUser = { ...user, userName: response.data.name };
+      const updatedUser = { ...user, username: response.data.name };
       setUser(updatedUser);
 
-      return updatedUser.userName;
+      return updatedUser.username;
     } catch (error) {
       console.error(error);
       return null;

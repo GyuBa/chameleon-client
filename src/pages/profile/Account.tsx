@@ -10,7 +10,7 @@ import useUpdateUserInfo from "../../service/authentication/UserUpdateService";
 
 export default function Account() {
   const {currentColor, onClickButton, isClickedButton} = useStateContext();
-  const {userName, userEmail} = useGetUserInfo();
+  const {username, userEmail} = useGetUserInfo();
   const {user, setUser, updateUser} = useUpdateUserInfo();
   const [newName, setNewName] = useState('');
 
@@ -42,11 +42,11 @@ export default function Account() {
                                     rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
                                     focus:border-blue-600 focus:outline-none"
                   id="change-name"
-                  placeholder={userName}
+                  placeholder={username}
                   value={newName} onChange={(e) => setNewName(e.target.value)}
                 />
               ) : (
-                <p className="font-extrabold text-xl">{userName}</p>
+                <p className="font-extrabold text-xl">{username}</p>
               )}
               <p>{userEmail}</p>
             </div>

@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import instance from "../../ConstantValue";
 
 interface User {
-  name: string;
+  username: string;
   email: string;
 }
 
@@ -43,10 +43,10 @@ export default function useGetUserInfo() {
   }, []);
 
   if (loading) {
-    return {userName: "불러오는 중...", userEmail: "불러오는 중..."};
+    return {username: "불러오는 중...", userEmail: "불러오는 중..."};
   } else if (error) {
-    return {userName: "사용자 이름", userEmail: "사용자 이메일"};
+    return {username: "사용자 이름", userEmail: "사용자 이메일"};
   } else {
-    return {userName: user?.name, userEmail: user?.email};
+    return {username: user?.username, userEmail: user?.email};
   }
 }

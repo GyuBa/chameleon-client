@@ -9,7 +9,7 @@ import useGetUserInfo from "../../service/authentication/UserInfoService";
 
 export default function UserProfile() {
     const {currentColor} = useStateContext();
-    const {userName, userEmail} = useGetUserInfo();
+    const {username, userEmail} = useGetUserInfo();
 
     return (
         <div className="nav-item absolute right-1 top-16 bg-white p-8 rounded-lg w-96">
@@ -21,7 +21,7 @@ export default function UserProfile() {
             <div className="flex gap-5 items-center mt-6 border-color border-b-1 pb-6">
                 <BsPersonCircle className="w-24 h-24"/>
                 <div>
-                    <p className="font-semibold text-xl"> {userName} </p>
+                    <p className="font-semibold text-xl"> {username} </p>
                     <p className="text-gray-500 text-sm font-semibold"> {userEmail} </p>
                 </div>
             </div>

@@ -8,7 +8,7 @@ import useGetUserInfo from "../../service/authentication/UserInfoService";
 
 export default function Navbar() {
     const {currentColor, handleClick, isClicked, handleActiveMenu} = useStateContext();
-    const {userName} = useGetUserInfo();
+    const {username} = useGetUserInfo();
 
     return (
         <div className="flex w-full justify-between p-2 relative">
@@ -23,7 +23,7 @@ export default function Navbar() {
                     <p>
                         <span className="text-gray-700 text-14">Welcome,</span>{' '}
                         <span className="text-gray-700 font-bold ml-1 text-14">
-              {userName}
+              {username}
             </span>
                     </p>
                     <MdKeyboardArrowDown className="text-gray-400 text-14"/>

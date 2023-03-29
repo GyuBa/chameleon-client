@@ -6,12 +6,12 @@ import {useStateContext} from "../../contexts/ContextProvider";
 import instance from "../../ConstantValue";
 import {setToken} from "../../service/token/TokenService";
 
-function authSignUp(email: string, password: string, userName: string) {
+function authSignUp(email: string, password: string, username: string) {
   return instance.post("/auth/sign-up",
     {
       'email': email,
       'password': password,
-      'userName': userName,
+      'username': username,
     },
     {
       withCredentials: true,
