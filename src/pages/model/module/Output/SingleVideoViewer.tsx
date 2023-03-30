@@ -4,7 +4,7 @@ import {DownloadUtils, FileUtils} from "../../../../utils/Utils";
 import {BiDownload} from "react-icons/bi";
 import videojs from "video.js"
 import 'video.js/dist/video-js.css';
-import '../../style/custom-video-js.css'; // 추가된 부분
+import '../../../../styles/custom-video-js.css'; // 추가된 부분
 
 const videoURL = '/videos/test.MOV'
 
@@ -82,7 +82,7 @@ export default function SingleVideoViewer() {
             </div>
             <p className="px-2 pt-2">Output Format : {outputExtensions} </p>
             <p className="px-2 pt-2">Size : {FileUtils.formatBytes(size)} </p>
-            <video ref={videoRef} className="video-js vjs-default-skin" controls autoPlay={false}/>
+            <video ref={videoRef} className="video-js vjs-classic-skin" controls autoPlay={false}/>
         </div>
     );
 }
