@@ -7,7 +7,7 @@ import instance from "../../../ConstantValue";
 
 const sendData = async (data: string) => {
     try {
-        await instance.post('/model/upload', {
+        await instance.post('/upload', {
             markdown: data
         });
         console.log('success');
