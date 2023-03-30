@@ -16,8 +16,8 @@ export default function Account() {
 
   const onClickChangeName = async () => {
     try {
-      await updateUser({name: newName});
-      setUser({...user, name: newName});
+      await updateUser({username: newName});
+      setUser({...user, username: newName});
       setNewName('');
       onClickButton('changeName');
     } catch (error) {

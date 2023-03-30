@@ -3,7 +3,7 @@ import instance from "../../ConstantValue";
 import useGetUserInfo from "./UserInfoService";
 
 interface User {
-  name: string;
+  username: string;
   email: string;
 }
 
@@ -11,15 +11,15 @@ export default function useUpdateUserInfo() {
   const {username, userEmail} = useGetUserInfo();
   // TODO: 이름 및 비밀번호 변경 백엔 코드 수정 시 작업
   // @ts-ignore
-  const [user, setUser] = useState<User>({name: {username}, email: {userEmail} });
+  const [user, setUser] = useState<User>({username: {username}, email: {userEmail} });
 
-  async function updateUser(newName: { name: string }) {
+  async function updateUser(newName: { username: string }) {
     try {
       const response = await instance.put("/auth/modify-password", {
-        name: newName,
+        username: newName,
       });
 
-      const updatedUser = { ...user, username: response.data.name };
+      const updatedUser = { ...user, username: response.data.username };
       setUser(updatedUser);
 
       return updatedUser.username;
