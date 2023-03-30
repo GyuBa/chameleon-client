@@ -1,10 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, {useRef, useEffect, useState} from "react";
 import SubmitButton from "../../../../components/button/SubmitButton";
 import {DownloadUtils, FileUtils} from "../../../../utils/Utils";
 import {BiDownload} from "react-icons/bi";
-import ReactPlayer from 'react-player'
+import videojs from "video.js"
+import 'video.js/dist/video-js.css';
+import '../../style/custom-video-js.css'; // 추가된 부분
 
-const videoURL = '/videos/sloth.mp4'
+const videoURL = '/videos/test.MOV'
+
+type Props = {
+    src: string;
+};
 
 const toBlob = async (url: string) => {
     const response = await fetch(url);
@@ -33,22 +39,34 @@ export default function SingleVideoViewer() {
 
     let outputExtensions = 'mp4'
     const [size, setSize] = useState<number>(0)
+    const [url, setUrl] = useState<string>("");
+    const videoRef = useRef<HTMLVideoElement>(null);
+
     useEffect(() => {
+
         const getSize = async () => {
             const fileSize = await computeFileSize();
             setSize(fileSize);
         }
-        getSize();
-    }, [])
-
-    const [url, setUrl] = useState<string>("");
-
-    useEffect(() => {
         const getUrl = async () => {
             const blobUrl = await createObjectURLFromBlob();
             setUrl(blobUrl);
+
+            if (videoRef.current) {
+                const player = videojs(videoRef.current, {
+                }, () => {
+                    console.log('Video player is ready');
+                });
+                player.src({
+                    src: blobUrl,
+                    type: 'video/mp4'
+                });
+                player.play();
+            }
         }
+
         getUrl();
+        getSize();
     }, [])
 
     return (
@@ -64,10 +82,7 @@ export default function SingleVideoViewer() {
             </div>
             <p className="px-2 pt-2">Output Format : {outputExtensions} </p>
             <p className="px-2 pt-2">Size : {FileUtils.formatBytes(size)} </p>
-            <ReactPlayer url={url} type="video/mp4 " controls={true} loop={true} playing = {true} volume={0.2} width='100%' height='100%' />
+            <video ref={videoRef} className="video-js vjs-default-skin" controls autoPlay={false}/>
         </div>
-
     );
-
-
 }
