@@ -9,6 +9,7 @@ import {exparamTab} from "../../../assets/Dummy";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonForms} from "@jsonforms/react";
 import {JsonViewer} from "@textea/json-viewer";
+import instance from "../../../ConstantValue";
 
 type IFile = File & { preview?: string };
 const initialData = {};
@@ -24,11 +25,11 @@ export default function ExecuteModel() {
     const [hideDrop, setHideDrop] = useState<boolean>(false);
 
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
-        accept: {
-            'image/*': []
-        },
-        onDrop: acceptedFiles => {
+        accept: {'*/*':[]},
+        onDrop: async acceptedFiles => {
             setHideDrop(true);
+
+            acceptedFiles = acceptedFiles.slice(0, 1);
             setFiles(acceptedFiles.map(file => Object.assign(file, {
                 preview: URL.createObjectURL(file)
             })));
@@ -60,6 +61,34 @@ export default function ExecuteModel() {
     useEffect(() => {
         return () => files.forEach(file => URL.revokeObjectURL(file.preview as string));
     });
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        const data = new FormData();
+        for (const file of acceptedFiles) {
+            console.log(file);
+            data.append('files', file, file.name);
+        }
+
+        // TODO: 경로 수정 필요
+        try {
+            const response = await instance.post('/upload', data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            // TODO: status 설정
+            if (response.data.status === 'success') {
+            } else {
+                setFiles([]);
+                setHideDrop(false);
+            }
+        } catch (error) {
+            setFiles([]);
+            setHideDrop(false);
+        }
+    }
 
     return (
         <div className="contents">
@@ -120,7 +149,7 @@ export default function ExecuteModel() {
                                                   borderRadius: "10px"
                                               }}
                                               className="text-sm w-full py-1 px-1.5" text="Remove"/>
-                                <SubmitButton onClick={undefined}
+                                <SubmitButton onClick={handleSubmit}
                                               style={{
                                                   backgroundColor: currentColor,
                                                   color: "white",

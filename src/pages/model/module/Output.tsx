@@ -26,7 +26,7 @@ export default function OutputModule() {
     };
 
     return (
-        <div className="row-span-3 col-span-2 md:p-2 rounded-lg border-1 border-gray-300">
+        <div className="row-span-3 col-span-2 md:p-2 rounded-lg border-1 border-gray-300 overflow-auto">
             <div className="py-2 flex justify-between items-center space-x-3 border-b">
                 <p className="text-xl font-bold">Output</p>
                 <div className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">

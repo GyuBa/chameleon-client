@@ -155,7 +155,7 @@ export default function CreateModelTab(number: number) {
             <h1 className="md:py-5 text-xl font-bold">File Upload</h1>
             <div
               className="md:py-10 pt-5 rounded border border-solid border-gray-300 text-center item-center">
-              <img style={{width: '60px'}} alt=""
+              <img style={{width: '60px'}} alt="img"
                    className="object-cover w-full inline-block align-middle" src={tabsData[number].img}/>
               <section className="container">
                 <div {...getRootProps({className: 'dropzone'})}>
