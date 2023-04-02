@@ -55,7 +55,6 @@ export default function SingleVideoViewer() {
             if (videoRef.current) {
                 const player = videojs(videoRef.current, {
                 }, () => {
-                    console.log('Video player is ready');
                 });
                 player.src({
                     src: blobUrl,
