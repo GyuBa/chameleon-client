@@ -71,7 +71,7 @@ export default function ExecuteModel() {
             data.append('files', file, file.name);
         }
 
-        // TODO: 경로 수정 필요
+        // TODO: Input Upload 경로 수정 필요
         try {
             const response = await instance.post('/upload', data, {
                 headers: {

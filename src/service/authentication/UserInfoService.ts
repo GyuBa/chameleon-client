@@ -17,7 +17,7 @@ export default function useGetUserInfo() {
 
     (async function get() {
       try {
-        const res = await instance.get(`/auth/info`, {
+        const response = await instance.get(`/auth/info`, {
           timeout: 5000,
           withCredentials: true,
           headers: {
@@ -28,7 +28,7 @@ export default function useGetUserInfo() {
 
         if (!completed) {
           setLoading(false);
-          setUser(res.data);
+          setUser(response.data);
         }
       } catch (error) {
         console.error(error);
@@ -43,10 +43,10 @@ export default function useGetUserInfo() {
   }, []);
 
   if (loading) {
-    return {username: "불러오는 중...", userEmail: "불러오는 중..."};
+    return {username: "불러오는 중...", useremail: "불러오는 중..."};
   } else if (error) {
-    return {username: "사용자 이름", userEmail: "사용자 이메일"};
+    return {username: "사용자 이름", useremail: "사용자 이메일"};
   } else {
-    return {username: user?.username, userEmail: user?.email};
+    return {username: user?.username, useremail: user?.email};
   }
 }

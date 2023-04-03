@@ -10,7 +10,7 @@ import useUpdateUserInfo from "../../service/authentication/UserUpdateService";
 
 export default function Account() {
   const {currentColor, onClickButton, isClickedButton} = useStateContext();
-  const {username, userEmail} = useGetUserInfo();
+  const {username, useremail} = useGetUserInfo();
   const {user, setUser, updateUser} = useUpdateUserInfo();
   const [newName, setNewName] = useState('');
 
@@ -48,7 +48,7 @@ export default function Account() {
               ) : (
                 <p className="font-extrabold text-xl">{username}</p>
               )}
-              <p>{userEmail}</p>
+              <p>{useremail}</p>
             </div>
             <div onClick={() => onClickButton('changeName')}>
               {isClickedButton.changeName ? (
