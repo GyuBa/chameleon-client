@@ -11,7 +11,7 @@ function authSignUp(email: string, password: string, userName: string) {
         {
             'email': email,
             'password': password,
-            'userName': userName,
+            'username': userName,
         },
         {
             headers: {
