@@ -1,6 +1,6 @@
 const {createProxyMiddleware} = require('http-proxy-middleware');
 const backendPaths = ['/api'];
-const useLocal = process.env.USE_LOCAL?.toLowerCase() === 'true' || false;
+const useLocal = process.env.USE_LOCAL === 'true' || false;
 console.log('setupProxy.js useLocal:', useLocal);
 
 module.exports = function (app) {
