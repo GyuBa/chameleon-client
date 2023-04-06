@@ -13,12 +13,13 @@ import {VscDebugStart} from "react-icons/vsc";
 import instance from "../../../ConstantValue";
 
 interface ModelInfo {
+  // 생성 시간 -> 수정 시간으로 바꿔달라고 요청
+  createdTime: string;
+  modelName: string;
+  inputType: string;
+  outputType: string;
   username: string;
-  modelname: string;
-  region: string;
-  input: string;
-  output: string;
-  description: string;
+  regionName: string;
 }
 
 export default function Model() {
@@ -38,7 +39,7 @@ export default function Model() {
 
     (async function get() {
       try {
-        const response = await instance.get(`/model`, {
+        const response = await instance.get(`/model/list`, {
           timeout: 5000,
           withCredentials: true,
           headers: {
@@ -61,7 +62,6 @@ export default function Model() {
   const onModelSelect = (modelInfo: ModelInfo) => {
     setSelectedModel(modelInfo);
   };
-
 
   const ArrangeMenu = () => (
     <div className="flex items-center gap-2">
@@ -119,14 +119,14 @@ export default function Model() {
       {modelList.map((modelInfo, index) => (
         <div key={index} onClick={() => onModelSelect(modelInfo)}
              className="w-auto px-5 p-5 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl cursor-pointer">
-          <p className="border-b-2 font-semibold text-xl break-all">{modelInfo?.modelname}</p>
+          <p className="border-b-2 font-semibold text-xl break-all">{modelInfo?.modelName}</p>
           <div className="flex">
-            <div className="py-3"><Badge color="indigo">Input: {modelInfo?.input}</Badge></div>
-            <div className="p-3"><Badge color="purple">Output: {modelInfo?.output}</Badge></div>
+            <div className="py-3"><Badge color="indigo">Input: {modelInfo?.inputType}</Badge></div>
+            <div className="p-3"><Badge color="purple">Output: {modelInfo?.outputType}</Badge></div>
           </div>
           <div className="flex mt-10 justify-between">
-            <div className="text-sm text-gray-500 py-3">Updated 2022.03.01. · {modelInfo?.username} · 20KB</div>
-            <div className="py-3"><Badge color="gray">{modelInfo?.region}</Badge></div>
+            <div className="text-sm text-gray-500 py-3">Updated {(modelInfo?.createdTime)?.substring(0, 10)} · {modelInfo?.username} · 20KB</div>
+            <div className="py-3"><Badge color="gray">{modelInfo?.regionName}</Badge></div>
           </div>
         </div>
       ))}
@@ -145,12 +145,12 @@ export default function Model() {
           {modelList.map((modelInfo) => (
             <Table.Row className="bg-white">
               <Table.Cell
-                className="whitespace-nowrap font-medium text-gray-900">{modelInfo?.modelname}</Table.Cell>
+                className="whitespace-nowrap font-medium text-gray-900">{modelInfo?.modelName}</Table.Cell>
               <Table.Cell>
-                <div className="flex"><Badge color="indigo">{modelInfo?.input}</Badge></div>
+                <div className="flex"><Badge color="indigo">{modelInfo?.inputType}</Badge></div>
               </Table.Cell>
               <Table.Cell>
-                <div className="flex"><Badge color="purple">{modelInfo?.output}</Badge></div>
+                <div className="flex"><Badge color="purple">{modelInfo?.outputType}</Badge></div>
               </Table.Cell>
               <Table.Cell>{modelInfo?.username}</Table.Cell>
               <Table.Cell>
@@ -184,9 +184,9 @@ export default function Model() {
         {currentLayout === "GridLayout" ? <GridLayout/> : <ListLayout/>}
       </div>
       {selectedModel && modelState ?
-        <div className="w-2/6 ease-in-out duration-300 translate-x-0"><Description descriptionInfo={selectedModel}/></div>
+        <div className="w-2/6 ease-in-out duration-300 translate-x-0"><Description/></div>
         :
-        <div className="w-0 ease-in-out duration-300 translate-x-full">{/*<Description descriptionInfo={undefined}/>*/}</div>
+        <div className="w-0 ease-in-out duration-300 translate-x-full">{<Description/>}</div>
       }
     </div>
   );
