@@ -69,7 +69,7 @@ export const userProfileData = [
 ];
 
 export const myModel = {
-    header: ['Model Name', 'Input Type', 'Output Type', 'Developer', 'Last Modified Date', 'Size', ''],
+    header: ['Model Name', 'Input Type', 'Output Type', 'Developer', 'Last Modified Date', 'start'],
     data: [
         {
             name: 'SwinIR GAN CCTV',
@@ -78,7 +78,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'SentenceGenerator',
@@ -87,7 +86,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'BaseSR',
@@ -96,7 +94,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'HAT',
@@ -105,7 +102,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'SwinIR GAN Blackbox',
@@ -114,7 +110,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'roberta-base',
@@ -123,7 +118,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'gpt2',
@@ -132,7 +126,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'bert-base-uncased',
@@ -141,7 +134,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'keras-io',
@@ -150,7 +142,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'keras-io',
@@ -159,7 +150,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'keras-io',
@@ -168,7 +158,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'keras-io',
@@ -177,7 +166,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'keras-io',
@@ -186,7 +174,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'keras-io',
@@ -195,7 +182,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'keras-io',
@@ -204,7 +190,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         }, {
             name: 'keras-io',
             link: 'keras-io',
@@ -212,7 +197,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         }, {
             name: 'keras-io',
             link: 'keras-io',
@@ -220,7 +204,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
 
 

@@ -118,7 +118,7 @@ export default function Model() {
       className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 gap-4 mt-10 overflow-auto overflow-scroll max-h-screen">
       {modelList.map((modelInfo, index) => (
         <div key={index} onClick={() => onModelSelect(modelInfo)}
-             className="w-auto px-5 p-5 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl cursor-pointer">
+             className="w-auto px-5 p-5 mb-4 mr-1 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl cursor-pointer">
           <p className="border-b-2 font-semibold text-xl break-all">{modelInfo?.modelName}</p>
           <div className="flex">
             <div className="py-3"><Badge color="indigo">Input: {modelInfo?.inputType}</Badge></div>
@@ -153,6 +153,7 @@ export default function Model() {
                 <div className="flex"><Badge color="purple">{modelInfo?.outputType}</Badge></div>
               </Table.Cell>
               <Table.Cell>{modelInfo?.username}</Table.Cell>
+              <Table.Cell>{(modelInfo?.createdTime)?.substring(0, 10)}</Table.Cell>
               <Table.Cell>
                 <VscDebugStart onClick={() => onModelSelect(modelInfo)}
                                className="text-white py-1 w-10 h-6 rounded bg-blue-500 hover:bg-blue-600 hover:drop-shadow-lg"/>
