@@ -13,8 +13,7 @@ import {VscDebugStart} from "react-icons/vsc";
 import instance from "../../../ConstantValue";
 
 interface ModelInfo {
-  // 생성 시간 -> 수정 시간으로 바꿔달라고 요청
-  createdTime: string;
+  updatedTime: string;
   modelName: string;
   inputType: string;
   outputType: string;
@@ -125,7 +124,7 @@ export default function Model() {
             <div className="p-3"><Badge color="purple">Output: {modelInfo?.outputType}</Badge></div>
           </div>
           <div className="flex mt-10 justify-between">
-            <div className="text-sm text-gray-500 py-3">Updated {(modelInfo?.createdTime)?.substring(0, 10)} · {modelInfo?.username} · 20KB</div>
+            <div className="text-sm text-gray-500 py-3">Updated {(modelInfo?.updatedTime)?.substring(0, 10)} · {modelInfo?.username} · 20KB</div>
             <div className="py-3"><Badge color="gray">{modelInfo?.regionName}</Badge></div>
           </div>
         </div>
@@ -153,7 +152,7 @@ export default function Model() {
                 <div className="flex"><Badge color="purple">{modelInfo?.outputType}</Badge></div>
               </Table.Cell>
               <Table.Cell>{modelInfo?.username}</Table.Cell>
-              <Table.Cell>{(modelInfo?.createdTime)?.substring(0, 10)}</Table.Cell>
+              <Table.Cell>{(modelInfo?.updatedTime)?.substring(0, 10)}</Table.Cell>
               <Table.Cell>
                 <VscDebugStart onClick={() => onModelSelect(modelInfo)}
                                className="text-white py-1 w-10 h-6 rounded bg-blue-500 hover:bg-blue-600 hover:drop-shadow-lg"/>
