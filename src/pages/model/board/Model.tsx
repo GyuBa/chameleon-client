@@ -186,7 +186,7 @@ export default function Model() {
       {selectedModel && modelState ?
         <div className="w-2/6 ease-in-out duration-300 translate-x-0"><Description/></div>
         :
-        <div className="w-0 ease-in-out duration-300 translate-x-full"><Description/></div>
+        <div className="w-0 ease-in-out duration-300 translate-x-full hidden"><Description/></div>
       }
     </div>
   );

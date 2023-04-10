@@ -281,10 +281,10 @@ export const exparamTab = [
 
 export const crparamTab = [
     {
-        label: "Simple"
+        label: "Simple builder"
     },
     {
-        label: "Complex"
+        label: "Complex builder"
     }
 ];
 

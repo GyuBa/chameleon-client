@@ -18,14 +18,22 @@ interface ModelInfo {
 
 export default function Description() {
     const {currentColor, value} = useStateContext();
-    const [modelInfo, setModelInfo] = useState<ModelInfo[]>([]);
+    const [modelInfo, setModelInfo] = useState<ModelInfo>({
+        description: "",
+        inputType: "",
+        modelName: "",
+        outputType: "",
+        parameter: "",
+        regionName: "",
+        username: ""
+    });
 
     useEffect(() => {
         let completed = false;
 
         (async function get() {
             try {
-                const response = await instance.get(`/model/info`, {
+                const response = await instance.get<ModelInfo>(`/model/info`, {
                     timeout: 5000,
                     withCredentials: true,
                     headers: {

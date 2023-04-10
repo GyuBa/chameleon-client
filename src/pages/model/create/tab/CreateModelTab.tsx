@@ -85,9 +85,21 @@ export default function CreateModelTab(number: number) {
 
   return (
     <div className="py-4">
-      <div className="flex items-end">
-        <Header category="" title="Model Creation"/>
-        <h1 className="mx-2 text-gray-500">{tabsData[number].label}</h1>
+      <div className="flex justify-between items-center">
+        <div className="flex items-end">
+          <Header category="" title="Model Creation"/>
+          <h1 className="mx-2 text-gray-500">{tabsData[number].label}</h1>
+        </div>
+        <div className="flex gap-3 float-right">
+          <Link to="/model">
+            <Button style={{backgroundColor: "white", color: "black", borderRadius: "10px"}}
+                    className="w-16 p-2" text="back"/>
+          </Link>
+          <Link to="/model/create/description">
+            <Button style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
+                    className="w-16 p-2" text="next"/>
+          </Link>
+        </div>
       </div>
       <div className="gap-4 grid md:pt-10 md:px-5 md:my-2 md:grid-cols-2">
         <div>
@@ -144,7 +156,7 @@ export default function CreateModelTab(number: number) {
                   focus:border-blue-600 focus:outline-none"
                     value={regionName}
                     onChange={handleRegionNameChange}>
-              <option selected></option>
+              <option selected>(None)</option>
               <option value="mongle">Mongle</option>
               <option value="ripper">Ripper</option>
               <option value="snowly">Snowly</option>
@@ -168,16 +180,6 @@ export default function CreateModelTab(number: number) {
             </div>
           </div>
         </div>
-      </div>
-      <div className="flex gap-3 float-right">
-        <Link to="/model">
-          <Button style={{backgroundColor: "white", color: "black", borderRadius: "10px"}}
-                  className="w-16 p-2" text="back"/>
-        </Link>
-        <Link to="/model/create/description">
-          <Button style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                  className="w-16 p-2" text="next"/>
-        </Link>
       </div>
       {/*임시 데이터 전송 버튼*/}
       <SubmitButton style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
