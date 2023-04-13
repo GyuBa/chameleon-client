@@ -3,11 +3,10 @@ import {Header, Button} from "../../../components";
 import {Link} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
 import {crparamTab} from "../../../assets/Dummy"
-import {BiCheckCircle} from "react-icons/bi";
 import {CreateSimpleParam} from "./tab/CreateSimpleParam";
 import CreateComplexParam from "./tab/CreateComplexParam"
 
-const url = "https://jsonforms.io/examples/basic"
+//const url = "https://jsonforms.io/examples/basic"
 
 export default function CreateParameter() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);

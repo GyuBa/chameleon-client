@@ -12,7 +12,7 @@ export default function CreateModelTab(number: number) {
   const {currentColor} = useStateContext();
   const [files, setFiles] = useState<IFile[]>([]);
   const [modelName, setModelName] = useState<string>('');
-  const [inputType, setInputType] = useState<string>('none');
+  const [inputType, setInputType] = useState<string>('');
   const [outputType, setOutputType] = useState<string>('image');
   const [regionName, setRegionName] = useState<string>('');
 
@@ -40,14 +40,16 @@ export default function CreateModelTab(number: number) {
     formData.append('file', files[0]);
     // Test Data
     formData.append('description', 'test');
+    formData.append('parameter', 'test');
 
     console.log(formData);
 
     try {
-      const res = await instance.post(`/upload`, formData, {
+      const res = await instance.post(`/model/upload`, formData, {
         timeout: 10000,
         headers: {
           'Content-Type': 'multipart/form-data',
+          //'Content-Type': 'application/json',
         },
       });
       console.log(res.data);
@@ -61,7 +63,7 @@ export default function CreateModelTab(number: number) {
     }
   };
 
-  const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
+  const {getRootProps, getInputProps} = useDropzone({
     accept: {
       'application/x-tar': []
     },
@@ -72,7 +74,7 @@ export default function CreateModelTab(number: number) {
     }
   });
 
-  const acceptedFileItems = acceptedFiles.map(file => (
+  const acceptedFileItems = files.map(file => (
     <li key={file.name}>
       {file.name} - {file.size} bytes
     </li>
@@ -81,7 +83,7 @@ export default function CreateModelTab(number: number) {
   useEffect(() => {
     // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
     return () => files.forEach(file => URL.revokeObjectURL(file.preview as string));
-  });
+  }, [files]);
 
   return (
     <div className="py-4">
