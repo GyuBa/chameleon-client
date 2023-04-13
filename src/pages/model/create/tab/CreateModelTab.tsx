@@ -42,14 +42,11 @@ export default function CreateModelTab(number: number) {
     formData.append('description', 'test');
     formData.append('parameter', 'test');
 
-    console.log(formData);
-
     try {
       const res = await instance.post(`/model/upload`, formData, {
         timeout: 10000,
         headers: {
           'Content-Type': 'multipart/form-data',
-          //'Content-Type': 'application/json',
         },
       });
       console.log(res.data);
