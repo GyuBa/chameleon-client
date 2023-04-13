@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {Layout} from './components';
 import './App.css';
@@ -19,8 +19,21 @@ import {
     CreateDescription,
     CreateParameter
 } from './pages';
+import useWebSocket from "react-use-websocket";
 
 export default function App() {
+
+    const {
+        sendMessage,
+    } = useWebSocket((window.location.protocol.startsWith('https') ? 'wss://' : 'ws://') + window.location.host + '/websocket', {
+        shouldReconnect: (closeEvent) => true,
+    });
+
+    useEffect(() => {
+        // 페이지가 바뀔 때마다 메시지를 보냅니다.
+        sendMessage(JSON.stringify({ msg: 'path', path: window.location.pathname }));
+    }, [sendMessage, window.location.pathname]);
+
     return (
         <BrowserRouter>
             <Routes>

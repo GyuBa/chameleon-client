@@ -7,10 +7,7 @@ export default function WebSocket({style, className, event}: WebSocketData) {
         sendMessage,
         readyState,
     } = useWebSocket((window.location.protocol.startsWith('https') ? 'wss://' : 'ws://') + window.location.host + '/websocket', {
-        shouldReconnect: (closeEvent) => true,
-        onMessage: (message) => {
-            let data = JSON.parse(message.data);
-        }
+        shouldReconnect: (closeEvent) => true
     });
 
 
