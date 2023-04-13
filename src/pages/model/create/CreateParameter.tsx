@@ -1,16 +1,54 @@
 import React, {useState} from 'react';
-import {Header, Button} from "../../../components";
+import {Header, Button, SubmitButton} from "../../../components";
 import {Link} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
 import {crparamTab} from "../../../assets/Dummy"
 import {CreateSimpleParam} from "./tab/CreateSimpleParam";
 import CreateComplexParam from "./tab/CreateComplexParam"
+import instance from "../../../ConstantValue";
 
-//const url = "https://jsonforms.io/examples/basic"
+type IFile = File & { preview?: string };
 
 export default function CreateParameter() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const {currentColor} = useStateContext();
+
+    const [files, setFiles] = useState<IFile[]>([]);
+    const [modelName, setModelName] = useState<string>('');
+    const [inputType, setInputType] = useState<string>('');
+    const [outputType, setOutputType] = useState<string>('image');
+    const [regionName, setRegionName] = useState<string>('');
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        const formData = new FormData();
+        formData.append('modelName', modelName);
+        formData.append('inputType', inputType);
+        formData.append('outputType', outputType);
+        formData.append('regionName', regionName);
+        formData.append('file', files[0]);
+        // Test Data
+        formData.append('description', 'test');
+        formData.append('parameter', 'test');
+
+        try {
+            const res = await instance.post(`/model/upload`, formData, {
+                timeout: 10000,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log(res.data);
+            return res.data;
+        } catch (error: any) {
+            if (error.response && error.response.status === 501) {
+                console.error(error.response.data);
+            } else {
+                console.error(error);
+            }
+        }
+    };
 
     return (
         <div className="contents">
@@ -28,8 +66,8 @@ export default function CreateParameter() {
                                             className="w-16 p-2" text="back"/>
                                 </Link>
                                 <Link to="/model">
-                                    <Button style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                                            className="w-16 p-2" text="create"/>
+                                    <SubmitButton style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
+                                            className="w-16 p-2" text="create" onClick={handleSubmit}/>
                                 </Link>
                             </div>
                         </div>

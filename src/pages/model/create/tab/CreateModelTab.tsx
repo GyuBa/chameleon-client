@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Header, SubmitButton} from "../../../../components";
 import {tabsData} from "../../../../assets/Dummy";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useStateContext} from "../../../../contexts/ContextProvider";
 import {useDropzone} from "react-dropzone";
-import instance from "../../../../ConstantValue";
 
 type IFile = File & { preview?: string };
 
 export default function CreateModelTab(number: number) {
+  const navigate = useNavigate();
   const {currentColor} = useStateContext();
   const [files, setFiles] = useState<IFile[]>([]);
   const [modelName, setModelName] = useState<string>('');
@@ -29,35 +29,16 @@ export default function CreateModelTab(number: number) {
     setRegionName(event.target.value);
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const formData = new FormData();
-    formData.append('modelName', modelName);
-    formData.append('inputType', inputType);
-    formData.append('outputType', outputType);
-    formData.append('regionName', regionName);
-    formData.append('file', files[0]);
-    // Test Data
-    formData.append('description', 'test');
-    formData.append('parameter', 'test');
-
-    try {
-      const res = await instance.post(`/model/upload`, formData, {
-        timeout: 10000,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log(res.data);
-      return res.data;
-    } catch (error: any) {
-      if (error.response && error.response.status === 501) {
-        console.error(error.response.data);
-      } else {
-        console.error(error);
-      }
-    }
+  const handleClick = () => {
+    navigate("/model/create/description", {
+      state: {
+        files: files,
+        modelName: modelName,
+        inputType: inputType,
+        outputType: outputType,
+        regionName: regionName,
+      },
+    });
   };
 
   const {getRootProps, getInputProps} = useDropzone({
@@ -94,10 +75,9 @@ export default function CreateModelTab(number: number) {
             <Button style={{backgroundColor: "white", color: "black", borderRadius: "10px"}}
                     className="w-16 p-2" text="back"/>
           </Link>
-          <Link to="/model/create/description">
-            <Button style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                    className="w-16 p-2" text="next"/>
-          </Link>
+          <SubmitButton onClick={handleClick}
+                  style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
+                  className="w-16 p-2" text="next"></SubmitButton>
         </div>
       </div>
       <div className="gap-4 grid md:pt-10 md:px-5 md:my-2 md:grid-cols-2">
@@ -180,9 +160,6 @@ export default function CreateModelTab(number: number) {
           </div>
         </div>
       </div>
-      {/*임시 데이터 전송 버튼*/}
-      <SubmitButton style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                    className="w-20 p-2" text="submit" onClick={handleSubmit}/>
     </div>
   );
 };
