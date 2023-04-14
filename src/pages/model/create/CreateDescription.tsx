@@ -8,7 +8,8 @@ export default function CreateDescription() {
     const navigate = useNavigate();
     const location = useLocation();
     const {currentColor} = useStateContext();
-    const [description, setDescription] = useState(`A simple markdown editor with preview, implemented with React.js and TypeScript. This React Component aims to provide a simple Markdown editor with syntax highlighting support. This is based on \`textarea\` encapsulation, so it does not depend on any modern code editors such as Acs, CodeMirror, Monaco etc.
+    const [description, setDescription] = useState<string|undefined>(
+      `A simple markdown editor with preview, implemented with React.js and TypeScript. This React Component aims to provide a simple Markdown editor with syntax highlighting support. This is based on \`textarea\` encapsulation, so it does not depend on any modern code editors such as Acs, CodeMirror, Monaco etc.
 ### Features
 - 📑 Indent line or selected text by pressing tab key, with customizable indentation.
 - ♻️ Based on \`textarea\` encapsulation, does not depend on any modern code editors.
@@ -62,16 +63,6 @@ export default function App() {
         });
     };
 
-    //const handleDescriptionChange = (value: (string | undefined)) => {
-        // @ts-ignore
-    //    setDescription(value);
-    //};
-
-    const handleDescriptionChange = (event?: (React.ChangeEvent<HTMLTextAreaElement> | undefined)) => {
-        // @ts-ignore
-        setDescription(event.target.value);
-    };
-
     return (
         <div className="contents">
             <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
@@ -82,17 +73,13 @@ export default function App() {
                             <Button style={{backgroundColor: "white", color: "black", borderRadius: "10px"}}
                                     className="w-16 p-2" text="back"/>
                         </Link>
-                        <Link to="/model/create/parameter">
-                            <Button style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                                    className="w-16 p-2" text="next"/>
-                        </Link>
                         <SubmitButton onClick={handleClick}
                                       style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                                      className="w-16 p-2" text="next"></SubmitButton>
+                                      className="w-16" text="next"/>
                     </div>
                 </div>
                 <div className="container pt-4">
-                    <MDEditor value={description} onChange={handleDescriptionChange}/>
+                    <MDEditor value={description} onChange={setDescription}/>
                 </div>
             </div>
         </div>
