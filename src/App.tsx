@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Routes, Route, useLocation, useMatch} from 'react-router-dom';
+import {Routes, Route, useLocation} from 'react-router-dom';
 import {Layout} from './components';
 import './App.css';
 import './styles/Dropzone.css';
@@ -32,12 +32,11 @@ export default function App() {
     });
 
     useEffect(() => {
-        sendJsonMessage({ msg: 'path', path: window.location.pathname });
-    }, [sendJsonMessage, window.location.pathname]);
+        sendJsonMessage({msg: 'path', path: window.location.pathname});
+    }, [window.location.pathname]);
 
 
     return (
-
         <Routes>
             <Route path="/" element={(<Layout/>)}>
                 <Route path="/main" element={(<Main/>)}/>
