@@ -77,7 +77,7 @@ export default function CreateModelTab(number: number) {
           </Link>
           <SubmitButton onClick={handleClick}
                   style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                  className="w-16" text="next"/>
+                  className="w-16 p-2" text="next"></SubmitButton>
         </div>
       </div>
       <div className="gap-4 grid md:pt-10 md:px-5 md:my-2 md:grid-cols-2">
