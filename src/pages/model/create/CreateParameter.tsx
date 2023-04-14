@@ -1,23 +1,29 @@
 import React, {useState} from 'react';
 import {Header, Button, SubmitButton} from "../../../components";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
 import {crparamTab} from "../../../assets/Dummy"
 import {CreateSimpleParam} from "./tab/CreateSimpleParam";
 import CreateComplexParam from "./tab/CreateComplexParam"
 import instance from "../../../ConstantValue";
 
-type IFile = File & { preview?: string };
-
 export default function CreateParameter() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const {currentColor} = useStateContext();
+    const location = useLocation();
+    const [parameter, setParameter] = useState('');
 
-    const [files, setFiles] = useState<IFile[]>([]);
-    const [modelName, setModelName] = useState<string>('');
-    const [inputType, setInputType] = useState<string>('');
-    const [outputType, setOutputType] = useState<string>('image');
-    const [regionName, setRegionName] = useState<string>('');
+    const files = location.state?.files;
+    const modelName = location.state?.modelName;
+    const inputType = location.state?.inputType;
+    const outputType = location.state?.outputType;
+    const regionName = location.state?.regionName;
+    const description = location.state?.description;
+
+    const handleParameterChange = (value?: string ) => {
+        // @ts-ignore
+        setParameter(value);
+    };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -28,9 +34,8 @@ export default function CreateParameter() {
         formData.append('outputType', outputType);
         formData.append('regionName', regionName);
         formData.append('file', files[0]);
-        // Test Data
-        formData.append('description', 'test');
-        formData.append('parameter', 'test');
+        formData.append('description', description);
+        formData.append('parameter', parameter);
 
         try {
             const res = await instance.post(`/model/upload`, formData, {
@@ -67,7 +72,7 @@ export default function CreateParameter() {
                                 </Link>
                                 <Link to="/model">
                                     <SubmitButton style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                                            className="w-16 p-2" text="create" onClick={handleSubmit}/>
+                                            className="w-16" text="create" onClick={handleSubmit}/>
                                 </Link>
                             </div>
                         </div>
