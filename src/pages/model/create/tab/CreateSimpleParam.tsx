@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {userSchema, userUIschema} from "../../../../assets/Dummy"
@@ -9,13 +9,16 @@ import ErrorBoundary from "../../module/ParamErrorboundary"
 import {Parameter} from "../../../../types/Types"
 import {Link} from "react-router-dom";
 
+interface CreateSimpleParamProps {
+    onSchemaChange: (newSchema: JsonSchema) => void;
+    onTransUISchemaChange: (newTransUISchema: any) => void;
+}
+
 const initialData = {};
 
 const initialParameters: Parameter[] = [
     {name: 'name', type: 'string', min: 1, max: 12, default: 3}
 ];
-
-let schema = generateJsonFormsSchema(initialParameters);
 
 function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
     const properties: any = {};
@@ -46,30 +49,35 @@ function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
                 description: param.description,
             };
         }
-
     });
 
     return {
         type: 'object',
         properties: properties,
     };
-
 }
 
-export const CreateSimpleParam = () => {
+export const CreateSimpleParam: React.FC<CreateSimpleParamProps> = ({onSchemaChange, onTransUISchemaChange}) => {
     const {currentColor} = useStateContext();
     const [formData, setFormData] = useState(initialParameters);
     const [transformData, setTransFormData] = useState(initialData);
 
-    schema = generateJsonFormsSchema(formData);
+    const schema = useMemo(() => generateJsonFormsSchema(formData), [formData]);
 
-    const transuischema = {
-        type: 'VerticalLayout',
-        elements: formData.map((param, index) => ({
-            type: 'Control',
-            scope: `#/properties/${param.name}`
-        }))
-    };
+    const transuischema = useMemo(() => {
+        return{
+            type: 'VerticalLayout',
+            elements: formData.map((param, index) => ({
+                type: 'Control',
+                scope: `#/properties/${param.name}`
+            }))
+        };
+    }, [formData]);
+
+    useEffect(() => {
+        onSchemaChange(schema);
+        onTransUISchemaChange(transuischema);
+    }, [schema, transuischema]);
 
     return (
         <div className="gap-3 grid md:pt-10 md:px-5 md:my-2 grid-cols-2" style={{gridTemplateColumns: '2fr 1fr'}}>

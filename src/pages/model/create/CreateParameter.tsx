@@ -6,12 +6,14 @@ import {crparamTab} from "../../../assets/Dummy"
 import {CreateSimpleParam} from "./tab/CreateSimpleParam";
 import CreateComplexParam from "./tab/CreateComplexParam"
 import instance from "../../../ConstantValue";
+import {JsonSchema} from "@jsonforms/core";
 
 export default function CreateParameter() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const {currentColor} = useStateContext();
     const location = useLocation();
-    const [parameter, setParameter] = useState('');
+    const [schema, setSchema] = useState<JsonSchema>();
+    const [transUISchema, setTransUISchema] = useState<any>();
 
     const files = location.state?.files;
     const modelName = location.state?.modelName;
@@ -20,10 +22,15 @@ export default function CreateParameter() {
     const regionName = location.state?.regionName;
     const description = location.state?.description;
 
-    const handleParameterChange = (value?: string ) => {
-        // @ts-ignore
-        setParameter(value);
+    const handleSchemaChange = (newSchema: JsonSchema) => {
+        setSchema(newSchema);
     };
+
+    const handleTransUISchemaChange = (newTransUISchema: any) => {
+        setTransUISchema(newTransUISchema);
+    };
+
+    const parameter = JSON.stringify({ ...schema, ...transUISchema });
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -36,6 +43,22 @@ export default function CreateParameter() {
         formData.append('file', files[0]);
         formData.append('description', description);
         formData.append('parameter', parameter);
+
+        console.log("스키마와 UI 스키마");
+        console.log(schema);
+        console.log(transUISchema);
+
+        console.log("보낼 값들: files, modelName, inputType, outputType, regionName, description, parameter");
+        console.log(files);
+        console.log(modelName);
+        console.log(inputType);
+        console.log(outputType);
+        console.log(regionName);
+        console.log(description);
+        console.log(parameter);
+
+        console.log("formData 출력");
+        console.log(formData);
 
         try {
             const res = await instance.post(`/model/upload`, formData, {
@@ -96,10 +119,11 @@ export default function CreateParameter() {
                         </div>
                         <div className="tab-content tab-space">
                             <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
-                                <CreateSimpleParam />
+                                <CreateSimpleParam onSchemaChange={handleSchemaChange}
+                                                   onTransUISchemaChange={handleTransUISchemaChange}/>
                             </div>
                             <div className={activeTabIndex === 1 ? "block" : "hidden"} id="link2">
-                                <CreateComplexParam/>
+                                <CreateComplexParam />
                             </div>
                         </div>
                     </div>
