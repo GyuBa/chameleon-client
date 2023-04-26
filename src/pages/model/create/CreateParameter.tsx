@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Header, Button, SubmitButton} from "../../../components";
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
 import {crparamTab} from "../../../assets/Dummy"
 import {CreateSimpleParam} from "./tab/CreateSimpleParam";
@@ -9,6 +9,7 @@ import instance from "../../../ConstantValue";
 import {JsonSchema} from "@jsonforms/core";
 
 export default function CreateParameter() {
+    const navigate = useNavigate();
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const {currentColor} = useStateContext();
     const location = useLocation();
@@ -44,11 +45,9 @@ export default function CreateParameter() {
         formData.append('description', description);
         formData.append('parameter', parameter);
 
-        console.log("스키마와 UI 스키마");
         console.log(schema);
         console.log(transUISchema);
 
-        console.log("보낼 값들: files, modelName, inputType, outputType, regionName, description, parameter");
         console.log(files);
         console.log(modelName);
         console.log(inputType);
@@ -57,7 +56,6 @@ export default function CreateParameter() {
         console.log(description);
         console.log(parameter);
 
-        console.log("formData 출력");
         console.log(formData);
 
         try {
@@ -68,7 +66,7 @@ export default function CreateParameter() {
                 },
             });
             console.log(res.data);
-            return res.data;
+            navigate('/model');
         } catch (error: any) {
             if (error.response && error.response.status === 501) {
                 console.error(error.response.data);
@@ -93,10 +91,8 @@ export default function CreateParameter() {
                                     <Button style={{backgroundColor: "white", color: "black", borderRadius: "10px"}}
                                             className="w-16 p-2" text="back"/>
                                 </Link>
-                                <Link to="/model">
-                                    <SubmitButton style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                                            className="w-16" text="create" onClick={handleSubmit}/>
-                                </Link>
+                                <SubmitButton style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
+                                              className="w-16" text="create" onClick={handleSubmit}/>
                             </div>
                         </div>
                         <div className="flex space-x-3 border-b">
