@@ -10,6 +10,7 @@ type IFile = File & { preview?: string };
 export default function CreateModelTab(number: number) {
   const navigate = useNavigate();
   const {currentColor} = useStateContext();
+  const [hideDrop, setHideDrop] = useState<boolean>(false);
   const [files, setFiles] = useState<IFile[]>([]);
   const [modelName, setModelName] = useState<string>('');
   const [inputType, setInputType] = useState<string>('');
@@ -46,6 +47,7 @@ export default function CreateModelTab(number: number) {
       'application/x-tar': []
     },
     onDrop: acceptedFiles => {
+      setHideDrop(true);
       setFiles(acceptedFiles.map(file => Object.assign(file, {
         preview: URL.createObjectURL(file)
       })));
@@ -59,9 +61,13 @@ export default function CreateModelTab(number: number) {
   ));
 
   useEffect(() => {
-    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
     return () => files.forEach(file => URL.revokeObjectURL(file.preview as string));
   }, [files]);
+
+  const removeFile = () => {
+    setFiles([]);
+    setHideDrop(false);
+  }
 
   return (
     <div className="py-4">
@@ -76,8 +82,8 @@ export default function CreateModelTab(number: number) {
                     className="w-16 p-2" text="back"/>
           </Link>
           <SubmitButton onClick={handleClick}
-                  style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                  className="w-16" text="next"/>
+                        style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
+                        className="w-16" text="next"/>
         </div>
       </div>
       <div className="gap-4 grid md:pt-10 md:px-5 md:my-2 md:grid-cols-2">
@@ -142,19 +148,24 @@ export default function CreateModelTab(number: number) {
             </select>
           </div>
           <div className="mb-3">
-            {/*파일 삭제 버튼 및 tar 파일 업로드 추가*/}
             <h1 className="md:py-5 text-xl font-bold">File Upload</h1>
             <div
-              className="md:py-10 pt-5 rounded border border-solid border-gray-300 text-center item-center">
+              className="py-5 rounded border border-solid border-gray-300 text-center item-center">
               <img style={{width: '60px'}} alt="img"
                    className="object-cover w-full inline-block align-middle" src={tabsData[number].img}/>
               <section className="container">
-                <div {...getRootProps({className: 'dropzone'})}>
+                <div {...getRootProps()}
+                     className={hideDrop ? "hidden" : "dropzone cursor-pointer"}>
                   <input {...getInputProps()} />
-                  <p className="px-5 text-gray-500 hover:text-gray-700 cursor-pointer">
+                  <p className="inline-block px-1 text-gray-500 hover:text-gray-700">
                     Drag & drop some files here, or click to select files</p>
                 </div>
                 <ul className="px-5 pb-5 pt-2">{acceptedFileItems}</ul>
+                <div className="pr-3">
+                  <SubmitButton onClick={removeFile} text="Remove"
+                                className="float-right text-sm py-1 px-1.5 border border-gray border-solid
+                                rounded-md hover:border-black"/>
+                </div>
               </section>
             </div>
           </div>

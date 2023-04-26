@@ -38,6 +38,7 @@ export default function ExecuteModel() {
 
     const removeFile = () => {
         setFiles([]);
+        setHideDrop(false);
     }
 
     const acceptedFileItems = acceptedFiles.map(file => (
@@ -140,25 +141,17 @@ export default function ExecuteModel() {
                         <div className="flex justify-between items-center">
                             <p className="text-xl font-bold">Input upload</p>
                             <div className="flex items-center gap-4">
-                                <SubmitButton onClick={removeFile}
-                                              style={{
-                                                  backgroundColor: currentColor,
-                                                  color: "white",
-                                                  borderRadius: "10px"
-                                              }}
-                                              className="text-sm w-full py-1 px-1.5" text="Remove"/>
-                                <SubmitButton onClick={handleSubmit}
-                                              style={{
-                                                  backgroundColor: currentColor,
-                                                  color: "white",
-                                                  borderRadius: "10px"
-                                              }}
-                                              className="text-sm w-full py-1 px-1.5" text="Submit"/>
+                              <SubmitButton onClick={removeFile} text="Remove"
+                                            className="text-sm py-1 px-1.5 border border-gray border-solid
+                                              rounded-md hover:border-black"/>
+                              <SubmitButton onClick={handleSubmit} text="Submit"
+                                            className="text-sm py-1 px-1.5 border border-gray border-solid
+                                              rounded-md hover:border-black"/>
                             </div>
                         </div>
                         <section className="container">
                             <div {...getRootProps()}
-                                 className={hideDrop ? "hidden dropzone cursor-pointer" : "dropzone cursor-pointer"}>
+                                 className={hideDrop ? "hidden" : "dropzone cursor-pointer"}>
                                 <input {...getInputProps()}/>
                                 <p className="inline-block px-1 text-gray-500 hover:text-gray-700">
                                     Drag & drop some files here, or click to select files</p>

@@ -63,6 +63,7 @@ export default function CreateParameter() {
         try {
             const res = await instance.post(`/model/upload`, formData, {
                 timeout: 15000,
+                // TODO: timeout 무한으로 설정
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
