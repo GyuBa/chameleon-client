@@ -1,13 +1,10 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
-import {userSchema, userUIschema} from "../../../../assets/Dummy"
-import {Button} from "../../../../components";
-import {useStateContext} from "../../../../contexts/ContextProvider";
+import {userSchema, userUIschema} from "../../../../assets/Dummy";
 import {JsonSchema} from '@jsonforms/core';
-import ErrorBoundary from "../../module/ParamErrorboundary"
-import {Parameter} from "../../../../types/Types"
-import {Link} from "react-router-dom";
+import ErrorBoundary from "../../module/ParamErrorboundary";
+import {Parameter} from "../../../../types/Types";
 
 interface CreateSimpleParamProps {
     onSchemaChange: (newSchema: JsonSchema) => void;
@@ -58,7 +55,6 @@ function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
 }
 
 export const CreateSimpleParam: React.FC<CreateSimpleParamProps> = ({onSchemaChange, onTransUISchemaChange}) => {
-    const {currentColor} = useStateContext();
     const [formData, setFormData] = useState(initialParameters);
     const [transformData, setTransFormData] = useState(initialData);
 
@@ -103,10 +99,6 @@ export const CreateSimpleParam: React.FC<CreateSimpleParamProps> = ({onSchemaCha
                         onChange={({data}) => setTransFormData(data)}
                     />
                 </ErrorBoundary>
-                <Link to="/model/execute" state={{schema: schema, uischema: transuischema}}>
-                    <Button style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                            className="w-32 p-2" text="Parameter Test"/>
-                </Link>
             </div>
         </div>
     );

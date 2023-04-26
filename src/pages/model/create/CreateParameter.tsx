@@ -62,7 +62,7 @@ export default function CreateParameter() {
 
         try {
             const res = await instance.post(`/model/upload`, formData, {
-                timeout: 10000,
+                timeout: 15000,
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -100,7 +100,6 @@ export default function CreateParameter() {
                             </div>
                         </div>
                         <div className="flex space-x-3 border-b">
-                            {/* Loop through tab data and render button for each. */}
                             {crparamTab.map((tab, idx) => {
                                 return (
                                     <button
@@ -110,7 +109,6 @@ export default function CreateParameter() {
                                                 ? "border-teal-500"
                                                 : "border-transparent hover:border-gray-200"
                                         }`}
-                                        // Change the active tab on click.
                                         onClick={() => setActiveTabIndex(idx)}>
                                         {tab.label}
                                     </button>

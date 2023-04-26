@@ -103,7 +103,6 @@ export default function ExecuteModel() {
                 <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
                     <div className="overflow-auto row-span-2 md:p-2 rounded-lg border-1 border-gray-300">
                         <div className="flex space-x-3 border-b">
-                            {/* Loop through tab data and render button for each. */}
                             {exparamTab.map((tab, idx) => {
                                 return (
                                     <button
@@ -113,7 +112,6 @@ export default function ExecuteModel() {
                                                 ? "border-teal-500"
                                                 : "border-transparent hover:border-gray-200"
                                         }`}
-                                        // Change the active tab on click.
                                         onClick={() => setActiveTabIndex(idx)}>
                                         {tab.label}
                                     </button>
@@ -128,7 +126,7 @@ export default function ExecuteModel() {
                                     data={data}
                                     renderers={materialRenderers}
                                     cells={materialCells}
-                                    onChange={({errors, data}) => {
+                                    onChange={({data}) => {
                                         setData(data);
                                     }}
                                 />
