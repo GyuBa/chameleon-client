@@ -14,6 +14,7 @@ import instance from "../../../ConstantValue";
 
 interface ModelInfo {
   updatedTime: string;
+  uniqueName: string;
   modelName: string;
   inputType: string;
   outputType: string;
@@ -31,7 +32,7 @@ export default function Model() {
     isDesktopOrMobile
   } = useStateContext();
   const [modelList, setModelList] = useState<ModelInfo[]>([]);
-  const [selectedModel, setSelectedModel] = useState<ModelInfo | null>(null);
+  const [selectedModel, setSelectedModel] = useState<string>("");
 
   useEffect(() => {
     let completed = false;
@@ -59,7 +60,7 @@ export default function Model() {
   }, []);
 
   const onModelSelect = (modelInfo: ModelInfo) => {
-    setSelectedModel(modelInfo);
+    setSelectedModel(modelInfo?.uniqueName);
   };
 
   const ArrangeMenu = () => (
@@ -115,8 +116,8 @@ export default function Model() {
   const GridLayout = () => (
     <div
       className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 gap-4 mt-10 overflow-auto overflow-scroll max-h-screen">
-      {modelList.map((modelInfo, index) => (
-        <div key={index} onClick={() => onModelSelect(modelInfo)}
+      {modelList.map((modelInfo) => (
+        <div onClick={() => onModelSelect(modelInfo)}
              className="w-auto px-5 p-5 mb-4 mr-1 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl cursor-pointer">
           <p className="border-b-2 font-semibold text-xl break-all">{modelInfo?.modelName}</p>
           <div className="flex">
@@ -184,9 +185,9 @@ export default function Model() {
         {currentLayout === "GridLayout" ? <GridLayout/> : <ListLayout/>}
       </div>
       {selectedModel && modelState ?
-        <div className="w-2/6 ease-in-out duration-300 translate-x-0"><Description/></div>
+        <div className="w-2/6 ease-in-out duration-300 translate-x-0"><Description uniqueName={selectedModel} /></div>
         :
-        <div className="w-0 ease-in-out duration-300 translate-x-full hidden"><Description/></div>
+        <div className="w-0 ease-in-out duration-300 translate-x-full hidden"><Description uniqueName={selectedModel} /></div>
       }
     </div>
   );

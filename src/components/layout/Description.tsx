@@ -6,41 +6,40 @@ import {Button} from "../index";
 import {useStateContext} from "../../contexts/ContextProvider";
 import instance from "../../ConstantValue";
 
+interface DescriptionProps {
+    uniqueName: string;
+}
+
 interface ModelInfo {
+    createdTime: string;
+    updatedTime: string;
+    uniqueName: string;
+    username: string;
     modelName: string;
+    regionName: string;
     inputType: string;
     outputType: string;
-    username: string;
-    regionName: string;
     description: string;
     parameter: string;
 }
 
-export default function Description() {
+export default function Description({uniqueName}: DescriptionProps) {
     const {currentColor, value} = useStateContext();
-    const [modelInfo, setModelInfo] = useState<ModelInfo>({
-        description: "",
-        inputType: "",
-        modelName: "",
-        outputType: "",
-        parameter: "",
-        regionName: "",
-        username: ""
-    });
+    const [modelInfo, setModelInfo] = useState<ModelInfo | null>(null);
 
     useEffect(() => {
         let completed = false;
 
         (async function get() {
             try {
-                const response = await instance.get<ModelInfo>(`/model/info`, {
+                const response = await instance.get(`/model/info?uniqueName=${uniqueName}`,{
                     timeout: 5000,
                     withCredentials: true,
                     headers: {
                         'Content-Type': 'application/json',
                     }
                 });
-                if (!completed) {
+                if (!completed && response.data.uniqueName === uniqueName) {
                     setModelInfo(response.data);
                 }
             } catch (error) {
@@ -51,7 +50,13 @@ export default function Description() {
         return () => {
             completed = true;
         };
-    }, []);
+    }, [uniqueName]);
+
+    if (!modelInfo) {
+        console.log("Loading...");
+        console.log(modelInfo);
+    }
+    else console.log(modelInfo);
 
     return (
         <div className="contents">
