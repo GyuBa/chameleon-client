@@ -4,6 +4,7 @@ import {tabsData} from "../../../../assets/Dummy";
 import {Link, useNavigate} from "react-router-dom";
 import {useStateContext} from "../../../../contexts/ContextProvider";
 import {useDropzone} from "react-dropzone";
+import instance from "../../../../ConstantValue";
 
 type IFile = File & { preview?: string };
 
@@ -14,8 +15,9 @@ export default function CreateModelTab(number: number) {
   const [files, setFiles] = useState<IFile[]>([]);
   const [modelName, setModelName] = useState<string>('');
   const [inputType, setInputType] = useState<string>('');
-  const [outputType, setOutputType] = useState<string>('image');
+  const [outputType, setOutputType] = useState<string>('');
   const [regionName, setRegionName] = useState<string>('');
+  const [regionList, setRegionList] = useState([]);
 
   const handleModelNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setModelName(event.target.value);
@@ -41,6 +43,30 @@ export default function CreateModelTab(number: number) {
       },
     });
   };
+
+  useEffect(() => {
+    let completed = false;
+
+    (async function get() {
+      try {
+        const response = await instance.get(`/region/list`, {
+          timeout: 5000,
+          withCredentials: true
+        });
+        if (!completed) {
+          console.log(response.data);
+          const regions = response.data.map((region: { id: number; name: string; }) => ({ id: region.id, name: region.name }));
+          setRegionList(regions);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+
+    return () => {
+      completed = true;
+    };
+  }, []);
 
   const {getRootProps, getInputProps} = useDropzone({
     accept: {
@@ -110,10 +136,11 @@ export default function CreateModelTab(number: number) {
                   focus:border-blue-600 focus:outline-none"
                     value={inputType}
                     onChange={handleInputTypeChange}>
-              <option selected value="none">(None)</option>
-              <option value="image">Image</option>
-              <option value="binary">Binary</option>
-              <option value="text">Text</option>
+              <option value="" selected disabled hidden>Input Type</option>
+              <option value="none">(none)</option>
+              <option value="image">image</option>
+              <option value="binary">binary</option>
+              <option value="text">text</option>
             </select>
           </div>
           <div className="mb-3">
@@ -125,9 +152,10 @@ export default function CreateModelTab(number: number) {
                   focus:border-blue-600 focus:outline-none"
                     value={outputType}
                     onChange={handleOutputTypeChange}>
-              <option selected value="image">Image</option>
-              <option value="binary">Binary</option>
-              <option value="text">Text</option>
+              <option value="" selected disabled hidden>Output Type</option>
+              <option value="image">image</option>
+              <option value="binary">binary</option>
+              <option value="text">text</option>
             </select>
           </div>
         </div>
@@ -141,10 +169,10 @@ export default function CreateModelTab(number: number) {
                   focus:border-blue-600 focus:outline-none"
                     value={regionName}
                     onChange={handleRegionNameChange}>
-              <option selected>(None)</option>
-              <option value="mongle">Mongle</option>
-              <option value="ripper">Ripper</option>
-              <option value="snowly">Snowly</option>
+              <option value="" selected disabled hidden>Model Region</option>
+              {regionList.map((region: { id: number; name: string; }) => (
+                <option key={region.id} value={region.name}>{region.name}</option>
+              ))}
             </select>
           </div>
           <div className="mb-3">
