@@ -241,9 +241,7 @@ export const defaultUIschema = {
         {
             type: "Control",
             scope: "#/properties/name",
-            options: {
-                "trim": true
-            }
+
         }
     ]
 }
@@ -256,36 +254,46 @@ export const userSchema = {
             items: {
                 type: 'object',
                 properties: {
-                    name: {type: 'string'},
+                    name: { type: 'string' },
                     type: {
                         type: 'string',
-                        enum: ["string", "number", "integer", "boolean", "date", "time", "date-time", "email"]
+                        enum: [
+                            'string',
+                            'number',
+                            'integer',
+                            'boolean',
+                            'date',
+                            'time',
+                            'date-time',
+                            'email',
+                        ],
                     },
-                    min: {type: 'number'},
-                    max: {type: 'number'},
-                    default: {type: 'number'},
+                    min: { type: 'number' },
+                    max: { type: 'number' },
+                    default: { type: 'number' },
                     enum: {
-                        type: 'array', items: {type: 'string'}, uniqueItems: true
+                        type: 'array',
+                        items: { type: 'string' },
                     },
-                    description: {type: 'string'}
-                }
-            }
-        }
-    }
-}
+                    description: { type: 'string' },
+                },
+            },
+        },
+    },
+};
 
-export const userUIschema = {
-    type: 'VerticalLayout',
+export const userUISchema = {
+    type: "VerticalLayout",
     elements: [
         {
-            type: 'Control',
-            scope: '#/properties/parameters',
+            type: "Control",
+            scope: "#/properties/parameters",
             options: {
-                label: false
+                className: "no-list-style"
             }
         }
     ]
-}
+};
 
 export const exparamTab = [
     {
@@ -298,10 +306,10 @@ export const exparamTab = [
 
 export const crparamTab = [
     {
-        label: "Simple"
+        label: "Simple builder"
     },
     {
-        label: "Complex"
+        label: "Complex builder"
     }
 ];
 
