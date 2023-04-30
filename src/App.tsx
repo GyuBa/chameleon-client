@@ -45,7 +45,6 @@ export default function App() {
     }, [window.location.pathname]);
 
     return (
-
         <Routes>
             <Route path="/" element={(<Layout/>)}>
                 <Route path="/main" element={(<Main/>)}/>
