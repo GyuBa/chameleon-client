@@ -1,5 +1,5 @@
 import React from 'react';
-import {HeaderData} from '../../types/Types';
+import {HeaderData} from '../../types/chameleon-client';
 
 export default function Header({category, title}: HeaderData) {
     return (
