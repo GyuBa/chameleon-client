@@ -1,6 +1,6 @@
 import React from 'react';
 import {useStateContext} from '../../contexts/ContextProvider';
-import {DefaultButtonData} from '../../types/Types';
+import {DefaultButtonData} from '../../types/chameleon-client';
 
 export default function Button({style, className, icon, text}: DefaultButtonData) {
     const {setIsClicked, initialState} = useStateContext();

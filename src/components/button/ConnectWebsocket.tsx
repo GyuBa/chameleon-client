@@ -1,6 +1,6 @@
 import useWebSocket, {ReadyState} from "react-use-websocket"
 import React, {useCallback} from 'react';
-import {WebSocketData} from "../../types/Types";
+import {WebSocketData} from "../../types/chameleon-client";
 
 export default function WebSocket({style, className, event}: WebSocketData) {
     const {
