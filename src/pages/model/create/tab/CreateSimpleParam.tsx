@@ -6,7 +6,7 @@ import {Button} from "../../../../components";
 import {useStateContext} from "../../../../contexts/ContextProvider";
 import {JsonSchema} from '@jsonforms/core';
 import ErrorBoundary from "../../module/ParamErrorboundary"
-import {Parameter} from "../../../../types/Types"
+import {Parameter} from "../../../../types/chameleon-client"
 import {Link} from "react-router-dom";
 
 const initialData = {};
