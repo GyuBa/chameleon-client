@@ -38,4 +38,10 @@ type Parameter = {
     description?: string;
 }
 
-export type {Parameter, HeaderData, DefaultButtonData, SubmitButtonData, WebSocketData};
+type DownloadButtonProps = {
+    url: string;
+    format: string;
+    filename: string;
+}
+
+export type {Parameter, HeaderData, DefaultButtonData, SubmitButtonData, WebSocketData, DownloadButtonProps};
