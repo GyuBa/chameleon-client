@@ -3,7 +3,7 @@ import {Button, Header} from "../../../components";
 import {crparamTab, userSchema, userUISchema} from "../../../assets/Dummy"
 import {Link} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
-import {Parameter} from "../../../types/Types";
+import {TypeChoose} from "../../../types/Types";
 import {JsonSchema} from "@jsonforms/core";
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
@@ -12,65 +12,114 @@ import MonaCoEditor from "@monaco-editor/react";
 
 const initialData = {};
 
-const initialParameters: Parameter[] = [
-    {name: 'name', type: 'string', min: 1, max: 12, default: 3}
-];
+interface Parameter {
+    typeChoose: TypeChoose;
+}
 
-let transSchema = generateJsonFormsSchema(initialParameters);
+const initialParameter: Parameter[] = [{
+    typeChoose: {
+        name: "name",
+        type: "string",
+        minLength: 1,
+        maxLength: 10,
+    },
+}
+];
 
 function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
     const properties: any = {};
 
     parameters.forEach((param, index) => {
-        const paramName = param.name;
-        const paramType = param.type;
-        if (param.enum?.length) {
-            const num = param.enum.map(e => parseInt(e))
+        const paramName = param.typeChoose.name;
+        const paramType = param.typeChoose.type;
+        if (paramType == "string") {
+            if (param.typeChoose.enum?.length) {
+                properties[paramName] = {
+                    type: paramType,
+                    format: param.typeChoose.format,
+                    minLength: param.typeChoose.minLength,
+                    maxLength: param.typeChoose.maxLength,
+                    enum: param.typeChoose.enum,
+                    description: param.typeChoose.description,
+                };
+
+            } else {
+                properties[paramName] = {
+                    type: paramType,
+                    format: param.typeChoose.format,
+                    minLength: param.typeChoose.minLength,
+                    maxLength: param.typeChoose.maxLength,
+                    description: param.typeChoose.description,
+                };
+            }
+        } else if (paramType == "number") {
+            if (param.typeChoose.enum?.length) {
+                properties[paramName] = {
+                    type: paramType,
+                    minimum: param.typeChoose.minimum,
+                    maximum: param.typeChoose.maximum,
+                    default : param.typeChoose.default,
+                    enum: param.typeChoose.enum,
+                    description: param.typeChoose.description,
+                };
+            } else {
+                properties[paramName] = {
+                    type: paramType,
+                    minimum: param.typeChoose.minimum,
+                    maximum: param.typeChoose.maximum,
+                    default : param.typeChoose.default,
+                    description: param.typeChoose.description,
+                };
+            }
+        } else if (paramType == "integer") {
+            if (param.typeChoose.enum?.length) {
+                properties[paramName] = {
+                    type: paramType,
+                    minimum: param.typeChoose.minimum,
+                    maximum: param.typeChoose.maximum,
+                    default : param.typeChoose.default,
+                    enum: param.typeChoose.enum,
+                    description: param.typeChoose.description,
+                };
+            } else {
+                properties[paramName] = {
+                    type: paramType,
+                    minimum: param.typeChoose.minimum,
+                    maximum: param.typeChoose.maximum,
+                    default : param.typeChoose.default,
+                    description: param.typeChoose.description,
+                };
+            }
+        } else if (paramType == "boolean") {
             properties[paramName] = {
-                type: (paramType == "date" || paramType == "time" || paramType == "date-time" || paramType == "email") ? "string" : paramType,
-                format: paramType,
-                minLength: param.min,
-                maxLength: param.max,
-                minimum: param.min,
-                maximum: param.max,
-                enum: (paramType == "number" || paramType == "integer") ? num : param.enum,
-                description: param.description,
-            };
-        } else {
-            properties[paramName] = {
-                type: (paramType == "date" || paramType == "time" || paramType == "date-time" || paramType == "email") ? "string" : paramType,
-                format: paramType,
-                minLength: param.min,
-                maxLength: param.max,
-                minimum: param.min,
-                maximum: param.max,
-                description: param.description,
+                type: paramType,
+                description: param.typeChoose.description,
             };
         }
 
     });
 
     return {
-        type: 'object',
+        type: "object",
         properties: properties,
     };
-
 }
+
+
 
 export default function CreateParameter() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
-
     const {currentColor} = useStateContext();
-    const [formData, setFormData] = useState(initialParameters);
+    const [formData, setFormData] = useState(initialParameter);
     const [transformData, setTransFormData] = useState(initialData);
 
-    transSchema = generateJsonFormsSchema(formData);
+    let transSchema = generateJsonFormsSchema(formData);
 
-    const transUIschema = {
+    let transUIschema = {
         type: 'VerticalLayout',
-        elements: formData.map((param, index) => ({
+        elements: formData.map((param) => ({
             type: 'Control',
-            scope: `#/properties/${param.name}`
+            scope: `#/properties/${param.typeChoose.name}`
         }))
     };
 
@@ -78,26 +127,28 @@ export default function CreateParameter() {
     const stringUISchema = JSON.stringify(transUIschema, null, 2)
     const [schema, setSchema] = useState<string>(stringSchema);
     const [uischema, setUISchema] = useState<string>(stringUISchema);
-    const [complexTransSchema, setComplexTransSchema] = useState(transSchema);
-    const [complexTransUISchema, setComplexTransUISchema] = useState(transUIschema);
 
-    useEffect(() => {
-        try {
-            const parsedSchema = JSON.parse(schema);
-            setComplexTransSchema(parsedSchema);
-        } catch (error) {
-            console.error(error);
-        }
-    }, [schema]);
+    const handleFormChange = ({data}: any) => {
+        setFormData(data.parameter);
+    };
 
-    useEffect(() => {
-        try {
-            const parsedUISchema = JSON.parse(uischema);
-            setComplexTransUISchema(parsedUISchema);
-        } catch (error) {
-            console.error(error);
-        }
-    }, [uischema]);
+    const handletransFormChange = ({data}: any) => {
+        setTransFormData(data);
+        console.log(transSchema)
+    };
+
+    const handleSchemaChange = (value : any) => {
+        setSchema(value || '')
+        const parsedSchema = JSON.parse(schema)
+        transSchema = parsedSchema
+        console.log(transSchema)
+    }
+
+    const handleUISchemaChange = (value : any) => {
+        setUISchema(value || '')
+        const parsedUIschema = JSON.parse(uischema)
+        transUIschema = parsedUIschema
+    }
 
     return (
         <div className="contents">
@@ -129,15 +180,15 @@ export default function CreateParameter() {
                         <div className="tab-content tab-space">
                             <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
                                 <div>
-                                    <div className="gap-3 grid md:pt-10 md:px-5 md:my-2 md:grid-cols-2">
+                                    <div className="gap-3 grid md:grid-cols-1 md:pt-10 md:px-5 md:my-2 xl:grid-cols-2">
                                         <div>
                                             <JsonForms
-                                                data={{parameters: formData}}
+                                                data={{parameter: formData}}
                                                 schema={userSchema}
                                                 uischema={userUISchema}
                                                 renderers={materialRenderers}
                                                 cells={materialCells}
-                                                onChange={({data}) => setFormData(data.parameters)}
+                                                onChange={handleFormChange}
                                             />
                                         </div>
                                         <div>
@@ -149,11 +200,16 @@ export default function CreateParameter() {
                                                     uischema={transUIschema}
                                                     renderers={materialRenderers}
                                                     cells={materialCells}
-                                                    onChange={({data}) => setTransFormData(data)}
+                                                    onChange={handletransFormChange}
                                                 />
                                             </ErrorBoundary>
-                                            <Link to="/model/execute" state={{schema: transSchema, uischema: transUIschema}}>
-                                                <Button style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
+                                            <Link to="/model/execute"
+                                                  state={{schema: transSchema, uischema: transUIschema}}>
+                                                <Button style={{
+                                                    backgroundColor: currentColor,
+                                                    color: "white",
+                                                    borderRadius: "10px"
+                                                }}
                                                         className="w-32 p-2" text="Parameter Test"/>
                                             </Link>
                                         </div>
@@ -173,7 +229,7 @@ export default function CreateParameter() {
                                                     width={400}
                                                     theme="vs-light"
                                                     value={schema}
-                                                    onChange={(value) => setSchema(value || '')}
+                                                    onChange={handleSchemaChange}
                                                     options={{
                                                         minimap: {
                                                             enabled: false,
@@ -192,7 +248,7 @@ export default function CreateParameter() {
                                                         width={400}
                                                         theme="vs-light"
                                                         value={uischema}
-                                                        onChange={(value) => setUISchema(value || '')}
+                                                        onChange={handleUISchemaChange}
                                                         options={{
                                                             minimap: {
                                                                 enabled: false,
@@ -208,15 +264,15 @@ export default function CreateParameter() {
                                             <ErrorBoundary>
                                                 <div>
                                                     <JsonForms
-                                                        schema={complexTransSchema}
-                                                        uischema={complexTransUISchema}
+                                                        schema={transSchema}
+                                                        uischema={transUIschema}
                                                         data={transformData}
                                                         renderers={materialRenderers}
                                                         cells={materialCells}
-                                                        onChange={({data}) => setTransFormData(data)}
+                                                        onChange={handletransFormChange}
                                                     />
                                                     <div>
-                                                        <Link to="/model/execute" state={{schema: complexTransSchema, uischema: complexTransUISchema}}>
+                                                        <Link to="/model/execute" state={{schema: transSchema, uischema: transUIschema}}>
                                                             <Button
                                                                 style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
                                                                 className="w-32 p-2" text="Parameter Test"/>
@@ -230,16 +286,6 @@ export default function CreateParameter() {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="flex gap-3 float-right">
-                    <Link to="/model/create/description">
-                        <Button style={{backgroundColor: "white", color: "black", borderRadius: "10px"}}
-                                className="w-16 p-2" text="back"/>
-                    </Link>
-                    <Link to="/model">
-                        <Button style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                                className="w-16 p-2" text="create"/>
-                    </Link>
                 </div>
             </div>
         </div>

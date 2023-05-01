@@ -227,59 +227,143 @@ export const myModel = {
     ],
 }
 
-export const defaultSchema = {
-    properties: {
-        name: {
-            type: "string"
-        }
-    }
-}
-
-export const defaultUIschema = {
-    type: "VerticalLayout",
-    elements: [
-        {
-            type: "Control",
-            scope: "#/properties/name",
-
-        }
-    ]
-}
-
 export const userSchema = {
-    type: 'object',
+    definitions: {
+        string: {
+            type: "object",
+            title: "string",
+            label: "string",
+            properties: {
+                name: {
+                    type: 'string'
+                },
+                type: {
+                    type : 'string',
+                    enum: ['string']
+                },
+                format: {
+                    type: 'string',
+                    enum: ['date', 'time', 'date-time', 'email']
+                },
+                minLength: {
+                    type: 'integer',
+                },
+                maxLength: {
+                    type: 'integer',
+                },
+                enum: {
+                    type: 'array',
+                    items: {type: 'string'},
+                },
+                description: {type: 'string'},
+            },
+        },
+        number: {
+            type: "object",
+            title: "Number",
+            properties: {
+                name: {
+                    type: 'string'
+                },
+                type: {
+                    type : 'string',
+                    enum: ['number']
+                },
+                minimum: {
+                    type: 'number',
+                },
+                maximum: {
+                    type: 'number',
+                },
+                default: {
+                    type: 'number',
+                },
+                enum: {
+                    type: 'array',
+                    items: {type: 'number'},
+                },
+                Description: {
+                    type: 'number',
+                },
+            },
+        },
+        integer: {
+            type: "object",
+            title: "Integer",
+            properties: {
+                name: {
+                    type: 'string'
+                },
+                type: {
+                    type : 'string',
+                    enum: ['integer']
+                },
+                minimum: {
+                    type: 'integer',
+                },
+                maximum: {
+                    type: 'integer',
+                },
+                default: {
+                    type: 'integer',
+                },
+                enum: {
+                    type: 'array',
+                    items: {type: 'integer'},
+                },
+                Description: {
+                    type: 'string',
+                }
+            },
+        },
+        boolean: {
+            type: "object",
+            title: "Boolean",
+            properties: {
+                name: {
+                    type: 'string'
+                },
+                type: {
+                    type : 'string',
+                    enum: ['boolean']
+                },
+                description: {
+                    type: 'string'
+                },
+            },
+        }
+    },
+    type: "object",
     properties: {
-        parameters: {
+        parameter: {
             type: 'array',
             items: {
                 type: 'object',
                 properties: {
-                    name: { type: 'string' },
-                    type: {
-                        type: 'string',
-                        enum: [
-                            'string',
-                            'number',
-                            'integer',
-                            'boolean',
-                            'date',
-                            'time',
-                            'date-time',
-                            'email',
-                        ],
-                    },
-                    min: { type: 'number' },
-                    max: { type: 'number' },
-                    default: { type: 'number' },
-                    enum: {
-                        type: 'array',
-                        items: { type: 'string' },
-                    },
-                    description: { type: 'string' },
-                },
-            },
-        },
-    },
+                    typeChoose: {
+                        oneOf: [
+                            {
+                                title: 'string',
+                                $ref: "#/definitions/string"
+                            },
+                            {
+                                title: 'number',
+                                $ref: "#/definitions/number"
+                            },
+                            {
+                                title: 'integer',
+                                $ref: "#/definitions/integer"
+                            },
+                            {
+                                title: 'boolean',
+                                $ref: "#/definitions/boolean"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
 };
 
 export const userUISchema = {
@@ -287,11 +371,9 @@ export const userUISchema = {
     elements: [
         {
             type: "Control",
-            scope: "#/properties/parameters",
-            options: {
-                className: "no-list-style"
-            }
-        }
+            label: "parameter",
+            scope: "#/properties/parameter"
+        },
     ]
 };
 

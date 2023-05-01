@@ -30,7 +30,7 @@ type WebSocketData = {
 
 type Parameter = {
     name: string;
-    type?: string;
+    type: string;
     min?: number;
     max?: number;
     default?: number;
@@ -38,4 +38,46 @@ type Parameter = {
     description?: string;
 }
 
-export type {Parameter, HeaderData, DefaultButtonData, SubmitButtonData, WebSocketData};
+interface TypeChooseString {
+    title?: string;
+    name: string;
+    type: "string";
+    format?: string;
+    minLength?: number;
+    maxLength?: number;
+    enum?: string[];
+    description?: string;
+}
+
+interface TypeChooseNumber {
+    title?: string;
+    name: string;
+    type: "number";
+    maximum?: number;
+    minimum?: number;
+    default?: number;
+    enum?: number[];
+    description?: string;
+}
+
+interface TypeChooseInteger {
+    title?: string;
+    name: string;
+    type: "integer";
+    maximum?: "integer";
+    minimum?: "integer";
+    default?: number;
+    enum?: number[];
+    description?: string;
+}
+
+interface TypeChooseBoolean {
+    title?: string;
+    name: string;
+    type: "boolean";
+    description?: string;
+}
+
+type TypeChoose = TypeChooseString | TypeChooseNumber | TypeChooseInteger | TypeChooseBoolean;
+
+export type {Parameter, HeaderData, DefaultButtonData, SubmitButtonData, WebSocketData, TypeChoose};
