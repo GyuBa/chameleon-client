@@ -16,20 +16,25 @@ interface Parameter {
     typeChoose: TypeChoose;
 }
 
-const initialParameter: Parameter[] = [{
-    typeChoose: {
-        name: "name",
-        type: "string",
-        minLength: 1,
-        maxLength: 10,
-    },
-}
+const initialParameter: Parameter[] = [
+    {
+        typeChoose: {
+            name: "name",
+            type: "string",
+            minLength: 1,
+            maxLength: 10,
+        }
+    }
 ];
 
 function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
     const properties: any = {};
 
     parameters.forEach((param, index) => {
+        if (!param.typeChoose) {
+            return;
+        }
+
         const paramName = param.typeChoose.name;
         const paramType = param.typeChoose.type;
         if (paramType == "string") {
@@ -58,7 +63,7 @@ function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
                     type: paramType,
                     minimum: param.typeChoose.minimum,
                     maximum: param.typeChoose.maximum,
-                    default : param.typeChoose.default,
+                    default: param.typeChoose.default,
                     enum: param.typeChoose.enum,
                     description: param.typeChoose.description,
                 };
@@ -67,7 +72,7 @@ function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
                     type: paramType,
                     minimum: param.typeChoose.minimum,
                     maximum: param.typeChoose.maximum,
-                    default : param.typeChoose.default,
+                    default: param.typeChoose.default,
                     description: param.typeChoose.description,
                 };
             }
@@ -77,7 +82,7 @@ function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
                     type: paramType,
                     minimum: param.typeChoose.minimum,
                     maximum: param.typeChoose.maximum,
-                    default : param.typeChoose.default,
+                    default: param.typeChoose.default,
                     enum: param.typeChoose.enum,
                     description: param.typeChoose.description,
                 };
@@ -86,7 +91,7 @@ function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
                     type: paramType,
                     minimum: param.typeChoose.minimum,
                     maximum: param.typeChoose.maximum,
-                    default : param.typeChoose.default,
+                    default: param.typeChoose.default,
                     description: param.typeChoose.description,
                 };
             }
@@ -94,6 +99,10 @@ function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
             properties[paramName] = {
                 type: paramType,
                 description: param.typeChoose.description,
+            };
+        } else {
+            properties[paramName] = {
+                type: paramType
             };
         }
 
@@ -104,7 +113,6 @@ function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
         properties: properties,
     };
 }
-
 
 
 export default function CreateParameter() {
@@ -119,36 +127,43 @@ export default function CreateParameter() {
         type: 'VerticalLayout',
         elements: formData.map((param) => ({
             type: 'Control',
-            scope: `#/properties/${param.typeChoose.name}`
+            scope: `#/properties/${param.typeChoose?.name || 'undefined'}`
         }))
+    };
+
+    const handleFormChange = ({data}: any) => {
+        setFormData(data.parameter);
+        console.log(data)
+    };
+
+    const handletransFormChange = ({data}: any) => {
+        setTransFormData(data);
     };
 
     const stringSchema = JSON.stringify(transSchema, null, 2);
     const stringUISchema = JSON.stringify(transUIschema, null, 2)
     const [schema, setSchema] = useState<string>(stringSchema);
     const [uischema, setUISchema] = useState<string>(stringUISchema);
+    const [complexTransSchema, setComplexTransSchema] = useState(transSchema);
+    const [complexTransUISchema, setComplexTransUISchema] = useState(transUIschema);
 
-    const handleFormChange = ({data}: any) => {
-        setFormData(data.parameter);
-    };
+    useEffect(() => {
+        try {
+            const parsedSchema = JSON.parse(schema);
+            setComplexTransSchema(parsedSchema);
+        } catch (error) {
+            console.error(error);
+        }
+    }, [schema]);
 
-    const handletransFormChange = ({data}: any) => {
-        setTransFormData(data);
-        console.log(transSchema)
-    };
-
-    const handleSchemaChange = (value : any) => {
-        setSchema(value || '')
-        const parsedSchema = JSON.parse(schema)
-        transSchema = parsedSchema
-        console.log(transSchema)
-    }
-
-    const handleUISchemaChange = (value : any) => {
-        setUISchema(value || '')
-        const parsedUIschema = JSON.parse(uischema)
-        transUIschema = parsedUIschema
-    }
+    useEffect(() => {
+        try {
+            const parsedUISchema = JSON.parse(uischema);
+            setComplexTransUISchema(parsedUISchema);
+        } catch (error) {
+            console.error(error);
+        }
+    }, [uischema]);
 
     return (
         <div className="contents">
@@ -209,8 +224,7 @@ export default function CreateParameter() {
                                                     backgroundColor: currentColor,
                                                     color: "white",
                                                     borderRadius: "10px"
-                                                }}
-                                                        className="w-32 p-2" text="Parameter Test"/>
+                                                }} className="w-32 p-2" text="Parameter Test"/>
                                             </Link>
                                         </div>
                                     </div>
@@ -229,7 +243,7 @@ export default function CreateParameter() {
                                                     width={400}
                                                     theme="vs-light"
                                                     value={schema}
-                                                    onChange={handleSchemaChange}
+                                                    onChange={(value) => setSchema(value || '')}
                                                     options={{
                                                         minimap: {
                                                             enabled: false,
@@ -248,7 +262,7 @@ export default function CreateParameter() {
                                                         width={400}
                                                         theme="vs-light"
                                                         value={uischema}
-                                                        onChange={handleUISchemaChange}
+                                                        onChange={(value) => setUISchema(value || '')}
                                                         options={{
                                                             minimap: {
                                                                 enabled: false,
@@ -264,15 +278,15 @@ export default function CreateParameter() {
                                             <ErrorBoundary>
                                                 <div>
                                                     <JsonForms
-                                                        schema={transSchema}
-                                                        uischema={transUIschema}
+                                                        schema={complexTransSchema}
+                                                        uischema={complexTransUISchema}
                                                         data={transformData}
                                                         renderers={materialRenderers}
                                                         cells={materialCells}
-                                                        onChange={handletransFormChange}
+                                                        onChange={({data}) => setTransFormData(data)}
                                                     />
                                                     <div>
-                                                        <Link to="/model/execute" state={{schema: transSchema, uischema: transUIschema}}>
+                                                        <Link to="/model/execute" state={{schema: complexTransSchema, uischema: complexTransUISchema}}>
                                                             <Button
                                                                 style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
                                                                 className="w-32 p-2" text="Parameter Test"/>
@@ -286,6 +300,16 @@ export default function CreateParameter() {
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className="flex gap-3 float-right">
+                    <Link to="/model/create/description">
+                        <Button style={{backgroundColor: "white", color: "black", borderRadius: "10px"}}
+                                className="w-16 p-2" text="back"/>
+                    </Link>
+                    <Link to="/model">
+                        <Button style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
+                                className="w-16 p-2" text="create"/>
+                    </Link>
                 </div>
             </div>
         </div>
