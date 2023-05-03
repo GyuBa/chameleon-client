@@ -26,7 +26,6 @@ export default function Model() {
   const {
     menuState,
     onClickMenu,
-    modelState,
     currentLayout,
     setCurrentLayout,
     isDesktopOrMobile
@@ -184,7 +183,7 @@ export default function Model() {
         </div>
         {currentLayout === "GridLayout" ? <GridLayout/> : <ListLayout/>}
       </div>
-      {selectedModel && modelState ?
+      {selectedModel ?
         <div className="w-2/6 ease-in-out duration-300 translate-x-0"><Description uniqueName={selectedModel} /></div>
         :
         <div className="w-0 ease-in-out duration-300 translate-x-full hidden"><Description uniqueName={selectedModel} /></div>

@@ -13,7 +13,6 @@ export const ContextProvider = ({children}) => {
     const [isClicked, setIsClicked] = useState(initialState);
     const [isClickedButton, setIsClickedButton] = useState(initialState);
     const [menuState, setMenuState] = useState(false);
-    const [modelState, setModelState] = useState(false);
     const [currentLayout, setCurrentLayout] = useState('GridLayout');
 
   const handleClick = (clicked) => setIsClicked({...initialState, [clicked]: true});
@@ -30,10 +29,6 @@ export const ContextProvider = ({children}) => {
 
   const onClickMenu = () => {
         setMenuState(prevState => !prevState)
-    };
-
-    const selectModel = () => {
-        setModelState(prevState => !prevState)
     };
 
     const handleActiveMenu = () => setActiveMenu(!activeMenu);
@@ -59,12 +54,9 @@ export const ContextProvider = ({children}) => {
             setMenuState,
             currentLayout,
             setCurrentLayout,
-            modelState,
-            setModelState,
             handleClick,
             onClickButton,
             onClickMenu,
-            selectModel,
             handleActiveMenu,
             handleCloseSideBar
         }}>

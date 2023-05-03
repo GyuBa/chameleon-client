@@ -54,7 +54,6 @@ export default function Description({uniqueName}: DescriptionProps) {
 
     if (!modelInfo) {
         console.log("Loading...");
-        console.log(modelInfo);
     }
     else console.log(modelInfo);
 
