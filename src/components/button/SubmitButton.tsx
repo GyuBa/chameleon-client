@@ -1,5 +1,5 @@
 import React from 'react';
-import {SubmitButtonData} from '../../types/Types';
+import {SubmitButtonData} from '../../types/chameleon-client';
 
 export default function SubmitButton({style, className, text, onClick, event, disabled}: SubmitButtonData) {
     return (

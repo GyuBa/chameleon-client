@@ -25,6 +25,9 @@ function authSignUp(email: string, password: string, username: string) {
       if (response.data.code === 401) {
         alert('가입에 실패했습니다. 가입 이메일이 잘못되었습니다.');
       }
+    })
+    .catch((error) => {
+      console.log(error);
     });
 }
 

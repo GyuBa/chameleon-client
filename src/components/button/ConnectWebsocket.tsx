@@ -1,16 +1,13 @@
 import useWebSocket, {ReadyState} from "react-use-websocket"
 import React, {useCallback} from 'react';
-import {WebSocketData} from "../../types/Types";
+import {WebSocketData} from "../../types/chameleon-client";
 
 export default function WebSocket({style, className, event}: WebSocketData) {
     const {
         sendMessage,
         readyState,
     } = useWebSocket((window.location.protocol.startsWith('https') ? 'wss://' : 'ws://') + window.location.host + '/websocket', {
-        shouldReconnect: (closeEvent) => true,
-        onMessage: (message) => {
-            let data = JSON.parse(message.data);
-        }
+        shouldReconnect: (closeEvent) => true
     });
 
 

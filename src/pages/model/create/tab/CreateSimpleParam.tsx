@@ -4,7 +4,7 @@ import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {userSchema, userUIschema} from "../../../../assets/Dummy";
 import {JsonSchema} from '@jsonforms/core';
 import ErrorBoundary from "../../module/ParamErrorboundary";
-import {Parameter} from "../../../../types/Types";
+import {Parameter} from "../../../../types/chameleon-client";
 
 interface CreateSimpleParamProps {
     onSchemaChange: (newSchema: JsonSchema) => void;
