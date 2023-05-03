@@ -228,152 +228,128 @@ export const myModel = {
 }
 
 export const userSchema = {
-    definitions: {
-        string: {
-            type: "object",
-            title: "string",
-            label: "string",
-            properties: {
-                name: {
-                    type: 'string'
-                },
-                type: {
-                    type : 'string',
-                    enum: ['string']
-                },
-                format: {
-                    type: 'string',
-                    enum: ['date', 'time', 'date-time', 'email']
-                },
-                minLength: {
-                    type: 'integer',
-                },
-                maxLength: {
-                    type: 'integer',
-                },
-                enum: {
-                    type: 'array',
-                    items: {type: 'string'},
-                },
-                description: {type: 'string'},
-            },
-        },
-        number: {
-            type: "object",
-            title: "Number",
-            properties: {
-                name: {
-                    type: 'string'
-                },
-                type: {
-                    type : 'string',
-                    enum: ['number']
-                },
-                minimum: {
-                    type: 'number',
-                },
-                maximum: {
-                    type: 'number',
-                },
-                default: {
-                    type: 'number',
-                },
-                enum: {
-                    type: 'array',
-                    items: {type: 'number'},
-                },
-                Description: {
-                    type: 'number',
-                },
-            },
-        },
-        integer: {
-            type: "object",
-            title: "Integer",
-            properties: {
-                name: {
-                    type: 'string'
-                },
-                type: {
-                    type : 'string',
-                    enum: ['integer']
-                },
-                minimum: {
-                    type: 'integer',
-                },
-                maximum: {
-                    type: 'integer',
-                },
-                default: {
-                    type: 'integer',
-                },
-                enum: {
-                    type: 'array',
-                    items: {type: 'integer'},
-                },
-                Description: {
-                    type: 'string',
-                }
-            },
-        },
-        boolean: {
-            type: "object",
-            title: "Boolean",
-            properties: {
-                name: {
-                    type: 'string'
-                },
-                type: {
-                    type : 'string',
-                    enum: ['boolean']
-                },
-                description: {
-                    type: 'string'
-                },
-            },
-        }
-    },
-    type: "object",
+    type: 'object',
     properties: {
-        parameter: {
+        parameters: {
             type: 'array',
             items: {
                 type: 'object',
                 properties: {
-                    typeChoose: {
-                        oneOf: [
-                            {
-                                title: 'string',
-                                $ref: "#/definitions/string"
-                            },
-                            {
-                                title: 'number',
-                                $ref: "#/definitions/number"
-                            },
-                            {
-                                title: 'integer',
-                                $ref: "#/definitions/integer"
-                            },
-                            {
-                                title: 'boolean',
-                                $ref: "#/definitions/boolean"
-                            }
-                        ]
-                    }
-                }
-            }
+                    name: {type: 'string'},
+                    type: {
+                        type: 'string',
+                        enum: [
+                            'string',
+                            'number',
+                            'integer',
+                            'boolean',
+                            'date',
+                            'time',
+                            'datetime',
+                        ],
+                    },
+                    minInteger: {type: 'integer'},
+                    maxInteger: {type: 'integer'},
+                    maxNumber: {type: 'number'},
+                    minNumber: {type: 'number'},
+                    regex: {type: 'string'},
+                    defaultInteger: {type: 'integer'},
+                    defaultNumber: {type: 'number'},
+                    defaultString: {type: 'string'},
+                    defaultBoolean: {type: 'boolean'},
+                    defaultDate: {type: 'string', format: 'date'},
+                    defaultTime: {type: 'string', format: 'time'},
+                    defaultDatetime: {type: 'string', format: 'date-time'},
+                    integerEnum: {
+                        type: 'array',
+                        items: {type: 'integer'},
+                    },
+                    numberEnum: {
+                        type: 'array',
+                        items: {type: 'number'},
+                    },
+                    stringEnum: {
+                        type: 'array',
+                        items: {type: 'string'},
+                    },
+                    description: {type: 'string'},
+                },
+            },
+        },
+    },
+};
+
+const toUISchemaElement = (property: string, type: String, label?: string) => ({
+    type: "Control",
+    scope: `#/properties/${property}`,
+    label,
+    rule: {
+        "effect": "SHOW",
+        "condition": {
+            "scope": "#/properties/type",
+            "schema": {const: type}
         }
     }
-};
+});
+
+const integerElements = [
+    toUISchemaElement('minInteger', 'integer', 'Minimum'),
+    toUISchemaElement('maxInteger', 'integer', 'Maximum'),
+    toUISchemaElement('integerEnum', 'integer', 'Enum'),
+    toUISchemaElement('defaultInteger', 'integer', 'Default')
+];
+const numberElements = [
+    toUISchemaElement('minNumber', 'number', 'Minimum'),
+    toUISchemaElement('maxNumber', 'number', 'Maximum'),
+    toUISchemaElement('numberEnum', 'number', 'Enum'),
+    toUISchemaElement('defaultNumber', 'number', 'Default')
+];
+const stringElements = [
+    toUISchemaElement('regex', 'string', 'Regex'),
+    toUISchemaElement('stringEnum', 'string', 'Enum'),
+    toUISchemaElement('defaultString', 'string', 'Default')
+];
+// TODO: String은 Multiline도 고려해볼 것, uischema: { type: 'string', options: { multi: true } }
+
+const booleanElements = [toUISchemaElement('defaultBoolean', 'boolean', 'Default')];
+const dateElements = [
+    toUISchemaElement('defaultDate', 'date', 'Default')
+];
+const timeElements = [
+    toUISchemaElement('defaultTime', 'time', 'Default'),
+];
+const datetimeElements = [
+    toUISchemaElement('defaultDatetime', 'datetime', 'Default'),
+];
+const uiSchemaElements = [integerElements, numberElements, stringElements, booleanElements, dateElements, timeElements, datetimeElements].flat();
 
 export const userUISchema = {
     type: "VerticalLayout",
     elements: [
         {
             type: "Control",
-            label: "parameter",
-            scope: "#/properties/parameter"
-        },
+            scope: "#/properties/parameters",
+            options: {
+                detail: {
+                    type: 'VerticalLayout',
+                    elements: [
+                        {
+                            type: "Control",
+                            scope: "#/properties/type"
+                        },
+                        {
+                            type: "Control",
+                            scope: "#/properties/name"
+                        },
+                        ...uiSchemaElements,
+                        {
+                            type: "Control",
+                            scope: "#/properties/description"
+                        },
+                    ]
+                }
+            }
+        }
     ]
 };
 
@@ -386,12 +362,22 @@ export const exparamTab = [
     },
 ];
 
-export const crparamTab = [
+export const createParam = [
     {
         label: "Simple builder"
     },
     {
         label: "Complex builder"
+    }
+];
+
+export const createSchema = [
+
+    {
+        label: "Schema"
+    },
+    {
+        label: "UISchema"
     }
 ];
 

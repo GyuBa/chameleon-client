@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Header} from "../../../components";
-import {crparamTab, userSchema, userUISchema} from "../../../assets/Dummy"
+import {createParam, createSchema, userSchema, userUISchema} from "../../../assets/Dummy"
 import {Link} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
-import {TypeChoose} from "../../../types/Types";
+import {Parameter} from "../../../types/Types";
 import {JsonSchema} from "@jsonforms/core";
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
@@ -12,128 +12,132 @@ import MonaCoEditor from "@monaco-editor/react";
 
 const initialData = {};
 
-interface Parameter {
-    typeChoose: TypeChoose;
-}
-
-const initialParameter: Parameter[] = [
-    {
-        typeChoose: {
-            name: "name",
-            type: "string",
-            minLength: 1,
-            maxLength: 10,
-        }
-    }
+const initialParameters: Parameter[] = [
+    {name: 'name', type: 'string'}
 ];
 
 function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
     const properties: any = {};
 
     parameters.forEach((param, index) => {
-        if (!param.typeChoose) {
-            return;
-        }
-
-        const paramName = param.typeChoose.name;
-        const paramType = param.typeChoose.type;
-        if (paramType == "string") {
-            if (param.typeChoose.enum?.length) {
+        const paramName = param.name;
+        const paramType = param.type;
+        if (paramType === "string") {
+            if (param.stringEnum?.length) {
                 properties[paramName] = {
                     type: paramType,
-                    format: param.typeChoose.format,
-                    minLength: param.typeChoose.minLength,
-                    maxLength: param.typeChoose.maxLength,
-                    enum: param.typeChoose.enum,
-                    description: param.typeChoose.description,
+                    pattern: param.regex,
+                    enum: param.stringEnum,
+                    default: param.defaultString,
+                    description: param.description,
                 };
 
             } else {
                 properties[paramName] = {
                     type: paramType,
-                    format: param.typeChoose.format,
-                    minLength: param.typeChoose.minLength,
-                    maxLength: param.typeChoose.maxLength,
-                    description: param.typeChoose.description,
+                    default: param.defaultString,
+                    pattern: param.regex,
+                    description: param.description,
                 };
             }
-        } else if (paramType == "number") {
-            if (param.typeChoose.enum?.length) {
+        } else if (paramType === "number") {
+            if (param.numberEnum?.length) {
                 properties[paramName] = {
                     type: paramType,
-                    minimum: param.typeChoose.minimum,
-                    maximum: param.typeChoose.maximum,
-                    default: param.typeChoose.default,
-                    enum: param.typeChoose.enum,
-                    description: param.typeChoose.description,
+                    minimum: param.minNumber,
+                    maximum: param.maxNumber,
+                    enum: param.numberEnum,
+                    default: param.defaultNumber,
+                    description: param.description,
                 };
+
             } else {
                 properties[paramName] = {
                     type: paramType,
-                    minimum: param.typeChoose.minimum,
-                    maximum: param.typeChoose.maximum,
-                    default: param.typeChoose.default,
-                    description: param.typeChoose.description,
+                    minimum: param.minNumber,
+                    maximum: param.maxNumber,
+                    default: param.defaultNumber,
+                    description: param.description,
                 };
             }
-        } else if (paramType == "integer") {
-            if (param.typeChoose.enum?.length) {
+        } else if (paramType === "integer") {
+            if (param.integerEnum?.length) {
                 properties[paramName] = {
                     type: paramType,
-                    minimum: param.typeChoose.minimum,
-                    maximum: param.typeChoose.maximum,
-                    default: param.typeChoose.default,
-                    enum: param.typeChoose.enum,
-                    description: param.typeChoose.description,
+                    minimum: param.minInteger,
+                    maximum: param.maxInteger,
+                    enum: param.integerEnum,
+                    default: param.defaultInteger,
+                    description: param.description,
                 };
+
             } else {
                 properties[paramName] = {
                     type: paramType,
-                    minimum: param.typeChoose.minimum,
-                    maximum: param.typeChoose.maximum,
-                    default: param.typeChoose.default,
-                    description: param.typeChoose.description,
+                    minimum: param.minInteger,
+                    maximum: param.maxInteger,
+                    default: param.defaultInteger,
+                    description: param.description,
                 };
             }
-        } else if (paramType == "boolean") {
+        } else if (paramType === "boolean") {
             properties[paramName] = {
                 type: paramType,
-                description: param.typeChoose.description,
+                default: param.defaultBoolean,
+                description: param.description,
             };
-        } else {
+        } else if (paramType === "date") {
             properties[paramName] = {
-                type: paramType
+                type: "string",
+                format: paramType,
+                default: param.defaultDate,
+                description: param.description,
+            };
+        } else if (paramType === "time") {
+            properties[paramName] = {
+                type: "string",
+                format: paramType,
+                default: param.defaultTime,
+                description: param.description,
+            };
+        } else if (paramType === "datetime") {
+            properties[paramName] = {
+                type: "string",
+                format: "date-time",
+                default: param.defaultTime,
+                description: param.description,
             };
         }
 
     });
 
     return {
-        type: "object",
+        type: 'object',
         properties: properties,
     };
+
 }
 
 
 export default function CreateParameter() {
-    const [activeTabIndex, setActiveTabIndex] = useState(0);
+    const [activeInTabIndex, setActiveInTabIndex] = useState(0);
+    const [activeOutTabIndex, setActiveOutTabIndex] = useState(0);
     const {currentColor} = useStateContext();
-    const [formData, setFormData] = useState(initialParameter);
+    const [formData, setFormData] = useState(initialParameters);
     const [transformData, setTransFormData] = useState(initialData);
 
     let transSchema = generateJsonFormsSchema(formData);
 
-    let transUIschema = {
+    const transuischema = {
         type: 'VerticalLayout',
-        elements: formData.map((param) => ({
+        elements: formData.map((param, index) => ({
             type: 'Control',
-            scope: `#/properties/${param.typeChoose?.name || 'undefined'}`
+            scope: `#/properties/${param.name}`
         }))
     };
 
     const handleFormChange = ({data}: any) => {
-        setFormData(data.parameter);
-        console.log(data)
+        setFormData(data.parameters);
     };
 
     const handletransFormChange = ({data}: any) => {
@@ -141,11 +145,11 @@ export default function CreateParameter() {
     };
 
     const stringSchema = JSON.stringify(transSchema, null, 2);
-    const stringUISchema = JSON.stringify(transUIschema, null, 2)
+    const stringUISchema = JSON.stringify(transuischema, null, 2)
     const [schema, setSchema] = useState<string>(stringSchema);
     const [uischema, setUISchema] = useState<string>(stringUISchema);
     const [complexTransSchema, setComplexTransSchema] = useState(transSchema);
-    const [complexTransUISchema, setComplexTransUISchema] = useState(transUIschema);
+    const [complexTransUISchema, setComplexTransUISchema] = useState(transuischema);
 
     useEffect(() => {
         try {
@@ -176,29 +180,29 @@ export default function CreateParameter() {
                             </div>
                         </div>
                         <div className="flex space-x-3 border-b">
-                            {crparamTab.map((tab, idx) => {
+                            {createParam.map((tab, idx) => {
                                 return (
                                     <button
                                         key={idx}
                                         className={`py-2 border-b-4 transition-colors duration-300 ${
-                                            idx === activeTabIndex
+                                            idx === activeOutTabIndex
                                                 ? "border-teal-500"
                                                 : "border-transparent hover:border-gray-200"
                                         }`}
                                         // Change the active tab on click.
-                                        onClick={() => setActiveTabIndex(idx)}>
+                                        onClick={() => setActiveOutTabIndex(idx)}>
                                         {tab.label}
                                     </button>
                                 );
                             })}
                         </div>
                         <div className="tab-content tab-space">
-                            <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
+                            <div className={activeOutTabIndex === 0 ? "block" : "hidden"} id="link1">
                                 <div>
-                                    <div className="gap-3 grid md:grid-cols-1 md:pt-10 md:px-5 md:my-2 xl:grid-cols-2">
+                                    <div className="gap-3 grid md:grid-cols-1 md:pt-3 md:px-5 md:my-2 xl:grid-cols-2">
                                         <div>
                                             <JsonForms
-                                                data={{parameter: formData}}
+                                                data={{parameters: formData}}
                                                 schema={userSchema}
                                                 uischema={userUISchema}
                                                 renderers={materialRenderers}
@@ -212,14 +216,14 @@ export default function CreateParameter() {
                                                 <JsonForms
                                                     data={transformData}
                                                     schema={transSchema}
-                                                    uischema={transUIschema}
+                                                    uischema={transuischema}
                                                     renderers={materialRenderers}
                                                     cells={materialCells}
                                                     onChange={handletransFormChange}
                                                 />
                                             </ErrorBoundary>
                                             <Link to="/model/execute"
-                                                  state={{schema: transSchema, uischema: transUIschema}}>
+                                                  state={{schema: transSchema, uischema: transuischema}}>
                                                 <Button style={{
                                                     backgroundColor: currentColor,
                                                     color: "white",
@@ -230,46 +234,67 @@ export default function CreateParameter() {
                                     </div>
                                 </div>
                             </div>
-                            <div className={activeTabIndex === 1 ? "block" : "hidden"} id="link2">
+                            <div className={activeOutTabIndex === 1 ? "block" : "hidden"} id="link2">
                                 <div>
-                                    <div className="gap-3 grid md:grid-cols-1 md:pt-10 md:px-5 md:my-2 xl:grid-cols-2">
+                                    <div className="gap-3 grid md:grid-cols-1 md:pt-3 md:px-5 md:my-2 xl:grid-cols-2">
                                         <div>
-                                            <h1 className="md:py-3 text-xl font-bold">Schema</h1>
-                                            <div
-                                                className="block max-w-sm rounded-lg bg-white shadow-lg dark:bg-neutral-700">
-                                                <MonaCoEditor
-                                                    language="json"
-                                                    height={300}
-                                                    width={400}
-                                                    theme="vs-light"
-                                                    value={schema}
-                                                    onChange={(value) => setSchema(value || '')}
-                                                    options={{
-                                                        minimap: {
-                                                            enabled: false,
-                                                        },
-                                                        automaticLayout: true,
-                                                    }}
-                                                />
+                                            <div className="flex space-x-3 border-b">
+                                                {createSchema.map((tab, idx) => {
+                                                    return (
+                                                        <button
+                                                            key={idx}
+                                                            className={`py-2 border-b-4 transition-colors duration-300 ${
+                                                                idx === activeInTabIndex
+                                                                    ? "border-teal-500"
+                                                                    : "border-transparent hover:border-gray-200"
+                                                            }`}
+                                                            // Change the active tab on click.
+                                                            onClick={() => setActiveInTabIndex(idx)}>
+                                                            {tab.label}
+                                                        </button>
+                                                    );
+                                                })}
                                             </div>
-                                            <div className="mb-2">
-                                                <h1 className="md:py-3 text-xl font-bold">UISchema</h1>
-                                                <div
-                                                    className="block max-w-sm rounded-lg bg-white shadow-lg dark:bg-neutral-700">
-                                                    <MonaCoEditor
-                                                        language="json"
-                                                        height={300}
-                                                        width={400}
-                                                        theme="vs-light"
-                                                        value={uischema}
-                                                        onChange={(value) => setUISchema(value || '')}
-                                                        options={{
-                                                            minimap: {
-                                                                enabled: false,
-                                                            },
-                                                            automaticLayout: true,
-                                                        }}
-                                                    />
+                                            <div className="tab-content tab-space">
+                                                <div className={activeInTabIndex === 0 ? "block" : "hidden"} id="link3">
+                                                    <h1 className="md:py-3 text-xl font-bold">Schema</h1>
+                                                    <div
+                                                        className="block max-w-sm rounded-lg bg-white shadow-lg dark:bg-neutral-700">
+                                                        <MonaCoEditor
+                                                            language="json"
+                                                            height={480}
+                                                            width={570}
+                                                            theme="vs-light"
+                                                            value={schema}
+                                                            onChange={(value) => setSchema(value || '')}
+                                                            options={{
+                                                                minimap: {
+                                                                    enabled: false,
+                                                                },
+                                                                automaticLayout: true,
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className={activeInTabIndex === 1 ? "block" : "hidden"} id="link4">
+                                                    <h1 className="md:py-3 text-xl font-bold">UISchema</h1>
+                                                    <div
+                                                        className="block max-w-sm rounded-lg bg-white shadow-lg dark:bg-neutral-700">
+                                                        <MonaCoEditor
+                                                            language="json"
+                                                            height={480}
+                                                            width={570}
+                                                            theme="vs-light"
+                                                            value={uischema}
+                                                            onChange={(value) => setUISchema(value || '')}
+                                                            options={{
+                                                                minimap: {
+                                                                    enabled: false,
+                                                                },
+                                                                automaticLayout: true,
+                                                            }}
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -286,9 +311,16 @@ export default function CreateParameter() {
                                                         onChange={({data}) => setTransFormData(data)}
                                                     />
                                                     <div>
-                                                        <Link to="/model/execute" state={{schema: complexTransSchema, uischema: complexTransUISchema}}>
+                                                        <Link to="/model/execute" state={{
+                                                            schema: complexTransSchema,
+                                                            uischema: complexTransUISchema
+                                                        }}>
                                                             <Button
-                                                                style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
+                                                                style={{
+                                                                    backgroundColor: currentColor,
+                                                                    color: "white",
+                                                                    borderRadius: "10px"
+                                                                }}
                                                                 className="w-32 p-2" text="Parameter Test"/>
                                                         </Link>
                                                     </div>
