@@ -43,24 +43,22 @@ export default function App() {
     }, [window.location.pathname]);
 
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={(<Layout/>)}>
-                    <Route path="/main" element={(<Main/>)}/>
-                    <Route path="/account" element={<Account/>}/>
-                    <Route path="/change-password" element={<ChangePassword/>}/>
-                    <Route path="/payment" element={<Payment/>}/>
-                    <Route path="/ws-test" element={<WebSocket/>}/>
-                    {/*모델별 경로 고려*/}
-                    <Route path="/model" element={<Model/>}/>
-                    <Route path="/model/execute" element={<ExecuteModel/>}/>
-                    <Route path="/model/create" element={<CreateModel/>}/>
-                    <Route path="/model/create/description" element={<CreateDescription/>}/>
-                    <Route path="/model/create/parameter" element={<CreateParameter/>}/>
-                </Route>
-                <Route path="/sign-in" element={(<SignIn/>)}/>
-                <Route path="/sign-up" element={(<SignUp/>)}/>
-            </Routes>
-        </BrowserRouter>
+        <Routes>
+            <Route path="/" element={(<Layout/>)}>
+                <Route path="/main" element={(<Main/>)}/>
+                <Route path="/account" element={<Account/>}/>
+                <Route path="/change-password" element={<ChangePassword/>}/>
+                <Route path="/payment" element={<Payment/>}/>
+                <Route path="/ws-test" element={<WebSocket/>}/>
+                {/*모델별 경로 고려*/}
+                <Route path="/model" element={<Model/>}/>
+                <Route path="/model/execute" element={<ExecuteModel/>}/>
+                <Route path="/model/create" element={<CreateModel/>}/>
+                <Route path="/model/create/description" element={<CreateDescription/>}/>
+                <Route path="/model/create/parameter" element={<CreateParameter/>}/>
+            </Route>
+            <Route path="/sign-in" element={(<SignIn/>)}/>
+            <Route path="/sign-up" element={(<SignUp/>)}/>
+        </Routes>
     );
 };
