@@ -35,11 +35,11 @@ export default function App() {
         if (lastJsonMessage && message.msg === WSMessageType.READY) {
             sendJsonMessage({msg: WSMessageType.PATH, path: window.location.pathname});
         }
-    }, [lastJsonMessage]);
+    }, [sendJsonMessage, lastJsonMessage]);
 
     useEffect(() => {
         sendJsonMessage({msg: WSMessageType.PATH, path: window.location.pathname});
-    }, [window.location.pathname]);
+    }, [sendJsonMessage]);
 
     return (
         <Routes>

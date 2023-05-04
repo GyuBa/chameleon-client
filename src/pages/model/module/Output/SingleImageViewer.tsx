@@ -69,7 +69,7 @@ export default function SingleImageViewer() {
             </div>
             <p className="px-2 pt-2">Output Format : {outputExtensions} </p>
             <p className="px-2 pt-2">Size : {FileUtils.formatBytes(size)} </p>
-            <img style={{width: '50%'}} src={url}/>
+            <img style={{width: '50%'}} src={url} alt=""/>
         </div>
 
     );

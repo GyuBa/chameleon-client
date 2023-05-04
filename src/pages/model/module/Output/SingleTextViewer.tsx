@@ -15,7 +15,7 @@ export default function SingleTextViewer() {
             setText(text);
         }
         getText();
-    }, [])
+    })
 
     const file = new File([testtext], "text.txt", {type: "text/plain"});
     const blob = new Blob([file], {type: "text/plain"});

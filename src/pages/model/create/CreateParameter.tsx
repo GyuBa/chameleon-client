@@ -280,14 +280,23 @@ export default function CreateParameter() {
                                                     onChange={handleTransFormChange}
                                                 />
                                             </ErrorBoundary>
-                                            <Link to="/model/execute"
-                                                  state={{schema: transSchema, uischema: transUISchema}}>
-                                                <Button style={{
-                                                    backgroundColor: currentColor,
-                                                    color: "white",
-                                                    borderRadius: "10px"
-                                                }} className="w-32 p-2" text="Parameter Test"/>
-                                            </Link>
+                                            <div className="flex gap-3 float-right">
+                                                <Link to="/model/create/description">
+                                                    <Button style={{
+                                                        backgroundColor: "white",
+                                                        color: "black",
+                                                        borderRadius: "10px"
+                                                    }}
+                                                            className="w-16 p-2" text="back"/>
+                                                </Link>
+                                                <SubmitButton
+                                                    style={{
+                                                        backgroundColor: currentColor,
+                                                        color: "white",
+                                                        borderRadius: "10px"
+                                                    }}
+                                                    className="w-16" text="create" onClick={handleSubmit}/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -325,7 +334,6 @@ export default function CreateParameter() {
                                                             theme="vs-light"
                                                             value={schema}
                                                             onChange={(value) => {
-
                                                                 try {
                                                                     setStatus(1);
                                                                     setSchema(value || '');
@@ -356,7 +364,6 @@ export default function CreateParameter() {
                                                             theme="vs-light"
                                                             value={uischema}
                                                             onChange={(value) => {
-
                                                                 try {
                                                                     setStatus(1)
                                                                     setUISchema(value || '');
@@ -380,50 +387,38 @@ export default function CreateParameter() {
                                         <div className="mb-2 result-container">
                                             <h1 className="md:py-3 text-xl font-bold">Result</h1>
                                             <ErrorBoundary>
-                                                <div>
-                                                    <JsonForms
-                                                        schema={transSchema}
-                                                        uischema={transUISchema}
-                                                        data={transformData}
-                                                        renderers={materialRenderers}
-                                                        cells={materialCells}
-                                                        onChange={handleTransFormChange}
-                                                    />
-                                                    <div className="flex gap-3 float-right">
-                                                        <Link to="/model/create/description">
-                                                            <Button style={{
-                                                                backgroundColor: "white",
-                                                                color: "black",
-                                                                borderRadius: "10px"
-                                                            }}
-                                                                    className="w-16 p-2" text="back"/>
-                                                        </Link>
-                                                        <SubmitButton
-                                                            style={{
-                                                                backgroundColor: currentColor,
-                                                                color: "white",
-                                                                borderRadius: "10px"
-                                                            }}
-                                                            className="w-16" text="create" onClick={handleSubmit}/>
-                                                    </div>
-                                                </div>
+                                                <JsonForms
+                                                    schema={transSchema}
+                                                    uischema={transUISchema}
+                                                    data={transformData}
+                                                    renderers={materialRenderers}
+                                                    cells={materialCells}
+                                                    onChange={handleTransFormChange}
+                                                />
                                             </ErrorBoundary>
+                                            <div className="flex gap-3 float-right">
+                                                <Link to="/model/create/description">
+                                                    <Button style={{
+                                                        backgroundColor: "white",
+                                                        color: "black",
+                                                        borderRadius: "10px"
+                                                    }}
+                                                            className="w-16 p-2" text="back"/>
+                                                </Link>
+                                                <SubmitButton
+                                                    style={{
+                                                        backgroundColor: currentColor,
+                                                        color: "white",
+                                                        borderRadius: "10px"
+                                                    }}
+                                                    className="w-16" text="create" onClick={handleSubmit}/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="flex gap-3 float-right">
-                    <Link to="/model/create/description">
-                        <Button style={{backgroundColor: "white", color: "black", borderRadius: "10px"}}
-                                className="w-16 p-2" text="back"/>
-                    </Link>
-                    <Link to="/model">
-                        <Button style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                                className="w-16 p-2" text="create"/>
-                    </Link>
                 </div>
             </div>
             {
