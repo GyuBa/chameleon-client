@@ -33,13 +33,13 @@ export default function App() {
 
     useEffect(() => {
         let message = lastJsonMessage as any;
-        if (lastJsonMessage && message.msg === WSMessageType.Ready) {
-            sendJsonMessage({msg: 'path', path: window.location.pathname});
+        if (lastJsonMessage && message.msg === WSMessageType.READY) {
+            sendJsonMessage({msg: WSMessageType.PATH, path: window.location.pathname});
         }
     }, [lastJsonMessage]);
 
     useEffect(() => {
-        sendJsonMessage({msg: 'path', path: window.location.pathname});
+        sendJsonMessage({msg: WSMessageType.PATH, path: window.location.pathname});
     }, [window.location.pathname]);
 
     return (
