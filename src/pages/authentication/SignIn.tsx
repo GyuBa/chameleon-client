@@ -2,16 +2,12 @@ import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {SubmitButton} from '../../components/index';
 import chameleon from '../../assets/images/chameleon.png';
-import {useStateContext} from "../../contexts/ContextProvider";
 import instance from "../../ConstantValue";
 import {setToken} from "../../service/token/TokenService";
 
 function authSignIn(email: any, password: any) {
   return instance.post("/auth/sign-in",
-    {
-      'email': email,
-      'password': password,
-    },
+    {email, password},
     {
       withCredentials: true,
       headers: {
@@ -22,7 +18,7 @@ function authSignIn(email: any, password: any) {
     .then(function (response) {
       setToken(response.data.access_token);
       if (response.data.code === 401) {
-        alert('로그인에 실패하셨습니다.');
+        alert('로그인에 실패하였습니다.');
       }
     })
     .catch((error) => {
@@ -31,22 +27,21 @@ function authSignIn(email: any, password: any) {
 }
 
 export default function SignIn() {
-  const {currentColor} = useStateContext();
   const [email, setEmail] = useState<String>("");
   const [password, setPassword] = useState<String>("");
 
   const signIn = async (e: any) => {
     e.preventDefault();
     if (!email) {
-      alert("이메일을 입력하세요.");
+      alert("이메일을 입력하기 바랍니다.");
       return;
     } else if (!password) {
-      alert("비밀번호를 입력하세요.");
+      alert("비밀번호를 입력하기 바랍니다.");
       return;
     } else {
       authSignIn(email, password)
         .then((response) => {
-          alert('로그인 성공했습니다.');
+          alert('로그인에 성공하였습니다.');
           document.location.href = "../../Main";
         })
         .catch((error) => {
@@ -75,7 +70,7 @@ export default function SignIn() {
                 <p className="text-sm mb-0 mr-4 text-black">Don't have an account?</p>
                 <Link to="/sign-up"
                       className="text-sm text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
-                >Register</Link>
+                >Sign Up</Link>
               </div>
               <div className="flex my-4 flex-1 border-t-1 border-gray-300 mt-0.5"/>
               <div className="mb-6">
@@ -85,7 +80,7 @@ export default function SignIn() {
                   text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
                   rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   id="li-email"
-                  placeholder="Email address"
+                  placeholder="Email Address"
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
@@ -115,9 +110,7 @@ export default function SignIn() {
                 <Link to="#!" className="text-gray-800">Forgot password?</Link>
               </div>
               <div className="text-center lg:text-left">
-                <SubmitButton
-                  style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                  className="w-full" text="Login" event={SignIn} onClick={signIn}/>
+                <SubmitButton className="color-btn w-full" text="Sign In" event={SignIn} onClick={signIn}/>
               </div>
             </form>
           </div>

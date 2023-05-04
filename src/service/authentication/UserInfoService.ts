@@ -43,9 +43,9 @@ export default function useGetUserInfo() {
   }, []);
 
   if (loading) {
-    return {username: "불러오는 중...", useremail: "불러오는 중..."};
+    return {username: "Loading...", useremail: "Loading..."};
   } else if (error) {
-    return {username: "사용자 이름", useremail: "사용자 이메일"};
+    return {username: "User Name", useremail: "User Email"};
   } else {
     return {username: user?.username, useremail: user?.email};
   }

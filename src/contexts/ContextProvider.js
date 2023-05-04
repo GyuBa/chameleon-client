@@ -1,11 +1,7 @@
-/**
- * Context API
- */
 import React, {createContext, useContext, useState} from 'react';
 import {useMediaQuery} from "react-responsive";
 
 const StateContext = createContext();
-const currentColor = '#1E4DB7';
 const initialState = {userProfile: false, ChangeName: false,};
 
 export const ContextProvider = ({children}) => {
@@ -43,7 +39,6 @@ export const ContextProvider = ({children}) => {
         <StateContext.Provider value={{
             initialState,
             isDesktopOrMobile,
-            currentColor,
             activeMenu,
             setActiveMenu,
             isClicked,

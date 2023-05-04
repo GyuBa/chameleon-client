@@ -7,6 +7,32 @@
   z-index: 10000;
 }
 
+.main-color {
+  color: #1E4DB7;
+}
+
+.bg-main-color {
+  background-color: #1E4DB7;
+}
+
+.color-btn {
+  background-color: #1E4DB7;
+  color: white;
+  border-radius: 10px;
+}
+
+.white-btn {
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+}
+
+.black-btn {
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+}
+
 @media screen and (max-width: 800px) {
   .sidebar {
     z-index: 10000000;

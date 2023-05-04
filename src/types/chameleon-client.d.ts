@@ -11,7 +11,7 @@ type DefaultButtonData = {
     icon?: ReactNode,
     text?: string,
 }
-
+// TODO: onClick, event type 수정 필요
 type SubmitButtonData = {
     style?: CSSProperties | undefined,
     className?: string,
@@ -19,9 +19,9 @@ type SubmitButtonData = {
     onClick?: Promise<void> | any,
     event?: JSX.Element | any,
     disabled?: boolean
-} // onClick, event type 수정 필요
+}
 
-// WebSocketData type 수정 필요
+// TODO:WebSocketData type 수정 필요
 type WebSocketData = {
     style?: CSSProperties | undefined,
     className?: string,

@@ -27,7 +27,6 @@ export default function OutputModule() {
                 </div>
             </div>
             <div className="flex space-x-3 border-t">
-                {/* Loop through tab data and render button for each. */}
                 {testOutputTabs.map((tab, idx) => {
                     return (
                         <button
@@ -37,7 +36,6 @@ export default function OutputModule() {
                                     ? "border-teal-500"
                                     : "border-transparent hover:border-gray-200"
                             }`}
-                            // Change the active tab on click.
                             onClick={() => setActiveTabIndex(idx)}>
                             {tab.label}
                         </button>

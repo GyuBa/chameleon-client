@@ -1,7 +1,7 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
-import {userSchema, userUIschema} from "../../../../assets/Dummy";
+import {userSchema, userUISchema} from "../../../../assets/Dummy";
 import {JsonSchema} from '@jsonforms/core';
 import ErrorBoundary from "../../module/ParamErrorboundary";
 import {Parameter} from "../../../../types/chameleon-client";
@@ -81,7 +81,7 @@ export const CreateSimpleParam: React.FC<CreateSimpleParamProps> = ({onSchemaCha
                 <JsonForms
                     data={{parameters: formData}}
                     schema={userSchema}
-                    uischema={userUIschema}
+                    uischema={userUISchema}
                     renderers={materialRenderers}
                     cells={materialCells}
                     onChange={({data}) => setFormData(data.parameters)}

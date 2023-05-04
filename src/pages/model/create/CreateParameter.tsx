@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Header, Button, SubmitButton} from "../../../components";
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import {useStateContext} from "../../../contexts/ContextProvider";
 import {crparamTab} from "../../../assets/Dummy"
 import {CreateSimpleParam} from "./tab/CreateSimpleParam";
 import CreateComplexParam from "./tab/CreateComplexParam"
@@ -11,7 +10,6 @@ import {JsonSchema} from "@jsonforms/core";
 export default function CreateParameter() {
     const navigate = useNavigate();
     const [activeTabIndex, setActiveTabIndex] = useState(0);
-    const {currentColor} = useStateContext();
     const location = useLocation();
     const [schema, setSchema] = useState<JsonSchema>();
     const [transUISchema, setTransUISchema] = useState<any>();
@@ -92,11 +90,9 @@ export default function CreateParameter() {
                             </div>
                             <div className="flex gap-3 float-right">
                                 <Link to="/model/create/description">
-                                    <Button style={{backgroundColor: "white", color: "black", borderRadius: "10px"}}
-                                            className="w-16 p-2" text="back"/>
+                                    <Button className="white-btn w-16 p-2" text="back"/>
                                 </Link>
-                                <SubmitButton style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                                              className="w-16" text="create" onClick={handleSubmit}/>
+                                <SubmitButton className="color-btn w-16" text="create" onClick={handleSubmit}/>
                             </div>
                         </div>
                         <div className="flex space-x-3 border-b">

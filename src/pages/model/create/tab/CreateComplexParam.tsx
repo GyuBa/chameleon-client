@@ -1,28 +1,28 @@
 import React, {useState} from "react";
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
-import {defaultSchema, defaultUIschema} from "../../../../assets/Dummy";
+import {defaultSchema, defaultUISchema} from "../../../../assets/Dummy";
 import ErrorBoundary from "../../module/ParamErrorboundary"
 import MonaCoEditor from "@monaco-editor/react";
 
 const initialData = {};
 
 let changedSchema = defaultSchema;
-let changedUISchema = defaultUIschema;
+let changedUISchema = defaultUISchema;
 
 export default function CreateComplexParam() {
     const stringSchema = JSON.stringify(defaultSchema, null, 2);
-    const stringUISchema = JSON.stringify(defaultUIschema, null, 2);
+    const stringUISchema = JSON.stringify(defaultUISchema, null, 2);
     const [schema, setSchema] = useState<string>(stringSchema);
     const [uischema, setUISchema] = useState<string>(stringUISchema);
     const [data, setData] = useState(initialData);
 
     try {
         const parsedSchema = JSON.parse(schema);
-        const parsedUIschema = JSON.parse(uischema);
+        const parsedUISchema = JSON.parse(uischema);
 
         changedSchema = parsedSchema;
-        changedUISchema = parsedUIschema;
+        changedUISchema = parsedUISchema;
 
     } catch {
 

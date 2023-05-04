@@ -62,7 +62,7 @@ export const userProfileData = [
         icon: <GiArtificialHive/>,
         title: 'My Models',
         name: 'model',
-        desc: 'My ExecuteModel Lists',
+        desc: 'My Model Lists',
         iconColor: 'rgb(0, 194, 146)',
         iconBg: 'rgb(235, 250, 242)',
     },
@@ -218,7 +218,7 @@ export const defaultSchema = {
     }
 }
 
-export const defaultUIschema = {
+export const defaultUISchema = {
     type: "VerticalLayout",
     elements: [
         {
@@ -257,7 +257,7 @@ export const userSchema = {
     }
 }
 
-export const userUIschema = {
+export const userUISchema = {
     type: 'VerticalLayout',
     elements: [
         {
@@ -275,16 +275,16 @@ export const exparamTab = [
         label: "Parameters",
     },
     {
-        label: "Parameters(JSON)"
+        label: "Parameters (JSON)"
     },
 ];
 
 export const crparamTab = [
     {
-        label: "Simple builder"
+        label: "Simple Builder"
     },
     {
-        label: "Complex builder"
+        label: "Complex Builder"
     }
 ];
 
@@ -296,10 +296,7 @@ export const tabsData = [
     {
         label: "Dockerfile",
         img: dockerfile
-    },
-    {
-        label: "Etc",
-    },
+    }
 ];
 
 export const testOutputTabs = [

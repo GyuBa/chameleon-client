@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Header} from "../components";
-import {useStateContext} from "../contexts/ContextProvider";
 import {useDropzone} from 'react-dropzone';
 import WebSocket from "../components/button/ConnectWebsocket"
 
 type IFile = File & { preview?: string };
 
 export default function Websocket() {
-    const {currentColor} = useStateContext();
     const [files, setFiles] = useState<IFile[]>([]);
 
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
@@ -40,7 +38,6 @@ export default function Websocket() {
     ));
 
     useEffect(() => {
-        // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
         return () => files.forEach(file => URL.revokeObjectURL(file.preview as string));
     });
 
@@ -62,12 +59,8 @@ export default function Websocket() {
                     </section>
                 </div>
                 <span className="y-5 plg:text-left">
-          <WebSocket
-              style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-              className="w-full"
-              event={WebSocket}
-          />
-        </span>
+                    <WebSocket className="w-full color-btn" event={WebSocket}/>
+                </span>
                 <div className="my-4 md:p-5 rounded-3xl bg-slate-300">
                     <p className="p-5 text-xl font-bold">Output</p>
                 </div>
