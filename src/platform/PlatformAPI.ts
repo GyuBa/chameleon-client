@@ -55,8 +55,8 @@ export class PlatformAPI {
         return response?.data;
     }
 
+    // TODO: 반환 형 명시
     public static async payment(amount: number) {
-        // TODO: 반환 형 명시
         await this.instance.post('/payment', {amount}, this.defaultConfig);
     }
 }
