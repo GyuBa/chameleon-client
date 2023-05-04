@@ -69,7 +69,7 @@ export const userProfileData = [
 ];
 
 export const myModel = {
-    header: ['Model Name', 'Input Type', 'Output Type', 'Developer', 'Last Modified Date', 'Size', ''],
+    header: ['Model Name', 'Input Type', 'Output Type', 'Developer', 'Last Modified Date', 'start'],
     data: [
         {
             name: 'SwinIR GAN CCTV',
@@ -78,7 +78,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'SentenceGenerator',
@@ -87,7 +86,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'BaseSR',
@@ -96,7 +94,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'HAT',
@@ -105,7 +102,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'SwinIR GAN Blackbox',
@@ -114,7 +110,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'roberta-base',
@@ -123,7 +118,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'gpt2',
@@ -132,7 +126,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'bert-base-uncased',
@@ -141,7 +134,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'keras-io',
@@ -150,7 +142,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'keras-io',
@@ -159,7 +150,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'keras-io',
@@ -168,7 +158,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'keras-io',
@@ -177,7 +166,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'keras-io',
@@ -186,7 +174,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'keras-io',
@@ -195,7 +182,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
         {
             name: 'keras-io',
@@ -204,7 +190,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         }, {
             name: 'keras-io',
             link: 'keras-io',
@@ -212,7 +197,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         }, {
             name: 'keras-io',
             link: 'keras-io',
@@ -220,7 +204,6 @@ export const myModel = {
             output: 'binary',
             developer: '최수연',
             date: '2023.01.20.',
-            size: '20KB',
         },
 
 
@@ -351,7 +334,7 @@ export const userUISchema = {
             }
         }
     ]
-};
+}
 
 export const exparamTab = [
     {
@@ -394,3 +377,24 @@ export const tabsData = [
         label: "Etc",
     },
 ];
+
+export const testOutputTabs = [
+    {
+        label: "img",
+    },
+    {
+        label: "txt",
+        img: dockerfile
+    },
+    {
+        label: "video",
+    }
+];
+
+export const testtext = "끝으로 할 질문은 미리 3개 리스트를 정해서 가는게 좋다\n" +
+    "\n" +
+    "신입 사원에 대한 면접은 자신의 성장 가능성과 인성을 어필하는 것이 중요하다\n" +
+    "\n" +
+    "뭔가 회사에 안 좋은 얘기를 전하는 것이라면 전화를 하는 것이 좋다!!\n" +
+    "\n" +
+    "이해하기 어려운 것은 메모 및 이해 여부에 대해서 정확하게 보고하기"
