@@ -43,15 +43,20 @@ export class PlatformAPI {
         return response?.data as ModelEntityData;
     }
 
-    public static async signIn(email: string, password: string) {
-        await this.instance.post('/auth/sign-in', {email, password}, this.defaultConfig);
+    // TODO: 반환 형 타입 지정
+    public static async signIn(email: string, password: string): Promise<any> {
+        const response = await this.instance.post('/auth/sign-in', {email, password}, this.defaultConfig);
+        return response?.data;
     }
 
-    public static async signUp(email: string, password: string, username: string) {
-        await this.instance.post('/auth/sign-up', {email, password, username}, this.defaultConfig);
+    // TODO: 반환 형 타입 지정
+    public static async signUp(email: string, password: string, username: string): Promise<any> {
+        const response = await this.instance.post('/auth/sign-up', {email, password, username}, this.defaultConfig);
+        return response?.data;
     }
 
     public static async payment(amount: number) {
+        // TODO: 반환 형 명시
         await this.instance.post('/payment', {amount}, this.defaultConfig);
     }
 }
