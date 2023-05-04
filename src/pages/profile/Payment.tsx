@@ -71,7 +71,7 @@ export default function Payment() {
     };
 
     function callback(response: any) {
-        const {success, merchant_uid, error_msg} = response;
+        const error_msg = response;
 
         if (response.success) {
             alert('결제 성공');
@@ -93,7 +93,6 @@ export default function Payment() {
         document.location.href = "/main"
     }
 
-    /* 4. 결제 창 호출하기 */
     function KaKaopay() {
         IMP?.request_pay(data1, callback);
     }
@@ -143,12 +142,10 @@ export default function Payment() {
                                                                   checked={x === "50000" && y === "k_money"}
                                                                   onChange={handleChange}/><span>50,000원 </span></label>
                         <br/> <br/>
-                        <p
-                            className="text-center text-red-500 margin-top: 30px text-align = center"
-                        >카카오페이의 최소 충전금액은 5,000원이며 <br/>최대 충전금액은 50,000원 입니다.</p> <br/>
-                        <button
-                            onClick={KaKaopay}
-                            className={`black-btn text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
+                        <p className="text-center text-red-500 margin-top: 30px text-align = center"
+                        >카카오페이의 최소 충전금액은 5,000원이며 <br/>최대 충전금액은 50,000원입니다.</p> <br/>
+                        <button onClick={KaKaopay}
+                                className={`black-btn text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
                         >charge
                         </button>
                     </div>
@@ -184,11 +181,9 @@ export default function Payment() {
                                                                   checked={x === "50000" && y === "p_money"}
                                                                   onChange={handleChange}/><span>50,000원 </span></label>
                         <br/> <br/>
-                        <p
-                            className="text-center text-red-500 margin-top: 30px text-align = center"
-                        >페이코의 최소 충전금액은 5,000원이며 <br/>최대 충전금액은 50,000원 입니다.</p> <br/>
-                        <button
-                            onClick={Payco}
+                        <p className="text-center text-red-500 margin-top: 30px text-align = center"
+                        >페이코의 최소 충전금액은 5,000원이며 <br/>최대 충전금액은 50,000원입니다.</p> <br/>
+                        <button onClick={Payco}
                             className={`black-btn text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
                         >charge
                         </button>
@@ -225,11 +220,9 @@ export default function Payment() {
                                                                   checked={x === "50000" && y === "t_money"}
                                                                   onChange={handleChange}/><span>50,000원 </span></label>
                         <br/> <br/>
-                        <p
-                            className="text-center text-red-500 margin-top: 30px text-align = center"
-                        >토스의 최소 충전금액은 5,000원이며 <br/>최대 충전금액은 50,000원 입니다.</p> <br/>
-                        <button
-                            onClick={Toss}
+                        <p className="text-center text-red-500 margin-top: 30px text-align = center"
+                        >토스의 최소 충전금액은 5,000원이며 <br/>최대 충전금액은 50,000원입니다.</p> <br/>
+                        <button onClick={Toss}
                             className={`black-btn text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
                         >charge
                         </button>
