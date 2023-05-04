@@ -110,7 +110,6 @@ function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
                 description: param.description,
             };
         }
-
     });
 
     return {
@@ -137,7 +136,7 @@ export default function CreateParameter() {
     const [formData, setFormData] = useState(initialParameters);
     const [transformData, setTransFormData] = useState(initialData);
     const [schema, setSchema] = useState<string>("");
-    const [uischema, setUISchema] = useState<string>("");
+    const [UISchema, setUISchema] = useState<string>("");
     const [status, setStatus] = useState(0);
     const location = useLocation();
     const [isLoading, setIsLoading] = useState(false);
@@ -177,7 +176,6 @@ export default function CreateParameter() {
     const regionName = location.state?.regionName;
     const description = location.state?.description;
 
-
     const parameter = JSON.stringify({...transSchema, ...transUISchema});
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -193,7 +191,7 @@ export default function CreateParameter() {
         formData.append('description', description);
         formData.append('parameter', parameter);
 
-        console.log(schema);
+        console.log(transSchema);
         console.log(transUISchema);
 
         console.log(files);
@@ -362,7 +360,7 @@ export default function CreateParameter() {
                                                             height={480}
                                                             width={500}
                                                             theme="vs-light"
-                                                            value={uischema}
+                                                            value={UISchema}
                                                             onChange={(value) => {
                                                                 try {
                                                                     setStatus(1)

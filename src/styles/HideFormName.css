@@ -5,3 +5,15 @@
 #expand-panel6 {
     display: none;
 }
+
+#expand-panel16 {
+    display: none;
+}
+
+.MuiAvatar-root {
+    display: none;
+}
+
+.MuiAvatar-root.MuiAvatar-circular.MuiAvatar-colorDefault.css-2s90m6-MuiAvatar-root {
+    display: none;
+}
