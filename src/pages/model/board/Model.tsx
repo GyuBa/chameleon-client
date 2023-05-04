@@ -38,7 +38,7 @@ export default function Model() {
 
     (async function get() {
       try {
-        const response = await instance.get(`/model/list`, {
+        const response = await instance.get(`/model/legacy-list`, {
           timeout: 5000,
           withCredentials: true,
           headers: {
