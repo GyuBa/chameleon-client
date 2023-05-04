@@ -32,7 +32,7 @@ export default function Description({uniqueName}: DescriptionProps) {
 
         (async function get() {
             try {
-                const response = await instance.get(`/model/info?uniqueName=${uniqueName}`,{
+                const response = await instance.get(`/model/legacy-info?uniqueName=${uniqueName}`,{
                     timeout: 5000,
                     withCredentials: true,
                     headers: {
