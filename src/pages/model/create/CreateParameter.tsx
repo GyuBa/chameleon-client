@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Button, Header} from "../../../components";
 import {createParam, createSchema, userSchema, userUISchema} from "../../../assets/Dummy"
 import {Link} from "react-router-dom";
@@ -9,6 +9,7 @@ import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import ErrorBoundary from "../module/ParamErrorboundary";
 import MonaCoEditor from "@monaco-editor/react";
+import "../../../styles/HideFormName.css"
 
 const initialData = {};
 
@@ -118,6 +119,14 @@ function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
 
 }
 
+let transSchema = generateJsonFormsSchema(initialParameters);
+let transuischema = {
+    type: 'VerticalLayout',
+    elements: [{
+        type: 'Control',
+        scope: `#/properties/name`
+    }]
+};
 
 export default function CreateParameter() {
     const [activeInTabIndex, setActiveInTabIndex] = useState(0);
@@ -125,49 +134,37 @@ export default function CreateParameter() {
     const {currentColor} = useStateContext();
     const [formData, setFormData] = useState(initialParameters);
     const [transformData, setTransFormData] = useState(initialData);
+    const [schema, setSchema] = useState<string>("");
+    const [uischema, setUISchema] = useState<string>("");
+    const [status, setStatus] = useState(0);
 
-    let transSchema = generateJsonFormsSchema(formData);
-
-    const transuischema = {
-        type: 'VerticalLayout',
-        elements: formData.map((param, index) => ({
-            type: 'Control',
-            scope: `#/properties/${param.name}`
-        }))
-    };
+    if (status === 0) {
+        transSchema = generateJsonFormsSchema(formData);
+        transuischema = {
+            type: 'VerticalLayout',
+            elements: formData.map((param, index) => ({
+                type: 'Control',
+                scope: `#/properties/${param.name}`
+            }))
+        };
+    }
 
     const handleFormChange = ({data}: any) => {
+        if (data.parameters !== formData) {
+            setStatus(0)
+        }
         setFormData(data.parameters);
+        if (status === 0) {
+            const stringSchema = JSON.stringify(transSchema, null, 2);
+            const stringUISchema = JSON.stringify(transuischema, null, 2)
+            setSchema(stringSchema);
+            setUISchema(stringUISchema);
+        }
     };
 
-    const handletransFormChange = ({data}: any) => {
+    const handleTransFormChange = ({data}: any) => {
         setTransFormData(data);
     };
-
-    const stringSchema = JSON.stringify(transSchema, null, 2);
-    const stringUISchema = JSON.stringify(transuischema, null, 2)
-    const [schema, setSchema] = useState<string>(stringSchema);
-    const [uischema, setUISchema] = useState<string>(stringUISchema);
-    const [complexTransSchema, setComplexTransSchema] = useState(transSchema);
-    const [complexTransUISchema, setComplexTransUISchema] = useState(transuischema);
-
-    useEffect(() => {
-        try {
-            const parsedSchema = JSON.parse(schema);
-            setComplexTransSchema(parsedSchema);
-        } catch (error) {
-            console.error(error);
-        }
-    }, [schema]);
-
-    useEffect(() => {
-        try {
-            const parsedUISchema = JSON.parse(uischema);
-            setComplexTransUISchema(parsedUISchema);
-        } catch (error) {
-            console.error(error);
-        }
-    }, [uischema]);
 
     return (
         <div className="contents">
@@ -199,7 +196,7 @@ export default function CreateParameter() {
                         <div className="tab-content tab-space">
                             <div className={activeOutTabIndex === 0 ? "block" : "hidden"} id="link1">
                                 <div>
-                                    <div className="gap-3 grid md:grid-cols-1 md:pt-3 md:px-5 md:my-2 xl:grid-cols-2">
+                                    <div className="gap-3 grid xl:grid-cols-1 md:pt-3 md:px-5 md:my-2 2xl:grid-cols-2">
                                         <div>
                                             <JsonForms
                                                 data={{parameters: formData}}
@@ -219,7 +216,7 @@ export default function CreateParameter() {
                                                     uischema={transuischema}
                                                     renderers={materialRenderers}
                                                     cells={materialCells}
-                                                    onChange={handletransFormChange}
+                                                    onChange={handleTransFormChange}
                                                 />
                                             </ErrorBoundary>
                                             <Link to="/model/execute"
@@ -236,7 +233,7 @@ export default function CreateParameter() {
                             </div>
                             <div className={activeOutTabIndex === 1 ? "block" : "hidden"} id="link2">
                                 <div>
-                                    <div className="gap-3 grid md:grid-cols-1 md:pt-3 md:px-5 md:my-2 xl:grid-cols-2">
+                                    <div className="gap-3 grid xl:grid-cols-1 md:pt-3 md:px-5 md:my-2 2xl:grid-cols-2">
                                         <div>
                                             <div className="flex space-x-3 border-b">
                                                 {createSchema.map((tab, idx) => {
@@ -263,10 +260,21 @@ export default function CreateParameter() {
                                                         <MonaCoEditor
                                                             language="json"
                                                             height={480}
-                                                            width={570}
+                                                            width={500}
                                                             theme="vs-light"
                                                             value={schema}
-                                                            onChange={(value) => setSchema(value || '')}
+                                                            onChange={(value) => {
+
+                                                                    try {
+                                                                        setStatus(1);
+                                                                        setSchema(value || '');
+                                                                        const parsedSchema = JSON.parse(value || '');
+                                                                        transSchema = parsedSchema;
+                                                                    } catch (error) {
+                                                                        console.error(error);
+                                                                    }
+                                                                }
+                                                            }
                                                             options={{
                                                                 minimap: {
                                                                     enabled: false,
@@ -283,10 +291,20 @@ export default function CreateParameter() {
                                                         <MonaCoEditor
                                                             language="json"
                                                             height={480}
-                                                            width={570}
+                                                            width={500}
                                                             theme="vs-light"
                                                             value={uischema}
-                                                            onChange={(value) => setUISchema(value || '')}
+                                                            onChange={(value) => {
+
+                                                                try {
+                                                                    setStatus(1)
+                                                                    setUISchema(value || '');
+                                                                    const parsedUISchema = JSON.parse(value || '');
+                                                                    transuischema = parsedUISchema;
+                                                                } catch (error) {
+                                                                    console.error(error);
+                                                                }
+                                                            }}
                                                             options={{
                                                                 minimap: {
                                                                     enabled: false,
@@ -303,17 +321,17 @@ export default function CreateParameter() {
                                             <ErrorBoundary>
                                                 <div>
                                                     <JsonForms
-                                                        schema={complexTransSchema}
-                                                        uischema={complexTransUISchema}
+                                                        schema={transSchema}
+                                                        uischema={transuischema}
                                                         data={transformData}
                                                         renderers={materialRenderers}
                                                         cells={materialCells}
-                                                        onChange={({data}) => setTransFormData(data)}
+                                                        onChange={handleTransFormChange}
                                                     />
                                                     <div>
                                                         <Link to="/model/execute" state={{
-                                                            schema: complexTransSchema,
-                                                            uischema: complexTransUISchema
+                                                            schema: transSchema,
+                                                            uischema: transuischema
                                                         }}>
                                                             <Button
                                                                 style={{
