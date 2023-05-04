@@ -27,11 +27,7 @@ export const links = [
             {
                 name: 'history',
                 icon: <RiHistoryFill/>,
-            },
-            {
-                name: 'ws-test',
-                icon: <BiTransfer/>,
-            },
+            }
         ],
     },
     {
@@ -341,7 +337,7 @@ export const exparamTab = [
         label: "Parameters",
     },
     {
-        label: "Parameters(JSON)"
+        label: "Parameters (JSON)"
     },
 ];
 

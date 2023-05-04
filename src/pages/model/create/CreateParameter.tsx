@@ -1,17 +1,16 @@
 import React, {useState} from 'react';
 import {Button, Header, SubmitButton} from "../../../components";
 import {createParam, createSchema, userSchema, userUISchema} from "../../../assets/Dummy";
-import {Header, Button, SubmitButton} from "../../../components";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
-import {Parameter} from "../../../types/Types";
+import {Parameter} from "../../../types/chameleon-client";
 import {JsonSchema} from "@jsonforms/core";
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import ErrorBoundary from "../module/ParamErrorboundary";
 import MonaCoEditor from "@monaco-editor/react";
-import "../../../styles/HideFormName.css"
 import instance from "../../../ConstantValue";
+import "../../../styles/HideFormName.css"
 
 const initialData = {};
 
@@ -122,34 +121,30 @@ function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
 }
 
 let transSchema = generateJsonFormsSchema(initialParameters);
-let transuischema = {
+let transUISchema = {
     type: 'VerticalLayout',
     elements: [{
         type: 'Control',
         scope: `#/properties/name`
     }]
 };
-import {crparamTab} from "../../../assets/Dummy"
-import {CreateSimpleParam} from "./tab/CreateSimpleParam";
-import CreateComplexParam from "./tab/CreateComplexParam"
-import instance from "../../../ConstantValue";
-import {JsonSchema} from "@jsonforms/core";
 
 export default function CreateParameter() {
     const [activeInTabIndex, setActiveInTabIndex] = useState(0);
     const [activeOutTabIndex, setActiveOutTabIndex] = useState(0);
     const navigate = useNavigate();
-    const [activeTabIndex, setActiveTabIndex] = useState(0);
     const {currentColor} = useStateContext();
     const [formData, setFormData] = useState(initialParameters);
     const [transformData, setTransFormData] = useState(initialData);
     const [schema, setSchema] = useState<string>("");
     const [uischema, setUISchema] = useState<string>("");
     const [status, setStatus] = useState(0);
+    const location = useLocation();
+    const [isLoading, setIsLoading] = useState(false);
 
     if (status === 0) {
         transSchema = generateJsonFormsSchema(formData);
-        transuischema = {
+        transUISchema = {
             type: 'VerticalLayout',
             elements: formData.map((param, index) => ({
                 type: 'Control',
@@ -165,7 +160,7 @@ export default function CreateParameter() {
         setFormData(data.parameters);
         if (status === 0) {
             const stringSchema = JSON.stringify(transSchema, null, 2);
-            const stringUISchema = JSON.stringify(transuischema, null, 2)
+            const stringUISchema = JSON.stringify(transUISchema, null, 2)
             setSchema(stringSchema);
             setUISchema(stringUISchema);
         }
@@ -174,10 +169,6 @@ export default function CreateParameter() {
     const handleTransFormChange = ({data}: any) => {
         setTransFormData(data);
     };
-    const location = useLocation();
-    const [schema, setSchema] = useState<JsonSchema>();
-    const [transUISchema, setTransUISchema] = useState<any>();
-    const [isLoading, setIsLoading] = useState(false);
 
     const files = location.state?.files;
     const modelName = location.state?.modelName;
@@ -186,15 +177,8 @@ export default function CreateParameter() {
     const regionName = location.state?.regionName;
     const description = location.state?.description;
 
-    const handleSchemaChange = (newSchema: JsonSchema) => {
-        setSchema(newSchema);
-    };
 
-    const handleTransUISchemaChange = (newTransUISchema: any) => {
-        setTransUISchema(newTransUISchema);
-    };
-
-    const parameter = JSON.stringify({ ...schema, ...transUISchema });
+    const parameter = JSON.stringify({...transSchema, ...transUISchema});
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -250,7 +234,6 @@ export default function CreateParameter() {
                         <div className="flex justify-between items-center">
                             <div className="flex items-center">
                                 <Header category="" title="Model Parameter"/>
-                                <Header category="" title="Model Parameter"/>
                                 <h1 className="mx-2 text-gray-500">JSONForms</h1>
                             </div>
                         </div>
@@ -270,14 +253,6 @@ export default function CreateParameter() {
                                     </button>
                                 );
                             })}
-                            <div className="flex gap-3 float-right">
-                                <Link to="/model/create/description">
-                                    <Button style={{backgroundColor: "white", color: "black", borderRadius: "10px"}}
-                                            className="w-16 p-2" text="back"/>
-                                </Link>
-                                <SubmitButton style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                                              className="w-16" text="create" onClick={handleSubmit}/>
-                            </div>
                         </div>
                         <div className="tab-content tab-space">
                             <div className={activeOutTabIndex === 0 ? "block" : "hidden"} id="link1">
@@ -299,14 +274,14 @@ export default function CreateParameter() {
                                                 <JsonForms
                                                     data={transformData}
                                                     schema={transSchema}
-                                                    uischema={transuischema}
+                                                    uischema={transUISchema}
                                                     renderers={materialRenderers}
                                                     cells={materialCells}
                                                     onChange={handleTransFormChange}
                                                 />
                                             </ErrorBoundary>
                                             <Link to="/model/execute"
-                                                  state={{schema: transSchema, uischema: transuischema}}>
+                                                  state={{schema: transSchema, uischema: transUISchema}}>
                                                 <Button style={{
                                                     backgroundColor: currentColor,
                                                     color: "white",
@@ -351,15 +326,15 @@ export default function CreateParameter() {
                                                             value={schema}
                                                             onChange={(value) => {
 
-                                                                    try {
-                                                                        setStatus(1);
-                                                                        setSchema(value || '');
-                                                                        const parsedSchema = JSON.parse(value || '');
-                                                                        transSchema = parsedSchema;
-                                                                    } catch (error) {
-                                                                        console.error(error);
-                                                                    }
+                                                                try {
+                                                                    setStatus(1);
+                                                                    setSchema(value || '');
+                                                                    const parsedSchema = JSON.parse(value || '');
+                                                                    transSchema = parsedSchema;
+                                                                } catch (error) {
+                                                                    console.error(error);
                                                                 }
+                                                            }
                                                             }
                                                             options={{
                                                                 minimap: {
@@ -386,7 +361,7 @@ export default function CreateParameter() {
                                                                     setStatus(1)
                                                                     setUISchema(value || '');
                                                                     const parsedUISchema = JSON.parse(value || '');
-                                                                    transuischema = parsedUISchema;
+                                                                    transUISchema = parsedUISchema;
                                                                 } catch (error) {
                                                                     console.error(error);
                                                                 }
@@ -408,25 +383,28 @@ export default function CreateParameter() {
                                                 <div>
                                                     <JsonForms
                                                         schema={transSchema}
-                                                        uischema={transuischema}
+                                                        uischema={transUISchema}
                                                         data={transformData}
                                                         renderers={materialRenderers}
                                                         cells={materialCells}
                                                         onChange={handleTransFormChange}
                                                     />
-                                                    <div>
-                                                        <Link to="/model/execute" state={{
-                                                            schema: transSchema,
-                                                            uischema: transuischema
-                                                        }}>
-                                                            <Button
-                                                                style={{
-                                                                    backgroundColor: currentColor,
-                                                                    color: "white",
-                                                                    borderRadius: "10px"
-                                                                }}
-                                                                className="w-32 p-2" text="Parameter Test"/>
+                                                    <div className="flex gap-3 float-right">
+                                                        <Link to="/model/create/description">
+                                                            <Button style={{
+                                                                backgroundColor: "white",
+                                                                color: "black",
+                                                                borderRadius: "10px"
+                                                            }}
+                                                                    className="w-16 p-2" text="back"/>
                                                         </Link>
+                                                        <SubmitButton
+                                                            style={{
+                                                                backgroundColor: currentColor,
+                                                                color: "white",
+                                                                borderRadius: "10px"
+                                                            }}
+                                                            className="w-16" text="create" onClick={handleSubmit}/>
                                                     </div>
                                                 </div>
                                             </ErrorBoundary>
@@ -448,54 +426,28 @@ export default function CreateParameter() {
                     </Link>
                 </div>
             </div>
-                        <div className="flex space-x-3 border-b">
-                            {crparamTab.map((tab, idx) => {
-                                return (
-                                    <button
-                                        key={idx}
-                                        className={`py-2 border-b-4 transition-colors duration-300 ${
-                                            idx === activeTabIndex
-                                                ? "border-teal-500"
-                                                : "border-transparent hover:border-gray-200"
-                                        }`}
-                                        onClick={() => setActiveTabIndex(idx)}>
-                                        {tab.label}
-                                    </button>
-                                );
-                            })}
-                        </div>
-                        <div className="tab-content tab-space">
-                            <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
-                                <CreateSimpleParam onSchemaChange={handleSchemaChange}
-                                                   onTransUISchemaChange={handleTransUISchemaChange}/>
-                            </div>
-                            <div className={activeTabIndex === 1 ? "block" : "hidden"} id="link2">
-                                <CreateComplexParam />
-                            </div>
+            {
+                isLoading && (
+                    <div className="fixed top-0 left-0 z-50 w-screen h-screen flex justify-center items-center">
+                        <div role="status">
+                            <svg aria-hidden="true"
+                                 className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                                 viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                    fill="currentColor"/>
+                                <path
+                                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                    fill="currentFill"/>
+                            </svg>
                         </div>
                     </div>
-                </div>
-            </div>
-            {isLoading && (
-              <div className="fixed top-0 left-0 z-50 w-screen h-screen flex justify-center items-center">
-                  <div role="status">
-                      <svg aria-hidden="true"
-                           className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
-                           viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                            fill="currentColor"/>
-                          <path
-                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                            fill="currentFill"/>
-                      </svg>
-                  </div>
-              </div>
-              // Another Design Draft
-              //<div className="fixed top-0 left-0 z-50 w-screen h-screen flex justify-center items-center">
-              //  <div className="px-3 py-1 text-xs font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">loading...</div>
-              //</div>
-            )}
+                    // Another Design Draft
+                    //<div className="fixed top-0 left-0 z-50 w-screen h-screen flex justify-center items-center">
+                    //  <div className="px-3 py-1 text-xs font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">loading...</div>
+                    //</div>
+                )
+            }
         </div>
     );
 };

@@ -71,7 +71,7 @@ export default function Payment() {
     };
 
     function callback(response: any) {
-        const {success, merchant_uid, error_msg} = response;
+        const {error_msg} = response;
 
         if (response.success) {
             alert('결제 성공');

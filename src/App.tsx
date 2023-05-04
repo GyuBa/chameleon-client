@@ -15,7 +15,6 @@ import {
     Payment,
     SignIn,
     SignUp,
-    WebSocket
 } from './pages';
 import useWebSocket from "react-use-websocket";
 import {WSMessageType} from "./types/chameleon-client.enum";
@@ -49,7 +48,6 @@ export default function App() {
                 <Route path="/account" element={<Account/>}/>
                 <Route path="/change-password" element={<ChangePassword/>}/>
                 <Route path="/payment" element={<Payment/>}/>
-                <Route path="/ws-test" element={<WebSocket/>}/>
                 {/*모델별 경로 고려*/}
                 <Route path="/model" element={<Model/>}/>
                 <Route path="/model/execute" element={<ExecuteModel/>}/>
