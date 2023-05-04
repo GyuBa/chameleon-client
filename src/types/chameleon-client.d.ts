@@ -44,4 +44,14 @@ type DownloadButtonProps = {
     filename: string;
 }
 
+
+export type ModelUploadData = {
+    modelName: string;
+    inputType: string;
+    outputType: string;
+    regionName: string;
+    file: File;
+    description: string
+}
+
 export type {Parameter, HeaderData, DefaultButtonData, SubmitButtonData, WebSocketData, DownloadButtonProps};
