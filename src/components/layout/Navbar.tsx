@@ -4,12 +4,14 @@ import {BsFillPersonFill} from 'react-icons/bs';
 import {MdKeyboardArrowDown} from 'react-icons/md';
 import {UserProfile} from '../index';
 import {useStateContext} from '../../contexts/ContextProvider';
+import useGetUserInfo from "../../service/authentication/UserInfoService";
 
 export default function Navbar() {
     const {currentColor, handleClick, isClicked, handleActiveMenu} = useStateContext();
+    const {username} = useGetUserInfo();
 
     return (
-        <div className="flex w-full justify-between p-2 relative">
+        <div className="flex w-full justify-between p-2 relative z-40 bg-white">
             <button type="button" onClick={handleActiveMenu} style={{color: currentColor}}
                     className="relative text-xl rounded-full p-3 hover:bg-light-gray"
             ><AiOutlineMenu/></button>
@@ -21,7 +23,7 @@ export default function Navbar() {
                     <p>
                         <span className="text-gray-700 text-14">Welcome,</span>{' '}
                         <span className="text-gray-700 font-bold ml-1 text-14">
-              최수연
+              {username}
             </span>
                     </p>
                     <MdKeyboardArrowDown className="text-gray-400 text-14"/>

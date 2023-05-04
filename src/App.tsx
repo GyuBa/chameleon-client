@@ -9,14 +9,12 @@ import {
     CreateDescription,
     CreateModel,
     CreateParameter,
-    Dockerfile,
     ExecuteModel,
     Main,
     Model,
     Payment,
     SignIn,
     SignUp,
-    TarFile,
     WebSocket
 } from './pages';
 import useWebSocket from "react-use-websocket";
@@ -58,12 +56,9 @@ export default function App() {
                 <Route path="/model/create" element={<CreateModel/>}/>
                 <Route path="/model/create/description" element={<CreateDescription/>}/>
                 <Route path="/model/create/parameter" element={<CreateParameter/>}/>
-                <Route path="/menu/tar-file" element={<TarFile/>}/>
-                <Route path="/menu/dockerfile" element={<Dockerfile/>}/>
             </Route>
             <Route path="/sign-in" element={(<SignIn/>)}/>
             <Route path="/sign-up" element={(<SignUp/>)}/>
         </Routes>
-
     );
 };

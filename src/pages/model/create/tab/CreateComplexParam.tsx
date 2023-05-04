@@ -1,9 +1,6 @@
-import {useStateContext} from "../../../../contexts/ContextProvider";
 import React, {useState} from "react";
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
-import {Link} from "react-router-dom";
-import {Button} from "../../../../components";
 import {defaultSchema, defaultUIschema} from "../../../../assets/Dummy";
 import ErrorBoundary from "../../module/ParamErrorboundary"
 import MonaCoEditor from "@monaco-editor/react";
@@ -14,7 +11,6 @@ let changedSchema = defaultSchema;
 let changedUISchema = defaultUIschema;
 
 export default function CreateComplexParam() {
-    const {currentColor} = useStateContext();
     const stringSchema = JSON.stringify(defaultSchema, null, 2);
     const stringUISchema = JSON.stringify(defaultUIschema, null, 2);
     const [schema, setSchema] = useState<string>(stringSchema);
@@ -22,11 +18,11 @@ export default function CreateComplexParam() {
     const [data, setData] = useState(initialData);
 
     try {
-        const parsedSchema = JSON.parse(schema)
-        const parsedUIschema = JSON.parse(uischema)
+        const parsedSchema = JSON.parse(schema);
+        const parsedUIschema = JSON.parse(uischema);
 
-        changedSchema = parsedSchema
-        changedUISchema = parsedUIschema
+        changedSchema = parsedSchema;
+        changedUISchema = parsedUIschema;
 
     } catch {
 
@@ -77,24 +73,14 @@ export default function CreateComplexParam() {
             <div className="mb-2">
                 <h1 className="md:py-3 text-xl font-bold">Result</h1>
                 <ErrorBoundary>
-                    <div>
-                        <JsonForms
-                            schema={changedSchema}
-                            uischema={changedUISchema}
-                            data={data}
-                            renderers={materialRenderers}
-                            cells={materialCells}
-                            onChange={({errors, data}) => {
-                                setData(data);
-                            }}
-                        />
-                        <div>
-                            <Link to="/model/execute" state={{schema: changedSchema, uischema: changedUISchema}}>
-                                <Button style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                                        className="w-32 p-2" text="Parameter Test"/>
-                            </Link>
-                        </div>
-                    </div>
+                    <JsonForms
+                        schema={changedSchema}
+                        uischema={changedUISchema}
+                        data={data}
+                        renderers={materialRenderers}
+                        cells={materialCells}
+                        onChange={({data}) => {setData(data);}}
+                    />
                 </ErrorBoundary>
             </div>
         </div>

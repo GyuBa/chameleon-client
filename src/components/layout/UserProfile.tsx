@@ -5,9 +5,11 @@ import {Button} from '../index';
 import {userProfileData} from '../../assets/Dummy';
 import {useStateContext} from '../../contexts/ContextProvider';
 import {Link, NavLink} from 'react-router-dom';
+import useGetUserInfo from "../../service/authentication/UserInfoService";
 
 export default function UserProfile() {
     const {currentColor} = useStateContext();
+    const {username, useremail} = useGetUserInfo();
 
     return (
         <div className="nav-item absolute right-1 top-16 bg-white p-8 rounded-lg w-96">
@@ -19,9 +21,8 @@ export default function UserProfile() {
             <div className="flex gap-5 items-center mt-6 border-color border-b-1 pb-6">
                 <BsPersonCircle className="w-24 h-24"/>
                 <div>
-                    <p className="font-semibold text-xl"> 최수연 </p>
-                    <p className="text-gray-500 text-sm"> 컴퓨터공학부 20학번 </p>
-                    <p className="text-gray-500 text-sm font-semibold"> tndus502@koreatech.ac.kr </p>
+                    <p className="font-semibold text-xl"> {username} </p>
+                    <p className="text-gray-500 text-sm font-semibold"> {useremail} </p>
                 </div>
             </div>
             <div>

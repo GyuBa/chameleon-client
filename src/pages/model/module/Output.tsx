@@ -14,7 +14,7 @@ export default function OutputModule() {
     const Module2 = modules[2];
 
     return (
-        <div className="row-span-3 col-span-2 md:p-2 rounded-lg  overflow-scroll border-1 border-gray-300">
+        <div className="row-span-3 col-span-2 md:p-2 rounded-lg overflow-scroll border-1 border-gray-300 overflow-auto">
             <div className="tab-content tab-space">
                 <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
                     {Module0 && <Module0/>}

@@ -9,6 +9,7 @@ import {exparamTab} from "../../../assets/Dummy";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonForms} from "@jsonforms/react";
 import {JsonViewer} from "@textea/json-viewer";
+import instance from "../../../ConstantValue";
 
 type IFile = File & { preview?: string };
 const initialData = {};
@@ -24,11 +25,11 @@ export default function ExecuteModel() {
     const [hideDrop, setHideDrop] = useState<boolean>(false);
 
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
-        accept: {
-            'image/*': []
-        },
-        onDrop: acceptedFiles => {
+        accept: {'*/*':[]},
+        onDrop: async acceptedFiles => {
             setHideDrop(true);
+
+            acceptedFiles = acceptedFiles.slice(0, 1);
             setFiles(acceptedFiles.map(file => Object.assign(file, {
                 preview: URL.createObjectURL(file)
             })));
@@ -37,6 +38,7 @@ export default function ExecuteModel() {
 
     const removeFile = () => {
         setFiles([]);
+        setHideDrop(false);
     }
 
     const acceptedFileItems = acceptedFiles.map(file => (
@@ -61,6 +63,34 @@ export default function ExecuteModel() {
         return () => files.forEach(file => URL.revokeObjectURL(file.preview as string));
     });
 
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        const data = new FormData();
+        for (const file of acceptedFiles) {
+            console.log(file);
+            data.append('files', file, file.name);
+        }
+
+        // TODO: Input Upload 경로 수정 필요
+        try {
+            const response = await instance.post('/upload', data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            // TODO: status 설정
+            if (response.data.status === 'success') {
+            } else {
+                setFiles([]);
+                setHideDrop(false);
+            }
+        } catch (error) {
+            setFiles([]);
+            setHideDrop(false);
+        }
+    }
+
     return (
         <div className="contents">
             <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
@@ -74,7 +104,6 @@ export default function ExecuteModel() {
                 <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
                     <div className="overflow-auto row-span-2 md:p-2 rounded-lg border-1 border-gray-300">
                         <div className="flex space-x-3 border-b">
-                            {/* Loop through tab data and render button for each. */}
                             {exparamTab.map((tab, idx) => {
                                 return (
                                     <button
@@ -84,7 +113,6 @@ export default function ExecuteModel() {
                                                 ? "border-teal-500"
                                                 : "border-transparent hover:border-gray-200"
                                         }`}
-                                        // Change the active tab on click.
                                         onClick={() => setActiveTabIndex(idx)}>
                                         {tab.label}
                                     </button>
@@ -99,7 +127,7 @@ export default function ExecuteModel() {
                                     data={data}
                                     renderers={materialRenderers}
                                     cells={materialCells}
-                                    onChange={({errors, data}) => {
+                                    onChange={({data}) => {
                                         setData(data);
                                     }}
                                 />
@@ -113,25 +141,17 @@ export default function ExecuteModel() {
                         <div className="flex justify-between items-center">
                             <p className="text-xl font-bold">Input upload</p>
                             <div className="flex items-center gap-4">
-                                <SubmitButton onClick={removeFile}
-                                              style={{
-                                                  backgroundColor: currentColor,
-                                                  color: "white",
-                                                  borderRadius: "10px"
-                                              }}
-                                              className="text-sm w-full py-1 px-1.5" text="Remove"/>
-                                <SubmitButton onClick={undefined}
-                                              style={{
-                                                  backgroundColor: currentColor,
-                                                  color: "white",
-                                                  borderRadius: "10px"
-                                              }}
-                                              className="text-sm w-full py-1 px-1.5" text="Submit"/>
+                              <SubmitButton onClick={removeFile} text="Remove"
+                                            className="text-sm py-1 px-1.5 border border-gray border-solid
+                                              rounded-md hover:border-black"/>
+                              <SubmitButton onClick={handleSubmit} text="Submit"
+                                            className="text-sm py-1 px-1.5 border border-gray border-solid
+                                              rounded-md hover:border-black"/>
                             </div>
                         </div>
                         <section className="container">
                             <div {...getRootProps()}
-                                 className={hideDrop ? "hidden dropzone cursor-pointer" : "dropzone cursor-pointer"}>
+                                 className={hideDrop ? "hidden" : "dropzone cursor-pointer"}>
                                 <input {...getInputProps()}/>
                                 <p className="inline-block px-1 text-gray-500 hover:text-gray-700">
                                     Drag & drop some files here, or click to select files</p>
