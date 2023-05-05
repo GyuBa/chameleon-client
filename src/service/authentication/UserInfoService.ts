@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import instance from "../../ConstantValue";
 
 interface User {
@@ -41,11 +41,20 @@ export default function useGetUserInfo() {
     };
   }, []);
 
-  if (loading) {
+  const cachedValues = useMemo(() => {
+    return {
+      username: user?.username || "",
+      useremail: user?.email || "",
+    };
+  }, [user]);
+
+  return { ...cachedValues, loading, error };
+
+/*  if (loading) {
     return {username: "Loading...", useremail: "Loading..."};
   } else if (error) {
     return {username: "User Name", useremail: "User Email"};
   } else {
     return {username: user?.username, useremail: user?.email};
-  }
+  }*/
 }
