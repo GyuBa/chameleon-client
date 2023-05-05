@@ -1,15 +1,8 @@
 import {useEffect, useMemo, useState} from "react";
 import instance from "../../ConstantValue";
 
-interface User {
-  username: string;
-  email: string;
-}
-
 export default function useGetUserInfo() {
-  const [user, setUser] = useState<User | null>(null);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState({ username: 'User Name', email: 'User Email' });
   const token = "1234";
 
   useEffect(() => {
@@ -26,13 +19,10 @@ export default function useGetUserInfo() {
         });
 
         if (!completed) {
-          setLoading(false);
           setUser(response.data);
         }
       } catch (error) {
         console.error(error);
-        setError(true);
-        setLoading(false);
       }
     })();
 
@@ -42,19 +32,8 @@ export default function useGetUserInfo() {
   }, []);
 
   const cachedValues = useMemo(() => {
-    return {
-      username: user?.username || "",
-      useremail: user?.email || "",
-    };
+    return { username: user?.username, useremail: user?.email };
   }, [user]);
 
-  return { ...cachedValues, loading, error };
-
-/*  if (loading) {
-    return {username: "Loading...", useremail: "Loading..."};
-  } else if (error) {
-    return {username: "User Name", useremail: "User Email"};
-  } else {
-    return {username: user?.username, useremail: user?.email};
-  }*/
+  return {...cachedValues};
 }
