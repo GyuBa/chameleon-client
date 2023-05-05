@@ -136,7 +136,7 @@ export default function CreateParameter() {
     const [formData, setFormData] = useState(initialParameters);
     const [transformData, setTransFormData] = useState(initialData);
     const [schema, setSchema] = useState<string>("");
-    const [UISchema, setUISchema] = useState<string>("");
+    const [uiSchema, setUISchema] = useState<string>("");
     const [status, setStatus] = useState(0);
     const location = useLocation();
     const [isLoading, setIsLoading] = useState(false);
@@ -256,7 +256,7 @@ export default function CreateParameter() {
                             <div className={activeOutTabIndex === 0 ? "block" : "hidden"} id="link1">
                                 <div>
                                     <div className="gap-3 grid xl:grid-cols-1 md:pt-3 md:px-5 md:my-2 2xl:grid-cols-2">
-                                        <div>
+                                        <div className = "array-JSONForm">
                                             <JsonForms
                                                 data={{parameters: formData}}
                                                 schema={userSchema}
@@ -360,7 +360,7 @@ export default function CreateParameter() {
                                                             height={480}
                                                             width={500}
                                                             theme="vs-light"
-                                                            value={UISchema}
+                                                            value={uiSchema}
                                                             onChange={(value) => {
                                                                 try {
                                                                     setStatus(1)
