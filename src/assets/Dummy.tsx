@@ -1,6 +1,6 @@
 import React from 'react';
 import {BsFillPersonLinesFill} from 'react-icons/bs';
-import {BiCreditCard, BiFolder, BiCartAlt, BiTransfer} from 'react-icons/bi';
+import {BiCreditCard, BiFolder} from 'react-icons/bi';
 import {RiHistoryFill} from 'react-icons/ri';
 import {GiArtificialHive} from 'react-icons/gi';
 import {MdOutlineAccountCircle} from 'react-icons/md';
@@ -9,28 +9,22 @@ import dockerfile from "./images/dockerfile.png";
 
 export const links = [
     {
-        title: 'Marketplace',
-        links: [
-            {
-                name: 'marketplace',
-                icon: <BiCartAlt/>,
-            },
-        ],
-    },
-    {
         title: 'Models',
         links: [
             {
-                name: 'model',
+                name: 'All Models',
+                link: 'model',
                 icon: <BiFolder/>,
             },
             {
-                name: 'history',
-                icon: <RiHistoryFill/>,
+                name: 'My Models',
+                link: 'my-model',
+                icon: <BiFolder/>,
             },
             {
-                name: 'ws-test',
-                icon: <BiTransfer/>,
+                name: 'Histories',
+                link: 'history',
+                icon: <RiHistoryFill/>,
             },
         ],
     },
@@ -38,11 +32,13 @@ export const links = [
         title: 'My Profile',
         links: [
             {
-                name: 'account',
+                name: 'Account',
+                link: 'account',
                 icon: <MdOutlineAccountCircle/>,
             },
             {
-                name: 'payment',
+                name: 'Payment',
+                link: 'payment',
                 icon: <BiCreditCard/>,
             },
         ],

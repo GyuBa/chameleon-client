@@ -33,7 +33,7 @@ export default function Sidebar() {
                                 {item.links.map((link) => (
                                     <NavLink
                                         onClick={handleCloseSideBar}
-                                        to={`/${link.name}`}
+                                        to={`/${link.link}`}
                                         key={link.name}
                                         style={({isActive}) => ({
                                             backgroundColor: isActive ? '#1E4DB7' : '',

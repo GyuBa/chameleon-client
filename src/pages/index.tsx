@@ -9,4 +9,3 @@ export {default as CreateParameter} from '../pages/model/create/CreateParameter'
 export {default as Account} from '../pages/profile/Account';
 export {default as Payment} from '../pages/profile/Payment';
 export {default as ChangePassword} from '../pages/profile/ChangePassword';
-export {default as WebSocket} from '../pages/Websocket'
