@@ -8,10 +8,6 @@ import '../../../../styles/custom-video-js.css'; // 추가된 부분
 
 const videoURL = '/videos/test.MOV'
 
-type Props = {
-    src: string;
-};
-
 const toBlob = async (url: string) => {
     const response = await fetch(url);
     const blob = await response.blob();
