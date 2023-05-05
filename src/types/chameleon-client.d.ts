@@ -13,7 +13,6 @@ type DefaultButtonData = {
 }
 // TODO: onClick, event type 수정 필요
 type SubmitButtonData = {
-    style?: CSSProperties | undefined,
     className?: string,
     text?: string,
     onClick?: Promise<void> | any,

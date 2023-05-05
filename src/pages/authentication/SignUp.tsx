@@ -58,7 +58,7 @@ export default function SignUp() {
   const onChangeUserName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
     if (e.target.value.length < 2 || e.target.value.length > 16) {
-      setUsernameMessage('2글자 이상 16글자 미만으로 입력하기 바랍니다.');
+      setUsernameMessage('2글자 이상 16글자 미만으로 입력해야 합니다.');
       setIsValidUsername(false);
     } else {
       setUsernameMessage('올바른 사용자명 형식입니다.');
@@ -86,7 +86,7 @@ export default function SignUp() {
     setPassword(passwordCurrent);
 
     if (!passwordRegex.test(passwordCurrent)) {
-      setPasswordMessage('숫자+영문자+특수문자 조합으로 8자리 이상 입력하기 바랍니다.');
+      setPasswordMessage('숫자+영문자+특수문자 조합으로 8자리 이상 입력해야 합니다.');
       setIsValidPassword(false);
     } else {
       setPasswordMessage('올바른 비밀번호입니다.');

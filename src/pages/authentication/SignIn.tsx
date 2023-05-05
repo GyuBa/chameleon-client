@@ -108,7 +108,7 @@ export default function SignIn() {
                 <Link to="#!" className="text-gray-800">Forgot password?</Link>
               </div>
               <div className="text-center lg:text-left">
-                <SubmitButton className="color-btn w-full" text="Sign In" event={SignIn} onClick={signIn}/>
+                <SubmitButton className="color-btn w-full" text="Sign In" event={SignIn} onClick={signIn} disabled={!email || !password}/>
               </div>
             </form>
           </div>

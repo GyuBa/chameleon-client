@@ -33,6 +33,12 @@
   border-radius: 10px;
 }
 
+.disabled-btn {
+  background-color: lightgray;
+  color: white;
+  border-radius: 10px;
+}
+
 @media screen and (max-width: 800px) {
   .sidebar {
     z-index: 10000000;
