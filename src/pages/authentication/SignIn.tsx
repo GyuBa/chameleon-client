@@ -9,9 +9,8 @@ function authSignIn(email: any, password: any) {
   return instance.post("/auth/sign-in",
     {email, password},
     {
-      withCredentials: true,
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       }
     }
   )
@@ -23,6 +22,7 @@ function authSignIn(email: any, password: any) {
     })
     .catch((error) => {
       console.log(error);
+      throw error;
     });
 }
 
@@ -39,15 +39,13 @@ export default function SignIn() {
       alert("비밀번호를 입력하기 바랍니다.");
       return;
     } else {
-      authSignIn(email, password)
-        .then((response) => {
-          alert('로그인에 성공하였습니다.');
-          document.location.href = "../../Main";
-        })
-        .catch((error) => {
+      try {
+        await authSignIn(email, password);
+        document.location.href = "../../Main";
+      } catch (error) {
           alert('가입하지 않은 이메일이거나, 잘못된 비밀번호입니다.');
-          console.log(error)
-        })
+          console.log(error);
+        }
     }
   }
 

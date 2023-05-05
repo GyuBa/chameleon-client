@@ -47,10 +47,7 @@ export default function CreateModelTab(number: number) {
 
     (async function get() {
       try {
-        const response = await instance.get(`/region/list`, {
-          timeout: 5000,
-          withCredentials: true
-        });
+        const response = await instance.get(`/region/list`, {timeout: 5000});
         if (!completed) {
           console.log(response.data);
           const regions = response.data.map((region: { id: number; name: string; }) => ({ id: region.id, name: region.name }));

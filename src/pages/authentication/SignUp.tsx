@@ -9,7 +9,6 @@ function authSignUp(email: string, password: string, username: string) {
   return instance.post("/auth/sign-up",
     {email, password, username},
     {
-      withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
       }
@@ -62,7 +61,7 @@ export default function SignUp() {
       setUsernameMessage('2글자 이상 16글자 미만으로 입력하기 바랍니다.');
       setIsValidUsername(false);
     } else {
-      setUsernameMessage('올바른 사용자명 형식입니다.');;
+      setUsernameMessage('올바른 사용자명 형식입니다.');
       setIsValidUsername(true);
     }
   }, []);

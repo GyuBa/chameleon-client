@@ -19,7 +19,6 @@ export default function useGetUserInfo() {
       try {
         const response = await instance.get(`/auth/legacy-info`, {
           timeout: 5000,
-          withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
             'Authentication': `${token}`,

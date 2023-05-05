@@ -32,7 +32,6 @@ export default function Description({uniqueName}: DescriptionProps) {
             try {
                 const response = await instance.get(`/model/legacy-info?uniqueName=${uniqueName}`,{
                     timeout: 5000,
-                    withCredentials: true,
                     headers: {
                         'Content-Type': 'application/json',
                     }
