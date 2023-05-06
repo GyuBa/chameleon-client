@@ -52,8 +52,8 @@ export default function CreateModelTab(number: number) {
             try {
                 const regions = await PlatformAPI.getRegionList();
                 if (!completed) {
-                    console.log(regions);
                     setRegionList(regions);
+                    setRegionName(regions[0]?.name);
                 }
             } catch (error) {
                 console.error(error);
