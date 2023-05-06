@@ -3,7 +3,7 @@ import {useDropzone} from 'react-dropzone';
 import {Link, useLocation} from "react-router-dom";
 import OutputModule from "../module/Output"
 import OutputDescriptionModule from "../module/OutputDescription"
-import {exparamTab} from "../../../assets/Dummy";
+import {executeParam} from "../../../assets/Dummy";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonForms} from "@jsonforms/react";
 import {JsonViewer} from "@textea/json-viewer";
@@ -100,7 +100,7 @@ export default function ExecuteModel() {
                 <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
                     <div className="overflow-auto row-span-2 md:p-2 rounded-lg border-1 border-gray-300">
                         <div className="flex space-x-3 border-b">
-                            {exparamTab.map((tab, idx) => {
+                            {executeParam.map((tab, idx) => {
                                 return (
                                     <button
                                         key={idx}
