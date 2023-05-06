@@ -86,9 +86,9 @@ export default function Description({uniqueName}: DescriptionProps) {
                         <p className="text-lg font-bold">Parameter:ㅤ</p>
                         <p>{modelInfo?.parameter}</p>
                     </div>
-                    <div className="my-2 whitespace-pre-wrap">
+                    <div data-color-mode="light" className="my-2 whitespace-pre-wrap">
                         <p className="text-lg font-bold">Model Description:ㅤ</p>
-                        <MDEditor.Markdown className="py-2" source={modelInfo?.description} style={{whiteSpace: 'pre-wrap'}}/>
+                        <MDEditor.Markdown className="py-2" source={modelInfo?.description} style={{whiteSpace: 'pre-wrap'}} />
                     </div>
                 </div>
             </div>

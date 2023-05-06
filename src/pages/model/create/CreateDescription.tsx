@@ -39,7 +39,7 @@ export default function CreateDescription() {
                         <SubmitButton onClick={handleClick} className="color-btn w-16" text="next"/>
                     </div>
                 </div>
-                <div className="container pt-4">
+                <div data-color-mode="light" className="container pt-4">
                     <MDEditor value={description} onChange={setDescription}/>
                 </div>
             </div>
