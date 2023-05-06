@@ -112,8 +112,7 @@ export default function Model() {
   );
 
   const GridLayout = () => (
-    <div
-      className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 gap-4 mt-10 overflow-auto overflow-scroll max-h-screen">
+	<div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 gap-4">
       {modelList.map((modelInfo) => (
         <div onClick={() => onModelSelect(modelInfo)}
              className="w-auto px-5 p-5 mb-4 mr-1 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl cursor-pointer">
@@ -132,7 +131,7 @@ export default function Model() {
   );
 
   const ListLayout = () => (
-    <div className="mt-10 overflow-auto overflow-scroll max-h-screen">
+    <div>
       <Table hoverable={true}>
         <Table.Head>
           {modelColumn.list.map((item) => (
@@ -165,7 +164,7 @@ export default function Model() {
 
   return (
     <div className="contents">
-      <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl overflow-auto">
+      <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
         <div className="flex justify-between items-center">
           <div className="flex">
             <Header category="" title="Models"/>
@@ -180,7 +179,9 @@ export default function Model() {
           </div>
           {!isDesktopOrMobile ? <ArrangeMenu/> : <DropdownMenu/>}
         </div>
-        {currentLayout === "GridLayout" ? <GridLayout/> : <ListLayout/>}
+        <div className="mt-10 max-h-screen overflow-auto">
+          {currentLayout === "GridLayout" ? <GridLayout/> : <ListLayout/>}
+        </div>
       </div>
       {selectedModel ?
         <div className="w-2/6 ease-in-out duration-300 translate-x-0"><Description uniqueName={selectedModel} /></div>
