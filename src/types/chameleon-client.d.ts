@@ -61,6 +61,7 @@ export type ModelUploadData = {
     inputType: string;
     outputType: string;
     regionName: string;
+    parameters: string;
     file: File;
     description: string
 }
