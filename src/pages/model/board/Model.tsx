@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Badge, Table} from "flowbite-react";
-import {myModel} from "../../../assets/Dummy";
+import {modelColumn} from "../../../assets/Dummy";
 import {Link} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
 import {Header} from "../../../components";
@@ -135,7 +135,7 @@ export default function Model() {
     <div className="mt-10 overflow-auto overflow-scroll max-h-screen">
       <Table hoverable={true}>
         <Table.Head>
-          {myModel.header.map((item) => (
+          {modelColumn.list.map((item) => (
             <Table.HeadCell>{item}</Table.HeadCell>
           ))}
         </Table.Head>

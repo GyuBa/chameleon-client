@@ -26,7 +26,6 @@ export default function ExecuteModel() {
         accept: {'*/*':[]},
         onDrop: async acceptedFiles => {
             setHideDrop(true);
-
             acceptedFiles = acceptedFiles.slice(0, 1);
             setFiles(acceptedFiles.map(file => Object.assign(file, {
                 preview: URL.createObjectURL(file)
