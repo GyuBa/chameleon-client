@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import SubmitButton from "../../../../components/button/SubmitButton"
-import {DownloadUtils, FileUtils} from "../../../../utils/Utils"
 import cutechameleon from "../../../../assets/images/cutechameleon.png"
 import {BiDownload} from "react-icons/bi";
+import {DownloadUtils} from "../../../../utils/DownloadUtils";
+import {FileUtils} from "../../../../utils/FileUtils";
 
 const toBlob = (url: string) => {
     return new Promise<Blob>((resolve) => {

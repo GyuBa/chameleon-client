@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {Button, Header, SubmitButton} from "../../../components";
 import {createParam, createSchema, userSchema, userUISchema} from "../../../assets/Dummy";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
@@ -11,6 +10,9 @@ import ErrorBoundary from "../module/ParamErrorboundary";
 import MonaCoEditor from "@monaco-editor/react";
 import "../../../styles/HideFormName.css"
 import {PlatformAPI} from "../../../platform/PlatformAPI";
+import Header from "../../../components/layout/Header";
+import Button from "../../../components/button/Button";
+import SubmitButton from "../../../components/button/SubmitButton";
 
 const initialData = {};
 

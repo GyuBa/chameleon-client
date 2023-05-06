@@ -1,10 +1,9 @@
 import React, {useCallback, useState} from 'react';
 import {Link} from 'react-router-dom';
-import {SubmitButton} from '../../components/index';
 import chameleon from '../../assets/images/chameleon.png';
 import {useStateContext} from "../../contexts/ContextProvider";
 import instance from "../../ConstantValue";
-import {setToken} from "../../service/token/TokenService";
+import SubmitButton from "../../components/button/SubmitButton";
 
 function authSignUp(email: string, password: string, username: string) {
   return instance.post("/auth/sign-up",
@@ -21,7 +20,6 @@ function authSignUp(email: string, password: string, username: string) {
     }
   )
     .then(function (response) {
-      setToken(response.data.access_token);
       if (response.data.code === 401) {
         alert('가입에 실패했습니다. 가입 이메일이 잘못되었습니다.');
       }

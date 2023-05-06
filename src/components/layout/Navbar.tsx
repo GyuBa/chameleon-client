@@ -2,9 +2,9 @@ import React from 'react';
 import {AiOutlineMenu} from 'react-icons/ai';
 import {BsFillPersonFill} from 'react-icons/bs';
 import {MdKeyboardArrowDown} from 'react-icons/md';
-import {UserProfile} from '../index';
 import {useStateContext} from '../../contexts/ContextProvider';
 import useGetUserInfo from "../../service/authentication/UserInfoService";
+import UserProfile from "./UserProfile";
 
 export default function Navbar() {
     const {currentColor, handleClick, isClicked, handleActiveMenu} = useStateContext();

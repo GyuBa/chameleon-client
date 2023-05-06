@@ -1,7 +1,8 @@
 import {BiDownload} from "react-icons/bi";
 import React, {useEffect, useState} from "react";
 import SubmitButton from "../../../../components/button/SubmitButton";
-import {DownloadUtils, FileUtils} from "../../../../utils/Utils";
+import {DownloadUtils} from "../../../../utils/DownloadUtils";
+import {FileUtils} from "../../../../utils/FileUtils";
 
 const zipURL = '/test.Zip'
 

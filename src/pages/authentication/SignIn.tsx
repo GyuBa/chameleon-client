@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
-import {SubmitButton} from '../../components/index';
 import chameleon from '../../assets/images/chameleon.png';
 import {useStateContext} from "../../contexts/ContextProvider";
 import instance from "../../ConstantValue";
-import {setToken} from "../../service/token/TokenService";
+import SubmitButton from "../../components/button/SubmitButton";
 
 function authSignIn(email: any, password: any) {
   return instance.post("/auth/sign-in",
@@ -20,7 +19,6 @@ function authSignIn(email: any, password: any) {
     }
   )
     .then(function (response) {
-      setToken(response.data.access_token);
       if (response.data.code === 401) {
         alert('로그인에 실패하셨습니다.');
       }

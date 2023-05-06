@@ -1,8 +1,10 @@
 import React, {useState} from "react";
-import {Button, Header, SubmitButton} from "../../../components";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
 import MDEditor from '@uiw/react-md-editor';
+import Button from "../../../components/button/Button";
+import Header from "../../../components/layout/Header";
+import SubmitButton from "../../../components/button/SubmitButton";
 
 export default function CreateDescription() {
     const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import React from 'react';
 import {BsFillPersonLinesFill} from 'react-icons/bs';
-import {BiCreditCard, BiFolder, BiCartAlt} from 'react-icons/bi';
+import {BiCartAlt, BiCreditCard, BiFolder} from 'react-icons/bi';
 import {RiHistoryFill} from 'react-icons/ri';
 import {GiArtificialHive} from 'react-icons/gi';
 import {MdOutlineAccountCircle} from 'react-icons/md';
