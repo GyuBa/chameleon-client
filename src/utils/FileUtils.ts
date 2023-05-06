@@ -1,12 +1,3 @@
-export class DownloadUtils {
-    static download(dataURL: string, fileName: string) {
-        const link = document.createElement("a");
-        link.href = dataURL;
-        link.download = fileName;
-        link.click();
-    }
-}
-
 export class FileUtils {
     static formatBytes(bytes: number, decimals = 2) {
         if (!+bytes) return '0 Bytes'

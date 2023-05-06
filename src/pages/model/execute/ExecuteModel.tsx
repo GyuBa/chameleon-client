@@ -1,8 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
-import Button from '../../../components/button/Button';
-import SubmitButton from '../../../components/button/SubmitButton';
-import Header from '../../../components/layout/Header';
 import {Link, useLocation} from "react-router-dom";
 import OutputModule from "../module/Output"
 import OutputDescriptionModule from "../module/OutputDescription"
@@ -10,7 +7,9 @@ import {exparamTab} from "../../../assets/Dummy";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonForms} from "@jsonforms/react";
 import {JsonViewer} from "@textea/json-viewer";
-import instance from "../../../ConstantValue";
+import Button from "../../../components/button/Button";
+import Header from "../../../components/layout/Header";
+import SubmitButton from "../../../components/button/SubmitButton";
 
 type IFile = File & { preview?: string };
 const initialData = {};
@@ -25,7 +24,7 @@ export default function ExecuteModel() {
     const [hideDrop, setHideDrop] = useState<boolean>(false);
 
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
-        accept: {'*/*':[]},
+        accept: {'*/*': []},
         onDrop: async acceptedFiles => {
             setHideDrop(true);
             acceptedFiles = acceptedFiles.slice(0, 1);
@@ -71,7 +70,8 @@ export default function ExecuteModel() {
             data.append('files', file, file.name);
         }
 
-        // TODO: Input Upload 경로 수정 필요
+        // TODO: 미사용으로 인한 주석 처리, 다른 구조로 수정 필요
+        /*// TODO: Input Upload 경로 수정 필요
         try {
             const response = await instance.post('/upload', data, {
                 headers: {
@@ -87,7 +87,7 @@ export default function ExecuteModel() {
         } catch (error) {
             setFiles([]);
             setHideDrop(false);
-        }
+        }*/
     }
 
     return (

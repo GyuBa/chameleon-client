@@ -29,12 +29,23 @@ type WebSocketData = {
 
 type Parameter = {
     name: string;
-    type?: string;
-    min?: number;
-    max?: number;
-    default?: number;
-    enum?: [enums: string],
-    description?: string;
+    type: string;
+    minInteger?: number,
+    maxInteger?: number,
+    maxNumber?: number,
+    minNumber?: number,
+    regex?: string,
+    defaultInteger?: number,
+    defaultNumber?: number,
+    defaultString?: string,
+    defaultBoolean?: boolean,
+    defaultDate?: string,
+    defaultTime?: string,
+    defaultDatetime?: string,
+    integerEnum?: number[],
+    numberEnum?: number[],
+    stringEnum?: string[],
+    description?: string,
 }
 
 type DownloadButtonProps = {
@@ -49,6 +60,7 @@ export type ModelUploadData = {
     inputType: string;
     outputType: string;
     regionName: string;
+    parameters: string;
     file: File;
     description: string
 }

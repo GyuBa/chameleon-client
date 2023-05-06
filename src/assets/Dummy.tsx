@@ -68,27 +68,6 @@ export const modelColumn = {
     list: ['Model Name', 'Input Type', 'Output Type', 'Developer', 'Last Modified Date', 'start']
 };
 
-export const defaultSchema = {
-    properties: {
-        name: {
-            type: "string"
-        }
-    }
-};
-
-export const defaultUISchema = {
-    type: "VerticalLayout",
-    elements: [
-        {
-            type: "Control",
-            scope: "#/properties/name",
-            options: {
-                "trim": true
-            }
-        }
-    ]
-};
-
 export const userSchema = {
     type: 'object',
     properties: {
@@ -100,29 +79,116 @@ export const userSchema = {
                     name: {type: 'string'},
                     type: {
                         type: 'string',
-                        enum: ["string", "number", "integer", "boolean", "date", "time", "date-time", "email"]
+                        enum: [
+                            'string',
+                            'number',
+                            'integer',
+                            'boolean',
+                            'date',
+                            'time',
+                            'datetime',
+                        ],
                     },
-                    min: {type: 'number'},
-                    max: {type: 'number'},
-                    default: {type: 'number'},
-                    enum: {
-                        type: 'array', items: {type: 'string'}, uniqueItems: true
+                    minInteger: {type: 'integer'},
+                    maxInteger: {type: 'integer'},
+                    maxNumber: {type: 'number'},
+                    minNumber: {type: 'number'},
+                    regex: {type: 'string'},
+                    defaultInteger: {type: 'integer'},
+                    defaultNumber: {type: 'number'},
+                    defaultString: {type: 'string'},
+                    defaultBoolean: {type: 'boolean'},
+                    defaultDate: {type: 'string', format: 'date'},
+                    defaultTime: {type: 'string', format: 'time'},
+                    defaultDatetime: {type: 'string', format: 'date-time'},
+                    integerEnum: {
+                        type: 'array',
+                        items: {type: 'integer'},
                     },
-                    description: {type: 'string'}
-                }
-            }
-        }
-    }
+                    numberEnum: {
+                        type: 'array',
+                        items: {type: 'number'},
+                    },
+                    stringEnum: {
+                        type: 'array',
+                        items: {type: 'string'},
+                    },
+                    description: {type: 'string'},
+                },
+            },
+        },
+    },
 };
 
+const toUISchemaElement = (property: string, type: String, label?: string) => ({
+    type: "Control",
+    scope: `#/properties/${property}`,
+    label,
+    rule: {
+        "effect": "SHOW",
+        "condition": {
+            "scope": "#/properties/type",
+            "schema": {const: type}
+        }
+    }
+});
+
+const integerElements = [
+    toUISchemaElement('minInteger', 'integer', 'Minimum'),
+    toUISchemaElement('maxInteger', 'integer', 'Maximum'),
+    toUISchemaElement('integerEnum', 'integer', 'Enum'),
+    toUISchemaElement('defaultInteger', 'integer', 'Default')
+];
+const numberElements = [
+    toUISchemaElement('minNumber', 'number', 'Minimum'),
+    toUISchemaElement('maxNumber', 'number', 'Maximum'),
+    toUISchemaElement('numberEnum', 'number', 'Enum'),
+    toUISchemaElement('defaultNumber', 'number', 'Default')
+];
+const stringElements = [
+    toUISchemaElement('regex', 'string', 'Regex'),
+    toUISchemaElement('stringEnum', 'string', 'Enum'),
+    toUISchemaElement('defaultString', 'string', 'Default')
+];
+// TODO: String은 Multiline도 고려해볼 것, uischema: { type: 'string', options: { multi: true } }
+
+const booleanElements = [toUISchemaElement('defaultBoolean', 'boolean', 'Default')];
+const dateElements = [
+    toUISchemaElement('defaultDate', 'date', 'Default')
+];
+const timeElements = [
+    toUISchemaElement('defaultTime', 'time', 'Default'),
+];
+const datetimeElements = [
+    toUISchemaElement('defaultDatetime', 'datetime', 'Default'),
+];
+const uiSchemaElements = [integerElements, numberElements, stringElements, booleanElements, dateElements, timeElements, datetimeElements].flat();
+
 export const userUISchema = {
-    type: 'VerticalLayout',
+    type: "VerticalLayout",
     elements: [
         {
-            type: 'Control',
-            scope: '#/properties/parameters',
+            type: "Control",
+            scope: "#/properties/parameters",
             options: {
-                label: false
+                detail: {
+                    type: 'VerticalLayout',
+                    elements: [
+                        {
+                            type: "Control",
+                            scope: "#/properties/type"
+                        },
+                        {
+                            type: "Control",
+                            scope: "#/properties/name"
+                        },
+                        ...uiSchemaElements,
+                        {
+                            type: "Control",
+                            scope: "#/properties/description"
+                        },
+                    ]
+                }
             }
         }
     ]
@@ -137,12 +203,22 @@ export const exparamTab = [
     },
 ];
 
-export const crparamTab = [
+export const createParam = [
     {
         label: "Simple Builder"
     },
     {
         label: "Complex Builder"
+    }
+];
+
+export const createSchema = [
+
+    {
+        label: "Schema"
+    },
+    {
+        label: "UISchema"
     }
 ];
 

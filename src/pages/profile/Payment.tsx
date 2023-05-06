@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import Header from "../../components/layout/Header";
-import instance from "../../ConstantValue";
 import kakao from '../../assets/images/kakao.png'
 import payco from '../../assets/images/payco.png'
 import toss from '../../assets/images/toss.png'
+import Header from "../../components/layout/Header";
+import {PlatformAPI} from "../../platform/PlatformAPI";
 
 export interface Iamport {
     init: (accountID: string) => void;
@@ -71,12 +71,12 @@ export default function Payment() {
     };
 
     function callback(response: any) {
-        const error_msg = response;
-
+        const {error_msg} = response;
         if (response.success) {
             alert('결제 성공');
             console.log('success');
-            instance.post("/payment",
+
+            /*instance.post("/payment",
                 {
                     "amount": (Number(k_money) + Number(t_money) + Number(p_money)),
                 },
@@ -85,7 +85,9 @@ export default function Payment() {
                         'Content-Type': 'application/json',
                     }
                 }
-            )
+            )*/
+            // TODO: 비동기 처리 등 개선 필요
+            PlatformAPI.payment((Number(k_money) + Number(t_money) + Number(p_money)));
         } else {
             alert(`결제 실패: ${error_msg}`);
         }

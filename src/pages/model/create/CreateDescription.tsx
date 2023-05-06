@@ -1,15 +1,14 @@
 import React, {useState} from "react";
-import Button from '../../../components/button/Button';
-import SubmitButton from '../../../components/button/SubmitButton';
-import Header from '../../../components/layout/Header';
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import MDEditor from '@uiw/react-md-editor';
+import Button from "../../../components/button/Button";
+import Header from "../../../components/layout/Header";
+import SubmitButton from "../../../components/button/SubmitButton";
 
 export default function CreateDescription() {
     const navigate = useNavigate();
     const location = useLocation();
-    const [description, setDescription] = useState<string|undefined>(`A simple markdown editor with preview, implemented with React.js and TypeScript.`);
-
+    const [description, setDescription] = useState<string | undefined>(`A simple markdown editor with preview, implemented with React.js and TypeScript.`);
     const files = location.state?.files;
     const modelName = location.state?.modelName;
     const inputType = location.state?.inputType;

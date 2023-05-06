@@ -1,26 +1,23 @@
 import React, {useEffect} from 'react';
-import {Route, Routes, useLocation} from 'react-router-dom';
-import Layout from './components/layout/Layout';
-import Main from './pages/Main';
-import Account from './pages/profile/Account';
-import Payment from './pages/profile/Payment';
-import ChangePassword from './pages/profile/ChangePassword';
-import Model from './pages/model/board/Model';
-import CreateDescription from './pages/model/create/CreateDescription';
-import CreateModel from './pages/model/create/CreateModel';
-import CreateParameter from './pages/model/create/CreateParameter';
-import ExecuteModel from './pages/model/execute/ExecuteModel';
-import SignIn from './pages/authentication/SignIn';
-import SignUp from './pages/authentication/SignUp';
-import useWebSocket from "react-use-websocket";
-import {WSMessageType} from "./types/chameleon-client.enum";
+import {Route, Routes} from 'react-router-dom';
 import './App.css';
 import './styles/Dropzone.css';
+import useWebSocket from "react-use-websocket";
+import {WSMessageType} from "./types/chameleon-client.enum";
+import Layout from "./components/layout/Layout";
+import Main from "./pages/Main";
+import Account from "./pages/profile/Account";
+import ChangePassword from "./pages/profile/ChangePassword";
+import Payment from "./pages/profile/Payment";
+import Model from "./pages/model/board/Model";
+import ExecuteModel from "./pages/model/execute/ExecuteModel";
+import CreateModel from "./pages/model/create/CreateModel";
+import CreateDescription from "./pages/model/create/CreateDescription";
+import CreateParameter from "./pages/model/create/CreateParameter";
+import SignIn from "./pages/authentication/SignIn";
+import SignUp from "./pages/authentication/SignUp";
 
 export default function App() {
-
-    const location = useLocation();
-
     const {
         sendJsonMessage,
         lastJsonMessage
@@ -33,11 +30,11 @@ export default function App() {
         if (lastJsonMessage && message.msg === WSMessageType.READY) {
             sendJsonMessage({msg: WSMessageType.PATH, path: window.location.pathname});
         }
-    }, [lastJsonMessage]);
+    }, [sendJsonMessage, lastJsonMessage]);
 
     useEffect(() => {
         sendJsonMessage({msg: WSMessageType.PATH, path: window.location.pathname});
-    }, [window.location.pathname]);
+    }, [sendJsonMessage]);
 
     return (
         <Routes>

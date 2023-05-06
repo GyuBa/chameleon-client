@@ -36,11 +36,11 @@ export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, E
         if (hasError) {
             return (
                 <div className="flex items-center">
-                <FiAlertTriangle size="50" color="#484848" className="pl-1"/>
-            <span
-                className="text-gray-700 flex justify-between w-full px-1 py-2 text-xl leading-5 text-left">Wrong JSONForm</span>
-            </div>
-        );
+                    <FiAlertTriangle size="50" color="#484848" className="pl-1"/>
+                    <span
+                        className="text-gray-700 flex justify-between w-full px-1 py-2 text-xl leading-5 text-left">Wrong JSONForm</span>
+                </div>
+            );
         }
 
         return children;

@@ -1,0 +1,6 @@
+.array-JSONForm span[id*="expand-panel"] {
+    display: none;
+}
+.array-JSONForm .MuiAvatar-root.MuiAvatar-circular.MuiAvatar-colorDefault.css-2s90m6-MuiAvatar-root {
+    display: none;
+}

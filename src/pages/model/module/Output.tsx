@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import SingleImageViewer from "../module/Output/SingleImageViewer"
 import SingleTextViewer from "../module/Output/SingleTextViewer"
-import ZipGalleryViewer from "../module/Output/ZipGalleryViewer"
 import SingleVideoViewer from "../module/Output/SingleVideoViewer"
 import {testOutputTabs} from "../../../assets/Dummy";
 

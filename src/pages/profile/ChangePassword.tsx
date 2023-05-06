@@ -1,7 +1,6 @@
-import React from 'react';
-import Button from '../../components/button/Button';
-import Header from '../../components/layout/Header';
 import {Link} from "react-router-dom";
+import Header from "../../components/layout/Header";
+import Button from "../../components/button/Button";
 
 export default function ChangePassword() {
 
