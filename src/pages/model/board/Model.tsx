@@ -102,7 +102,7 @@ export default function Model() {
         <div
             className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 gap-4 mt-10 overflow-auto overflow-scroll max-h-screen">
             {modelList.map((modelData) => (
-                <div onClick={() => onModelSelect(modelData)}
+                <div key={modelData.id} onClick={() => onModelSelect(modelData)}
                      className="w-auto px-5 p-5 mb-4 mr-1 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl cursor-pointer">
                     <p className="border-b-2 font-semibold text-xl break-all">{modelData.name}</p>
                     <div className="flex">
