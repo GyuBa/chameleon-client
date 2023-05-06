@@ -95,7 +95,6 @@ export default function Payment() {
         document.location.href = "/main"
     }
 
-    /* 4. 결제 창 호출하기 */
     function KaKaopay() {
         IMP?.request_pay(data1, callback);
     }
@@ -111,11 +110,11 @@ export default function Payment() {
     return (
         <div className="contents">
             <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-                <Header category="Payment" title="포인트 충전하기"/>
+                <Header category="Payment" title="Charge Points"/>
                 <div className="my-4 border-gray-400 rounded-3xl border-1 p-6 grid grid-cols-3 divide-x">
                     <div className="text-center">
                         <img className="card-img-top" width="400" height="700" src={kakao} alt="kakao"/>
-                        <p className="text-center font-extrabold text-xl">카카오페이 현재 사용 가능</p> <br/>
+                        <p className="text-center font-extrabold text-xl">Kakaopay</p> <br/>
                         <label className="box-radio-input"><input type="radio" name="k_money" value="5000"
                                                                   checked={x === "5000" && y === "k_money"}
                                                                   onChange={handleChange}/><span>5,000원</span></label>
@@ -145,19 +144,16 @@ export default function Payment() {
                                                                   checked={x === "50000" && y === "k_money"}
                                                                   onChange={handleChange}/><span>50,000원 </span></label>
                         <br/> <br/>
-                        <p
-                            className="text-center text-red-500 margin-top: 30px text-align = center"
-                        >카카오페이의 최소 충전금액은 5,000원이며 <br/>최대 충전금액은 50,000원 입니다.</p> <br/>
-                        <button
-                            onClick={KaKaopay}
-                            className={`text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
-                            style={{backgroundColor: 'black', color: 'white', borderRadius: '10px'}}
-                        >Charge
+                        <p className="text-center text-red-500 margin-top: 30px text-align = center"
+                        >카카오페이의 최소 충전금액은 5,000원이며 <br/>최대 충전금액은 50,000원입니다.</p> <br/>
+                        <button onClick={KaKaopay}
+                                className={`black-btn text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
+                        >charge
                         </button>
                     </div>
                     <div className="text-center">
                         <img className="card-img-top" width="400" height="700" src={payco} alt="payco"/>
-                        <p className="text-center font-extrabold text-xl">페이코 현재 사용 가능</p> <br/>
+                        <p className="text-center font-extrabold text-xl">Payco</p> <br/>
                         <label className="box-radio-input"><input type="radio" name="p_money" value="5000"
                                                                   checked={x === "5000" && y === "p_money"}
                                                                   onChange={handleChange}/><span>5,000원</span></label>
@@ -187,19 +183,16 @@ export default function Payment() {
                                                                   checked={x === "50000" && y === "p_money"}
                                                                   onChange={handleChange}/><span>50,000원 </span></label>
                         <br/> <br/>
-                        <p
-                            className="text-center text-red-500 margin-top: 30px text-align = center"
-                        >페이코의 최소 충전금액은 5,000원이며 <br/>최대 충전금액은 50,000원 입니다.</p> <br/>
-                        <button
-                            onClick={Payco}
-                            className={`text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
-                            style={{backgroundColor: 'black', color: 'white', borderRadius: '10px'}}
-                        >Charge
+                        <p className="text-center text-red-500 margin-top: 30px text-align = center"
+                        >페이코의 최소 충전금액은 5,000원이며 <br/>최대 충전금액은 50,000원입니다.</p> <br/>
+                        <button onClick={Payco}
+                            className={`black-btn text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
+                        >charge
                         </button>
                     </div>
                     <div className="text-center">
                         <img className="card-img-top" width="400" height="1000" src={toss} alt="toss"/>
-                        <p className="text-center font-extrabold text-xl">토스 현재 사용 가능</p> <br/>
+                        <p className="text-center font-extrabold text-xl">Toss</p> <br/>
                         <label className="box-radio-input"><input type="radio" name="t_money" value="5000"
                                                                   checked={x === "5000" && y === "t_money"}
                                                                   onChange={handleChange}/><span>5,000원</span></label>
@@ -229,14 +222,11 @@ export default function Payment() {
                                                                   checked={x === "50000" && y === "t_money"}
                                                                   onChange={handleChange}/><span>50,000원 </span></label>
                         <br/> <br/>
-                        <p
-                            className="text-center text-red-500 margin-top: 30px text-align = center"
-                        >토스의 최소 충전금액은 5,000원이며 <br/>최대 충전금액은 50,000원 입니다.</p> <br/>
-                        <button
-                            onClick={Toss}
-                            className={`text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
-                            style={{backgroundColor: 'black', color: 'white', borderRadius: '10px'}}
-                        >Charge
+                        <p className="text-center text-red-500 margin-top: 30px text-align = center"
+                        >토스의 최소 충전금액은 5,000원이며 <br/>최대 충전금액은 50,000원입니다.</p> <br/>
+                        <button onClick={Toss}
+                            className={`black-btn text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
+                        >charge
                         </button>
                     </div>
                 </div>

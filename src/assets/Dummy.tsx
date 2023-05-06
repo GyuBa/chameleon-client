@@ -1,6 +1,6 @@
 import React from 'react';
 import {BsFillPersonLinesFill} from 'react-icons/bs';
-import {BiCartAlt, BiCreditCard, BiFolder} from 'react-icons/bi';
+import {BiCreditCard, BiFolder} from 'react-icons/bi';
 import {RiHistoryFill} from 'react-icons/ri';
 import {GiArtificialHive} from 'react-icons/gi';
 import {MdOutlineAccountCircle} from 'react-icons/md';
@@ -9,36 +9,36 @@ import dockerfile from "./images/dockerfile.png";
 
 export const links = [
     {
-        title: 'Marketplace',
-        links: [
-            {
-                name: 'marketplace',
-                icon: <BiCartAlt/>,
-            },
-        ],
-    },
-    {
         title: 'Models',
         links: [
             {
-                name: 'model',
+                name: 'All Models',
+                link: 'model',
                 icon: <BiFolder/>,
             },
             {
-                name: 'history',
+                name: 'My Models',
+                link: 'my-model',
+                icon: <BiFolder/>,
+            },
+            {
+                name: 'Histories',
+                link: 'history',
                 icon: <RiHistoryFill/>,
-            }
+            },
         ],
     },
     {
         title: 'My Profile',
         links: [
             {
-                name: 'account',
+                name: 'Account',
+                link: 'account',
                 icon: <MdOutlineAccountCircle/>,
             },
             {
-                name: 'payment',
+                name: 'Payment',
+                link: 'payment',
                 icon: <BiCreditCard/>,
             },
         ],
@@ -58,153 +58,15 @@ export const userProfileData = [
         icon: <GiArtificialHive/>,
         title: 'My Models',
         name: 'model',
-        desc: 'My ExecuteModel Lists',
+        desc: 'My Model Lists',
         iconColor: 'rgb(0, 194, 146)',
         iconBg: 'rgb(235, 250, 242)',
     },
 ];
 
-export const myModel = {
-    header: ['Model Name', 'Input Type', 'Output Type', 'Developer', 'Last Modified Date', 'start'],
-    data: [
-        {
-            name: 'SwinIR GAN CCTV',
-            link: 'SwinIR GAN CCTV',
-            input: 'text',
-            output: 'binary',
-            developer: '최수연',
-            date: '2023.01.20.',
-        },
-        {
-            name: 'SentenceGenerator',
-            link: 'SentenceGenerator',
-            input: 'text',
-            output: 'binary',
-            developer: '최수연',
-            date: '2023.01.20.',
-        },
-        {
-            name: 'BaseSR',
-            link: 'BaseSR',
-            input: 'text',
-            output: 'binary',
-            developer: '최수연',
-            date: '2023.01.20.',
-        },
-        {
-            name: 'HAT',
-            link: 'HAT',
-            input: 'text',
-            output: 'binary',
-            developer: '최수연',
-            date: '2023.01.20.',
-        },
-        {
-            name: 'SwinIR GAN Blackbox',
-            link: 'SwinIR GAN Blackbox',
-            input: 'text',
-            output: 'binary',
-            developer: '최수연',
-            date: '2023.01.20.',
-        },
-        {
-            name: 'roberta-base',
-            link: 'roberta-base',
-            input: 'text',
-            output: 'binary',
-            developer: '최수연',
-            date: '2023.01.20.',
-        },
-        {
-            name: 'gpt2',
-            link: 'gpt2',
-            input: 'text',
-            output: 'binary',
-            developer: '최수연',
-            date: '2023.01.20.',
-        },
-        {
-            name: 'bert-base-uncased',
-            link: 'bert-base-uncased',
-            input: 'text',
-            output: 'binary',
-            developer: '최수연',
-            date: '2023.01.20.',
-        },
-        {
-            name: 'keras-io',
-            link: 'keras-io',
-            input: 'text',
-            output: 'binary',
-            developer: '최수연',
-            date: '2023.01.20.',
-        },
-        {
-            name: 'keras-io',
-            link: 'keras-io',
-            input: 'text',
-            output: 'binary',
-            developer: '최수연',
-            date: '2023.01.20.',
-        },
-        {
-            name: 'keras-io',
-            link: 'keras-io',
-            input: 'text',
-            output: 'binary',
-            developer: '최수연',
-            date: '2023.01.20.',
-        },
-        {
-            name: 'keras-io',
-            link: 'keras-io',
-            input: 'text',
-            output: 'binary',
-            developer: '최수연',
-            date: '2023.01.20.',
-        },
-        {
-            name: 'keras-io',
-            link: 'keras-io',
-            input: 'text',
-            output: 'binary',
-            developer: '최수연',
-            date: '2023.01.20.',
-        },
-        {
-            name: 'keras-io',
-            link: 'keras-io',
-            input: 'text',
-            output: 'binary',
-            developer: '최수연',
-            date: '2023.01.20.',
-        },
-        {
-            name: 'keras-io',
-            link: 'keras-io',
-            input: 'text',
-            output: 'binary',
-            developer: '최수연',
-            date: '2023.01.20.',
-        }, {
-            name: 'keras-io',
-            link: 'keras-io',
-            input: 'text',
-            output: 'binary',
-            developer: '최수연',
-            date: '2023.01.20.',
-        }, {
-            name: 'keras-io',
-            link: 'keras-io',
-            input: 'text',
-            output: 'binary',
-            developer: '최수연',
-            date: '2023.01.20.',
-        },
-
-
-    ],
-}
+export const modelColumn = {
+    list: ['Model Name', 'Input Type', 'Output Type', 'Developer', 'Last Modified Date', 'start']
+};
 
 export const userSchema = {
     type: 'object',
@@ -330,7 +192,7 @@ export const userUISchema = {
             }
         }
     ]
-}
+};
 
 export const exparamTab = [
     {
@@ -343,10 +205,10 @@ export const exparamTab = [
 
 export const createParam = [
     {
-        label: "Simple builder"
+        label: "Simple Builder"
     },
     {
-        label: "Complex builder"
+        label: "Complex Builder"
     }
 ];
 
@@ -368,10 +230,7 @@ export const tabsData = [
     {
         label: "Dockerfile",
         img: dockerfile
-    },
-    {
-        label: "Etc",
-    },
+    }
 ];
 
 export const testOutputTabs = [
@@ -393,4 +252,4 @@ export const testtext = "끝으로 할 질문은 미리 3개 리스트를 정해
     "\n" +
     "뭔가 회사에 안 좋은 얘기를 전하는 것이라면 전화를 하는 것이 좋다!!\n" +
     "\n" +
-    "이해하기 어려운 것은 메모 및 이해 여부에 대해서 정확하게 보고하기"
+    "이해하기 어려운 것은 메모 및 이해 여부에 대해서 정확하게 보고하기";

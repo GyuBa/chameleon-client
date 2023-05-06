@@ -1,18 +1,15 @@
-import React from 'react';
-import {useStateContext} from "../../contexts/ContextProvider";
 import {Link} from "react-router-dom";
 import Header from "../../components/layout/Header";
 import Button from "../../components/button/Button";
 
 export default function ChangePassword() {
-    const {currentColor} = useStateContext();
 
     return (
         <div className="contents">
             <div className="w-3/5 m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-                <Header category="" title="비밀번호 변경"/>
-                <p className="m-2 text-gray-500">* 비밀번호 변경 규칙 *</p>
-                <p className="m-2 text-sm text-gray-500 whitespace-nowrap">숫자+영문자+특수문자 조합으로 8자리 이상</p>
+                <Header category="" title="Change Password"/>
+                <p className="m-2 text-sm text-gray-500 whitespace-nowrap">* 숫자+영문자+특수문자 조합으로 8자리 이상</p>
+                <p className="m-2 text-sm text-gray-500 whitespace-nowrap">* More than 8 of digits Number + English + Special Characters</p>
                 <div className="m-4">
                     <input
                         type="password"
@@ -21,7 +18,7 @@ export default function ChangePassword() {
                   rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
                   focus:border-blue-600 focus:outline-none"
                         id="pw-1"
-                        placeholder="현재 비밀번호"/>
+                        placeholder="Current Password"/>
                 </div>
                 <div className="m-4">
                     <input
@@ -31,7 +28,7 @@ export default function ChangePassword() {
                   rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
                   focus:border-blue-600 focus:outline-none"
                         id="pw-2"
-                        placeholder="새 비밀번호"/>
+                        placeholder="New Password"/>
                 </div>
                 <div className="m-4">
                     <input
@@ -41,17 +38,11 @@ export default function ChangePassword() {
                   rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
                   focus:border-blue-600 focus:outline-none"
                         id="pw-3"
-                        placeholder="새 비밀번호 확인"/>
+                        placeholder="Confirm New Password"/>
                 </div>
                 <div className="flex gap-3 float-right">
-                    <Link to="/account">
-                        <Button style={{backgroundColor: "white", color: "black", borderRadius: "10px"}}
-                                className="text-sm p-2" text="취소"/>
-                    </Link>
-                    <Link to="/account">
-                        <Button style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                                className="text-sm p-2" text="확인"/>
-                    </Link>
+                    <Link to="/account"><Button className="white-btn text-sm p-2" text="cancel"/></Link>
+                    <Link to="/account"><Button className="color-btn text-sm p-2" text="change"/></Link>
                 </div>
             </div>
         </div>

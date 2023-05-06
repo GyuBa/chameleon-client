@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import {createParam, createSchema, userSchema, userUISchema} from "../../../assets/Dummy";
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import {useStateContext} from "../../../contexts/ContextProvider";
 import {Parameter} from "../../../types/chameleon-client";
+import {createParam, createSchema, userSchema, userUISchema} from "../../../assets/Dummy";
 import {JsonSchema} from "@jsonforms/core";
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
@@ -134,7 +133,6 @@ export default function CreateParameter() {
     const [activeInTabIndex, setActiveInTabIndex] = useState(0);
     const [activeOutTabIndex, setActiveOutTabIndex] = useState(0);
     const navigate = useNavigate();
-    const {currentColor} = useStateContext();
     const [formData, setFormData] = useState(initialParameters);
     const [transformData, setTransFormData] = useState(initialData);
     const [schema, setSchema] = useState<string>("");
@@ -263,20 +261,9 @@ export default function CreateParameter() {
                                             </ErrorBoundary>
                                             <div className="flex gap-3 float-right">
                                                 <Link to="/model/create/description">
-                                                    <Button style={{
-                                                        backgroundColor: "white",
-                                                        color: "black",
-                                                        borderRadius: "10px"
-                                                    }}
-                                                            className="w-16 p-2" text="back"/>
+                                                    <Button className="white-btn w-16 p-2" text="back"/>
                                                 </Link>
-                                                <SubmitButton
-                                                    style={{
-                                                        backgroundColor: currentColor,
-                                                        color: "white",
-                                                        borderRadius: "10px"
-                                                    }}
-                                                    className="w-16" text="create" onClick={handleSubmit}/>
+                                                <SubmitButton className="color-btn w-16" text="create" onClick={handleSubmit}/>
                                             </div>
                                         </div>
                                     </div>
@@ -379,20 +366,9 @@ export default function CreateParameter() {
                                             </ErrorBoundary>
                                             <div className="flex gap-3 float-right">
                                                 <Link to="/model/create/description">
-                                                    <Button style={{
-                                                        backgroundColor: "white",
-                                                        color: "black",
-                                                        borderRadius: "10px"
-                                                    }}
-                                                            className="w-16 p-2" text="back"/>
+                                                    <Button className="white-btn w-16 p-2" text="back"/>
                                                 </Link>
-                                                <SubmitButton
-                                                    style={{
-                                                        backgroundColor: currentColor,
-                                                        color: "white",
-                                                        borderRadius: "10px"
-                                                    }}
-                                                    className="w-16" text="create" onClick={handleSubmit}/>
+                                                <SubmitButton className="color-btn w-16" text="create" onClick={handleSubmit}/>
                                             </div>
                                         </div>
                                     </div>

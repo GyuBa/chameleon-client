@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import {Badge} from "flowbite-react";
 import MDEditor from "@uiw/react-md-editor";
-import {useStateContext} from "../../contexts/ContextProvider";
 import Button from "../button/Button";
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {ModelEntityData} from "../../types/chameleon-client.entitydata";
@@ -11,9 +10,7 @@ interface DescriptionProps {
     uniqueName: string;
 }
 
-
 export default function Description({uniqueName}: DescriptionProps) {
-    const {currentColor, value} = useStateContext();
     const [modelData, setModelData] = useState<ModelEntityData>();
 
     useEffect(() => {
@@ -47,8 +44,7 @@ export default function Description({uniqueName}: DescriptionProps) {
                     <p className="text-3xl font-extrabold tracking-tight text-slate-900">{modelData?.name}</p>
                     <div className="flex gap-2">
                         <Link to="/model/execute" state={{}}>
-                            <Button style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                                    className="text-sm w-full p-1.5" text="start"/>
+                            <Button className="color-btn text-sm w-full p-1.5" text="start"/>
                         </Link>
                     </div>
                 </div>
@@ -73,10 +69,9 @@ export default function Description({uniqueName}: DescriptionProps) {
                         <p className="text-lg font-bold">Parameters:ㅤ</p>
                         <p>{JSON.stringify(modelData?.parameters)}</p>
                     </div>
-                    <div className="my-2 whitespace-pre-wrap">
+                    <div data-color-mode="light" className="my-2 whitespace-pre-wrap">
                         <p className="text-lg font-bold">Model Description:ㅤ</p>
-                        <MDEditor.Markdown className="py-5" source={value} style={{whiteSpace: 'pre-wrap'}}/>
-                        {modelData?.description}
+                        <MDEditor.Markdown className="py-2" source={modelData?.description} style={{whiteSpace: 'pre-wrap'}} />
                     </div>
                 </div>
             </div>

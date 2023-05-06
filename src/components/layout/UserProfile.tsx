@@ -2,14 +2,13 @@ import React from 'react';
 import {MdOutlineCancel} from 'react-icons/md';
 import {BsPersonCircle} from 'react-icons/bs';
 import {userProfileData} from '../../assets/Dummy';
-import {useStateContext} from '../../contexts/ContextProvider';
 import {Link, NavLink} from 'react-router-dom';
 import useGetUserInfo from "../../service/authentication/UserInfoService";
-import Button from "../button/Button";
+import Button from '../button/Button';
+import SubmitButton from '../button/SubmitButton';
 
 export default function UserProfile() {
-    const {currentColor} = useStateContext();
-    const {username, email} = useGetUserInfo();
+    const {username, email, handleSignOut} = useGetUserInfo();
 
     return (
         <div className="nav-item absolute right-1 top-16 bg-white p-8 rounded-lg w-96">
@@ -21,8 +20,8 @@ export default function UserProfile() {
             <div className="flex gap-5 items-center mt-6 border-color border-b-1 pb-6">
                 <BsPersonCircle className="w-24 h-24"/>
                 <div>
-                    <p className="font-semibold text-xl"> {username} </p>
-                    <p className="text-gray-500 text-sm font-semibold"> {email} </p>
+                    <p className="font-semibold text-xl">{username}</p>
+                    <p className="text-gray-500 text-sm font-semibold">{email}</p>
                 </div>
             </div>
             <div>
@@ -47,8 +46,7 @@ export default function UserProfile() {
             <div className="mt-5">
                 <Link to="/sign-in"
                       className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight text-slate-900">
-                    <Button style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                            className="w-full p-3" text="Logout"/>
+                    <SubmitButton className="color-btn w-full p-3" text="Sign Out" onClick={handleSignOut}/>
                 </Link>
             </div>
         </div>

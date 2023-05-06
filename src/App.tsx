@@ -43,7 +43,6 @@ export default function App() {
                 <Route path="/account" element={<Account/>}/>
                 <Route path="/change-password" element={<ChangePassword/>}/>
                 <Route path="/payment" element={<Payment/>}/>
-                {/*모델별 경로 고려*/}
                 <Route path="/model" element={<Model/>}/>
                 <Route path="/model/execute" element={<ExecuteModel/>}/>
                 <Route path="/model/create" element={<CreateModel/>}/>

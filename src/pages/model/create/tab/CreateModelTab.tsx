@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {tabsData} from "../../../../assets/Dummy";
 import {Link, useNavigate} from "react-router-dom";
-import {useStateContext} from "../../../../contexts/ContextProvider";
 import {useDropzone} from "react-dropzone";
 import Button from "../../../../components/button/Button";
 import SubmitButton from "../../../../components/button/SubmitButton";
@@ -13,7 +12,6 @@ type IFile = File & { preview?: string };
 
 export default function CreateModelTab(number: number) {
     const navigate = useNavigate();
-    const {currentColor} = useStateContext();
     const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [files, setFiles] = useState<IFile[]>([]);
     const [modelName, setModelName] = useState<string>('');
@@ -98,17 +96,12 @@ export default function CreateModelTab(number: number) {
         <div className="py-4">
             <div className="flex justify-between items-center">
                 <div className="flex items-end">
-                    <Header category="" title="Model Creation"/>
+                    <Header category="" title="Model Info"/>
                     <h1 className="mx-2 text-gray-500">{tabsData[number].label}</h1>
                 </div>
                 <div className="flex gap-3 float-right">
-                    <Link to="/model">
-                        <Button style={{backgroundColor: "white", color: "black", borderRadius: "10px"}}
-                                className="w-16 p-2" text="back"/>
-                    </Link>
-                    <SubmitButton onClick={handleClick}
-                                  style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                                  className="w-16" text="next"/>
+                    <Link to="/model"><Button className="white-btn w-16 p-2" text="back"/></Link>
+                    <SubmitButton onClick={handleClick} className="color-btn w-16" text="next"/>
                 </div>
             </div>
             <div className="gap-4 grid md:pt-10 md:px-5 md:my-2 md:grid-cols-2">
@@ -189,7 +182,7 @@ export default function CreateModelTab(number: number) {
                                 </div>
                                 <ul className="px-5 pb-5 pt-2">{acceptedFileItems}</ul>
                                 <div className="pr-3">
-                                    <SubmitButton onClick={removeFile} text="Remove"
+                                    <SubmitButton onClick={removeFile} text="remove"
                                                   className="float-right text-sm py-1 px-1.5 border border-gray border-solid
                                 rounded-md hover:border-black"/>
                                 </div>

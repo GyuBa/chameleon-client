@@ -1,40 +1,44 @@
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {UserEntityData} from "../../types/chameleon-client.entitydata";
 
-const emptyUser: UserEntityData = {id: -1, username: "사용자 이름", email: "사용자 이메일"};
-const loadingDummyUser: UserEntityData = {id: -1, username: "불러오는 중...", email: "불러오는 중..."};
+const USER_INFO_KEY = "user_info";
+const emptyUser: UserEntityData = {id: -1, username: "", email: ""};
 export default function useGetUserInfo(): UserEntityData {
-    const [user, setUser] = useState<UserEntityData>();
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState<UserEntityData>(emptyUser);
 
     useEffect(() => {
-        let completed = false;
+      let completed = false;
 
-        (async function () {
-            try {
-                if (!completed) {
-                    setLoading(false);
-                    setUser(await PlatformAPI.getUserInfo());
-                }
-            } catch (error) {
-                console.error(error);
-                setError(true);
-                setLoading(false);
-            }
-        })();
+      async function get() {
+        try {
+          if (!completed) {
+            setUser(await PlatformAPI.getUserInfo());
+            localStorage.setItem(USER_INFO_KEY, JSON.stringify(await PlatformAPI.getUserInfo()));
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
 
-        return () => {
-            completed = true;
-        };
+      const cachedUserInfo = localStorage.getItem(USER_INFO_KEY);
+
+      if (cachedUserInfo) {
+        setUser(JSON.parse(cachedUserInfo));
+      } else get();
+
+      return () => {
+        completed = true;
+      };
     }, []);
 
-    if (loading) {
-        return loadingDummyUser;
-    } else if (error) {
-        return emptyUser;
-    } else {
-        return {...emptyUser, ...user};
-    }
+    const cachedValues = useMemo(() => {
+     return { username: user?.username, email: user?.email };
+    }, [user]);
+
+    const handleSignOut = () => {
+      localStorage.removeItem(USER_INFO_KEY);
+    };
+
+    return {...cachedValues, handleSignOut};
 }

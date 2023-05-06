@@ -32,9 +32,6 @@ export default function CreateModel() {
                         <div className={activeTabIndex === 1 ? "block" : "hidden"} id="link2">
                             {CreateModelTab(1)}
                         </div>
-                        <div className={activeTabIndex === 2 ? "block" : "hidden"} id="link3">
-                            {CreateModelTab(2)}
-                        </div>
                     </div>
                 </div>
             </div>

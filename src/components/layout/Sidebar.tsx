@@ -6,7 +6,7 @@ import {GiChameleonGlyph} from 'react-icons/gi';
 import {MdOutlineCancel} from 'react-icons/md';
 
 export default function Sidebar() {
-    const {currentColor, activeMenu, setActiveMenu, handleCloseSideBar} = useStateContext();
+    const {activeMenu, setActiveMenu, handleCloseSideBar} = useStateContext();
 
     const activeLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-white text-md m-2';
     const normalLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 hover:bg-light-gray m-2';
@@ -23,28 +23,25 @@ export default function Sidebar() {
                         <button
                             type="button"
                             onClick={() => setActiveMenu(!activeMenu)}
-                            style={{color: currentColor}}
-                            className="text-xl rounded-full p-2 hover:bg-light-gray mt-4 mr-2 block md:hidden"
+                            className="main-color text-xl rounded-full p-2 hover:bg-light-gray mt-4 mr-2 block md:hidden"
                         ><MdOutlineCancel/></button>
                     </div>
                     <div className="mt-10 ">
                         {links.map((item) => (
                             <div key={item.title}>
-                                <p className="text-gray-400 m-3 mt-4 uppercase">
-                                    {item.title}
-                                </p>
+                                <p className="text-gray-400 m-3 mt-4 uppercase">{item.title}</p>
                                 {item.links.map((link) => (
                                     <NavLink
                                         onClick={handleCloseSideBar}
-                                        to={`/${link.name}`}
+                                        to={`/${link.link}`}
                                         key={link.name}
                                         style={({isActive}) => ({
-                                            backgroundColor: isActive ? currentColor : '',
+                                            backgroundColor: isActive ? '#1E4DB7' : '',
                                         })}
                                         className={({isActive}) => (isActive ? activeLink : normalLink)}
                                     >
                                         {link.icon}
-                                        <span className="capitalize ">{link.name}</span>
+                                        <span className="capitalize">{link.name}</span>
                                     </NavLink>
                                 ))}
                             </div>

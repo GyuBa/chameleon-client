@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
 import {Link, useLocation} from "react-router-dom";
-import {useStateContext} from "../../../contexts/ContextProvider";
 import OutputModule from "../module/Output"
 import OutputDescriptionModule from "../module/OutputDescription"
 import {exparamTab} from "../../../assets/Dummy";
@@ -16,7 +15,6 @@ type IFile = File & { preview?: string };
 const initialData = {};
 
 export default function ExecuteModel() {
-    const {currentColor} = useStateContext();
     const [files, setFiles] = useState<IFile[]>([]);
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const [data, setData] = useState(initialData);
@@ -29,7 +27,6 @@ export default function ExecuteModel() {
         accept: {'*/*': []},
         onDrop: async acceptedFiles => {
             setHideDrop(true);
-
             acceptedFiles = acceptedFiles.slice(0, 1);
             setFiles(acceptedFiles.map(file => Object.assign(file, {
                 preview: URL.createObjectURL(file)
@@ -98,10 +95,7 @@ export default function ExecuteModel() {
             <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
                 <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
                     <Header category="" title="Model01"/>
-                    <Link to="/model">
-                        <Button style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
-                                className="text-sm w-full p-1.5" text="back"/>
-                    </Link>
+                    <Link to="/model"><Button className="color-btn text-sm w-full p-1.5" text="back"/></Link>
                 </div>
                 <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
                     <div className="overflow-auto row-span-2 md:p-2 rounded-lg border-1 border-gray-300">
@@ -141,13 +135,13 @@ export default function ExecuteModel() {
                     </div>
                     <div className="row-span-2 md:p-2 rounded-lg border-1 border-gray-300 overflow-auto">
                         <div className="flex justify-between items-center">
-                            <p className="text-xl font-bold">Input upload</p>
+                            <p className="text-xl font-bold">Input Upload</p>
                             <div className="flex items-center gap-4">
-                                <SubmitButton onClick={removeFile} text="Remove"
-                                              className="text-sm py-1 px-1.5 border border-gray border-solid
+                              <SubmitButton onClick={removeFile} text="remove"
+                                            className="text-sm py-1 px-1.5 border border-gray border-solid
                                               rounded-md hover:border-black"/>
-                                <SubmitButton onClick={handleSubmit} text="Submit"
-                                              className="text-sm py-1 px-1.5 border border-gray border-solid
+                              <SubmitButton onClick={handleSubmit} text="submit"
+                                            className="text-sm py-1 px-1.5 border border-gray border-solid
                                               rounded-md hover:border-black"/>
                             </div>
                         </div>
