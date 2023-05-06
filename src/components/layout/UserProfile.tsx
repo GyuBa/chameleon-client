@@ -9,7 +9,7 @@ import Button from "../button/Button";
 
 export default function UserProfile() {
     const {currentColor} = useStateContext();
-    const {username, useremail} = useGetUserInfo();
+    const {username, email} = useGetUserInfo();
 
     return (
         <div className="nav-item absolute right-1 top-16 bg-white p-8 rounded-lg w-96">
@@ -22,7 +22,7 @@ export default function UserProfile() {
                 <BsPersonCircle className="w-24 h-24"/>
                 <div>
                     <p className="font-semibold text-xl"> {username} </p>
-                    <p className="text-gray-500 text-sm font-semibold"> {useremail} </p>
+                    <p className="text-gray-500 text-sm font-semibold"> {email} </p>
                 </div>
             </div>
             <div>

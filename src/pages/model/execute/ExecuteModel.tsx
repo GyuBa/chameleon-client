@@ -8,7 +8,6 @@ import {exparamTab} from "../../../assets/Dummy";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonForms} from "@jsonforms/react";
 import {JsonViewer} from "@textea/json-viewer";
-import instance from "../../../ConstantValue";
 import Button from "../../../components/button/Button";
 import Header from "../../../components/layout/Header";
 import SubmitButton from "../../../components/button/SubmitButton";
@@ -27,7 +26,7 @@ export default function ExecuteModel() {
     const [hideDrop, setHideDrop] = useState<boolean>(false);
 
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
-        accept: {'*/*':[]},
+        accept: {'*/*': []},
         onDrop: async acceptedFiles => {
             setHideDrop(true);
 
@@ -74,7 +73,8 @@ export default function ExecuteModel() {
             data.append('files', file, file.name);
         }
 
-        // TODO: Input Upload 경로 수정 필요
+        // TODO: 미사용으로 인한 주석 처리, 다른 구조로 수정 필요
+        /*// TODO: Input Upload 경로 수정 필요
         try {
             const response = await instance.post('/upload', data, {
                 headers: {
@@ -90,7 +90,7 @@ export default function ExecuteModel() {
         } catch (error) {
             setFiles([]);
             setHideDrop(false);
-        }
+        }*/
     }
 
     return (
@@ -143,11 +143,11 @@ export default function ExecuteModel() {
                         <div className="flex justify-between items-center">
                             <p className="text-xl font-bold">Input upload</p>
                             <div className="flex items-center gap-4">
-                              <SubmitButton onClick={removeFile} text="Remove"
-                                            className="text-sm py-1 px-1.5 border border-gray border-solid
+                                <SubmitButton onClick={removeFile} text="Remove"
+                                              className="text-sm py-1 px-1.5 border border-gray border-solid
                                               rounded-md hover:border-black"/>
-                              <SubmitButton onClick={handleSubmit} text="Submit"
-                                            className="text-sm py-1 px-1.5 border border-gray border-solid
+                                <SubmitButton onClick={handleSubmit} text="Submit"
+                                              className="text-sm py-1 px-1.5 border border-gray border-solid
                                               rounded-md hover:border-black"/>
                             </div>
                         </div>
