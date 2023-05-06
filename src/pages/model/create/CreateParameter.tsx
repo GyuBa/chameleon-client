@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {Parameter} from "../../../types/chameleon-client";
 import {createParam, createSchema, userSchema, userUISchema} from "../../../assets/Dummy";
@@ -205,6 +205,32 @@ export default function CreateParameter() {
         }
     };
 
+    const [isOverlap, setIsOverlap] = useState(false);
+
+    useEffect(() => {
+
+        const handleOverlap = () => {
+            // 첫 번째 ExampleComponent와 두 번째 ExampleComponent가 겹치는지 확인
+            const firstComponentRect = document.querySelector('.monaco-editor')?.getBoundingClientRect();
+            const secondComponentRect = document.querySelector('.result')?.getBoundingClientRect();
+            if (!firstComponentRect || !secondComponentRect) {
+                setIsOverlap(false);
+                return;
+            }
+            const isOverlap = secondComponentRect
+                ? !(firstComponentRect?.right < secondComponentRect.left ||
+                    firstComponentRect.left > secondComponentRect.right ||
+                    firstComponentRect.bottom < secondComponentRect.top ||
+                    firstComponentRect.top > secondComponentRect.bottom)
+                : false;
+            setIsOverlap(isOverlap);
+            console.log(isOverlap, firstComponentRect, secondComponentRect)
+        };
+        handleOverlap();
+        window.addEventListener('resize', handleOverlap);
+        return () => window.removeEventListener('resize', handleOverlap);
+    }, []);
+
     return (
         <div className="contents">
             <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
@@ -270,7 +296,8 @@ export default function CreateParameter() {
                         </div>
                         <div className={activeOutTabIndex === 1 ? "block" : "hidden"} id="link2">
                             <div>
-                                <div className="gap-3 grid xl:grid-cols-1 md:pt-3 md:px-5 md:my-2 2xl:grid-cols-2">
+                                <div
+                                    className={`gap-3 grid ${isOverlap ? 'grid-cols-1' : 'grid-cols-2'} md:pt-3 md:px-5 md:my-2`}>
                                     <div>
                                         <div className="flex space-x-3 border-b">
                                             {createSchema.map((tab, idx) => {
@@ -292,12 +319,12 @@ export default function CreateParameter() {
                                         <div className="tab-content tab-space">
                                             <div className={activeInTabIndex === 0 ? "block" : "hidden"} id="link3">
                                                 <h1 className="md:py-3 text-xl font-bold">Schema</h1>
-                                                <div
-                                                    className="block max-w-sm rounded-lg bg-white shadow-lg dark:bg-neutral-700">
+                                                <div className="border border-gray-200 block bg-white">
                                                     <MonaCoEditor
+                                                        className = "monaco-editor"
                                                         language="json"
                                                         height={480}
-                                                        width={500}
+                                                        width={680}
                                                         theme="vs-light"
                                                         value={schema}
                                                         onChange={(value) => {
@@ -316,18 +343,19 @@ export default function CreateParameter() {
                                                                 enabled: false,
                                                             },
                                                             automaticLayout: true,
+                                                            fontSize: 17
                                                         }}
                                                     />
                                                 </div>
                                             </div>
                                             <div className={activeInTabIndex === 1 ? "block" : "hidden"} id="link4">
                                                 <h1 className="md:py-3 text-xl font-bold">UISchema</h1>
-                                                <div
-                                                    className="block max-w-sm rounded-lg bg-white shadow-lg dark:bg-neutral-700">
+                                                <div className="border border-gray-200 block bg-white">
                                                     <MonaCoEditor
+                                                        className = "monaco-editor"
                                                         language="json"
                                                         height={480}
-                                                        width={500}
+                                                        width={680}
                                                         theme="vs-light"
                                                         value={uiSchema}
                                                         onChange={(value) => {
@@ -345,23 +373,26 @@ export default function CreateParameter() {
                                                                 enabled: false,
                                                             },
                                                             automaticLayout: true,
+                                                            fontSize: 17
                                                         }}
                                                     />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="mb-2 result-container">
+                                    <div className="mb-2">
                                         <h1 className="md:py-3 text-xl font-bold">Result</h1>
                                         <ErrorBoundary>
-                                            <JsonForms
-                                                schema={transSchema}
-                                                uischema={transUISchema}
-                                                data={transformData}
-                                                renderers={materialRenderers}
-                                                cells={materialCells}
-                                                onChange={handleTransFormChange}
-                                            />
+                                            <div className = "result">
+                                                <JsonForms
+                                                    schema={transSchema}
+                                                    uischema={transUISchema}
+                                                    data={transformData}
+                                                    renderers={materialRenderers}
+                                                    cells={materialCells}
+                                                    onChange={handleTransFormChange}
+                                                />
+                                            </div>
                                         </ErrorBoundary>
                                     </div>
                                 </div>
