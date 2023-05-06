@@ -1,7 +1,9 @@
-import {Footer, Navbar, Sidebar} from "../index";
 import React from "react";
 import {useStateContext} from "../../contexts/ContextProvider";
 import {Outlet} from "react-router-dom";
+import Footer from "../layout/Footer";
+import Navbar from "../layout/Navbar";
+import Sidebar from "../layout/Sidebar";
 
 export default function Layout() {
     const {activeMenu} = useStateContext();

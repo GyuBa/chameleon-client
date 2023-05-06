@@ -28,9 +28,8 @@ export default function SingleTextViewer() {
                 <p className="text-xl font-bold">Output</p>
                 <div className="flex items-center rounded-full hover:bg-light-gray focus:bg-gray">
                     <BiDownload size="25" color="#484848" className="pl-1"/>
-                    <SubmitButton text="Download" className="float-end btn-sm info" onClick={async () => {
-                        DownloadUtils.download(url, 'test');
-                    }}></SubmitButton>
+                    <SubmitButton text="Download" className="float-end btn-sm info"
+                                  onClick={async () => {DownloadUtils.download(url, 'test');}}></SubmitButton>
                 </div>
             </div>
             <p className="px-2 pt-2">Output Format : {outputExtensions} </p>

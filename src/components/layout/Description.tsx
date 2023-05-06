@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import {Badge} from "flowbite-react";
 import MDEditor from "@uiw/react-md-editor";
-import {Button} from "../index";
+import Button from "../button/Button";
 import instance from "../../ConstantValue";
 
 interface DescriptionProps {

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Header} from "../../components";
+import Header from "../../components/layout/Header";
 import instance from "../../ConstantValue";
 import kakao from '../../assets/images/kakao.png'
 import payco from '../../assets/images/payco.png'

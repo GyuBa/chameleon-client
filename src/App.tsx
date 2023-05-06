@@ -1,23 +1,21 @@
 import React, {useEffect} from 'react';
 import {Route, Routes, useLocation} from 'react-router-dom';
-import {Layout} from './components';
-import './App.css';
-import './styles/Dropzone.css';
-import {
-    Account,
-    ChangePassword,
-    CreateDescription,
-    CreateModel,
-    CreateParameter,
-    ExecuteModel,
-    Main,
-    Model,
-    Payment,
-    SignIn,
-    SignUp
-} from './pages';
+import Layout from './components/layout/Layout';
+import Main from './pages/Main';
+import Account from './pages/profile/Account';
+import Payment from './pages/profile/Payment';
+import ChangePassword from './pages/profile/ChangePassword';
+import Model from './pages/model/board/Model';
+import CreateDescription from './pages/model/create/CreateDescription';
+import CreateModel from './pages/model/create/CreateModel';
+import CreateParameter from './pages/model/create/CreateParameter';
+import ExecuteModel from './pages/model/execute/ExecuteModel';
+import SignIn from './pages/authentication/SignIn';
+import SignUp from './pages/authentication/SignUp';
 import useWebSocket from "react-use-websocket";
 import {WSMessageType} from "./types/chameleon-client.enum";
+import './App.css';
+import './styles/Dropzone.css';
 
 export default function App() {
 

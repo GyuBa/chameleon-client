@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import {Button, Header} from '../../components/index';
+import Button from '../../components/button/Button';
+import SubmitButton from '../../components/button/SubmitButton';
+import Header from '../../components/layout/Header';
 import {BsPersonCircle} from "react-icons/bs";
 import {HiOutlineLockClosed} from "react-icons/hi";
 import {useStateContext} from "../../contexts/ContextProvider";
 import {Link} from "react-router-dom";
 import useGetUserInfo from "../../service/authentication/UserInfoService";
-import {SubmitButton} from "../../components";
 import useUpdateUserInfo from "../../service/authentication/UserUpdateService";
 
 export default function Account() {

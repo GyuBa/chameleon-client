@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Header, SubmitButton} from "../../../../components";
+import SubmitButton from '../../../../components/button/SubmitButton';
+import Button from '../../../../components/button/Button';
+import Header from '../../../../components/layout/Header';
 import {tabsData} from "../../../../assets/Dummy";
 import {Link, useNavigate} from "react-router-dom";
 import {useDropzone} from "react-dropzone";

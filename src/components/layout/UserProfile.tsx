@@ -1,10 +1,11 @@
 import React from 'react';
 import {MdOutlineCancel} from 'react-icons/md';
 import {BsPersonCircle} from 'react-icons/bs';
-import {Button, SubmitButton} from '../index';
 import {userProfileData} from '../../assets/Dummy';
 import {Link, NavLink} from 'react-router-dom';
 import useGetUserInfo from "../../service/authentication/UserInfoService";
+import Button from '../button/Button';
+import SubmitButton from '../button/SubmitButton';
 
 export default function UserProfile() {
     const {username, useremail, handleSignOut} = useGetUserInfo();

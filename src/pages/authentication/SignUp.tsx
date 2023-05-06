@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import {Link} from 'react-router-dom';
-import {SubmitButton} from '../../components/index';
+import SubmitButton from '../../components/button/SubmitButton';
 import chameleon from '../../assets/images/chameleon.png';
 import instance from "../../ConstantValue";
 import {setToken} from "../../service/token/TokenService";

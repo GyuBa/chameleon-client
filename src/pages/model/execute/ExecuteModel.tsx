@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
-import {Button, Header, SubmitButton} from "../../../components";
+import Button from '../../../components/button/Button';
+import SubmitButton from '../../../components/button/SubmitButton';
+import Header from '../../../components/layout/Header';
 import {Link, useLocation} from "react-router-dom";
 import OutputModule from "../module/Output"
 import OutputDescriptionModule from "../module/OutputDescription"

@@ -1,5 +1,7 @@
 import React, {useState} from "react";
-import {Button, Header, SubmitButton} from "../../../components";
+import Button from '../../../components/button/Button';
+import SubmitButton from '../../../components/button/SubmitButton';
+import Header from '../../../components/layout/Header';
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import MDEditor from '@uiw/react-md-editor';
 

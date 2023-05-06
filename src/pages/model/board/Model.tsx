@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react';
+import instance from "../../../ConstantValue";
 import {Badge, Table} from "flowbite-react";
 import {modelColumn} from "../../../assets/Dummy";
 import {Link} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
-import {Header} from "../../../components";
-import {Description} from "../../../components/index";
 import {HiViewGrid} from "react-icons/hi";
 import {FiList} from "react-icons/fi";
 import {RiDeleteBinLine} from "react-icons/ri";
 import {BiPencil, BiAddToQueue, BiDotsVerticalRounded, BiTrash} from "react-icons/bi";
 import {VscDebugStart} from "react-icons/vsc";
-import instance from "../../../ConstantValue";
+import Header from "../../../components/layout/Header";
+import Description from "../../../components/layout/Description";
 
 interface ModelInfo {
   updatedTime: string;
