@@ -10,7 +10,7 @@ export default function CreateDescription() {
     const navigate = useNavigate();
     const location = useLocation();
     const {currentColor} = useStateContext();
-    const [description, setDescription] = useState<string|undefined>(`A simple markdown editor with preview, implemented with React.js and TypeScript.`);
+    const [description, setDescription] = useState<string | undefined>(`A simple markdown editor with preview, implemented with React.js and TypeScript.`);
 
     const files = location.state?.files;
     const modelName = location.state?.modelName;
