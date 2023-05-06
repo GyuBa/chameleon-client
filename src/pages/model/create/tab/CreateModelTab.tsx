@@ -128,7 +128,7 @@ export default function CreateModelTab(number: number) {
                   focus:border-blue-600 focus:outline-none"
                                 value={inputType}
                                 onChange={handleInputTypeChange}>
-                            <option disabled hidden>Input Type</option>
+                            <option value="" disabled hidden>Input Type</option>
                             <option value="none">(none)</option>
                             <option value="image">image</option>
                             <option value="binary">binary</option>
@@ -144,7 +144,7 @@ export default function CreateModelTab(number: number) {
                   focus:border-blue-600 focus:outline-none"
                                 value={outputType}
                                 onChange={handleOutputTypeChange}>
-                            <option disabled hidden>Output Type</option>
+                            <option value="" disabled hidden>Output Type</option>
                             <option value="image">image</option>
                             <option value="binary">binary</option>
                             <option value="text">text</option>
@@ -161,7 +161,7 @@ export default function CreateModelTab(number: number) {
                   focus:border-blue-600 focus:outline-none"
                                 value={regionName}
                                 onChange={handleRegionNameChange}>
-                            <option disabled hidden>Model Region</option>
+                            <option value="" disabled hidden>Model Region</option>
                             {regionList.map((region: { id: number; name: string; }) => (
                                 <option key={region.id} value={region.name}>{region.name}</option>
                             ))}
