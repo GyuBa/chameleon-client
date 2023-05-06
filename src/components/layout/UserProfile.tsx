@@ -1,13 +1,13 @@
 import React from 'react';
 import {MdOutlineCancel} from 'react-icons/md';
 import {BsPersonCircle} from 'react-icons/bs';
-import {Button} from '../index';
+import {Button, SubmitButton} from '../index';
 import {userProfileData} from '../../assets/Dummy';
 import {Link, NavLink} from 'react-router-dom';
 import useGetUserInfo from "../../service/authentication/UserInfoService";
 
 export default function UserProfile() {
-    const {username, useremail} = useGetUserInfo();
+    const {username, useremail, handleSignOut} = useGetUserInfo();
 
     return (
         <div className="nav-item absolute right-1 top-16 bg-white p-8 rounded-lg w-96">
@@ -45,7 +45,7 @@ export default function UserProfile() {
             <div className="mt-5">
                 <Link to="/sign-in"
                       className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight text-slate-900">
-                    <Button className="color-btn w-full p-3" text="Sign Out"/>
+                    <SubmitButton className="color-btn w-full p-3" text="Sign Out" onClick={handleSignOut}/>
                 </Link>
             </div>
         </div>
