@@ -147,7 +147,7 @@ export default function CreateParameter() {
             type: 'VerticalLayout',
             elements: formData.map((param, index) => ({
                 type: 'Control',
-                scope: `#/properties/${param.name}`
+                scope: `#/properties/${param.name == undefined ? "no" : param.name}`
             }))
         };
     }
