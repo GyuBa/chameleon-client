@@ -16,9 +16,9 @@ export default function SignUp() {
     const [passwordMessage, setPasswordMessage] = useState<string>("");
     const [usernameMessage, setUsernameMessage] = useState<string>("");
 
-    const [isEmail, setIsEmail] = useState<boolean>(false);
-    const [isPassword, setIsPassword] = useState<boolean>(false);
-    const [isUsername, setIsUsername] = useState<boolean>(false);
+    const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
+    const [isValidPassword, setIsValidPassword] = useState<boolean>(false);
+    const [isValidUsername, setIsValidUsername] = useState<boolean>(false);
 
     const signUp = useCallback(
         async (e: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLDivElement>) => {
@@ -44,10 +44,10 @@ export default function SignUp() {
         setUsername(e.target.value)
         if (e.target.value.length < 2 || e.target.value.length > 16) {
             setUsernameMessage('2글자 이상 16글자 미만으로 입력해야 합니다.')
-            setIsUsername(false)
+            setIsValidUsername(false)
         } else {
             setUsernameMessage('올바른 사용자명 형식입니다.');
-            setIsUsername(true)
+            setIsValidUsername(true)
         }
     }, [])
     const onChangeEmail = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,10 +58,10 @@ export default function SignUp() {
 
         if (!emailRegex.test(emailCurrent)) {
             setEmailMessage('이메일 형식이 올바르지 않습니다. 재입력해주시기 바랍니다.')
-            setIsEmail(false)
+            setIsValidEmail(false)
         } else {
             setEmailMessage('올바른 이메일 형식입니다.')
-            setIsEmail(true)
+            setIsValidEmail(true)
         }
     }, [])
 
@@ -72,10 +72,10 @@ export default function SignUp() {
 
         if (!passwordRegex.test(passwordCurrent)) {
             setPasswordMessage('숫자+영문자+특수문자 조합으로 8자리 이상 입력 부탁드립니다.')
-            setIsPassword(false)
+            setIsValidPassword(false)
         } else {
             setPasswordMessage('올바른 비밀번호입니다.')
-            setIsPassword(true)
+            setIsValidPassword(true)
         }
     }, [])
 
@@ -114,7 +114,7 @@ export default function SignUp() {
                                     placeholder="UserName"
                                 />
                                 {username.length > 0 && <span
-                                    className={`message ${isUsername ? 'success' : 'error'}`}>{usernameMessage} </span>}
+                                    className={`message ${isValidUsername ? 'success' : 'error'}`}>{usernameMessage} </span>}
 
                             </div>
                             <div className="mb-6">
@@ -129,7 +129,7 @@ export default function SignUp() {
                                     placeholder="Email address"
                                 />
                                 {email.length > 0 &&
-                                    <span className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage} </span>}
+                                    <span className={`message ${isValidEmail ? 'success' : 'error'}`}>{emailMessage} </span>}
                             </div>
                             <div className="mb-6">
                                 <input
@@ -143,13 +143,13 @@ export default function SignUp() {
                                 />
                                 {password.length > 0 &&
                                     <span
-                                        className={`message ${isPassword ? 'success' : 'error'}`}>{passwordMessage} </span>}
+                                        className={`message ${isValidPassword ? 'success' : 'error'}`}>{passwordMessage} </span>}
                             </div>
                             <div className="text-center lg:text-left">
                                 <SubmitButton
                                     style={{backgroundColor: currentColor, color: "white", borderRadius: "10px"}}
                                     className="w-full" text="Sign Up" event={SignUp} onClick={signUp}
-                                    disabled={!(isUsername && isEmail && isPassword)}/>
+                                    disabled={!(isValidUsername && isValidEmail && isValidPassword)}/>
                             </div>
                         </form>
                     </div>
