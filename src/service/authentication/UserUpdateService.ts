@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useState} from "react";
 import instance from "../../ConstantValue";
 import useGetUserInfo from "./UserInfoService";
 

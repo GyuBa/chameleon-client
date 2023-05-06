@@ -1,10 +1,11 @@
-import React, {useRef, useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import SubmitButton from "../../../../components/button/SubmitButton";
-import {DownloadUtils, FileUtils} from "../../../../utils/Utils";
 import {BiDownload} from "react-icons/bi";
 import videojs from "video.js"
 import 'video.js/dist/video-js.css';
-import '../../../../styles/custom-video-js.css'; // 추가된 부분
+import '../../../../styles/custom-video-js.css';
+import {DownloadUtils} from "../../../../utils/DownloadUtils";
+import {FileUtils} from "../../../../utils/FileUtils"; // 추가된 부분
 
 const videoURL = '/videos/test.MOV'
 

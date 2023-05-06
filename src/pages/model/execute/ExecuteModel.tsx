@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
-import {Button, Header, SubmitButton} from "../../../components";
 import {Link, useLocation} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
 import OutputModule from "../module/Output"
@@ -10,6 +9,9 @@ import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonForms} from "@jsonforms/react";
 import {JsonViewer} from "@textea/json-viewer";
 import instance from "../../../ConstantValue";
+import Button from "../../../components/button/Button";
+import Header from "../../../components/layout/Header";
+import SubmitButton from "../../../components/button/SubmitButton";
 
 type IFile = File & { preview?: string };
 const initialData = {};

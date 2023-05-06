@@ -1,7 +1,8 @@
 import React from 'react';
-import {Button, Header} from '../../components/index';
 import {useStateContext} from "../../contexts/ContextProvider";
 import {Link} from "react-router-dom";
+import Header from "../../components/layout/Header";
+import Button from "../../components/button/Button";
 
 export default function ChangePassword() {
     const {currentColor} = useStateContext();

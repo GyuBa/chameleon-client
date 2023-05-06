@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import SubmitButton from "../../../../components/button/SubmitButton"
-import {DownloadUtils, FileUtils} from "../../../../utils/Utils"
 import {testtext} from "../../../../assets/Dummy"
 import {BiDownload} from "react-icons/bi";
+import {DownloadUtils} from "../../../../utils/DownloadUtils";
+import {FileUtils} from "../../../../utils/FileUtils";
 
 export default function SingleTextViewer() {
 

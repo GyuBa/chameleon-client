@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import {Badge} from "flowbite-react";
 import MDEditor from "@uiw/react-md-editor";
-import {Button} from "../index";
 import {useStateContext} from "../../contexts/ContextProvider";
 import instance from "../../ConstantValue";
+import Button from "../button/Button";
 
 interface DescriptionProps {
     uniqueName: string;

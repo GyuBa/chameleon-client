@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import {Button, Header} from '../../components/index';
 import {BsPersonCircle} from "react-icons/bs";
 import {HiOutlineLockClosed} from "react-icons/hi";
 import {useStateContext} from "../../contexts/ContextProvider";
 import {Link} from "react-router-dom";
 import useGetUserInfo from "../../service/authentication/UserInfoService";
-import {SubmitButton} from "../../components";
 import useUpdateUserInfo from "../../service/authentication/UserUpdateService";
+import Button from "../../components/button/Button";
+import SubmitButton from "../../components/button/SubmitButton";
+import Header from "../../components/layout/Header";
 
 export default function Account() {
   const {currentColor, onClickButton, isClickedButton} = useStateContext();
