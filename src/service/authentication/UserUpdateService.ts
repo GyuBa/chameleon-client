@@ -10,8 +10,7 @@ interface User {
 export default function useUpdateUserInfo() {
   const {username, useremail} = useGetUserInfo();
   // TODO: 이름 및 비밀번호 변경 백엔 코드 수정 시 작업
-  // @ts-ignore
-  const [user, setUser] = useState<User>({username: {username}, email: {useremail} });
+  const [user, setUser] = useState<User>({username: username as string, email: useremail as string });
 
   async function updateUser(newName: { username: string }) {
     try {
