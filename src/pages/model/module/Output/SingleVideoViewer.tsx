@@ -50,8 +50,7 @@ export default function SingleVideoViewer() {
             setUrl(blobUrl);
 
             if (videoRef.current) {
-                const player = videojs(videoRef.current, {
-                }, () => {
+                const player = videojs(videoRef.current, {}, () => {
                 });
                 player.src({
                     src: blobUrl,

@@ -1,4 +1,3 @@
-
 export class FileUtils {
     static formatBytes(bytes: number, decimals = 2) {
         if (!+bytes) return '0 Bytes'
