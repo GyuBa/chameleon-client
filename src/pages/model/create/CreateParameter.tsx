@@ -9,8 +9,8 @@ import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import ErrorBoundary from "../module/ParamErrorboundary";
 import MonaCoEditor from "@monaco-editor/react";
-import instance from "../../../ConstantValue";
 import "../../../styles/HideFormName.css"
+import {PlatformAPI} from "../../../platform/PlatformAPI";
 
 const initialData = {};
 
@@ -176,42 +176,23 @@ export default function CreateParameter() {
     const regionName = location.state?.regionName;
     const description = location.state?.description;
 
-    const parameter = JSON.stringify({...transSchema, ...transUISchema});
+    const parameters = JSON.stringify({...transSchema, ...transUISchema});
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setIsLoading(true);
 
-        const formData = new FormData();
-        formData.append('modelName', modelName);
-        formData.append('inputType', inputType);
-        formData.append('outputType', outputType);
-        formData.append('regionName', regionName);
-        formData.append('file', files[0]);
-        formData.append('description', description);
-        formData.append('parameter', parameter);
-
-        console.log(transSchema);
-        console.log(transUISchema);
-
-        console.log(files);
-        console.log(modelName);
-        console.log(inputType);
-        console.log(outputType);
-        console.log(regionName);
-        console.log(description);
-        console.log(parameter);
-
-        console.log(formData);
-
         try {
-            const res = await instance.post(`/model/upload`, formData, {
-                timeout: 0,
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
+            const uploadResult = PlatformAPI.uploadModel({
+                modelName,
+                inputType,
+                outputType,
+                regionName,
+                description,
+                parameters: JSON.stringify(parameters),
+                file: files[0]
             });
-            console.log(res.data);
+            console.log(uploadResult);
             setIsLoading(false);
             navigate('/model');
         } catch (error: any) {
@@ -256,7 +237,7 @@ export default function CreateParameter() {
                             <div className={activeOutTabIndex === 0 ? "block" : "hidden"} id="link1">
                                 <div>
                                     <div className="gap-3 grid xl:grid-cols-1 md:pt-3 md:px-5 md:my-2 2xl:grid-cols-2">
-                                        <div className = "array-JSONForm">
+                                        <div className="array-JSONForm">
                                             <JsonForms
                                                 data={{parameters: formData}}
                                                 schema={userSchema}
