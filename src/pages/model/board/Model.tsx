@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import instance from "../../../ConstantValue";
 import {Badge, Table} from "flowbite-react";
 import {modelColumn} from "../../../assets/Dummy";
 import {Link} from "react-router-dom";
