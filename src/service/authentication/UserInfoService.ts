@@ -33,12 +33,13 @@ export default function useGetUserInfo(): UserEntityData {
     }, []);
 
     const cachedValues = useMemo(() => {
-     return { username: user?.username, email: user?.email };
+     return { id: user?.id, username: user?.username, email: user?.email };
     }, [user]);
 
+    // TODO: 로그아웃 구현
     const handleSignOut = () => {
       localStorage.removeItem(USER_INFO_KEY);
     };
 
-    return {...cachedValues, handleSignOut};
+    return {...cachedValues};
 }
