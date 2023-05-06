@@ -178,7 +178,7 @@ export default function CreateParameter() {
     const regionName = location.state?.regionName;
     const description = location.state?.description;
 
-    const parameters = JSON.stringify({...transSchema, ...transUISchema});
+    const parameters = JSON.stringify({schema: transSchema, uischema: transUISchema});
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -191,7 +191,7 @@ export default function CreateParameter() {
                 outputType,
                 regionName,
                 description,
-                parameters: JSON.stringify(parameters),
+                parameters,
                 file: files[0]
             });
             console.log(uploadResult);

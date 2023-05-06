@@ -1,6 +1,7 @@
 import axios from "axios";
 import {ModelEntityData, RegionEntityData, UserEntityData} from "../types/chameleon-client.entitydata";
 import {ModelUploadData} from "../types/chameleon-client";
+import {DataUtils} from "../utils/DataUtils";
 
 export class PlatformAPI {
     private static readonly instance = axios.create({
@@ -23,8 +24,10 @@ export class PlatformAPI {
         return response?.data;
     }
 
+
     public static async getModelList(): Promise<ModelEntityData[]> {
         const response = await this.instance.get('/model/list', this.defaultConfig);
+        response?.data.forEach((m: ModelEntityData) => DataUtils.restoreTimeProperty(m));
         return response?.data as ModelEntityData[];
     }
 
@@ -40,7 +43,13 @@ export class PlatformAPI {
 
     public static async getModelInfo(uniqueName: string): Promise<ModelEntityData> {
         const response = await this.instance.get('/model/info', {...this.defaultConfig, params: {uniqueName}});
+        DataUtils.restoreTimeProperty(response?.data);
         return response?.data as ModelEntityData;
+    }
+
+    // TODO: 작업 중
+    public static async modifyPassword(uniqueName: string): Promise<UserEntityData> {
+        return {} as UserEntityData;
     }
 
     // TODO: 반환 형 타입 지정
@@ -55,7 +64,7 @@ export class PlatformAPI {
         return response?.data;
     }
 
-    // TODO: 반환 형 명시
+    // TODO: 반환 형 명시, 함수명과 API도 동사 형태로 수정 필요
     public static async payment(amount: number) {
         await this.instance.post('/payment', {amount}, this.defaultConfig);
     }

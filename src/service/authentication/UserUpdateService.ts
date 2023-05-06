@@ -1,32 +1,44 @@
 import {useState} from "react";
-import instance from "../../ConstantValue";
 import useGetUserInfo from "./UserInfoService";
-
-interface User {
-  username: string;
-  email: string;
-}
+import {UserEntityData} from "../../types/chameleon-client.entitydata";
+import {PlatformAPI} from "../../platform/PlatformAPI";
 
 export default function useUpdateUserInfo() {
-  const {username, useremail} = useGetUserInfo();
-  // TODO: 이름 및 비밀번호 변경 백엔 코드 수정 시 작업
-  const [user, setUser] = useState<User>({username: username as string, email: useremail as string });
+    const loadedUser = useGetUserInfo();
+    // TODO: 이름 및 비밀번호 변경 백엔 코드 수정 시 작업
+    const [user, setUser] = useState<UserEntityData>(loadedUser);
 
-  async function updateUser(newName: { username: string }) {
-    try {
-      const response = await instance.put("/auth/modify-password", {
-        username: newName,
-      });
+    // TODO: 의도 파악 불가로 수정 후 임시로 남겨진 Legacy code
+    /*
+    async function updateUser(newUsername: { username: string }) {
+        try {
+            const response = await instance.put("/auth/modify-password", {
+                username: newUsername,
+            });
 
-      const updatedUser = { ...user, username: response.data.username };
-      setUser(updatedUser);
+            const updatedUser = {...user, username: response.data.username};
+            setUser(updatedUser);
 
-      return updatedUser.username;
-    } catch (error) {
-      console.error(error);
-      return null;
+            return updatedUser.username;
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }*/
+
+    // TODO: 의도 파악 불가
+    async function updateUser(newUsername: string) {
+        try {
+            const newUser = await PlatformAPI.modifyPassword(newUsername);
+            // 미확정된 형태의 PlatformAPI가 임시로 사용됨
+            setUser(newUser);
+
+            return newUser.username;
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
     }
-  }
 
-  return { user, setUser, updateUser };
+    return {user, setUser, updateUser};
 }

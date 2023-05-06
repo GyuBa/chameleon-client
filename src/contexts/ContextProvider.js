@@ -15,19 +15,19 @@ export const ContextProvider = ({children}) => {
     const [menuState, setMenuState] = useState(false);
     const [currentLayout, setCurrentLayout] = useState('GridLayout');
 
-  const handleClick = (clicked) => setIsClicked({...initialState, [clicked]: true});
+    const handleClick = (clicked) => setIsClicked({...initialState, [clicked]: true});
 
-  const onClickButton = (buttonName) => {
-    if (buttonName === 'changeName') {
-      console.log("check_1");
-      setIsClickedButton({...isClickedButton, changeName: !isClickedButton.changeName});
-    } else {
-      console.log("check_2");
-      setIsClickedButton({...isClickedButton, changeName: false});
-    }
-  };
+    const onClickButton = (buttonName) => {
+        if (buttonName === 'changeName') {
+            console.log("check_1");
+            setIsClickedButton({...isClickedButton, changeName: !isClickedButton.changeName});
+        } else {
+            console.log("check_2");
+            setIsClickedButton({...isClickedButton, changeName: false});
+        }
+    };
 
-  const onClickMenu = () => {
+    const onClickMenu = () => {
         setMenuState(prevState => !prevState)
     };
 
