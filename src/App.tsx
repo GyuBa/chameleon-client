@@ -16,6 +16,7 @@ import CreateDescription from "./pages/model/create/CreateDescription";
 import SignIn from "./pages/authentication/SignIn";
 import SignUp from "./pages/authentication/SignUp";
 import CreateParameters from "./pages/model/create/CreateParameter";
+import History from "./pages/history/History";
 
 export default function App() {
     const {
@@ -49,6 +50,7 @@ export default function App() {
                 <Route path="/models/create" element={<CreateModel/>}/>
                 <Route path="/models/create/description" element={<CreateDescription/>}/>
                 <Route path="/models/create/parameters" element={<CreateParameters/>}/>
+                <Route path="/histories" element={<History/>}/>
             </Route>
             <Route path="/sign-in" element={(<SignIn/>)}/>
             <Route path="/sign-up" element={(<SignUp/>)}/>
