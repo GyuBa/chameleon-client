@@ -129,7 +129,7 @@ let transUISchema = {
     }]
 };
 
-export default function CreateParameter() {
+export default function CreateParameters() {
     const [activeInTabIndex, setActiveInTabIndex] = useState(0);
     const [activeOutTabIndex, setActiveOutTabIndex] = useState(0);
     const navigate = useNavigate();
@@ -194,7 +194,7 @@ export default function CreateParameter() {
             });
             console.log(uploadResult);
             setIsLoading(false);
-            navigate('/model');
+            navigate('/models/my');
         } catch (error: any) {
             setIsLoading(false);
             if (error.response && error.response.status === 501) {
@@ -260,7 +260,7 @@ export default function CreateParameter() {
                                                 />
                                             </ErrorBoundary>
                                             <div className="flex gap-3 float-right">
-                                                <Link to="/model/create/description">
+                                                <Link to="/models/create/description">
                                                     <Button className="white-btn w-16 p-2" text="back"/>
                                                 </Link>
                                                 <SubmitButton className="color-btn w-16" text="create" onClick={handleSubmit}/>
@@ -365,7 +365,7 @@ export default function CreateParameter() {
                                                 />
                                             </ErrorBoundary>
                                             <div className="flex gap-3 float-right">
-                                                <Link to="/model/create/description">
+                                                <Link to="/models/create/description">
                                                     <Button className="white-btn w-16 p-2" text="back"/>
                                                 </Link>
                                                 <SubmitButton className="color-btn w-16" text="create" onClick={handleSubmit}/>

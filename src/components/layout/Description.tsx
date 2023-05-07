@@ -18,7 +18,7 @@ export default function Description({uniqueName}: DescriptionProps) {
 
         (async function () {
             try {
-                const model = await PlatformAPI.getModelInfo(uniqueName);
+                const model = await PlatformAPI.getModelByUniqueName(uniqueName);
                 if (!completed && model.uniqueName === uniqueName) {
                     setModelData(model);
                 }
@@ -43,7 +43,7 @@ export default function Description({uniqueName}: DescriptionProps) {
                     className="flex justify-between items-center pb-6 border-b-1 border-gray-300 overflow-auto overflow-scroll max-h-screen">
                     <p className="text-3xl font-extrabold tracking-tight text-slate-900">{modelData?.name}</p>
                     <div className="flex gap-2">
-                        <Link to="/model/execute" state={{}}>
+                        <Link to="/models/execute" state={{}}>
                             <Button className="color-btn text-sm w-full p-1.5" text="start"/>
                         </Link>
                     </div>

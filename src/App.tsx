@@ -9,13 +9,13 @@ import Main from "./pages/Main";
 import Account from "./pages/profile/Account";
 import ChangePassword from "./pages/profile/ChangePassword";
 import Payment from "./pages/profile/Payment";
-import Model from "./pages/model/board/Model";
+import Models from "./pages/model/board/Models";
 import ExecuteModel from "./pages/model/execute/ExecuteModel";
 import CreateModel from "./pages/model/create/CreateModel";
 import CreateDescription from "./pages/model/create/CreateDescription";
-import CreateParameter from "./pages/model/create/CreateParameter";
 import SignIn from "./pages/authentication/SignIn";
 import SignUp from "./pages/authentication/SignUp";
+import CreateParameters from "./pages/model/create/CreateParameter";
 
 export default function App() {
     const {
@@ -43,11 +43,12 @@ export default function App() {
                 <Route path="/account" element={<Account/>}/>
                 <Route path="/change-password" element={<ChangePassword/>}/>
                 <Route path="/payment" element={<Payment/>}/>
-                <Route path="/model" element={<Model/>}/>
-                <Route path="/model/execute" element={<ExecuteModel/>}/>
-                <Route path="/model/create" element={<CreateModel/>}/>
-                <Route path="/model/create/description" element={<CreateDescription/>}/>
-                <Route path="/model/create/parameter" element={<CreateParameter/>}/>
+                <Route path="/models/my" element={<Models/>}/>
+                <Route path="/models/all" element={<Models/>}/>
+                <Route path="/models/execute" element={<ExecuteModel/>}/>
+                <Route path="/models/create" element={<CreateModel/>}/>
+                <Route path="/models/create/description" element={<CreateDescription/>}/>
+                <Route path="/models/create/parameters" element={<CreateParameters/>}/>
             </Route>
             <Route path="/sign-in" element={(<SignIn/>)}/>
             <Route path="/sign-up" element={(<SignUp/>)}/>

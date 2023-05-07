@@ -13,17 +13,17 @@ export const links = [
         links: [
             {
                 name: 'All Models',
-                link: 'model',
+                link: 'models/all',
                 icon: <BiFolder/>,
             },
             {
                 name: 'My Models',
-                link: 'my-model',
+                link: 'models/my',
                 icon: <BiFolder/>,
             },
             {
                 name: 'Histories',
-                link: 'history',
+                link: 'histories',
                 icon: <RiHistoryFill/>,
             },
         ],

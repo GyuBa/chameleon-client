@@ -18,7 +18,7 @@ export default function CreateModelTab(number: number) {
     const [inputType, setInputType] = useState<string>('none');
     const [outputType, setOutputType] = useState<string>('image');
     const [regionName, setRegionName] = useState<string>('');
-    const [regionList, setRegionList] = useState<RegionEntityData[]>([]);
+    const [regions, setRegions] = useState<RegionEntityData[]>([]);
 
     const handleModelNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setModelName(event.target.value);
@@ -34,7 +34,7 @@ export default function CreateModelTab(number: number) {
     };
 
     const handleClick = () => {
-        navigate("/model/create/description", {
+        navigate("/models/create/description", {
             state: {
                 files: files,
                 modelName: modelName,
@@ -50,9 +50,9 @@ export default function CreateModelTab(number: number) {
 
         (async function get() {
             try {
-                const regions = await PlatformAPI.getRegionList();
+                const regions = await PlatformAPI.getRegions();
                 if (!completed) {
-                    setRegionList(regions);
+                    setRegions(regions);
                     setRegionName(regions?.[0]?.name);
                 }
             } catch (error) {
@@ -100,7 +100,7 @@ export default function CreateModelTab(number: number) {
                     <h1 className="mx-2 text-gray-500">{tabsData[number].label}</h1>
                 </div>
                 <div className="flex gap-3 float-right">
-                    <Link to="/model"><Button className="white-btn w-16 p-2" text="back"/></Link>
+                    <Link to="/models/my"><Button className="white-btn w-16 p-2" text="back"/></Link>
                     <SubmitButton onClick={handleClick} className="color-btn w-16" text="next"/>
                 </div>
             </div>
@@ -159,7 +159,7 @@ export default function CreateModelTab(number: number) {
                   focus:border-blue-600 focus:outline-none"
                                 value={regionName}
                                 onChange={handleRegionNameChange}>
-                            {regionList.map((region: { id: number; name: string; }) => (
+                            {regions.map((region: { id: number; name: string; }) => (
                                 <option key={region.id} value={region.name}>{region.name}</option>
                             ))}
                         </select>
