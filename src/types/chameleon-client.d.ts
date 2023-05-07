@@ -65,4 +65,8 @@ export type ModelUploadData = {
     description: string
 }
 
+export type ModelsRequestOptions = {
+    ownOnly: boolean
+}
+
 export type {Parameter, HeaderData, DefaultButtonData, SubmitButtonData, WebSocketData, DownloadButtonProps};
