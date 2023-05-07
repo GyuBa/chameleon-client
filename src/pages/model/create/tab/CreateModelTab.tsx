@@ -15,8 +15,8 @@ export default function CreateModelTab(number: number) {
     const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [files, setFiles] = useState<IFile[]>([]);
     const [modelName, setModelName] = useState<string>('');
-    const [inputType, setInputType] = useState<string>('');
-    const [outputType, setOutputType] = useState<string>('');
+    const [inputType, setInputType] = useState<string>('none');
+    const [outputType, setOutputType] = useState<string>('image');
     const [regionName, setRegionName] = useState<string>('');
     const [regionList, setRegionList] = useState<RegionEntityData[]>([]);
 
@@ -128,7 +128,6 @@ export default function CreateModelTab(number: number) {
                   focus:border-blue-600 focus:outline-none"
                                 value={inputType}
                                 onChange={handleInputTypeChange}>
-                            <option value="" disabled hidden>Input Type</option>
                             <option value="none">(none)</option>
                             <option value="image">image</option>
                             <option value="binary">binary</option>
@@ -144,7 +143,6 @@ export default function CreateModelTab(number: number) {
                   focus:border-blue-600 focus:outline-none"
                                 value={outputType}
                                 onChange={handleOutputTypeChange}>
-                            <option value="" disabled hidden>Output Type</option>
                             <option value="image">image</option>
                             <option value="binary">binary</option>
                             <option value="text">text</option>
@@ -161,7 +159,6 @@ export default function CreateModelTab(number: number) {
                   focus:border-blue-600 focus:outline-none"
                                 value={regionName}
                                 onChange={handleRegionNameChange}>
-                            <option value="" disabled hidden>Model Region</option>
                             {regionList.map((region: { id: number; name: string; }) => (
                                 <option key={region.id} value={region.name}>{region.name}</option>
                             ))}
