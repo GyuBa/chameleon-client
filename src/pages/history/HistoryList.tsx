@@ -1,5 +1,5 @@
 import {Table} from "flowbite-react";
-import {modelColumn} from "../../assets/Dummy";
+import {historyColumn} from "../../assets/Dummy";
 import React from "react";
 
 export function HistoryList() {
@@ -7,7 +7,7 @@ export function HistoryList() {
         <div>
             <Table hoverable={true}>
                 <Table.Head>
-                    {modelColumn.list.map((item) => (
+                    {historyColumn.list.map((item) => (
                         <Table.HeadCell>{item}</Table.HeadCell>
                     ))}
                 </Table.Head>
