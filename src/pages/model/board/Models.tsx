@@ -14,7 +14,7 @@ import {PlatformAPI} from "../../../platform/PlatformAPI";
 import {ModelEntityData} from "../../../types/chameleon-client.entitydata";
 import {DateUtils} from "../../../utils/DateUtils";
 
-export default function Model() {
+export default function Models() {
     const {
         menuState,
         onClickMenu,
@@ -22,7 +22,7 @@ export default function Model() {
         setCurrentLayout,
         isDesktopOrMobile
     } = useStateContext();
-    const [modelList, setModelList] = useState<ModelEntityData[]>([]);
+    const [models, setModels] = useState<ModelEntityData[]>([]);
     const [selectedModel, setSelectedModel] = useState<string>("");
 
     useEffect(() => {
@@ -30,9 +30,9 @@ export default function Model() {
 
         (async function () {
             try {
-                const modelList = await PlatformAPI.getModelList();
+                const models = await PlatformAPI.getModels();
                 if (!completed) {
-                    setModelList(modelList);
+                    setModels(models);
                 }
             } catch (error) {
                 console.error(error);
@@ -51,7 +51,7 @@ export default function Model() {
 
     const ArrangeMenu = () => (
       <div className="flex items-center gap-2">
-        <Link to="/model/create" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
+        <Link to="/models/create" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
           <BiAddToQueue size="25" color="#484848" className="pl-1"/>
           <span
             className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Create Model</span>
@@ -81,7 +81,7 @@ export default function Model() {
 
     const Menu = () => (
       <div className="nav-item absolute right-4 top-30 bg-white drop-shadow-lg py-2 px-4 rounded-lg w-40">
-        <Link to="/model/create" className="flex gap-1 border-b-1 border-gray-400 hover:bg-gray-100 items-center">
+        <Link to="/models/create" className="flex gap-1 border-b-1 border-gray-400 hover:bg-gray-100 items-center">
           <BiAddToQueue size="25" color="#484848" className="pl-1"/>
           <span
             className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Create Model</span>
@@ -101,7 +101,7 @@ export default function Model() {
 
     const GridLayout = () => (
       <div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 gap-4">
-          {modelList.map((modelData) => (
+          {models.map((modelData) => (
               <div key={modelData.id} onClick={() => onModelSelect(modelData)}
                    className="w-auto px-5 p-5 mb-4 mr-1 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl cursor-pointer">
                   <p className="border-b-2 font-semibold text-xl break-all">{modelData.name}</p>
@@ -130,7 +130,7 @@ export default function Model() {
                   ))}
               </Table.Head>
               <Table.Body className="divide-y">
-                  {modelList.map((modelData) => (
+                  {models.map((modelData) => (
                       <Table.Row className="bg-white">
                           <Table.Cell
                               className="whitespace-nowrap font-medium text-gray-900">{modelData.name}</Table.Cell>

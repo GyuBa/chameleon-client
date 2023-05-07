@@ -16,7 +16,7 @@ export default function CreateDescription() {
     const regionName = location.state?.regionName;
 
     const handleClick = () => {
-        navigate("/model/create/parameter", {
+        navigate("/models/create/parameters", {
             state: {
                 files: files,
                 modelName: modelName,
@@ -34,7 +34,7 @@ export default function CreateDescription() {
                 <div className="flex justify-between items-center">
                     <Header category="" title="Model Description"/>
                     <div className="flex gap-3 float-right">
-                        <Link to="/model/create">
+                        <Link to="/models/create">
                             <Button className="white-btn w-16 p-2" text="back"/>
                         </Link>
                         <SubmitButton onClick={handleClick} className="color-btn w-16" text="next"/>

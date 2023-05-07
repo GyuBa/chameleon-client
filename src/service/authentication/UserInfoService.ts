@@ -13,8 +13,8 @@ export default function useGetUserInfo(): UserEntityData {
       async function get() {
         try {
           if (!completed) {
-            setUser(await PlatformAPI.getUserInfo());
-            localStorage.setItem(USER_INFO_KEY, JSON.stringify(await PlatformAPI.getUserInfo()));
+            setUser(await PlatformAPI.getLoginUser());
+            localStorage.setItem(USER_INFO_KEY, JSON.stringify(await PlatformAPI.getLoginUser()));
           }
         } catch (error) {
           console.error(error);
@@ -37,9 +37,10 @@ export default function useGetUserInfo(): UserEntityData {
     }, [user]);
 
     // TODO: 로그아웃 구현
-    const handleSignOut = () => {
+    // ESLint에 나타나지 않게 주석 처리
+    /* const handleSignOut = () => {
       localStorage.removeItem(USER_INFO_KEY);
-    };
+    }; */
 
     return {...cachedValues};
 }
