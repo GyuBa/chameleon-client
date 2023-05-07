@@ -183,7 +183,7 @@ export default function CreateParameters() {
         setIsLoading(true);
 
         try {
-            const uploadResult = PlatformAPI.uploadModel({
+            const uploadResult = await PlatformAPI.uploadModel({
                 modelName,
                 inputType,
                 outputType,
