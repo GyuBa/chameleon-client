@@ -1,8 +1,12 @@
 import {Table} from "flowbite-react";
 import {historyColumn} from "../../assets/Dummy";
 import React from "react";
+import {HistoryEntityData} from "../../types/chameleon-client.entitydata";
 
-export function HistoryList() {
+type HistoryRow = {
+    rows: HistoryEntityData[]
+}
+export function HistoryList({rows}: HistoryRow) {
     return (
         <div>
             <Table hoverable={true}>
@@ -13,6 +17,11 @@ export function HistoryList() {
                 </Table.Head>
                 <Table.Body className="divide-y">
                         <Table.Row className="bg-white">
+                            {
+                                rows.map((row) => (
+                                    <Table.Cell></Table.Cell>
+                                ))
+                            }
                         </Table.Row>
                 </Table.Body>
             </Table>
