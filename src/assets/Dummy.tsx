@@ -68,6 +68,10 @@ export const modelColumn = {
     list: ['Model Name', 'Input Type', 'Output Type', 'Developer', 'Last Modified Date', 'start']
 };
 
+export const historyColumn = {
+    list: ['index', 'modelName', 'statedTime', 'endedTime', 'excutor', 'status']
+};
+
 export const userSchema = {
     type: 'object',
     properties: {
