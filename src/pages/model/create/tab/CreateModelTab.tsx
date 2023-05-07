@@ -159,7 +159,6 @@ export default function CreateModelTab(number: number) {
                   focus:border-blue-600 focus:outline-none"
                                 value={regionName}
                                 onChange={handleRegionNameChange}>
-                            <option disabled hidden>Model Region</option>
                             {regionList.map((region: { id: number; name: string; }) => (
                                 <option key={region.id} value={region.name}>{region.name}</option>
                             ))}
