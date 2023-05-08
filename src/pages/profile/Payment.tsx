@@ -87,7 +87,7 @@ export default function Payment() {
                 }
             )*/
             // TODO: 비동기 처리 등 개선 필요
-            PlatformAPI.payment((Number(k_money) + Number(t_money) + Number(p_money)));
+            PlatformAPI.updatePoint((Number(k_money) + Number(t_money) + Number(p_money)));
         } else {
             alert(`결제 실패: ${error_msg}`);
         }
