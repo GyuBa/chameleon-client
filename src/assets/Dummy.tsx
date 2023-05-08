@@ -69,7 +69,7 @@ export const modelColumn = {
 };
 
 export const historyColumn = {
-    list: ['index', 'modelName', 'statedTime', 'endedTime', 'excutor', 'status']
+    list: ['index', 'model name', 'stated time', 'ended time', 'excutor', 'status']
 };
 
 export const userSchema = {

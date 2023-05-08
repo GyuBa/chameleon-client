@@ -15,11 +15,6 @@ export default function History() {
 
         (async function () {
             try {
-                // const histories = await PlatformAPI.getHistories();
-                // if (!completed) {
-                //     setHistories(histories);
-                // }
-
                 setHistories(DUMMY_HISTORIES);
             } catch (error) {
                 console.error(error);
@@ -37,7 +32,7 @@ export default function History() {
             <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
                 <div className="flex justify-between items-center">
                     <div className="flex">
-                        <Header category="" title="History"/>
+                        <Header category="" title="Histories"/>
                     </div>
                 </div>
                 <div className="mt-10 max-h-screen overflow-auto">
