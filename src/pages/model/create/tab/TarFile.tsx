@@ -15,10 +15,10 @@ export default function TarFile() {
     const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [files, setFiles] = useState<IFile[]>([]);
     const [modelName, setModelName] = useState<string>('');
-    const [inputType, setInputType] = useState<string>('');
-    const [outputType, setOutputType] = useState<string>('');
+    const [inputType, setInputType] = useState<string>('none');
+    const [outputType, setOutputType] = useState<string>('image');
     const [regionName, setRegionName] = useState<string>('');
-    const [regionList, setRegionList] = useState<RegionEntityData[]>([]);
+    const [regions, setRegions] = useState<RegionEntityData[]>([]);
 
     const handleModelNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setModelName(event.target.value);
@@ -34,7 +34,7 @@ export default function TarFile() {
     };
 
     const handleClick = () => {
-        navigate("/model/create/description", {
+        navigate("/models/create/description", {
             state: {
                 files: files,
                 modelName: modelName,
@@ -50,10 +50,10 @@ export default function TarFile() {
 
         (async function get() {
             try {
-                const regions = await PlatformAPI.getRegionList();
+                const regions = await PlatformAPI.getRegions();
                 if (!completed) {
-                    setRegionList(regions);
-                    setRegionName(regions[0]?.name);
+                    setRegions(regions);
+                    setRegionName(regions?.[0]?.name);
                 }
             } catch (error) {
                 console.error(error);
@@ -100,7 +100,7 @@ export default function TarFile() {
                     <h1 className="mx-2 text-gray-500">{tabsData[0].label}</h1>
                 </div>
                 <div className="flex gap-3 float-right">
-                    <Link to="/model"><Button className="white-btn w-16 p-2" text="back"/></Link>
+                    <Link to="/models/my"><Button className="white-btn w-16 p-2" text="back"/></Link>
                     <SubmitButton onClick={handleClick} className="color-btn w-16" text="next"/>
                 </div>
             </div>
@@ -128,7 +128,6 @@ export default function TarFile() {
                   focus:border-blue-600 focus:outline-none"
                                 value={inputType}
                                 onChange={handleInputTypeChange}>
-                            <option disabled hidden>Input Type</option>
                             <option value="none">(none)</option>
                             <option value="image">image</option>
                             <option value="binary">binary</option>
@@ -144,7 +143,6 @@ export default function TarFile() {
                   focus:border-blue-600 focus:outline-none"
                                 value={outputType}
                                 onChange={handleOutputTypeChange}>
-                            <option disabled hidden>Output Type</option>
                             <option value="image">image</option>
                             <option value="binary">binary</option>
                             <option value="text">text</option>
@@ -161,8 +159,7 @@ export default function TarFile() {
                   focus:border-blue-600 focus:outline-none"
                                 value={regionName}
                                 onChange={handleRegionNameChange}>
-                            <option disabled hidden>Model Region</option>
-                            {regionList.map((region: { id: number; name: string; }) => (
+                            {regions.map((region: { id: number; name: string; }) => (
                                 <option key={region.id} value={region.name}>{region.name}</option>
                             ))}
                         </select>

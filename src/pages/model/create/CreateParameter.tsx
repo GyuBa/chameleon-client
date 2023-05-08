@@ -232,7 +232,7 @@ export default function CreateParameters() {
                             <h1 className="mx-2 text-gray-500">JSONForms</h1>
                         </div>
                         <div className="flex gap-3 float-right">
-                            <Link to="/model/create/description">
+                            <Link to="/models/create/description">
                                 <Button className="white-btn w-16 p-2" text="back"/>
                             </Link>
                             <SubmitButton className="color-btn w-16" text="create" onClick={handleSubmit}/>
@@ -264,13 +264,6 @@ export default function CreateParameters() {
                                                 onChange={handleTransFormChange}
                                             />
                                         </ErrorBoundary>
-                                        <Link to="/model/execute"
-                                              state={{schema: transSchema, uischema: transUISchema}}>
-                                            <Button style={{
-                                                color: "white",
-                                                borderRadius: "10px"
-                                            }} className="w-32 p-2" text="Parameter Test"/>
-                                        </Link>
                                     </div>
                                 </div>
                             </div>
