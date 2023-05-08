@@ -1,8 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import SingleImageViewer from "../module/Output/SingleImageViewer"
 import SingleTextViewer from "../module/Output/SingleTextViewer"
 import SingleVideoViewer from "../module/Output/SingleVideoViewer"
-import {testOutputTabs} from "../../../assets/Dummy";
 
 const modules = [SingleImageViewer, SingleTextViewer, SingleVideoViewer];
 

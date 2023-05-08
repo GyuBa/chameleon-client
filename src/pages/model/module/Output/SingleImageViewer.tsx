@@ -4,29 +4,30 @@ import cuteChameleon from "../../../../assets/images/cutechameleon.png"
 import {BiDownload} from "react-icons/bi";
 import {DownloadUtils} from "../../../../utils/DownloadUtils";
 import {FileUtils} from "../../../../utils/FileUtils";
+import {BlobUtils} from "../../../../utils/BlobUtils"
 
 export default function SingleImageViewer() {
 
     let outputExtensions = 'img'
-    const blob = DownloadUtils.imageToBlob(cuteChameleon)
+    const blob = BlobUtils.imageToBlob(cuteChameleon)
     const [size, setSize] = useState<number>(0)
     useEffect(() => {
         const getSize = async () => {
-            const fileSize = await DownloadUtils.computeFileSize(await blob);
+            const fileSize = await BlobUtils.computeFileSize(await blob);
             setSize(fileSize);
         }
         getSize();
-    }, [])
+    }, [blob])
 
     const [url, setUrl] = useState<string>("");
 
     useEffect(() => {
         const getUrl = async () => {
-            const blobUrl = await DownloadUtils.createObjectURLFromBlob(await blob);
+            const blobUrl = await BlobUtils.createObjectURLFromBlob(await blob);
             setUrl(blobUrl);
         }
         getUrl();
-    }, [])
+    }, [blob])
 
     return (
         <div>

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {Parameter} from "../../../types/chameleon-client";
 import {createParam, createSchema, userSchema, userUISchema} from "../../../assets/Dummy";
@@ -205,32 +205,6 @@ export default function CreateParameter() {
         }
     };
 
-    const [isOverlap, setIsOverlap] = useState(false);
-
-    useEffect(() => {
-
-        const handleOverlap = () => {
-            // 첫 번째 ExampleComponent와 두 번째 ExampleComponent가 겹치는지 확인
-            const firstComponentRect = document.querySelector('.monaco-editor')?.getBoundingClientRect();
-            const secondComponentRect = document.querySelector('.result')?.getBoundingClientRect();
-            if (!firstComponentRect || !secondComponentRect) {
-                setIsOverlap(false);
-                return;
-            }
-            const isOverlap = secondComponentRect
-                ? !(firstComponentRect?.right < secondComponentRect.left ||
-                    firstComponentRect.left > secondComponentRect.right ||
-                    firstComponentRect.bottom < secondComponentRect.top ||
-                    firstComponentRect.top > secondComponentRect.bottom)
-                : false;
-            setIsOverlap(isOverlap);
-            console.log(isOverlap, firstComponentRect, secondComponentRect)
-        };
-        handleOverlap();
-        window.addEventListener('resize', handleOverlap);
-        return () => window.removeEventListener('resize', handleOverlap);
-    }, []);
-
     return (
         <div className="contents">
             <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
@@ -267,7 +241,7 @@ export default function CreateParameter() {
                     <div className="tab-content tab-space">
                         <div className={activeOutTabIndex === 0 ? "block" : "hidden"} id="link1">
                             <div>
-                                <div className="gap-3 grid xl:grid-cols-1 md:pt-3 md:px-5 md:my-2 2xl:grid-cols-2">
+                                <div className="gap-3 grid md:grid-cols-1 md:pt-3 md:px-5 md:my-2 xl:grid-cols-1 xl:gap-3 2xl:grid-cols-2">
                                     <div className="array-JSONForm">
                                         <JsonForms
                                             data={{parameters: formData}}
@@ -303,8 +277,7 @@ export default function CreateParameter() {
                         </div>
                         <div className={activeOutTabIndex === 1 ? "block" : "hidden"} id="link2">
                             <div>
-                                <div
-                                    className={`gap-3 grid ${isOverlap ? 'grid-cols-1' : 'grid-cols-2'} md:pt-3 md:px-5 md:my-2`}>
+                                <div className="gap-3 grid xl:grid-cols-1 md:pt-3 md:px-5 md:my-2 2xl:grid-cols-2">
                                     <div>
                                         <div className="flex space-x-3 border-b">
                                             {createSchema.map((tab, idx) => {
@@ -331,7 +304,6 @@ export default function CreateParameter() {
                                                         className = "monaco-editor"
                                                         language="json"
                                                         height={480}
-                                                        width={680}
                                                         theme="vs-light"
                                                         value={schema}
                                                         onChange={(value) => {
@@ -362,7 +334,6 @@ export default function CreateParameter() {
                                                         className = "monaco-editor"
                                                         language="json"
                                                         height={480}
-                                                        width={680}
                                                         theme="vs-light"
                                                         value={uiSchema}
                                                         onChange={(value) => {

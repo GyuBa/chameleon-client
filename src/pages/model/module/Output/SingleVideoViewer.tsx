@@ -4,27 +4,28 @@ import {BiDownload} from "react-icons/bi";
 import videojs from "video.js"
 import 'video.js/dist/video-js.css';
 import '../../../../styles/custom-video-js.css';
-import {DownloadUtils} from "../../../../utils/DownloadUtils";
-import {FileUtils} from "../../../../utils/FileUtils"; // 추가된 부분
+import {BlobUtils} from "../../../../utils/BlobUtils";
+import {FileUtils} from "../../../../utils/FileUtils";
+import {DownloadUtils} from "../../../../utils/DownloadUtils"
 
 const videoURL = '/videos/test.MOV'
 
 export default function SingleVideoViewer() {
 
     let outputExtensions = 'mp4'
-    const blob = DownloadUtils.videoToBlob(videoURL)
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const blob = BlobUtils.videoToBlob(videoURL)
     const [size, setSize] = useState<number>(0)
     const [url, setUrl] = useState<string>("");
-    const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
 
         const getSize = async () => {
-            const fileSize = await DownloadUtils.computeFileSize(await blob);
+            const fileSize = await BlobUtils.computeFileSize(await blob);
             setSize(fileSize);
         }
         const getUrl = async () => {
-            const blobUrl = await DownloadUtils.createObjectURLFromBlob(await blob);
+            const blobUrl = await BlobUtils.createObjectURLFromBlob(await blob);
             setUrl(blobUrl);
 
             if (videoRef.current) {
@@ -40,7 +41,7 @@ export default function SingleVideoViewer() {
 
         getUrl();
         getSize();
-    }, [])
+    }, [blob])
 
     return (
         <div>
