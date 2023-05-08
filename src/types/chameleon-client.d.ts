@@ -1,4 +1,4 @@
-import {CSSProperties, ReactNode} from "react";
+import React, {CSSProperties, ReactNode} from "react";
 
 type HeaderData = {
     category?: string;
@@ -52,6 +52,11 @@ type DownloadButtonProps = {
     url: string;
     format: string;
     filename: string;
+}
+
+export interface DescriptionProps {
+    modelId: number;
+    setSelectedModelId: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export type {Parameter, HeaderData, DefaultButtonData, SubmitButtonData, WebSocketData, DownloadButtonProps};

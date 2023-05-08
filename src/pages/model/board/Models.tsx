@@ -178,9 +178,9 @@ export default function Models() {
             </div>
         </div>
         {selectedModelId > 0 ?
-            <div className="w-[700px] ease-in-out duration-300 translate-x-0"><Description modelId={selectedModelId}/></div>
+            <div className="w-[700px] ease-in-out duration-300 translate-x-0"><Description modelId={selectedModelId} setSelectedModelId={setSelectedModelId}/></div>
             :
-            <div className="w-0 ease-in-out duration-300 translate-x-full hidden"><Description modelId={selectedModelId}/></div>
+            <div className="w-0 ease-in-out duration-300 translate-x-full hidden"><Description modelId={selectedModelId} setSelectedModelId={setSelectedModelId}/></div>
         }
     </div>
   );
