@@ -6,7 +6,6 @@ import {DownloadUtils} from "../../../../utils/DownloadUtils";
 import {FileUtils} from "../../../../utils/FileUtils";
 
 export default function SingleTextViewer() {
-
     let outputExtensions = 'text'
     const [text, setText] = useState<string>("");
 

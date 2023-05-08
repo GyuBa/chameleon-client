@@ -147,7 +147,7 @@ export default function CreateParameter() {
             type: 'VerticalLayout',
             elements: formData.map((param, index) => ({
                 type: 'Control',
-                scope: `#/properties/${param.name == undefined ? "no" : param.name}`
+                scope: `#/properties/${param.name === undefined ? "no" : param.name}`
             }))
         };
     }
@@ -290,6 +290,13 @@ export default function CreateParameter() {
                                                 onChange={handleTransFormChange}
                                             />
                                         </ErrorBoundary>
+                                        <Link to="/model/execute"
+                                              state={{schema: transSchema, uischema: transUISchema}}>
+                                            <Button style={{
+                                                color: "white",
+                                                borderRadius: "10px"
+                                            }} className="w-32 p-2" text="Parameter Test"/>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

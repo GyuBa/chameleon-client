@@ -9,32 +9,10 @@ import {FileUtils} from "../../../../utils/FileUtils"; // 추가된 부분
 
 const videoURL = '/videos/test.MOV'
 
-const toBlob = async (url: string) => {
-    const response = await fetch(url);
-    const blob = await response.blob();
-    return blob;
-};
-
-const convertVideoToBlob = async () => {
-    const blob = await toBlob(videoURL);
-    return blob;
-};
-
-const createObjectURLFromBlob = async () => {
-    const blob = await convertVideoToBlob();
-    const url = window.URL.createObjectURL(blob);
-    return url
-};
-
-const computeFileSize = async () => {
-    const blob = await convertVideoToBlob();
-    const rawSize = blob.size
-    return rawSize
-}
-
 export default function SingleVideoViewer() {
 
     let outputExtensions = 'mp4'
+    const blob = DownloadUtils.videoToBlob(videoURL)
     const [size, setSize] = useState<number>(0)
     const [url, setUrl] = useState<string>("");
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -42,11 +20,11 @@ export default function SingleVideoViewer() {
     useEffect(() => {
 
         const getSize = async () => {
-            const fileSize = await computeFileSize();
+            const fileSize = await DownloadUtils.computeFileSize(await blob);
             setSize(fileSize);
         }
         const getUrl = async () => {
-            const blobUrl = await createObjectURLFromBlob();
+            const blobUrl = await DownloadUtils.createObjectURLFromBlob(await blob);
             setUrl(blobUrl);
 
             if (videoRef.current) {
