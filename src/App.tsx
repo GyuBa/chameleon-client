@@ -3,7 +3,6 @@ import {Route, Routes} from 'react-router-dom';
 import './App.css';
 import './styles/Dropzone.css';
 import useWebSocket from "react-use-websocket";
-import {WSMessageType} from "./types/chameleon-client.enum";
 import Layout from "./components/layout/Layout";
 import Main from "./pages/Main";
 import Account from "./pages/profile/Account";
@@ -16,6 +15,7 @@ import CreateDescription from "./pages/model/create/CreateDescription";
 import SignIn from "./pages/authentication/SignIn";
 import SignUp from "./pages/authentication/SignUp";
 import CreateParameters from "./pages/model/create/CreateParameter";
+import {WSMessageType} from "./types/chameleon-platform.common";
 
 export default function App() {
     const {
