@@ -63,8 +63,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "update-entity-type": "curl https://raw.githubusercontent.com/Koreatech-Mongle/chameleon-platform/develop/src/types/chameleon-platform.entitydata.d.ts -o src/types/chameleon-client.entitydata.d.ts",
-    "update-enum-type": "curl https://raw.githubusercontent.com/Koreatech-Mongle/chameleon-platform/develop/src/types/chameleon-platform.enum.ts -o src/types/chameleon-client.enum.ts",
+    "update-common-type": "curl https://raw.githubusercontent.com/Koreatech-Mongle/chameleon-platform/develop/src/types/chameleon-platform.common.ts -o src/types/chameleon-platform.common.ts",
+    "update-platform-api": "curl https://raw.githubusercontent.com/Koreatech-Mongle/chameleon-platform/develop/src/platform/PlatformAPI.ts -o src/platform/PlatformAPI.ts",
     "fix-reloader": "sed -i 's/parsedURL.port/\"0\"/' node_modules/webpack-dev-server/client/utils/createSocketURL.js"
   },
   "eslintConfig": {
