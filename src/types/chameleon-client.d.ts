@@ -54,19 +54,4 @@ type DownloadButtonProps = {
     filename: string;
 }
 
-
-export type ModelUploadData = {
-    modelName: string;
-    inputType: string;
-    outputType: string;
-    regionName: string;
-    parameters: string;
-    file: File;
-    description: string
-}
-
-export type ModelsRequestOptions = {
-    ownOnly: boolean
-}
-
 export type {Parameter, HeaderData, DefaultButtonData, SubmitButtonData, WebSocketData, DownloadButtonProps};
