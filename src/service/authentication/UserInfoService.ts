@@ -1,6 +1,6 @@
 import {useEffect, useMemo, useState} from "react";
 import {PlatformAPI} from "../../platform/PlatformAPI";
-import {UserEntityData} from "../../types/chameleon-client.entitydata";
+import {UserEntityData} from "../../types/chameleon-platform.common";
 
 const USER_INFO_KEY = "user_info";
 const emptyUser: UserEntityData = {id: -1, username: "", email: ""};

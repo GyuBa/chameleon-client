@@ -4,13 +4,13 @@ import {Badge} from "flowbite-react";
 import MDEditor from "@uiw/react-md-editor";
 import Button from "../button/Button";
 import {PlatformAPI} from "../../platform/PlatformAPI";
-import {ModelEntityData} from "../../types/chameleon-client.entitydata";
+import {ModelEntityData} from "../../types/chameleon-platform.common";
 
 interface DescriptionProps {
-    uniqueName: string;
+    modelId: number;
 }
 
-export default function Description({uniqueName}: DescriptionProps) {
+export default function Description({modelId}: DescriptionProps) {
     const [modelData, setModelData] = useState<ModelEntityData>();
 
     useEffect(() => {
@@ -18,8 +18,8 @@ export default function Description({uniqueName}: DescriptionProps) {
 
         (async function () {
             try {
-                const model = await PlatformAPI.getModelByUniqueName(uniqueName);
-                if (!completed && model.uniqueName === uniqueName) {
+                const model = await PlatformAPI.getModelById(modelId);
+                if (!completed && model.id === modelId) {
                     setModelData(model);
                 }
             } catch (error) {
@@ -30,7 +30,7 @@ export default function Description({uniqueName}: DescriptionProps) {
         return () => {
             completed = true;
         };
-    }, [uniqueName]);
+    }, [modelId]);
 
     if (!modelData) {
         console.log("Loading...");

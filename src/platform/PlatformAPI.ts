@@ -1,37 +1,60 @@
-import axios from "axios";
-import {ModelEntityData, RegionEntityData, UserEntityData} from "../types/chameleon-client.entitydata";
-import {ModelsRequestOptions, ModelUploadData} from "../types/chameleon-client";
-import {DataUtils} from "../utils/DataUtils";
+import axios, {AxiosInstance} from 'axios';
+import {
+    HistoryEntityData,
+    ModelEntityData, ModelExecuteData,
+    ModelsRequestOptions,
+    ModelUploadData,
+    RegionEntityData,
+    UserEntityData
+} from '../types/chameleon-platform.common';
 
 export class PlatformAPI {
-    private static readonly instance = axios.create({
+    static instance: AxiosInstance = axios.create({
         baseURL: '/api/',
-        withCredentials: true,
-        timeout: 3000
+        timeout: 3000,
+        withCredentials: true
     });
     private static readonly defaultConfig = {headers: {'Content-Type': 'application/json'}};
+    private static readonly uploadConfig = {
+        ...this.defaultConfig, timeout: 0, headers: {
+            'Content-Type': 'multipart/form-data',
+        }
+    };
+
+    private static restoreTimeProperty(object: any) {
+        for (const key in object) {
+            if (object[key] && typeof object[key] === 'object') {
+                this.restoreTimeProperty(object[key]);
+            } else if (typeof object[key] === 'string' && (key.toLowerCase().endsWith('date') || key.toLowerCase().endsWith('time'))) {
+                object[key] = new Date(object[key]);
+            }
+        }
+    }
+
+    public static toFormData(data: any): FormData {
+        const formData = new FormData();
+        Object.entries(data).forEach(([name, value]: [string, any]) => formData.append(name, value));
+        return formData;
+    }
 
     public static async uploadModel(uploadData: ModelUploadData): Promise<any> {
-        const formData = new FormData();
-        Object.entries(uploadData).forEach(([name, value]) => {
-            formData.append(name, value);
-        });
-        const response = await this.instance.post('/models/upload', formData, {
-            ...this.defaultConfig, timeout: 0, headers: {
-                'Content-Type': 'multipart/form-data',
-            }
-        });
+        const response = await this.instance.post('/models/upload', this.toFormData(uploadData), this.uploadConfig);
         return response?.data;
     }
 
-    public static async getMyModels(): Promise<ModelEntityData[]> {
-        return await this.getModels({ownOnly: true});
+    public static async executeModel(executeData: ModelExecuteData): Promise<any> {
+        const response = await this.instance.post('/models/execute', this.toFormData(executeData), this.uploadConfig);
+        return response?.data;
     }
 
     public static async getModels(options?: ModelsRequestOptions): Promise<ModelEntityData[]> {
         const response = await this.instance.get('/models', {...this.defaultConfig, params: options});
-        response?.data.forEach((m: ModelEntityData) => DataUtils.restoreTimeProperty(m));
+        response?.data.forEach((m: ModelEntityData) => this.restoreTimeProperty(m));
         return response?.data as ModelEntityData[];
+    }
+
+    public static async getMyModels(): Promise<ModelEntityData[]> {
+        return await this.getModels({ownOnly: true});
     }
 
     public static async getLoginUser(): Promise<UserEntityData> {
@@ -44,10 +67,30 @@ export class PlatformAPI {
         return response?.data as RegionEntityData[];
     }
 
-    public static async getModelByUniqueName(uniqueName: string): Promise<ModelEntityData> {
-        const response = await this.instance.get(`/models/name/${uniqueName}`, {...this.defaultConfig});
-        DataUtils.restoreTimeProperty(response?.data);
+    public static async getModelByUsernameAndUniqueName(username: string, uniqueName: string): Promise<ModelEntityData> {
+        return this.getModelByNameId(username + ':' + uniqueName);
+    }
+
+    public static async getModelByNameId(nameId: string) {
+        const response = await this.instance.get(`/models/name/${nameId}`, this.defaultConfig);
+        this.restoreTimeProperty(response?.data);
         return response?.data as ModelEntityData;
+    }
+
+    public static async getModelById(modelId: number): Promise<ModelEntityData> {
+        const response = await this.instance.get(`/models/${modelId}`, this.defaultConfig);
+        this.restoreTimeProperty(response?.data);
+        return response?.data as ModelEntityData;
+    }
+
+    public static async getHistories(options?: ModelsRequestOptions): Promise<HistoryEntityData[]> {
+        const response = await this.instance.get('/histories', {...this.defaultConfig, params: options});
+        this.restoreTimeProperty(response?.data);
+        return response?.data as HistoryEntityData[];
+    }
+
+    public static async getMyHistories(options?: ModelsRequestOptions): Promise<HistoryEntityData[]> {
+        return await this.getHistories({ownOnly: true});
     }
 
     // TODO: 작업 중
