@@ -11,7 +11,7 @@ import {VscDebugStart} from "react-icons/vsc";
 import Description from "../../../components/layout/Description";
 import Header from "../../../components/layout/Header";
 import {PlatformAPI} from "../../../platform/PlatformAPI";
-import {ModelEntityData} from "../../../types/chameleon-client.entitydata";
+import {ModelEntityData} from "../../../types/chameleon-platform.common";
 import {DateUtils} from "../../../utils/DateUtils";
 
 export default function Models() {
@@ -23,7 +23,7 @@ export default function Models() {
         isDesktopOrMobile
     } = useStateContext();
     const [models, setModels] = useState<ModelEntityData[]>([]);
-    const [selectedModel, setSelectedModel] = useState<string>("");
+    const [selectedModelId, setSelectedModelId] = useState<number>(-1);
 
     useEffect(() => {
         let completed = false;
@@ -45,7 +45,7 @@ export default function Models() {
     }, []);
 
     const onModelSelect = (modelData: ModelEntityData) => {
-        setSelectedModel(modelData?.uniqueName);
+        setSelectedModelId(modelData.id);
     };
 
 
@@ -174,10 +174,10 @@ export default function Models() {
                 {currentLayout === "GridLayout" ? <GridLayout/> : <ListLayout/>}
             </div>
         </div>
-        {selectedModel ?
-            <div className="w-2/6 ease-in-out duration-300 translate-x-0"><Description uniqueName={selectedModel}/></div>
+        {selectedModelId > 0 ?
+            <div className="w-2/6 ease-in-out duration-300 translate-x-0"><Description modelId={selectedModelId}/></div>
             :
-            <div className="w-0 ease-in-out duration-300 translate-x-full hidden"><Description uniqueName={selectedModel}/></div>
+            <div className="w-0 ease-in-out duration-300 translate-x-full hidden"><Description modelId={selectedModelId}/></div>
         }
     </div>
   );
