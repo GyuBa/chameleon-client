@@ -32,10 +32,6 @@ export default function Description({modelId}: DescriptionProps) {
         };
     }, [modelId]);
 
-    if (!modelData) {
-        console.log("Loading...");
-    } else console.log(modelData);
-
     return (
         <div className="contents">
             <div className="m-2 md:my-10 mt-24 p-2 md:pr-5 md:py-10 bg-white rounded-3xl">
