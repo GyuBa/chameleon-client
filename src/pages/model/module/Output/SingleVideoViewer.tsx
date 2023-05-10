@@ -36,18 +36,19 @@ export default function SingleVideoViewer() {
 
     return (
         <div>
-            <div className="py-2 flex justify-between items-center space-x-3 border-b">
-                <p className="text-xl font-bold">Output</p>
-                <div className="flex items-center rounded-full hover:bg-light-gray focus:bg-gray">
-                    <BiDownload size="25" color="#484848" className="pl-1"/>
-                    <SubmitButton text="Download" className="float-end btn-sm info" onClick={async () => {
-                        DownloadUtils.download(videoURL, 'test');
-                    }}></SubmitButton>
+            <div className="pb-1 flex justify-between items-center border-b">
+                <p className="text-xl font-semibold">Output</p>
+                <div className="flex items-center rounded-lg hover:bg-light-gray focus:bg-gray">
+                    <BiDownload size="20" color="#484848" className="pl-1"/>
+                    <SubmitButton text="Download" className="text-sm"
+                                  onClick={async () => {DownloadUtils.download(videoURL, 'test');}}></SubmitButton>
                 </div>
             </div>
-            <p className="px-2 pt-2">Output Format : {extension} </p>
-            <p className="px-2 pt-2">Size : {FileUtils.formatBytes(fileSize)} </p>
-            <video src={videoURL} className="video-js vjs-classic-skin" controls autoPlay={false} ref={videoRef}/>
+            <div className="overflow-y-auto max-h-[352px]">
+                <p className="px-2 pt-2">Output Format : {extension} </p>
+                <p className="px-2 pt-2">Size : {FileUtils.formatBytes(fileSize)} </p>
+                <video src={videoURL} className="video-js vjs-classic-skin" controls autoPlay={false} ref={videoRef}/>
+            </div>
         </div>
     );
 }

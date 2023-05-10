@@ -98,13 +98,13 @@ export default function ExecuteModel() {
                     <Link to="/models/all"><Button className="color-btn text-sm w-full p-1.5" text="back"/></Link>
                 </div>
                 <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
-                    <div className="overflow-auto row-span-2 md:p-2 rounded-lg border-1 border-gray-300">
+                    <div className="row-span-2 md:p-2 rounded-lg border-1 border-gray-300 overflow-auto">
                         <div className="flex space-x-3 border-b">
                             {executeParam.map((tab, idx) => {
                                 return (
                                     <button
                                         key={idx}
-                                        className={`py-2 border-b-4 transition-colors duration-300 ${
+                                        className={`text-xl font-semibold pb-2 border-b-4 transition-colors duration-300 ${
                                             idx === activeTabIndex
                                                 ? "border-teal-500"
                                                 : "border-transparent hover:border-gray-200"
@@ -115,7 +115,7 @@ export default function ExecuteModel() {
                                 );
                             })}
                         </div>
-                        <div className="tab-content tab-space">
+                        <div className="tab-content tab-space overflow-y-auto max-h-[212px]">
                             <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
                                 <JsonForms
                                     schema={schema}
@@ -134,18 +134,18 @@ export default function ExecuteModel() {
                         </div>
                     </div>
                     <div className="row-span-2 md:p-2 rounded-lg border-1 border-gray-300 overflow-auto">
-                        <div className="flex justify-between items-center">
-                            <p className="text-xl font-bold">Input Upload</p>
+                        <div className="pb-1 flex justify-between items-center border-b">
+                            <p className="text-xl font-semibold">Input Upload</p>
                             <div className="flex items-center gap-4">
-                              <SubmitButton onClick={removeFile} text="remove"
+                                <SubmitButton onClick={removeFile} text="remove"
                                             className="text-sm py-1 px-1.5 border border-gray border-solid
                                               rounded-md hover:border-black"/>
-                              <SubmitButton onClick={handleSubmit} text="submit"
+                                <SubmitButton onClick={handleSubmit} text="submit"
                                             className="text-sm py-1 px-1.5 border border-gray border-solid
                                               rounded-md hover:border-black"/>
                             </div>
                         </div>
-                        <div className="overflow-auto max-h-52 h-full">
+                        <div className="overflow-auto max-h-[217px] h-full">
                             <section className="container h-full">
                                 <div {...getRootProps()}
                                     className={hideDrop ? "hidden" : "dropzone cursor-pointer justify-center"}>
