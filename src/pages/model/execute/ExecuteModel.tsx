@@ -10,6 +10,7 @@ import {JsonViewer} from "@textea/json-viewer";
 import Button from "../../../components/button/Button";
 import Header from "../../../components/layout/Header";
 import SubmitButton from "../../../components/button/SubmitButton";
+import * as zip from "@zip.js/zip.js";
 
 type IFile = File & { preview?: string };
 const initialData = {};
@@ -22,6 +23,24 @@ export default function ExecuteModel() {
     const schema = location.state.schema
     const uischema = location.state.uischema
     const [hideDrop, setHideDrop] = useState<boolean>(false);
+
+    getZipFileBlob().then(downloadFile);
+
+    async function getZipFileBlob() {
+        const zipWriter = new zip.ZipWriter(new zip.BlobWriter("application/zip"));
+        await Promise.all([
+            zipWriter.add("hello.txt", new zip.TextReader("Hello World!"))
+        ]);
+        return zipWriter.close();
+    }
+
+    function downloadFile(blob: any) {
+        document.body.appendChild(Object.assign(document.createElement("a"), {
+            download: "hello.zip",
+            href: URL.createObjectURL(blob),
+            textContent: "Download",
+        }));
+    }
 
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
         accept: {'*/*': []},
