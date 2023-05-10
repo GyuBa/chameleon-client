@@ -1,4 +1,4 @@
-import {Table} from "flowbite-react";
+import {Badge, Table} from "flowbite-react";
 import {historyColumn} from "../../assets/Dummy";
 import React from "react";
 import {HistoryEntityData} from "../../types/chameleon-platform.common";
@@ -9,12 +9,12 @@ type HistoryRow = {
 }
 
 function getStatusColor(status: string){
-    if (status == 'cached') return '#ffff33'
-    if (status == 'initializing') return '#ffffff'
-    if (status == 'running') return '#00cc66'
-    if (status == 'error') return '#ff6666'
-    if (status == 'finished') return '#0080ff'
-    else return '#ff0000'
+    if (status == 'cached') return 'gray'
+    if (status == 'initializing') return 'info'
+    if (status == 'running') return 'success'
+    if (status == 'error') return 'failure'
+    if (status == 'finished') return 'indigo'
+    else return 'pink'
 }
 
 export function HistoryList({rows}: HistoryRow) {
@@ -34,7 +34,9 @@ export function HistoryList({rows}: HistoryRow) {
                             <Table.Cell>{'data'}</Table.Cell>
                             <Table.Cell>{'date'}</Table.Cell>
                             <Table.Cell>{'executor'}</Table.Cell>
-                            <Table.Cell>{row.status}</Table.Cell>
+                            <Table.Cell>
+                                <div className="flex"><Badge color="purple">{row.status}</Badge></div>
+                            </Table.Cell>
                         </Table.Row>
                     ))}
                 </Table.Body>

@@ -9,7 +9,7 @@ const Dummy = [
         "id": 197,
         "createdTime": "2023-05-09T14:35:42.311Z",
         "updatedTime": "2023-05-09T14:35:43.000Z",
-        "status": "finished",
+        "status": "running",
         "inputPath": "uploads\\inputs\\2e73dccbc4cef6ce93240780a5943b0a",
         "inputInfo": {
             "size": 84954,
