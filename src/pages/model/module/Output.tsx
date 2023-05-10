@@ -12,7 +12,7 @@ export default function OutputModule() {
     return (
         <div className="row-span-3 col-span-2 md:p-2 rounded-lg overflow-scroll border-1 border-gray-300 overflow-auto">
                 <div>
-                    {Module && <Module/>}
+                    {Module ? <Module/> : <></>}
                 </div>
         </div>
     );

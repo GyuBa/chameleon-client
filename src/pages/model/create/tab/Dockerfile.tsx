@@ -35,13 +35,7 @@ export default function Dockerfile() {
 
     const handleClick = () => {
         navigate("/models/create/description", {
-            state: {
-                files: files,
-                modelName: modelName,
-                inputType: inputType,
-                outputType: outputType,
-                regionName: regionName,
-            },
+            state: {files, modelName, inputType, outputType, regionName}
         });
     };
 
