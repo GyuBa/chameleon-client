@@ -170,7 +170,7 @@ export default function CreateModelTab(number: number) {
                             className="py-5 rounded border border-solid border-gray-300 text-center item-center">
                             <img style={{width: '60px'}} alt="img"
                                  className="object-cover w-full inline-block align-middle" src={tabsData[number].img}/>
-                            <section className="container">
+                            <section className="container max-w-full">
                                 <div {...getRootProps()}
                                      className={hideDrop ? "hidden" : "dropzone cursor-pointer"}>
                                     <input {...getInputProps()} />
