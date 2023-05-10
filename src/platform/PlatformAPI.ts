@@ -115,9 +115,4 @@ export class PlatformAPI {
         const response = await this.instance.post('/points/update', {amount}, this.defaultConfig);
         return response?.data;
     }
-    // TODO: apply path
-    public static async getHistories() {
-        const response = await this.instance.get('', this.defaultConfig);
-        return response?.data;
-    }
 }
