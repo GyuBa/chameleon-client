@@ -145,16 +145,18 @@ export default function ExecuteModel() {
                                               rounded-md hover:border-black"/>
                             </div>
                         </div>
-                        <section className="container">
-                            <div {...getRootProps()}
-                                 className={hideDrop ? "hidden" : "dropzone cursor-pointer"}>
-                                <input {...getInputProps()}/>
-                                <p className="inline-block px-1 text-gray-500 hover:text-gray-700">
-                                    Drag & drop some files here, or click to select files</p>
-                            </div>
-                            <aside className="px-5 py-2 w-48">{thumbs}</aside>
-                            <ul className="px-5 pb-5 pt-2">{acceptedFileItems}</ul>
-                        </section>
+                        <div className="overflow-auto max-h-52 h-full">
+                            <section className="container h-full">
+                                <div {...getRootProps()}
+                                    className={hideDrop ? "hidden" : "dropzone cursor-pointer"}>
+                                    <input {...getInputProps()}/>
+                                    <p className="inline-block px-1 text-gray-500 hover:text-gray-700">
+                                        Drag & drop some files here, or click to select files</p>
+                                </div>
+                                <aside className="px-5 py-2 w-48">{thumbs}</aside>
+                                <ul className="px-5 py-2">{acceptedFileItems}</ul>
+                            </section>
+                        </div>
                     </div>
                     <OutputModule/>
                     <OutputDescriptionModule/>

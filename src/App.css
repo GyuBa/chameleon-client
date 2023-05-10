@@ -18,25 +18,25 @@
 .color-btn {
   background-color: #1E4DB7;
   color: white;
-  border-radius: 10px;
+  border-radius: 7px;
 }
 
 .white-btn {
   background-color: white;
   color: black;
-  border-radius: 10px;
+  border-radius: 7px;
 }
 
 .black-btn {
   background-color: black;
   color: white;
-  border-radius: 10px;
+  border-radius: 7px;
 }
 
 .disabled-btn {
   background-color: lightgray;
   color: white;
-  border-radius: 10px;
+  border-radius: 7px;
 }
 
 @media screen and (max-width: 800px) {

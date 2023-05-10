@@ -219,7 +219,6 @@ export default function CreateParameters() {
                                             ? "border-teal-500"
                                             : "border-transparent hover:border-gray-200"
                                     }`}
-                                    // Change the active tab on click.
                                     onClick={() => setActiveOutTabIndex(idx)}>
                                     {tab.label}
                                 </button>
@@ -282,7 +281,6 @@ export default function CreateParameters() {
                                                                 ? "border-teal-500"
                                                                 : "border-transparent hover:border-gray-200"
                                                         }`}
-                                                        // Change the active tab on click.
                                                         onClick={() => setActiveInTabIndex(idx)}>
                                                         {tab.label}
                                                     </button>
