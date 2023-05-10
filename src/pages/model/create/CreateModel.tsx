@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {tabsData} from "../../../assets/Dummy"
-import CreateModelTab from "./tab/CreateModelTab";
+import Tarfile from "./tab/TarFile"
+import Dockerfile from "./tab/Dockerfile";
 
 export default function CreateModel() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -27,10 +28,10 @@ export default function CreateModel() {
                     </div>
                     <div className="tab-content tab-space">
                         <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
-                            {CreateModelTab(0)}
+                            <Tarfile/>
                         </div>
                         <div className={activeTabIndex === 1 ? "block" : "hidden"} id="link2">
-                            {CreateModelTab(1)}
+                            <Dockerfile/>
                         </div>
                     </div>
                 </div>

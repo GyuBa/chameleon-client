@@ -194,7 +194,7 @@ export const userUISchema = {
     ]
 };
 
-export const exparamTab = [
+export const executeParam = [
     {
         label: "Parameters",
     },
