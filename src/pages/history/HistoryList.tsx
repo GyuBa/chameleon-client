@@ -13,7 +13,7 @@ function getStatusColor(status: string){
     if (status == 'initializing') return '#ffffff'
     if (status == 'running') return '#00cc66'
     if (status == 'error') return '#ff6666'
-    if (status == 'finished') return '#3333ff'
+    if (status == 'finished') return '#0080ff'
     else return '#ff0000'
 }
 
