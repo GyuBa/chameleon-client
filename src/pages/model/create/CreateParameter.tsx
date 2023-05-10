@@ -207,7 +207,7 @@ export default function CreateParameters() {
 
     return (
         <div className="contents">
-            <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+            <div className="w-full m-2 md:my-7 md:mx-10 mt-12">
                 <div>
                     <div className="flex space-x-3 border-b">
                         {createParam.map((tab, idx) => {

@@ -30,8 +30,11 @@ export default function CreateDescription() {
 
     return (
         <div className="contents">
-            <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-                <div className="flex justify-between items-center">
+            <div className="w-full m-2 md:my-7 md:mx-10 mt-12">
+                <div className="flex space-x-3 border-b">
+                    <div className="py-2 border-b-4 transition-colors duration-300 border-teal-500">Model Description</div>
+                </div>
+                <div className="py-4 flex justify-between items-center">
                     <Header title="Model Description"/>
                     <div className="flex gap-3 float-right">
                         <Link to="/models/create">
@@ -40,8 +43,8 @@ export default function CreateDescription() {
                         <SubmitButton onClick={handleClick} className="color-btn w-16" text="next"/>
                     </div>
                 </div>
-                <div data-color-mode="light" className="container pt-4 max-w-full">
-                    <MDEditor value={description} onChange={setDescription}/>
+                <div data-color-mode="light" className="container pt-5 max-w-full">
+                    <MDEditor value={description} onChange={setDescription} height={500}/>
                 </div>
             </div>
         </div>
