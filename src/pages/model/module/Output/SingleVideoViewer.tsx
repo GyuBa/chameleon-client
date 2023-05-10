@@ -7,7 +7,7 @@ import '../../../../styles/custom-video-js.css';
 import {FileUtils} from "../../../../utils/FileUtils";
 import {DownloadUtils} from "../../../../utils/DownloadUtils"
 
-const videoURL = '/videos/test.MOV'
+const videoURL = '/videos/video.mp4'
 
 export default function SingleVideoViewer() {
 

@@ -4,7 +4,7 @@ import { BiDownload } from "react-icons/bi";
 import { DownloadUtils } from "../../../../utils/DownloadUtils";
 import { FileUtils } from "../../../../utils/FileUtils";
 
-const imageURL = '/logo192.png'
+const imageURL = '/images/image.png'
 
 export default function SingleImageViewer() {
     const extension = imageURL.split('.').pop();
