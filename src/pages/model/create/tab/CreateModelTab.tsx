@@ -167,18 +167,18 @@ export default function CreateModelTab(number: number) {
                     <div className="mb-3">
                         <h1 className="md:py-5 text-xl font-bold">File Upload</h1>
                         <div
-                            className="py-5 rounded border border-solid border-gray-300 text-center item-center">
-                            <img style={{width: '60px'}} alt="img"
+                            className="py-2 rounded border border-solid border-gray-300 text-center item-center">
+                            <img style={{width: '60px', height: '70px'}} alt="img"
                                  className="object-cover w-full inline-block align-middle" src={tabsData[number].img}/>
-                            <section className="container max-w-full">
+                            <section className="container h-full">
                                 <div {...getRootProps()}
                                      className={hideDrop ? "hidden" : "dropzone cursor-pointer"}>
                                     <input {...getInputProps()} />
                                     <p className="inline-block px-1 text-gray-500 hover:text-gray-700">
                                         Drag & drop some files here, or click to select files</p>
                                 </div>
-                                <ul className="px-5 pb-5 pt-2">{acceptedFileItems}</ul>
-                                <div className="pr-3">
+                                <ul className={hideDrop ? "px-5 pb-5 pt-2" : "hidden"}>{acceptedFileItems}</ul>
+                                <div className="pt-2 pr-3">
                                     <SubmitButton onClick={removeFile} text="remove"
                                                   className="float-right text-sm py-1 px-1.5 border border-gray border-solid
                                 rounded-md hover:border-black"/>
