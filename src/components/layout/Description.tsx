@@ -54,7 +54,7 @@ export default function Description({modelId}: DescriptionProps) {
                         <p>{modelData?.name}</p>
                     </div>
                     <div className="flex my-2 items-center">
-                        <p className="text-lg font-bold">Model Developer:ㅤ</p>
+                        <p className="text-lg font-bold">Model Register:ㅤ</p>
                         <p>{modelData?.register?.username}</p>
                     </div>
                     <div className="flex my-2 items-center">
