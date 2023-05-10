@@ -7,7 +7,7 @@ export default function ChangePassword() {
     return (
         <div className="contents">
             <div className="w-3/5 m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-                <Header category="" title="Change Password"/>
+                <Header title="Change Password"/>
                 <p className="m-2 text-sm text-gray-500 whitespace-nowrap">* 숫자+영문자+특수문자 조합으로 8자리 이상</p>
                 <p className="m-2 text-sm text-gray-500 whitespace-nowrap">* More than 8 of digits Number + English + Special Characters</p>
                 <div className="m-4">

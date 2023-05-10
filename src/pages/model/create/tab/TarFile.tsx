@@ -96,7 +96,7 @@ export default function TarFile() {
         <div className="py-4">
             <div className="flex justify-between items-center">
                 <div className="flex items-end">
-                    <Header category="" title="Model Info"/>
+                    <Header title="Model Info"/>
                     <h1 className="mx-2 text-gray-500">{tabsData[0].label}</h1>
                 </div>
                 <div className="flex gap-3 float-right">

@@ -32,7 +32,7 @@ export default function CreateDescription() {
         <div className="contents">
             <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
                 <div className="flex justify-between items-center">
-                    <Header category="" title="Model Description"/>
+                    <Header title="Model Description"/>
                     <div className="flex gap-3 float-right">
                         <Link to="/models/create">
                             <Button className="white-btn w-16 p-2" text="back"/>

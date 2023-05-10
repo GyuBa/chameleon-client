@@ -110,7 +110,7 @@ export default function Payment() {
     return (
         <div className="contents">
             <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-                <Header category="Payment" title="Charge Points"/>
+                <Header title="Charge Points"/>
                 <div className="my-4 border-gray-400 rounded-3xl border-1 p-6 grid grid-cols-3 divide-x">
                     <div className="text-center">
                         <img className="card-img-top" width="400" height="700" src={kakao} alt="kakao"/>

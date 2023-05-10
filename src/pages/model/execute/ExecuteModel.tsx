@@ -94,7 +94,7 @@ export default function ExecuteModel() {
         <div className="contents">
             <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
                 <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
-                    <Header category="" title="Model01"/>
+                    <Header title="Model"/>
                     <Link to="/models/all"><Button className="color-btn text-sm w-full p-1.5" text="back"/></Link>
                 </div>
                 <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">

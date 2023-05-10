@@ -227,7 +227,7 @@ export default function CreateParameters() {
                     </div>
                     <div className="py-4 flex justify-between items-center">
                         <div className="flex items-center">
-                            <Header category="" title="Model Parameter"/>
+                            <Header title="Model Parameter"/>
                             <h1 className="mx-2 text-gray-500">JSONForms</h1>
                         </div>
                         <div className="flex gap-3 float-right">

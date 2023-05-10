@@ -158,7 +158,7 @@ export default function Models() {
         <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
             <div className="flex justify-between items-center">
                 <div className="flex">
-                    <Header category="" title="Models"/>
+                    <Header title="Models"/>
                     <button onClick={() => setCurrentLayout("GridLayout")} type="button"
                             className={`ml-2 mr-1 text-xl rounded-full p-2 hover:bg-light-gray focus:bg-gray ${currentLayout === "GridLayout" ? "bg-light-gray" : null}`}>
                         {<HiViewGrid size="21" className="text-gray-500"/>}
