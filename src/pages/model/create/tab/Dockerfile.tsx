@@ -6,7 +6,7 @@ import Button from "../../../../components/button/Button";
 import SubmitButton from "../../../../components/button/SubmitButton";
 import Header from "../../../../components/layout/Header";
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
-import {RegionEntityData} from "../../../../types/chameleon-client.entitydata";
+import {RegionEntityData} from "../../../../types/chameleon-platform.common";
 
 type IFile = File & { preview?: string };
 
