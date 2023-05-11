@@ -29,7 +29,7 @@ export default function SingleTextViewer() {
                 <div className="flex items-center rounded-lg hover:bg-light-gray focus:bg-gray">
                     <BiDownload size="20" color="#484848" className="pl-1"/>
                     <SubmitButton text="Download" className="text-sm"
-                                  onClick={async () => {DownloadUtils.download(url, 'test');}}></SubmitButton>
+                                  onClick={() => DownloadUtils.download(url, 'test')}/>
                 </div>
             </div>
             <div className="overflow-y-auto max-h-[352px]">

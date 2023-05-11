@@ -41,7 +41,7 @@ export default function SingleVideoViewer() {
                 <div className="flex items-center rounded-lg hover:bg-light-gray focus:bg-gray">
                     <BiDownload size="20" color="#484848" className="pl-1"/>
                     <SubmitButton text="Download" className="text-sm"
-                                  onClick={async () => {DownloadUtils.download(videoURL, 'test');}}></SubmitButton>
+                                  onClick={() => DownloadUtils.download(videoURL, 'test')}/>
                 </div>
             </div>
             <div className="overflow-y-auto max-h-[352px]">
