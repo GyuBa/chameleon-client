@@ -207,7 +207,7 @@ export default function CreateParameters() {
 
     return (
         <div className="contents">
-            <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+            <div className="w-full m-2 md:my-7 md:mx-10 mt-12">
                 <div>
                     <div className="flex space-x-3 border-b">
                         {createParam.map((tab, idx) => {
@@ -219,7 +219,6 @@ export default function CreateParameters() {
                                             ? "border-teal-500"
                                             : "border-transparent hover:border-gray-200"
                                     }`}
-                                    // Change the active tab on click.
                                     onClick={() => setActiveOutTabIndex(idx)}>
                                     {tab.label}
                                 </button>
@@ -228,7 +227,7 @@ export default function CreateParameters() {
                     </div>
                     <div className="py-4 flex justify-between items-center">
                         <div className="flex items-center">
-                            <Header category="" title="Model Parameter"/>
+                            <Header title="Model Parameter"/>
                             <h1 className="mx-2 text-gray-500">JSONForms</h1>
                         </div>
                         <div className="flex gap-3 float-right">
@@ -282,7 +281,6 @@ export default function CreateParameters() {
                                                                 ? "border-teal-500"
                                                                 : "border-transparent hover:border-gray-200"
                                                         }`}
-                                                        // Change the active tab on click.
                                                         onClick={() => setActiveInTabIndex(idx)}>
                                                         {tab.label}
                                                     </button>
