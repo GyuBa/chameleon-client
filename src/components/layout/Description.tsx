@@ -32,15 +32,11 @@ export default function Description({modelId}: DescriptionProps) {
         };
     }, [modelId]);
 
-    if (!modelData) {
-        console.log("Loading...");
-    } else console.log(modelData);
-
     return (
         <div className="contents">
-            <div className="m-2 md:my-10 mt-24 p-2 md:pr-5 md:py-10 bg-white rounded-3xl overflow-auto">
+            <div className="m-2 md:my-10 mt-24 p-2 md:pr-5 md:py-10">
                 <div
-                    className="flex justify-between items-center pb-6 border-b-1 border-gray-300 overflow-auto overflow-scroll max-h-screen">
+                    className="flex justify-between items-center pb-6 border-b-1 border-gray-300 overflow-auto max-h-screen">
                     <p className="text-3xl font-extrabold tracking-tight text-slate-900">{modelData?.name}</p>
                     <div className="flex gap-2">
                         <Link to="/models/execute" state={{}}>
@@ -54,7 +50,7 @@ export default function Description({modelId}: DescriptionProps) {
                         <p>{modelData?.name}</p>
                     </div>
                     <div className="flex my-2 items-center">
-                        <p className="text-lg font-bold">Model Developer:ㅤ</p>
+                        <p className="text-lg font-bold">Model Register:ㅤ</p>
                         <p>{modelData?.register?.username}</p>
                     </div>
                     <div className="flex my-2 items-center">

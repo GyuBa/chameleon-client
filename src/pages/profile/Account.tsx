@@ -28,8 +28,8 @@ export default function Account() {
 
   return (
     <div className="contents">
-      <div className="w-2/3 m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-        <Header category="Account" title="Account"/>
+      <div className="w-2/3 m-2 md:m-10 mt-24 md:p-10">
+        <Header title="Account"/>
         <div className="my-4 border-gray-400 rounded-3xl border-1 p-6">
           <p className="text-xs text-gray-600 mb-1 pb-2">User Info</p>
           <div className="flex items-center">

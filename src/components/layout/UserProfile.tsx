@@ -11,7 +11,7 @@ export default function UserProfile() {
     const {username, email} = useGetUserInfo();
 
     return (
-        <div className="nav-item absolute right-1 top-16 bg-white p-8 rounded-lg w-96">
+        <div className="nav-item absolute right-1 top-12 bg-white p-8 rounded-3xl w-96">
             <div className="flex justify-between items-center">
                 <p className="font-semibold text-lg">User Profile</p>
                 <Button style={{color: "rgb(153, 171, 180)", borderRadius: "50%"}}
