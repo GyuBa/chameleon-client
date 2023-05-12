@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {useDropzone} from 'react-dropzone';
+import React, {useState} from 'react';
 import {Link, useLocation} from "react-router-dom";
+import InputModule from "../module/Input"
 import OutputModule from "../module/Output"
 import OutputDescriptionModule from "../module/OutputDescription"
 import {executeParam} from "../../../assets/Dummy";
@@ -9,105 +9,16 @@ import {JsonForms} from "@jsonforms/react";
 import {JsonViewer} from "@textea/json-viewer";
 import Button from "../../../components/button/Button";
 import Header from "../../../components/layout/Header";
-import SubmitButton from "../../../components/button/SubmitButton";
-import * as zip from "@zip.js/zip.js";
 
-type IFile = File & { preview?: string };
 const initialData = {};
 
 export default function ExecuteModel() {
-    const [files, setFiles] = useState<IFile[]>([]);
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const [data, setData] = useState(initialData);
     const location = useLocation();
-    const schema = location.state.schema
-    const uischema = location.state.uischema
-    const [hideDrop, setHideDrop] = useState<boolean>(false);
-
-    getZipFileBlob().then(downloadFile);
-
-    async function getZipFileBlob() {
-        const zipWriter = new zip.ZipWriter(new zip.BlobWriter("application/zip"));
-        await Promise.all([
-            zipWriter.add("hello.txt", new zip.TextReader("Hello World!"))
-        ]);
-        return zipWriter.close();
-    }
-
-    function downloadFile(blob: any) {
-        document.body.appendChild(Object.assign(document.createElement("a"), {
-            download: "hello.zip",
-            href: URL.createObjectURL(blob),
-            textContent: "Download",
-        }));
-    }
-
-    const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
-        accept: {'*/*': []},
-        onDrop: async acceptedFiles => {
-            setHideDrop(true);
-            acceptedFiles = acceptedFiles.slice(0, 1);
-            setFiles(acceptedFiles.map(file => Object.assign(file, {
-                preview: URL.createObjectURL(file)
-            })));
-        }
-    });
-
-    const removeFile = () => {
-        setFiles([]);
-        setHideDrop(false);
-    }
-
-    const acceptedFileItems = acceptedFiles.map(file => (
-        <li key={file.name}>
-            {file.name} - {file.size} bytes{" "}
-        </li>
-    ));
-
-    const thumbs = files.map(file => (
-        <div key={file.name}>
-            <img className="block w-auto h-full"
-                 src={file.preview}
-                 alt="file"
-                 onLoad={() => {
-                     URL.revokeObjectURL(file.preview as string)
-                 }}
-            />
-        </div>
-    ));
-
-    useEffect(() => {
-        return () => files.forEach(file => URL.revokeObjectURL(file.preview as string));
-    });
-
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
-        const data = new FormData();
-        for (const file of acceptedFiles) {
-            console.log(file);
-            data.append('files', file, file.name);
-        }
-
-        // TODO: 미사용으로 인한 주석 처리, 다른 구조로 수정 필요
-        /*// TODO: Input Upload 경로 수정 필요
-        try {
-            const response = await instance.post('/upload', data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-            // TODO: status 설정
-            if (response.data.status === 'success') {
-            } else {
-                setFiles([]);
-                setHideDrop(false);
-            }
-        } catch (error) {
-            setFiles([]);
-            setHideDrop(false);
-        }*/
-    }
+    const modelData = location.state.modelData;
+    const schema = modelData?.parameters.schema;
+    const uiSchema = modelData?.parameters.uiSchema
 
     return (
         <div className="contents">
@@ -138,7 +49,7 @@ export default function ExecuteModel() {
                             <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
                                 <JsonForms
                                     schema={schema}
-                                    uischema={uischema}
+                                    uischema={uiSchema}
                                     data={data}
                                     renderers={materialRenderers}
                                     cells={materialCells}
@@ -152,35 +63,7 @@ export default function ExecuteModel() {
                             </div>
                         </div>
                     </div>
-                    <div className="row-span-2 md:p-2 rounded-lg border-1 border-gray-300 overflow-auto">
-                        <div className="pb-1 flex justify-between items-center border-b">
-                            <p className="text-xl font-semibold">Input Upload</p>
-                            <div className="flex items-center gap-4">
-                                <SubmitButton onClick={removeFile} text="remove"
-                                            className="text-sm py-1 px-1.5 border border-gray border-solid
-                                              rounded-md hover:border-black"/>
-                                <SubmitButton onClick={handleSubmit} text="submit"
-                                            className="text-sm py-1 px-1.5 border border-gray border-solid
-                                              rounded-md hover:border-black"/>
-                            </div>
-                        </div>
-                        <div className="overflow-auto max-h-[217px] h-full">
-                            <section className="container h-full">
-                                <div {...getRootProps()}
-                                    className={hideDrop ? "hidden" : "dropzone cursor-pointer justify-center"}>
-                                    <input {...getInputProps()}/>
-                                    <p className="inline-block px-1 text-gray-500 hover:text-gray-700">
-                                        Drag & drop some files here, or click to select files</p>
-                                </div>
-                                {hideDrop && (
-                                    <div>
-                                        <aside className="px-5 py-2 w-48">{thumbs}</aside>
-                                        <ul className="px-5 py-2">{acceptedFileItems}</ul>
-                                    </div>
-                                )}
-                            </section>
-                        </div>
-                    </div>
+                    {InputModule(modelData)}
                     <OutputModule/>
                     <OutputDescriptionModule/>
                 </div>
