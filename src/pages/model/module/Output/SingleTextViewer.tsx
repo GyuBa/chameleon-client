@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
-import SubmitButton from "../../../../components/button/SubmitButton"
-import {testtext} from "../../../../assets/Dummy"
+import SubmitButton from "../../../../components/button/SubmitButton";
+import {testtext} from "../../../../assets/Dummy";
 import {BiDownload} from "react-icons/bi";
 import {DownloadUtils} from "../../../../utils/DownloadUtils";
 import {FileUtils} from "../../../../utils/FileUtils";
 
 export default function SingleTextViewer() {
-    let outputExtensions = 'text'
+    let outputExtensions = 'text';
     const [text, setText] = useState<string>("");
 
     useEffect(() => {
@@ -15,12 +15,12 @@ export default function SingleTextViewer() {
             setText(text);
         }
         getText();
-    })
+    });
 
     const file = new File([testtext], "text.txt", {type: "text/plain"});
     const blob = new Blob([file], {type: "text/plain"});
     const url = window.URL.createObjectURL(blob);
-    const size = blob.size
+    const size = blob.size;
 
     return (
         <div>
@@ -29,7 +29,7 @@ export default function SingleTextViewer() {
                 <div className="flex items-center rounded-lg hover:bg-light-gray focus:bg-gray">
                     <BiDownload size="20" color="#484848" className="pl-1"/>
                     <SubmitButton text="Download" className="text-sm"
-                                  onClick={async () => {DownloadUtils.download(url, 'test');}}></SubmitButton>
+                                  onClick={() => DownloadUtils.download(url, 'test')}/>
                 </div>
             </div>
             <div className="overflow-y-auto max-h-[352px]">

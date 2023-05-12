@@ -4,7 +4,7 @@ import { BiDownload } from "react-icons/bi";
 import { DownloadUtils } from "../../../../utils/DownloadUtils";
 import { FileUtils } from "../../../../utils/FileUtils";
 
-const imageURL = '/images/image.png'
+const imageURL = '/images/image.png';
 
 export default function SingleImageViewer() {
     const extension = imageURL.split('.').pop();
@@ -13,7 +13,7 @@ export default function SingleImageViewer() {
     fetch(imageURL)
         .then((response) => {
             const Size = response.headers.get('Content-Length');
-            setFileSize(Number(Size))
+            setFileSize(Number(Size));
         })
         .catch((error) => console.error(error));
 
@@ -24,7 +24,7 @@ export default function SingleImageViewer() {
                 <div className="flex items-center rounded-lg hover:bg-light-gray focus:bg-gray">
                     <BiDownload size="20" color="#484848" className="pl-1"/>
                     <SubmitButton text="Download" className="text-sm"
-                        onClick={async() => {DownloadUtils.download(imageURL, 'image.png');}}></SubmitButton>
+                        onClick={() => DownloadUtils.download(imageURL, 'image.png')}/>
                 </div>
             </div>
             <div className="overflow-y-auto max-h-[352px]">
