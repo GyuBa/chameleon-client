@@ -39,7 +39,7 @@ export default function Description({modelId}: DescriptionProps) {
                     className="flex justify-between items-center pb-6 border-b-1 border-gray-300 overflow-auto max-h-screen">
                     <p className="text-3xl font-extrabold tracking-tight text-slate-900">{modelData?.name}</p>
                     <div className="flex gap-2">
-                        <Link to="/models/execute" state={{}}>
+                        <Link to="/models/execute" state={{model : modelData}}>
                             <Button className="color-btn text-sm w-full p-1.5" text="start"/>
                         </Link>
                     </div>
