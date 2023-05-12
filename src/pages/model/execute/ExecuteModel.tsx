@@ -9,28 +9,16 @@ import {JsonForms} from "@jsonforms/react";
 import {JsonViewer} from "@textea/json-viewer";
 import Button from "../../../components/button/Button";
 import Header from "../../../components/layout/Header";
-import EmptyInputUploader from "../module/Input/EmptyInputUploader";
-import SingleInputUploader from "../module/Input/SingleInputUploader";
 
 const initialData = {};
 
 export default function ExecuteModel() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
-    const [parameter, setParameter] = useState(initialData);
+    const [data, setData] = useState(initialData);
     const location = useLocation();
     const modelData = location.state.modelData;
     const schema = modelData?.parameters.schema;
     const uiSchema = modelData?.parameters.uiSchema
-
-    const modules = [EmptyInputUploader, SingleInputUploader];
-    let target : string;
-    let inputType = modelData?.inputType;
-    if (inputType === "none")
-        target = 'EmptyInputUploader';
-    else
-        target = "SingleInputUploader";
-    let Module = modules.find(m => m.name === target);
-
 
     return (
         <div className="contents">
@@ -62,20 +50,20 @@ export default function ExecuteModel() {
                                 <JsonForms
                                     schema={schema}
                                     uischema={uiSchema}
-                                    data={parameter}
+                                    data={data}
                                     renderers={materialRenderers}
                                     cells={materialCells}
                                     onChange={({data}) => {
-                                        setParameter(data);
+                                        setData(data);
                                     }}
                                 />
                             </div>
                             <div className={activeTabIndex === 1 ? "block" : "hidden"} id="link2">
-                                <JsonViewer value={parameter ? parameter : {}}/>
+                                <JsonViewer value={data ? data : {}}/>
                             </div>
                         </div>
                     </div>
-                    {InputModule(parameter, modelData)}
+                    {InputModule(modelData)}
                     <OutputModule/>
                     <OutputDescriptionModule/>
                 </div>

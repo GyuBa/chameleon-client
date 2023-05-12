@@ -6,12 +6,12 @@ import 'video.js/dist/video-js.css';
 import '../../../../styles/custom-video-js.css';
 import {FileUtils} from "../../../../utils/FileUtils";
 import {DownloadUtils} from "../../../../utils/DownloadUtils"
-import axios from "axios";
+
 const videoURL = '/videos/video.mp4'
 
 export default function SingleVideoViewer() {
 
-    const extension = videoURL.split('.').pop();
+    const extension = videoURL.split('.').pop(); // 'MOV'
     const videoRef = useRef<HTMLVideoElement>(null);
     const [fileSize, setFileSize] = useState<number>(0);
 

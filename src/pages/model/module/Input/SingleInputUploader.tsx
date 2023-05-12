@@ -6,12 +6,11 @@ import {FileUtils} from "../../../../utils/FileUtils"
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
 
 type IFile = File & { preview?: string };
-export default function SingleInputUploader(parameter : Object, modelData : any) {
+export default function SingleInputUploader(modelData : any) {
 
     const [files, setFiles] = useState<IFile[]>([]);
     const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [uploadExplain, setUploadExplain] = useState<string>('');
-    const [historyStatus, setHistoryStatus] = useState<string>('');
 
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
         accept: {'*/*': []},
@@ -50,28 +49,10 @@ export default function SingleInputUploader(parameter : Object, modelData : any)
     useEffect(() => {
         return () => files.forEach(file => URL.revokeObjectURL(file.preview as string));
     });
-
-    useEffect(() => {
-        let completed = false;
-
-        (async function () {
-            try {
-                const model = await PlatformAPI.getHistories();
-                console.log(model)
-
-            } catch (error) {
-                console.error(error);
-            }
-        })();
-
-        return () => {
-            completed = true;
-        };
-    }, []);
-
-    let parameters = JSON.stringify({parameter : parameter});
-    const modelId = modelData?.id
-    console.log(modelData)
+    const schema = modelData?.parameters?.schema;
+    const uiSchema = modelData?.parameters?.uiSchema;
+    const parameters = JSON.stringify({schema: schema, uiSchema: uiSchema});
+    const modelId = modelData?.modelId
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
