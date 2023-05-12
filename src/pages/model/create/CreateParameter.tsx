@@ -263,11 +263,6 @@ export default function CreateParameters() {
                                                 onChange={handleTransFormChange}
                                             />
                                         </ErrorBoundary>
-                                        <Link to="/models/execute" state={{schema: transSchema, uiSchema: transUISchema}}>
-                                            <Button
-                                                style={{backgroundColor: "blue", color: "white", borderRadius: "10px"}}
-                                                className="w-32 p-2" text="Parameter Test"/>
-                                        </Link>
                                     </div>
                                 </div>
                             </div>
