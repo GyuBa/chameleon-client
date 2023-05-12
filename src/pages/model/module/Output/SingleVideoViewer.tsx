@@ -15,10 +15,11 @@ export default function SingleVideoViewer() {
     const videoRef = useRef<HTMLVideoElement>(null);
     const [fileSize, setFileSize] = useState<number>(0);
 
-    fetch(videoURL)
+    axios
+        .get(videoURL, { responseType: 'blob' })
         .then((response) => {
-            const Size = response.headers.get('Content-Length');
-            setFileSize(Number(Size))
+            const size = response.headers['content-length'];
+            setFileSize(Number(size));
         })
         .catch((error) => console.error(error));
 
