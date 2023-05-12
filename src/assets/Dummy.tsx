@@ -64,6 +64,10 @@ export const userProfileData = [
     },
 ];
 
+export const historyColumn = {
+    list: ['index', 'model name', 'stated time', 'ended time', 'excutor', 'status']
+};
+
 export const userSchema = {
     type: 'object',
     properties: {
