@@ -15,6 +15,7 @@ type IFile = File & { preview?: string };
 const initialData = {};
 
 export default function ExecuteModel() {
+    //const modelId = useParams();
     const [files, setFiles] = useState<IFile[]>([]);
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const [data, setData] = useState(initialData);

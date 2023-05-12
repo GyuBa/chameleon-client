@@ -51,7 +51,6 @@ export default function Models({ getModels }: ModelsProps) {
         setSelectedModelId(modelData.id);
     };
 
-
     const ArrangeMenu = () => (
       <div className="flex items-center gap-2">
         <Link to="/models/create" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">

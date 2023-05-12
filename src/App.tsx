@@ -45,7 +45,7 @@ export default function App() {
                 <Route path="/payment" element={<Payment/>}/>
                 <Route path="/models/my" element={<MyModels/>}/>
                 <Route path="/models/all" element={<AllModels/>}/>
-                <Route path="/models/execute" element={<ExecuteModel/>}/>
+                <Route path="/models/:modelId" element={<ExecuteModel/>}/>
                 <Route path="/models/create" element={<CreateModel/>}/>
                 <Route path="/models/create/description" element={<CreateDescription/>}/>
                 <Route path="/models/create/parameters" element={<CreateParameters/>}/>
