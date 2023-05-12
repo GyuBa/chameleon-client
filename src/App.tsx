@@ -4,7 +4,6 @@ import './App.css';
 import './styles/Dropzone.css';
 import useWebSocket from "react-use-websocket";
 import Layout from "./components/layout/Layout";
-import Main from "./pages/Main";
 import Account from "./pages/profile/Account";
 import ChangePassword from "./pages/profile/ChangePassword";
 import Payment from "./pages/profile/Payment";
@@ -40,7 +39,6 @@ export default function App() {
     return (
         <Routes>
             <Route path="/" element={(<Layout/>)}>
-                <Route path="/main" element={(<Main/>)}/>
                 <Route path="/account" element={<Account/>}/>
                 <Route path="/change-password" element={<ChangePassword/>}/>
                 <Route path="/payment" element={<Payment/>}/>

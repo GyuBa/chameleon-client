@@ -21,7 +21,7 @@ export default function SignIn() {
         } else {
             try {
                 await PlatformAPI.signIn(email, password);
-                document.location.href = "../../Main";
+                document.location.href = "/models/all";
             } catch (e) {
                 if (e instanceof AxiosError && e.status === 401) {
                     alert('로그인에 실패하였습니다.');
