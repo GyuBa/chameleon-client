@@ -14,16 +14,17 @@ export default function Description({modelId, setSelectedModelId}: DescriptionPr
     useEffect(() => {
         let completed = false;
 
-        (async function () {
-            try {
-                const model = await PlatformAPI.getModelById(modelId);
-                if (!completed && model.id === modelId) {
-                    setModelData(model);
+        if (modelId > -1)
+            (async function () {
+                try {
+                    const model = await PlatformAPI.getModelById(modelId);
+                    if (!completed && model.id === modelId) {
+                        setModelData(model);
+                    }
+                } catch (error) {
+                    console.error(error);
                 }
-            } catch (error) {
-                console.error(error);
-            }
-        })();
+            })();
 
         return () => {
             completed = true;
