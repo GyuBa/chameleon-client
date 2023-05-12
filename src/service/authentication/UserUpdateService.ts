@@ -29,16 +29,16 @@ export default function useUpdateUserInfo() {
 
     // TODO: 의도 파악 불가
     async function updateUser(newUsername: string) {
-        try {
+        /*try {
             const newUser = await PlatformAPI.modifyPassword(newUsername);
-            // 미확정된 형태의 PlatformAPI가 임시로 사용됨
+            // modifyPassword는 newUser를 반환하지 않고, password만 바꾸는 API임
             setUser(newUser);
 
             return newUser.username;
         } catch (error) {
             console.error(error);
             return null;
-        }
+        }*/
     }
 
     return {user, setUser, updateUser};

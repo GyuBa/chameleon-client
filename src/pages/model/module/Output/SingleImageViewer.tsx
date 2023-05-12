@@ -1,77 +1,37 @@
-import React, {useEffect, useState} from "react";
-import SubmitButton from "../../../../components/button/SubmitButton"
-import cutechameleon from "../../../../assets/images/cutechameleon.png"
-import {BiDownload} from "react-icons/bi";
-import {DownloadUtils} from "../../../../utils/DownloadUtils";
-import {FileUtils} from "../../../../utils/FileUtils";
+import React, { useState} from "react";
+import SubmitButton from "../../../../components/button/SubmitButton";
+import { BiDownload } from "react-icons/bi";
+import { DownloadUtils } from "../../../../utils/DownloadUtils";
+import { FileUtils } from "../../../../utils/FileUtils";
 
-const toBlob = (url: string) => {
-    return new Promise<Blob>((resolve) => {
-        const xhr = new XMLHttpRequest();
-        xhr.responseType = "blob";
-        xhr.onload = function () {
-            resolve(xhr.response);
-        };
-        xhr.open('GET', url);
-        xhr.responseType = 'blob';
-        xhr.send();
-    });
-};
-
-const convertImageToBlob = async () => {
-    const blob = await toBlob(cutechameleon);
-    return blob;
-};
-
-const createObjectURLFromBlob = async () => {
-    const blob = await convertImageToBlob();
-    const url = window.URL.createObjectURL(blob);
-    return url
-};
-
-const computeFileSize = async () => {
-    const blob = await convertImageToBlob();
-    const rawSize = blob.size
-    return rawSize
-}
+const imageURL = '/images/image.png';
 
 export default function SingleImageViewer() {
+    const extension = imageURL.split('.').pop();
+    const [fileSize, setFileSize] = useState<number>(0);
 
-    let outputExtensions = 'img'
-    const [size, setSize] = useState<number>(0)
-    useEffect(() => {
-        const getSize = async () => {
-            const fileSize = await computeFileSize();
-            setSize(fileSize);
-        }
-        getSize();
-    }, [])
-
-    const [url, setUrl] = useState<string>("");
-
-    useEffect(() => {
-        const getUrl = async () => {
-            const blobUrl = await createObjectURLFromBlob();
-            setUrl(blobUrl);
-        }
-        getUrl();
-    }, [])
+    fetch(imageURL)
+        .then((response) => {
+            const Size = response.headers.get('Content-Length');
+            setFileSize(Number(Size));
+        })
+        .catch((error) => console.error(error));
 
     return (
         <div>
-            <div className="py-2 flex justify-between items-center space-x-3 border-b rounded-lg">
-                <p className="text-xl font-bold">Output</p>
-                <div className="flex items-center rounded-full hover:bg-light-gray focus:bg-gray">
-                    <BiDownload size="25" color="#484848" className="pl-1"/>
-                    <SubmitButton text="Download" className="float-end btn-sm info" onClick={async () => {
-                        DownloadUtils.download(url, 'chameleon');
-                    }}></SubmitButton>
+            <div className="pb-1 flex justify-between items-center border-b">
+                <p className="text-xl font-semibold">Output</p>
+                <div className="flex items-center rounded-lg hover:bg-light-gray focus:bg-gray">
+                    <BiDownload size="20" color="#484848" className="pl-1"/>
+                    <SubmitButton text="Download" className="text-sm"
+                        onClick={() => DownloadUtils.download(imageURL, 'image.png')}/>
                 </div>
             </div>
-            <p className="px-2 pt-2">Output Format : {outputExtensions} </p>
-            <p className="px-2 pt-2">Size : {FileUtils.formatBytes(size)} </p>
-            <img style={{width: '50%'}} src={url} alt=""/>
+            <div className="overflow-y-auto max-h-[352px]">
+                <p className="px-2 pt-2">Output Format : {extension} </p>
+                <p className="px-2 pt-2">Size : {FileUtils.formatBytes(fileSize)} </p>
+                <img style={{width: "100%"}} src={imageURL} alt=""/>
+            </div>
         </div>
-
     );
 }

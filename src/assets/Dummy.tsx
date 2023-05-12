@@ -64,10 +64,6 @@ export const userProfileData = [
     },
 ];
 
-export const modelColumn = {
-    list: ['Model Name', 'Input Type', 'Output Type', 'Developer', 'Last Modified Date', 'start']
-};
-
 export const historyColumn = {
     list: ['index', 'model name', 'stated time', 'ended time', 'excutor', 'status']
 };
@@ -198,7 +194,7 @@ export const userUISchema = {
     ]
 };
 
-export const exparamTab = [
+export const executeParam = [
     {
         label: "Parameters",
     },
