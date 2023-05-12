@@ -1,5 +1,4 @@
 import React, {CSSProperties, ReactNode} from "react";
-import {ModelEntityData} from "./chameleon-platform.common";
 
 export type HeaderData = {
     category?: string;
@@ -19,13 +18,6 @@ export type SubmitButtonData = {
     onClick?: Promise<void> | any,
     event?: JSX.Element | any,
     disabled?: boolean
-}
-
-// TODO:WebSocketData type 수정 필요
-export type WebSocketData = {
-    style?: CSSProperties | undefined,
-    className?: string,
-    event?: JSX.Element | any,
 }
 
 export type Parameter = {
@@ -58,8 +50,4 @@ export type DownloadButtonProps = {
 export interface DescriptionProps {
     modelId: number;
     setSelectedModelId: React.Dispatch<React.SetStateAction<number>>;
-}
-
-export interface ModelsProps {
-    getModels: () => Promise<ModelEntityData[]>;
 }

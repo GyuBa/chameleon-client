@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Badge, Table} from "flowbite-react";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
 import {HiViewGrid} from "react-icons/hi";
 import {FiList} from "react-icons/fi";
@@ -11,13 +11,13 @@ import Description from "../../../components/layout/Description";
 import Header from "../../../components/layout/Header";
 import {ModelEntityData} from "../../../types/chameleon-platform.common";
 import {DateUtils} from "../../../utils/DateUtils";
-import {ModelsProps} from "../../../types/chameleon-client";
+import {PlatformAPI} from "../../../platform/PlatformAPI";
 
 const modelColumn = {
     list: ['Model Name', 'Input Type', 'Output Type', 'Register', 'Last Modified Date', 'start']
 };
 
-export default function Models({ getModels }: ModelsProps) {
+export default function Models() {
     const {
         menuState,
         onClickMenu,
@@ -27,25 +27,32 @@ export default function Models({ getModels }: ModelsProps) {
     } = useStateContext();
     const [models, setModels] = useState<ModelEntityData[]>([]);
     const [selectedModelId, setSelectedModelId] = useState<number>(-1);
+    const location = useLocation();
 
+    // TODO: 아직 작업중
     useEffect(() => {
         let completed = false;
-
         (async function () {
+            let getModelsAPI;
+            if (location.pathname === '/models/my') {
+                getModelsAPI = PlatformAPI.getMyModels;
+            } else {
+                getModelsAPI = PlatformAPI.getModels;
+            }
             try {
-                const models = await getModels();
+                const models = await getModelsAPI();
                 if (!completed) {
                     setModels(models);
                 }
             } catch (error) {
                 console.error(error);
+                setModels([]);
             }
         })();
-
         return () => {
             completed = true;
         };
-    }, [getModels]);
+    }, [location.pathname]);
 
     const onModelSelect = (modelData: ModelEntityData) => {
         setSelectedModelId(modelData.id);

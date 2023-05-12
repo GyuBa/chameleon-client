@@ -37,7 +37,6 @@ export default function useGetUserInfo(): UserEntityData {
     }, [user]);
 
     // TODO: 로그아웃 구현
-    // ESLint에 나타나지 않게 주석 처리
     /* const handleSignOut = () => {
       localStorage.removeItem(USER_INFO_KEY);
     }; */
