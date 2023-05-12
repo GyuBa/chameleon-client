@@ -1,4 +1,3 @@
-import React from "react";
 import SingleImageViewer from "../module/Output/SingleImageViewer"
 import SingleTextViewer from "../module/Output/SingleTextViewer"
 import SingleVideoViewer from "../module/Output/SingleVideoViewer"
@@ -6,6 +5,7 @@ import SingleVideoViewer from "../module/Output/SingleVideoViewer"
 const modules = [SingleImageViewer, SingleTextViewer, SingleVideoViewer];
 
 export default function OutputModule() {
+
 	let target = 'SingleImageViewer';
 	let Module = modules.find(m => m.name === target);
 

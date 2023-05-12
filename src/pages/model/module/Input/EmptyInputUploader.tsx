@@ -1,13 +1,12 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import SubmitButton from "../../../../components/button/SubmitButton";
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
 
-export default function EmptyInputUploader(modelData : any) {
-    let modelId = modelData?.modelId
-    const schema = modelData?.parameters?.schema;
-    const uiSchema = modelData?.parameters?.uiSchema;
+export default function EmptyInputUploader(parameter : Object, modelData : any) {
+    let modelId = modelData?.id
     let file = new File(["{}"], "empty");
-    let parameters = JSON.stringify({schema: schema, uiSchema: uiSchema});
+    let parameters = JSON.stringify({parameter : parameter});
+    const [historyStatus, setHistoryStatus] = useState<string>('');
 
     const handleModelStart = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -25,6 +24,24 @@ export default function EmptyInputUploader(modelData : any) {
             console.log('Upload error...');
         }
     }
+
+    useEffect(() => {
+        let completed = false;
+
+        (async function () {
+            try {
+                const model = await PlatformAPI.getHistories();
+                console.log(model)
+
+            } catch (error) {
+                console.error(error);
+            }
+        })();
+
+        return () => {
+            completed = true;
+        };
+    }, []);
 
     return (
         <div>
