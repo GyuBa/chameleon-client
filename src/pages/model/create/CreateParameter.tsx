@@ -176,7 +176,7 @@ export default function CreateParameters() {
     const regionName = location.state?.regionName;
     const description = location.state?.description;
 
-    const parameters = JSON.stringify({schema: transSchema, uischema: transUISchema});
+    const parameters = JSON.stringify({schema: transSchema, uiSchema: transUISchema});
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -263,6 +263,11 @@ export default function CreateParameters() {
                                                 onChange={handleTransFormChange}
                                             />
                                         </ErrorBoundary>
+                                        <Link to="/models/execute" state={{schema: transSchema, uiSchema: transUISchema}}>
+                                            <Button
+                                                style={{backgroundColor: "blue", color: "white", borderRadius: "10px"}}
+                                                className="w-32 p-2" text="Parameter Test"/>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -313,7 +318,8 @@ export default function CreateParameters() {
                                                                 enabled: false,
                                                             },
                                                             automaticLayout: true,
-                                                            fontSize: 17
+                                                            fontSize: 17,
+                                                            lineNumbers : "off"
                                                         }}
                                                     />
                                                 </div>
