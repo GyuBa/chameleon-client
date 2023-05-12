@@ -4,7 +4,7 @@ import SubmitButton from "../../../../components/button/SubmitButton";
 import {DownloadUtils} from "../../../../utils/DownloadUtils";
 import {FileUtils} from "../../../../utils/FileUtils";
 
-const zipURL = '/test.Zip'
+const zipURL = '/test.Zip';
 
 const toBlob = async (url: string) => {
     const response = await fetch(url);
@@ -20,26 +20,26 @@ const convertZipToBlob = async () => {
 const createObjectURLFromBlob = async () => {
     const blob = await convertZipToBlob();
     const url = window.URL.createObjectURL(blob);
-    return url
+    return url;
 };
 
 const computeFileSize = async () => {
     const blob = await convertZipToBlob();
-    const rawSize = blob.size
-    return rawSize
-}
+    const rawSize = blob.size;
+    return rawSize;
+};
 
 export default function ZipGalleryViewer() {
 
-    let outputExtensions = 'zip'
-    const [size, setSize] = useState<number>(0)
+    let outputExtensions = 'zip';
+    const [size, setSize] = useState<number>(0);
     useEffect(() => {
         const getSize = async () => {
             const fileSize = await computeFileSize();
             setSize(fileSize);
         }
         getSize();
-    }, [])
+    }, []);
 
     const [url, setUrl] = useState<string>("");
 
@@ -49,7 +49,7 @@ export default function ZipGalleryViewer() {
             setUrl(blobUrl);
         }
         getUrl();
-    }, [])
+    }, []);
 
     const [zip, setZip] = useState<Blob>();
 

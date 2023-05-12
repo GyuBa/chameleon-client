@@ -64,10 +64,6 @@ export const userProfileData = [
     },
 ];
 
-export const modelColumn = {
-    list: ['Model Name', 'Input Type', 'Output Type', 'Register', 'Last Modified Date', 'start']
-};
-
 export const userSchema = {
     type: 'object',
     properties: {

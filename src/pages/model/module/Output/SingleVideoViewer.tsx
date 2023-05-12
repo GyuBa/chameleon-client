@@ -1,13 +1,13 @@
 import React, {useEffect, useRef, useState} from "react";
 import SubmitButton from "../../../../components/button/SubmitButton";
 import {BiDownload} from "react-icons/bi";
-import videojs from "video.js"
+import videojs from "video.js";
 import 'video.js/dist/video-js.css';
 import '../../../../styles/custom-video-js.css';
 import {FileUtils} from "../../../../utils/FileUtils";
-import {DownloadUtils} from "../../../../utils/DownloadUtils"
+import {DownloadUtils} from "../../../../utils/DownloadUtils";
 
-const videoURL = '/videos/video.mp4'
+const videoURL = '/videos/video.mp4';
 
 export default function SingleVideoViewer() {
 
@@ -18,7 +18,7 @@ export default function SingleVideoViewer() {
     fetch(videoURL)
         .then((response) => {
             const Size = response.headers.get('Content-Length');
-            setFileSize(Number(Size))
+            setFileSize(Number(Size));
         })
         .catch((error) => console.error(error));
 
@@ -32,7 +32,7 @@ export default function SingleVideoViewer() {
             });
             player.play();
         }
-    })
+    });
 
     return (
         <div>

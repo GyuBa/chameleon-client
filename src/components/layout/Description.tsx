@@ -5,6 +5,7 @@ import MDEditor from "@uiw/react-md-editor";
 import Button from "../button/Button";
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {ModelEntityData} from "../../types/chameleon-platform.common";
+import {DateUtils} from "../../utils/DateUtils";
 
 interface DescriptionProps {
     modelId: number;
@@ -44,7 +45,7 @@ export default function Description({modelId}: DescriptionProps) {
                         </Link>
                     </div>
                 </div>
-                <div className="mt-8 overflow-auto overflow-scroll max-h-screen">
+                <div className="mt-4 overflow-auto max-h-screen">
                     <div className="flex my-2 items-center">
                         <p className="text-lg font-bold">Model Name:ㅤ</p>
                         <p>{modelData?.name}</p>
@@ -57,16 +58,18 @@ export default function Description({modelId}: DescriptionProps) {
                         <p className="text-lg font-bold">Region:ㅤ</p>
                         <p>{modelData?.image?.region?.name}</p>
                     </div>
-                    <div className="flex">
-                        <div className="py-3"><Badge color="indigo">Input: {modelData?.inputType}</Badge></div>
-                        <div className="p-3"><Badge color="purple">Output: {modelData?.outputType}</Badge></div>
+                    <div className="flex mt-2 mb-2 items-center">
+                        <p className="text-lg font-bold">Parameters</p>
                     </div>
-                    <div className="flex my-2 items-center">
-                        <p className="text-lg font-bold">Parameters:ㅤ</p>
-                        <p>{JSON.stringify(modelData?.parameters)}</p>
+                    <p>{JSON.stringify(modelData?.parameters)}</p>
+                    <div className="flex my-2">
+                        <div className="pr-3 pt-3"><Badge color="indigo">Input: {modelData?.inputType}</Badge></div>
+                        <div className="px-3 pt-3"><Badge color="purple">Output: {modelData?.outputType}</Badge></div>
                     </div>
-                    <div data-color-mode="light" className="my-2 whitespace-pre-wrap">
-                        <p className="text-lg font-bold">Model Description:ㅤ</p>
+                </div>
+                    <div className="flex items-center">
+                    <div data-color-mode="light" className="my-4 whitespace-pre-wrap">
+                        <p className="text-lg font-bold">Model Description</p>
                         <MDEditor.Markdown className="py-2" source={modelData?.description} style={{whiteSpace: 'pre-wrap'}} />
                     </div>
                 </div>

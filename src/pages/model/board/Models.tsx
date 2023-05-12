@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Badge, Table} from "flowbite-react";
-import {modelColumn} from "../../../assets/Dummy";
 import {Link} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
 import {HiViewGrid} from "react-icons/hi";
@@ -13,6 +12,10 @@ import Header from "../../../components/layout/Header";
 import {PlatformAPI} from "../../../platform/PlatformAPI";
 import {ModelEntityData} from "../../../types/chameleon-platform.common";
 import {DateUtils} from "../../../utils/DateUtils";
+
+export const modelColumn = {
+    list: ['Model Name', 'Input Type', 'Output Type', 'Register', 'Last Modified Date', 'start']
+};
 
 export default function Models() {
     const {
@@ -175,7 +178,7 @@ export default function Models() {
             </div>
         </div>
         {selectedModelId > 0 ?
-            <div className="w-2/6 ease-in-out duration-300 translate-x-0"><Description modelId={selectedModelId}/></div>
+            <div className="w-[700px] ease-in-out duration-300 translate-x-0"><Description modelId={selectedModelId}/></div>
             :
             <div className="w-0 ease-in-out duration-300 translate-x-full hidden"><Description modelId={selectedModelId}/></div>
         }

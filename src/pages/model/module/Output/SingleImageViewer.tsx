@@ -4,7 +4,7 @@ import { BiDownload } from "react-icons/bi";
 import { DownloadUtils } from "../../../../utils/DownloadUtils";
 import { FileUtils } from "../../../../utils/FileUtils";
 
-const imageURL = '/images/image.png'
+const imageURL = '/images/image.png';
 
 export default function SingleImageViewer() {
     const extension = imageURL.split('.').pop();
@@ -13,7 +13,7 @@ export default function SingleImageViewer() {
     fetch(imageURL)
         .then((response) => {
             const Size = response.headers.get('Content-Length');
-            setFileSize(Number(Size))
+            setFileSize(Number(Size));
         })
         .catch((error) => console.error(error));
 
