@@ -5,13 +5,10 @@ import MDEditor from "@uiw/react-md-editor";
 import Button from "../button/Button";
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {ModelEntityData} from "../../types/chameleon-platform.common";
-import {DateUtils} from "../../utils/DateUtils";
+import {DescriptionProps} from "../../types/chameleon-client";
+import {MdOutlineCancel} from "react-icons/md";
 
-interface DescriptionProps {
-    modelId: number;
-}
-
-export default function Description({modelId}: DescriptionProps) {
+export default function Description({modelId, setSelectedModelId}: DescriptionProps) {
     const [modelData, setModelData] = useState<ModelEntityData>();
 
     useEffect(() => {
@@ -39,10 +36,12 @@ export default function Description({modelId}: DescriptionProps) {
                 <div
                     className="flex justify-between items-center pb-6 border-b-1 border-gray-300 overflow-auto max-h-screen">
                     <p className="text-3xl font-extrabold tracking-tight text-slate-900">{modelData?.name}</p>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 items-center">
                         <Link to="/models/execute" state={{}}>
                             <Button className="color-btn text-sm w-full p-1.5" text="start"/>
                         </Link>
+                        <button className="text-gray-500 text-2xl rounded-full hover:text-black hover:bg-light-gray"
+                                onClick={() => setSelectedModelId(-1)}><MdOutlineCancel/></button>
                     </div>
                 </div>
                 <div className="mt-4 overflow-auto max-h-screen">
@@ -67,10 +66,11 @@ export default function Description({modelId}: DescriptionProps) {
                         <div className="px-3 pt-3"><Badge color="purple">Output: {modelData?.outputType}</Badge></div>
                     </div>
                 </div>
-                    <div className="flex items-center">
+                <div className="flex items-center">
                     <div data-color-mode="light" className="my-4 whitespace-pre-wrap">
                         <p className="text-lg font-bold">Model Description</p>
-                        <MDEditor.Markdown className="py-2" source={modelData?.description} style={{whiteSpace: 'pre-wrap'}} />
+                        <MDEditor.Markdown className="py-2" source={modelData?.description}
+                                           style={{whiteSpace: 'pre-wrap'}}/>
                     </div>
                 </div>
             </div>
