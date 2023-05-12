@@ -9,15 +9,15 @@ import {BiAddToQueue, BiDotsVerticalRounded, BiPencil, BiTrash} from "react-icon
 import {VscDebugStart} from "react-icons/vsc";
 import Description from "../../../components/layout/Description";
 import Header from "../../../components/layout/Header";
-import {PlatformAPI} from "../../../platform/PlatformAPI";
 import {ModelEntityData} from "../../../types/chameleon-platform.common";
 import {DateUtils} from "../../../utils/DateUtils";
+import {ModelsProps} from "../../../types/chameleon-client";
 
 const modelColumn = {
     list: ['Model Name', 'Input Type', 'Output Type', 'Register', 'Last Modified Date', 'start']
 };
 
-export default function Models() {
+export default function Models({ getModels }: ModelsProps) {
     const {
         menuState,
         onClickMenu,
@@ -33,7 +33,7 @@ export default function Models() {
 
         (async function () {
             try {
-                const models = await PlatformAPI.getModels();
+                const models = await getModels();
                 if (!completed) {
                     setModels(models);
                 }
@@ -45,7 +45,7 @@ export default function Models() {
         return () => {
             completed = true;
         };
-    }, []);
+    }, [getModels]);
 
     const onModelSelect = (modelData: ModelEntityData) => {
         setSelectedModelId(modelData.id);
