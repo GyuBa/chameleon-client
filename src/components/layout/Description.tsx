@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {Badge} from "flowbite-react";
 import MDEditor from "@uiw/react-md-editor";
-import Button from "../button/Button";
+import SubmitButton from "../button/SubmitButton";
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {ModelEntityData} from "../../types/chameleon-platform.common";
 import {DescriptionProps} from "../../types/chameleon-client";
@@ -10,6 +10,7 @@ import {MdOutlineCancel} from "react-icons/md";
 
 export default function Description({modelId, setSelectedModelId}: DescriptionProps) {
     const [modelData, setModelData] = useState<ModelEntityData>();
+    const navigate = useNavigate();
 
     useEffect(() => {
         let completed = false;
@@ -30,6 +31,10 @@ export default function Description({modelId, setSelectedModelId}: DescriptionPr
         };
     }, [modelId]);
 
+    const handleStart = () => {
+        if(modelId > -1) navigate(`/models/${modelId}`, { state: { modelData } });
+    };
+
     return (
         <div className="contents">
             <div className="m-2 md:my-10 mt-24 p-2 md:pr-5 md:py-10">
@@ -37,9 +42,7 @@ export default function Description({modelId, setSelectedModelId}: DescriptionPr
                     className="flex justify-between items-center pb-6 border-b-1 border-gray-300 overflow-auto max-h-screen">
                     <p className="text-3xl font-extrabold tracking-tight text-slate-900">{modelData?.name}</p>
                     <div className="flex gap-2 items-center">
-                        <Link to={`/models/${modelId}`} state={{}}>
-                            <Button className="color-btn text-sm w-full p-1.5" text="start"/>
-                        </Link>
+                        <SubmitButton className="color-btn text-sm w-full p-1.5" text="start" onClick={handleStart}/>
                         <button className="text-gray-500 text-2xl rounded-full hover:text-black hover:bg-light-gray"
                                 onClick={() => setSelectedModelId(-1)}><MdOutlineCancel/></button>
                     </div>
