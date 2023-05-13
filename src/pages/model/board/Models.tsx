@@ -29,18 +29,11 @@ export default function Models() {
     const [selectedModelId, setSelectedModelId] = useState<number>(-1);
     const location = useLocation();
 
-    // TODO: 아직 작업중
     useEffect(() => {
         let completed = false;
         (async function () {
-            let getModelsAPI;
-            if (location.pathname === '/models/my') {
-                getModelsAPI = PlatformAPI.getMyModels;
-            } else {
-                getModelsAPI = PlatformAPI.getModels;
-            }
             try {
-                const models = await getModelsAPI();
+                const models = (location.pathname === '/models/my') ? await PlatformAPI.getMyModels() : await PlatformAPI.getModels();
                 if (!completed) {
                     setModels(models);
                 }
@@ -167,7 +160,9 @@ export default function Models() {
         <div className="w-full m-2 md:m-10 mt-24">
             <div className="flex justify-between items-center">
                 <div className="flex">
-                    <Header title="Models"/>
+                    {(location.pathname === '/models/my') ?
+                        <Header title="My Models"/> : <Header title="All Models"/>
+                    }
                     <button onClick={() => setCurrentLayout("GridLayout")} type="button"
                             className={`ml-2 mr-1 text-xl rounded-full p-2 hover:bg-light-gray focus:bg-gray ${currentLayout === "GridLayout" ? "bg-light-gray" : null}`}>
                         {<HiViewGrid size="21" className="text-gray-500"/>}
