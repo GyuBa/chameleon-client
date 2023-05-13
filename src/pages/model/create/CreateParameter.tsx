@@ -292,17 +292,16 @@ export default function CreateParameters() {
                                                 <h1 className="md:py-3 text-xl font-bold">Schema</h1>
                                                 <div className="border border-gray-200 block bg-white">
                                                     <MonaCoEditor
-                                                        className = "monaco-editor"
+                                                        className="monaco-editor"
                                                         language="json"
-                                                        height={480}
+                                                        height={230}
                                                         theme="vs-light"
                                                         value={schema}
                                                         onChange={(value) => {
                                                             try {
                                                                 setStatus(1);
                                                                 setSchema(value || '');
-                                                                const parsedSchema = JSON.parse(value || '');
-                                                                transSchema = parsedSchema;
+                                                                transSchema = JSON.parse(value || '');
                                                             } catch (error) {
                                                                 console.error(error);
                                                             }
@@ -313,7 +312,8 @@ export default function CreateParameters() {
                                                                 enabled: false,
                                                             },
                                                             automaticLayout: true,
-                                                            fontSize: 17
+                                                            fontSize: 17,
+                                                            scrollBeyondLastLine: false,
                                                         }}
                                                     />
                                                 </div>
@@ -322,17 +322,16 @@ export default function CreateParameters() {
                                                 <h1 className="md:py-3 text-xl font-bold">UISchema</h1>
                                                 <div className="border border-gray-200 block bg-white">
                                                     <MonaCoEditor
-                                                        className = "monaco-editor"
+                                                        className="monaco-editor"
                                                         language="json"
-                                                        height={480}
+                                                        height={230}
                                                         theme="vs-light"
                                                         value={uiSchema}
                                                         onChange={(value) => {
                                                             try {
-                                                                setStatus(1)
+                                                                setStatus(1);
                                                                 setUISchema(value || '');
-                                                                const parsedUISchema = JSON.parse(value || '');
-                                                                transUISchema = parsedUISchema;
+                                                                transUISchema = JSON.parse(value || '');
                                                             } catch (error) {
                                                                 console.error(error);
                                                             }
@@ -342,7 +341,8 @@ export default function CreateParameters() {
                                                                 enabled: false,
                                                             },
                                                             automaticLayout: true,
-                                                            fontSize: 17
+                                                            fontSize: 17,
+                                                            scrollBeyondLastLine: false,
                                                         }}
                                                     />
                                                 </div>
