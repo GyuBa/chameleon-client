@@ -30,6 +30,7 @@ export default function Models() {
     const location = useLocation();
 
     useEffect(() => {
+        setSelectedModelId(-1);
         let completed = false;
         (async function () {
             try {
