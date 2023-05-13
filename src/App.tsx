@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {Route, Routes} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Route, Routes, Navigate} from 'react-router-dom';
 import './App.css';
 import './styles/Dropzone.css';
 import useWebSocket from "react-use-websocket";
@@ -16,14 +16,14 @@ import CreateParameters from "./pages/model/create/CreateParameter";
 import {WSMessageType} from "./types/chameleon-platform.common";
 import History from "./pages/history/History";
 import Models from "./pages/model/board/Models";
+import useGetUserInfo from "./service/authentication/UserInfoService";
 
 export default function App() {
-    const {
-        sendJsonMessage,
-        lastJsonMessage
-    } = useWebSocket((window.location.protocol.startsWith('https') ? 'wss://' : 'ws://') + window.location.host + '/websocket', {
-        shouldReconnect: (closeEvent) => true,
-    });
+    const { getCookieValue } = useGetUserInfo();
+    const [connectSid, setConnectSid] = useState<string | null>(null);
+    const {sendJsonMessage, lastJsonMessage} =
+        useWebSocket((window.location.protocol.startsWith('https') ? 'wss://' : 'ws://')
+	        + window.location.host + '/websocket', { shouldReconnect: (closeEvent) => true });
 
     useEffect(() => {
         let message = lastJsonMessage as any;
@@ -36,9 +36,19 @@ export default function App() {
         sendJsonMessage({msg: WSMessageType.PATH, path: window.location.pathname});
     }, [sendJsonMessage]);
 
+    // TODO: 맨 처음 서버 켜고 로그인 할 때 한 번에 페이지 안되고, 새로고침 1~2번 해야 동작하는 오류
+    useEffect(() => {
+        const getConnectSid = async () => {
+            const sid = await getCookieValue('connect.sid');
+            setConnectSid(sid);
+            console.log(connectSid);
+        };
+        getConnectSid();
+    }, [getCookieValue, connectSid]);
+
     return (
         <Routes>
-            <Route path="/" element={(<Layout/>)}>
+            <Route path="/" element={connectSid ? (<Layout/>) : (<Navigate to="/sign-in" replace/>)}>
                 <Route path="/account" element={<Account/>}/>
                 <Route path="/change-password" element={<ChangePassword/>}/>
                 <Route path="/payment" element={<Payment/>}/>

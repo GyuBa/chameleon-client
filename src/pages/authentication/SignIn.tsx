@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import chameleon from '../../assets/images/chameleon.png';
 import SubmitButton from "../../components/button/SubmitButton";
 import {PlatformAPI} from "../../platform/PlatformAPI";
@@ -9,6 +9,7 @@ import {AxiosError} from "axios";
 export default function SignIn() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const navigate = useNavigate();
 
     const signIn = async (e: any) => {
         e.preventDefault();
@@ -20,8 +21,11 @@ export default function SignIn() {
             return;
         } else {
             try {
+                console.log("sign in");
+                console.log(document.cookie);
                 await PlatformAPI.signIn(email, password);
-                document.location.href = "/models/all";
+                console.log(document.cookie);
+                navigate('/models/all');
             } catch (e) {
                 if (e instanceof AxiosError && e.status === 401) {
                     alert('로그인에 실패하였습니다.');
