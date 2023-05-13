@@ -5,7 +5,7 @@ import {useStateContext} from "../../../contexts/ContextProvider";
 import {HiViewGrid} from "react-icons/hi";
 import {FiList} from "react-icons/fi";
 import {RiDeleteBinLine} from "react-icons/ri";
-import {BiAddToQueue, BiDotsVerticalRounded, BiPencil, BiTrash} from "react-icons/bi";
+import {BiAddToQueue, BiDotsVerticalRounded, BiTrash} from "react-icons/bi";
 import {VscDebugStart} from "react-icons/vsc";
 import Description from "../../../components/layout/Description";
 import Header from "../../../components/layout/Header";
@@ -59,11 +59,6 @@ export default function Models() {
             className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Create Model</span>
         </Link>
         <Link to="/" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
-          <BiPencil size="25" color="#484848" className="pl-1"/>
-          <span
-            className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Update Model</span>
-        </Link>
-        <Link to="/" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
           <BiTrash size="25" color="#484848" className="pl-1"/>
           <span
             className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Delete Model</span>
@@ -87,11 +82,6 @@ export default function Models() {
           <BiAddToQueue size="25" color="#484848" className="pl-1"/>
           <span
             className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Create Model</span>
-        </Link>
-        <Link to="/" className="flex gap-1 border-b-1 border-gray-400 hover:bg-gray-100 items-center">
-          <BiPencil size="25" color="#484848" className="pl-1"/>
-          <span
-            className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Update Model</span>
         </Link>
         <Link to="/" className="flex gap-1 hover:bg-gray-100 items-center">
           <RiDeleteBinLine size="25" color="#484848" className="pl-1"/>
