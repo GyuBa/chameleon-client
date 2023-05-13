@@ -36,7 +36,7 @@ export default function App() {
         sendJsonMessage({msg: WSMessageType.PATH, path: window.location.pathname});
     }, [sendJsonMessage]);
 
-    // TODO: 맨 처음 서버 켜고 로그인 할 때 한 번에 페이지 안되고, 새로고침 1~2번 해야 동작하는 오류
+    // TODO: 맨 처음 서버 켜고 로그인 할 때 한 번에 페이지 안되고, 새로고침 1~2번 해야 동작하는 오류 (위 connectSid가 null로 초기화될 때 발생하는 오류 같음)
     useEffect(() => {
         const getConnectSid = async () => {
             const sid = await getCookieValue('connect.sid');
