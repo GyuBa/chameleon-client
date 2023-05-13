@@ -36,19 +36,18 @@ export default function App() {
         sendJsonMessage({msg: WSMessageType.PATH, path: window.location.pathname});
     }, [sendJsonMessage]);
 
-    // TODO: 맨 처음 서버 켜고 로그인 할 때 한 번에 페이지 이동 안되고, 새로고침 1~2번 해야 동작하는 오류 (위 connectSid가 null로 초기화될 때 발생하는 오류 같음)
+    // TODO: Navigate 관련 오류, 삭제할 것
     useEffect(() => {
         const getConnectSid = async () => {
             const sid = await getCookieValue('connect.sid');
             setConnectSid(sid);
-            console.log(connectSid);
         };
         getConnectSid();
-    }, [getCookieValue, connectSid]);
+    }, [getCookieValue]);
 
     return (
         <Routes>
-            <Route path="/" element={connectSid ? (<Layout/>) : (<Navigate to="/sign-in" replace/>)}>
+            <Route path="/" element={connectSid ? <Layout/> : <Navigate to="/sign-in" replace/>}>
                 <Route path="/account" element={<Account/>}/>
                 <Route path="/change-password" element={<ChangePassword/>}/>
                 <Route path="/payment" element={<Payment/>}/>

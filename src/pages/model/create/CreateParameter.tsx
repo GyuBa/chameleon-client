@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {Parameter} from "../../../types/chameleon-client";
 import {createParam, createSchema, userSchema, userUISchema} from "../../../assets/Dummy";
@@ -140,6 +140,8 @@ export default function CreateParameters() {
     const [status, setStatus] = useState(0);
     const location = useLocation();
     const [isLoading, setIsLoading] = useState(false);
+    const [isCompleted, setIsCompleted] = useState(true);
+    const [showError, setShowError] = useState(false);
 
     if (status === 0) {
         transSchema = generateJsonFormsSchema(formData);
@@ -197,6 +199,7 @@ export default function CreateParameters() {
             navigate('/models/my');
         } catch (error: any) {
             setIsLoading(false);
+            setIsCompleted(false);
             if (error.response && error.response.status === 501) {
                 console.error(error.response.data);
             } else {
@@ -204,6 +207,19 @@ export default function CreateParameters() {
             }
         }
     };
+
+    useEffect(() => {
+        if (!isCompleted) {
+            setShowError(true);
+            const timeout = setTimeout(() => {
+                setShowError(false);
+            }, 1000);
+
+            return () => {
+                clearTimeout(timeout);
+            };
+        }
+    }, [isCompleted]);
 
     return (
         <div className="contents">
@@ -371,7 +387,7 @@ export default function CreateParameters() {
                 </div>
             </div>
             {
-                isLoading && (
+                isLoading ? (
                     <div className="fixed top-0 left-0 z-50 w-screen h-screen flex justify-center items-center">
                         <div role="status">
                             <svg aria-hidden="true"
@@ -386,10 +402,12 @@ export default function CreateParameters() {
                             </svg>
                         </div>
                     </div>
-                    // Another Design Draft
-                    //<div className="fixed top-0 left-0 z-50 w-screen h-screen flex justify-center items-center">
-                    //  <div className="px-3 py-1 text-xs font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">loading...</div>
-                    //</div>
+                ) : ( !isCompleted &&  ( // TODO: error message UI 작업중
+                        <div className={`fixed top-0 left-0 z-50 w-screen h-screen flex justify-center items-center ${
+                            showError ? 'opacity-100 ease-in' : 'opacity-0 ease-out'}`}>
+                            error
+                        </div>
+                    )
                 )
             }
         </div>
