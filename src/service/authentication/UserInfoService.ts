@@ -4,7 +4,7 @@ import {UserEntityData} from "../../types/chameleon-platform.common";
 
 const USER_INFO_KEY = "user_info";
 const emptyUser: UserEntityData = {id: -1, username: "", email: ""};
-export default function useGetUserInfo(): UserEntityData {
+export default function useGetUserInfo(): UserEntityData & { handleSignOut: () => Promise<void> } {
     const [user, setUser] = useState<UserEntityData>(emptyUser);
 
     useEffect(() => {
@@ -36,10 +36,15 @@ export default function useGetUserInfo(): UserEntityData {
      return { id: user?.id, username: user?.username, email: user?.email };
     }, [user]);
 
-    // TODO: 로그아웃 구현
-    /* const handleSignOut = () => {
-      localStorage.removeItem(USER_INFO_KEY);
-    }; */
+    const handleSignOut = async () => {
+        try {
+            localStorage.removeItem(USER_INFO_KEY);
+            await PlatformAPI.signOut();
+            console.log("sign out");
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
-    return {...cachedValues};
+    return { ...cachedValues, handleSignOut };
 }

@@ -8,7 +8,7 @@ import Button from '../button/Button';
 import SubmitButton from '../button/SubmitButton';
 
 export default function UserProfile() {
-    const {username, email} = useGetUserInfo();
+    const {username, email, handleSignOut} = useGetUserInfo();
 
     return (
         <div className="nav-item absolute right-1 top-12 bg-white p-8 rounded-3xl w-96">
@@ -46,7 +46,7 @@ export default function UserProfile() {
             <div className="mt-5">
                 <Link to="/sign-in"
                       className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight text-slate-900">
-                    <SubmitButton className="color-btn w-full p-3" text="Sign Out"/>
+                    <SubmitButton className="color-btn w-full p-3" text="Sign Out" onClick={handleSignOut}/>
                 </Link>
             </div>
         </div>
