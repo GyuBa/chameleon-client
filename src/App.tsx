@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Route, Routes, Navigate} from 'react-router-dom';
 import './App.css';
 import './styles/Dropzone.css';
@@ -20,7 +20,6 @@ import useGetUserInfo from "./service/authentication/UserInfoService";
 
 export default function App() {
     const { getCookieValue } = useGetUserInfo();
-    const [connectSid, setConnectSid] = useState<string | null>(null);
     const {sendJsonMessage, lastJsonMessage} =
         useWebSocket((window.location.protocol.startsWith('https') ? 'wss://' : 'ws://')
 	        + window.location.host + '/websocket', { shouldReconnect: (closeEvent) => true });
@@ -36,18 +35,9 @@ export default function App() {
         sendJsonMessage({msg: WSMessageType.PATH, path: window.location.pathname});
     }, [sendJsonMessage]);
 
-    // TODO: Navigate 관련 오류, 삭제할 것
-    useEffect(() => {
-        const getConnectSid = async () => {
-            const sid = await getCookieValue('connect.sid');
-            setConnectSid(sid);
-        };
-        getConnectSid();
-    }, [getCookieValue]);
-
     return (
         <Routes>
-            <Route path="/" element={connectSid ? <Layout/> : <Navigate to="/sign-in" replace/>}>
+            <Route path="/" element={getCookieValue('connect.sid') ? <Layout/> : <Navigate to="/sign-in" replace/>}>
                 <Route path="/account" element={<Account/>}/>
                 <Route path="/change-password" element={<ChangePassword/>}/>
                 <Route path="/payment" element={<Payment/>}/>

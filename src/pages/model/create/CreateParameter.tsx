@@ -402,7 +402,7 @@ export default function CreateParameters() {
                             </svg>
                         </div>
                     </div>
-                ) : ( !isCompleted &&  ( // TODO: error message UI 작업중
+                ) : ( !isCompleted && ( // TODO: error message UI 작업중
                         <div className={`fixed top-0 left-0 z-50 w-screen h-screen flex justify-center items-center ${
                             showError ? 'opacity-100 ease-in' : 'opacity-0 ease-out'}`}>
                             error
