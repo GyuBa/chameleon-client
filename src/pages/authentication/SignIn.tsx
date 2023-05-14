@@ -27,12 +27,10 @@ export default function SignIn() {
                 await PlatformAPI.signIn(email, password);
                 // TODO: users/my 401 에러, 로그인 되었을 때 my에 사용자 정보 저장되게 해야함. & connectSid를 App.tsx로 넘겨야함.
                 console.log(document.cookie);
-                const connectSid = getCookieValue('connect.sid');
-                console.log("connectSid1");
-                console.log(connectSid);
-                navigate('/models/all');
-                console.log("connectSid2");
-                console.log(connectSid);
+                const isSignedIn = getCookieValue('connect.sid');
+                if(isSignedIn) {
+                    window.location.href = '/models/all';
+                }
             } catch (e) {
                 if (e instanceof AxiosError && e.status === 401) {
                     alert('로그인에 실패하였습니다.');
