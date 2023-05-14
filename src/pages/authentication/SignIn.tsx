@@ -6,7 +6,6 @@ import {PlatformAPI} from "../../platform/PlatformAPI";
 import {AxiosError} from "axios";
 import useGetUserInfo from "../../service/authentication/UserInfoService";
 
-
 export default function SignIn() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");

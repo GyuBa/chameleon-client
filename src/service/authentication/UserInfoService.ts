@@ -5,27 +5,26 @@ import {UserEntityData} from "../../types/chameleon-platform.common";
 const emptyUser: UserEntityData = {id: -1, username: "", email: ""};
 export default function useGetUserInfo(): UserEntityData & { handleSignOut: () => Promise<void> } & { getCookieValue: (name: string) => (string | null) } {
     const [user, setUser] = useState<UserEntityData>(emptyUser);
-
-    const getCookieValue = (name : string) => {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            const [cookieName, cookieValue] = cookie.split('=');
-            if (cookieName === name) return cookieValue;
-        }
-        return null;
-    };
+    //TODO: LocalStorage 삭제 후 계속 렌더링 0~1초 걸림
+    const getCookieValue = useMemo(() => {
+        return (name : string) => {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                const [cookieName, cookieValue] = cookie.split('=');
+                if (cookieName === name) return cookieValue;
+            }
+            return null;
+        };
+    }, []);
 
     useEffect(() => {
       let completed = false;
       async function get() {
         try {
-          if (!completed) {
-            setUser(await PlatformAPI.getLoginUser());
-          }
+          if (!completed) setUser(await PlatformAPI.getLoginUser());
         } catch (error) {
-            console.log("error");
-          console.error(error);
+            console.error(error);
         }
       }
       get();
@@ -34,7 +33,7 @@ export default function useGetUserInfo(): UserEntityData & { handleSignOut: () =
       };
     }, []);
 
-    const cachedValues = useMemo(() => {
+    const cachedValues: UserEntityData = useMemo(() => {
      return { id: user?.id, username: user?.username, email: user?.email };
     }, [user]);
 
