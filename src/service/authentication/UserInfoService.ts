@@ -3,11 +3,12 @@ import {PlatformAPI} from "../../platform/PlatformAPI";
 import {UserEntityData} from "../../types/chameleon-platform.common";
 
 const emptyUser: UserEntityData = {id: -1, username: "", email: ""};
-export default function useGetUserInfo(): UserEntityData & { handleSignOut: () => Promise<void> } & { getCookieValue: (name: string) => (string | null) } {
-    const [user, setUser] = useState<UserEntityData>(emptyUser);
+let loadedUser: UserEntityData = emptyUser;
+
+export default function useGetUserInfo(): { handleSignOut: () => Promise<void> } & { getCookieValue: (name: string) => (string | null), user: UserEntityData } {
     //TODO: LocalStorage 삭제 후 계속 렌더링 0~1초 걸림
     const getCookieValue = useMemo(() => {
-        return (name : string) => {
+        return (name: string) => {
             const cookies = document.cookie.split(';');
             for (let i = 0; i < cookies.length; i++) {
                 const cookie = cookies[i].trim();
@@ -19,23 +20,16 @@ export default function useGetUserInfo(): UserEntityData & { handleSignOut: () =
     }, []);
 
     useEffect(() => {
-      let completed = false;
-      async function get() {
-        try {
-          if (!completed) setUser(await PlatformAPI.getLoginUser());
-        } catch (error) {
-            console.error(error);
-        }
-      }
-      get();
-      return () => {
-        completed = true;
-      };
+        (async () => {
+            if (loadedUser === emptyUser) {
+                try {
+                    loadedUser = await PlatformAPI.getLoginUser();
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+        })();
     }, []);
-
-    const cachedValues: UserEntityData = useMemo(() => {
-     return { id: user?.id, username: user?.username, email: user?.email };
-    }, [user]);
 
     const handleSignOut = async () => {
         try {
@@ -43,11 +37,11 @@ export default function useGetUserInfo(): UserEntityData & { handleSignOut: () =
             console.log(document.cookie);
             await PlatformAPI.signOut();
             console.log(document.cookie);
-            setUser(emptyUser);
+            loadedUser = emptyUser;
         } catch (error) {
             console.error(error);
         }
     };
 
-    return { ...cachedValues, handleSignOut, getCookieValue };
+    return {handleSignOut, getCookieValue, user: loadedUser};
 }
