@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link, useLocation, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import InputModule from "../module/Input"
 import OutputModule from "../module/Output"
 import OutputDescriptionModule from "../module/OutputDescription"
@@ -9,18 +9,31 @@ import {JsonForms} from "@jsonforms/react";
 import {JsonViewer} from "@textea/json-viewer";
 import Button from "../../../components/button/Button";
 import Header from "../../../components/layout/Header";
+import {ModelEntityData} from "../../../types/chameleon-platform.common";
+import {PlatformAPI} from "../../../platform/PlatformAPI"
 
 const initialData = {};
 
 export default function ExecuteModel() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const [parameter, setParameter] = useState(initialData);
-    const location = useLocation();
-    const modelData = location.state.modelData;
-    const schema = modelData?.parameters?.schema;
-    const uiSchema = modelData?.parameters?.uischema
+    const [modelData, setModelData] = useState<ModelEntityData>();
 
-    const {uniqueName, userName} = useParams();
+    const {username, uniqueName} = useParams();
+
+    (async function () {
+        try {
+            const model = await PlatformAPI.getModelByUsernameAndUniqueName(username!, uniqueName!)
+            if (model.register.username === username && model.uniqueName === uniqueName) {
+                setModelData(model);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    })();
+
+    const schema = modelData?.parameters?.schema
+    const uiSchema = modelData?.parameters?.uischema
 
     return (
         <div className="contents">

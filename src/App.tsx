@@ -19,36 +19,25 @@ import {WSMessageType} from "./types/chameleon-platform.common";
 
 export default function App() {
 
-    const location = useLocation();
     const {
         sendJsonMessage,
         lastJsonMessage,
     } = useWebSocket((window.location.protocol.startsWith('https') ? 'wss://' : 'ws://') + window.location.host + '/websocket', {
         shouldReconnect: (closeEvent) => true,
-        share : true,
-        onMessage: (message) => {
-            let data = JSON.parse(message.data);
-            if (data?.msg === WSMessageType.UPDATE_MODEL) {
-                console.log(data);
-            } else if (data?.msg === WSMessageType.UPDATE_MODELS) {
-                console.log(data);
-            } else if (data?.msg === WSMessageType.UPDATE_HISTORIES) {
-                console.log(data);
-            } else if (data?.msg === WSMessageType.UPDATE_HISTORY) {
-                console.log(data);
-            }
-        }
+        share : true
     });
+
+    let path = useLocation().pathname.slice(1);
 
     useEffect(() => {
         let message = lastJsonMessage as any;
         if (lastJsonMessage && message.msg === WSMessageType.READY) {
-            sendJsonMessage({msg: WSMessageType.PATH, path: window.location.pathname});
+            sendJsonMessage({msg: WSMessageType.PATH, path: path});
         }
     }, [sendJsonMessage, lastJsonMessage, window.location.pathname]);
 
     useEffect(() => {
-        sendJsonMessage({msg: WSMessageType.PATH, path: window.location.pathname});
+        sendJsonMessage({msg: WSMessageType.PATH, path: path});
     }, [sendJsonMessage, window.location.pathname]);
 
     return (
@@ -60,7 +49,7 @@ export default function App() {
                 <Route path="/payment" element={<Payment/>}/>
                 <Route path="/models/my" element={<Models/>}/>
                 <Route path="/models/all" element={<Models/>}/>
-                <Route path="/model/:userName/:uniqueName" element={<ExecuteModel/>}/>
+                <Route path="/model/:username/:uniqueName" element={<ExecuteModel/>}/>
                 <Route path="/models/create" element={<CreateModel/>}/>
                 <Route path="/models/create/description" element={<CreateDescription/>}/>
                 <Route path="/models/create/parameters" element={<CreateParameters/>}/>

@@ -6,6 +6,7 @@ import {FileUtils} from "../../../../utils/FileUtils"
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
 import {ModelEntityData, WSMessageType} from "../../../../types/chameleon-platform.common";
 import useWebSocket from "react-use-websocket";
+import {useLocation} from "react-router-dom";
 
 type IFile = File & { preview?: string };
 export default function SingleInputUploader(parameter : Object, modelData : ModelEntityData) {
@@ -14,24 +15,31 @@ export default function SingleInputUploader(parameter : Object, modelData : Mode
     const [uploadExplain, setUploadExplain] = useState<string>('');
 
     const {
+        sendJsonMessage,
         lastJsonMessage
     } = useWebSocket((window.location.protocol.startsWith('https') ? 'wss://' : 'ws://') + window.location.host + '/websocket ', {
         shouldReconnect: (closeEvent) => true,
         share : true,
         onMessage: (message) => {
             let data = JSON.parse(message.data);
-            if (data?.msg === WSMessageType.UPDATE_MODEL) {
+            if (data?.msg === WSMessageType.UPDATE_HISTORY) {
                 console.log(data);
-            } else if (data?.msg === WSMessageType.UPDATE_MODELS) {
-                console.log(data);
-            } else if (data?.msg === WSMessageType.UPDATE_HISTORIES) {
-                console.log(data);
-            } else if (data?.msg === WSMessageType.UPDATE_HISTORY) {
-                console.log(data);
-            } else
-                console.log(data);
+            }
         }
     });
+
+    let path = useLocation().pathname.slice(1);
+
+    useEffect(() => {
+        let message = lastJsonMessage as any;
+        if (lastJsonMessage && message.msg === WSMessageType.READY) {
+            sendJsonMessage({msg: WSMessageType.PATH, path: path});
+        }
+    }, [sendJsonMessage, lastJsonMessage, window.location.pathname]);
+
+    useEffect(() => {
+        sendJsonMessage({msg: WSMessageType.PATH, path: path});
+    }, [sendJsonMessage, window.location.pathname]);
 
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
         accept: {'*/*': []},
@@ -85,7 +93,6 @@ export default function SingleInputUploader(parameter : Object, modelData : Mode
                 });
             setUploadExplain('Upload Done')
             console.log('Upload done!');
-            console.log(lastJsonMessage)
 
         } catch (error) {
             setFiles([]);
