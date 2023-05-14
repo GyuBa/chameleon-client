@@ -50,9 +50,9 @@ export default function App() {
                     <Route path="/models/create/parameters" element={<CreateParameters/>}/>
                     <Route path="/histories" element={<History/>}/>
                 </Route>
-            ) : (<Route path="/*" element={(<Navigate to="/sign-in" replace/>)}/>)}
-            <Route path="/sign-in" element={(<SignIn/>)}/>
-            <Route path="/sign-up" element={(<SignUp/>)}/>
+            ) : (<Route path="/*" element={<Navigate to="/sign-in" replace/>}/>)}
+            <Route path="/sign-in" element={<SignIn/>}/>
+            <Route path="/sign-up" element={<SignUp/>}/>
         </Routes>
     );
 };

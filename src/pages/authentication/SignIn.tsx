@@ -4,12 +4,14 @@ import chameleon from '../../assets/images/chameleon.png';
 import SubmitButton from "../../components/button/SubmitButton";
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {AxiosError} from "axios";
+import useGetUserInfo from "../../service/authentication/UserInfoService";
 
 
 export default function SignIn() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const navigate = useNavigate();
+    const { getCookieValue } = useGetUserInfo();
 
     const signIn = async (e: any) => {
         e.preventDefault();
@@ -24,8 +26,14 @@ export default function SignIn() {
                 console.log("sign in");
                 console.log(document.cookie);
                 await PlatformAPI.signIn(email, password);
+                // TODO: users/my 401 에러, 로그인 되었을 때 my에 사용자 정보 저장되게 해야함. & connectSid를 App.tsx로 넘겨야함.
                 console.log(document.cookie);
+                const connectSid = getCookieValue('connect.sid');
+                console.log("connectSid1");
+                console.log(connectSid);
                 navigate('/models/all');
+                console.log("connectSid2");
+                console.log(connectSid);
             } catch (e) {
                 if (e instanceof AxiosError && e.status === 401) {
                     alert('로그인에 실패하였습니다.');
@@ -96,7 +104,7 @@ export default function SignIn() {
                                 <Link to="#!" className="text-gray-800">Forgot password?</Link>
                             </div>
                             <div className="text-center lg:text-left">
-                                <SubmitButton className="color-btn w-full" text="Sign In" event={SignIn} onClick={signIn} disabled={!email || !password}/>
+                                <SubmitButton className="color-btn w-full" text="Sign In" onClick={signIn} disabled={!email || !password}/>
                             </div>
                         </form>
                     </div>
