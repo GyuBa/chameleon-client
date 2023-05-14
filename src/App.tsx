@@ -21,18 +21,13 @@ export default function App() {
 
     const location = useLocation();
     const {
-        sendMessage,
         sendJsonMessage,
-        lastMessage,
         lastJsonMessage,
-        readyState,
-        getWebSocket,
     } = useWebSocket((window.location.protocol.startsWith('https') ? 'wss://' : 'ws://') + window.location.host + '/websocket', {
         shouldReconnect: (closeEvent) => true,
         share : true,
         onMessage: (message) => {
             let data = JSON.parse(message.data);
-            console.log(data.path)
             if (data?.msg === WSMessageType.UPDATE_MODEL) {
                 console.log(data);
             } else if (data?.msg === WSMessageType.UPDATE_MODELS) {
@@ -41,8 +36,7 @@ export default function App() {
                 console.log(data);
             } else if (data?.msg === WSMessageType.UPDATE_HISTORY) {
                 console.log(data);
-            } else
-                console.log(data)
+            }
         }
     });
 
@@ -66,7 +60,7 @@ export default function App() {
                 <Route path="/payment" element={<Payment/>}/>
                 <Route path="/models/my" element={<Models/>}/>
                 <Route path="/models/all" element={<Models/>}/>
-                <Route path="/models/execute" element={<ExecuteModel/>}/>
+                <Route path="/model/:userName/:uniqueName" element={<ExecuteModel/>}/>
                 <Route path="/models/create" element={<CreateModel/>}/>
                 <Route path="/models/create/description" element={<CreateDescription/>}/>
                 <Route path="/models/create/parameters" element={<CreateParameters/>}/>

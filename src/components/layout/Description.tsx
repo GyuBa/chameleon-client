@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {Badge} from "flowbite-react";
 import MDEditor from "@uiw/react-md-editor";
 import Button from "../button/Button";
@@ -32,6 +32,9 @@ export default function Description({modelId}: DescriptionProps) {
         };
     }, [modelId]);
 
+    const userName = modelData?.register?.username;
+    const uniqueName = modelData?.uniqueName;
+
     return (
         <div className="contents">
             <div className="m-2 md:my-10 mt-24 p-2 md:pr-5 md:py-10">
@@ -39,7 +42,7 @@ export default function Description({modelId}: DescriptionProps) {
                     className="flex justify-between items-center pb-6 border-b-1 border-gray-300 overflow-auto max-h-screen">
                     <p className="text-3xl font-extrabold tracking-tight text-slate-900">{modelData?.name}</p>
                     <div className="flex gap-2">
-                        <Link to="/models/execute" state={{modelData : modelData}}>
+                        <Link to = {`model/${userName}/${uniqueName}`} state={{modelData : modelData}}>
                             <Button className="color-btn text-sm w-full p-1.5" text="start"/>
                         </Link>
                     </div>
