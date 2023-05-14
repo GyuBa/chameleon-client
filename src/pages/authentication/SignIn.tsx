@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import chameleon from '../../assets/images/chameleon.png';
 import SubmitButton from "../../components/button/SubmitButton";
 import {PlatformAPI} from "../../platform/PlatformAPI";
@@ -9,7 +9,6 @@ import useGetUserInfo from "../../service/authentication/UserInfoService";
 export default function SignIn() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const navigate = useNavigate();
     const { getCookieValue } = useGetUserInfo();
 
     const signIn = async (e: any) => {
@@ -22,11 +21,7 @@ export default function SignIn() {
             return;
         } else {
             try {
-                console.log("sign in");
-                console.log(document.cookie);
                 await PlatformAPI.signIn(email, password);
-                // TODO: users/my 401 에러, 로그인 되었을 때 my에 사용자 정보 저장되게 해야함. & connectSid를 App.tsx로 넘겨야함.
-                console.log(document.cookie);
                 const isSignedIn = getCookieValue('connect.sid');
                 if(isSignedIn) {
                     window.location.href = '/models/all';
