@@ -20,7 +20,7 @@ export default function SingleInputUploader(parameter : Object, modelData : Mode
 
     useEffect(() => {
         const loadModel = async () => {
-            const response = await fetch(`model/${userName}/${modelUniqueName}`);
+            const response = await fetch(`model/${modelData.register.username}/${modelData.name}`);
             console.log(response)
         };
 
