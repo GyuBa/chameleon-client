@@ -1,19 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {Badge, Table} from "flowbite-react";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
 import {HiViewGrid} from "react-icons/hi";
 import {FiList} from "react-icons/fi";
 import {RiDeleteBinLine} from "react-icons/ri";
-import {BiAddToQueue, BiDotsVerticalRounded, BiPencil, BiTrash} from "react-icons/bi";
+import {BiAddToQueue, BiDotsVerticalRounded, BiTrash} from "react-icons/bi";
 import {VscDebugStart} from "react-icons/vsc";
 import Description from "../../../components/layout/Description";
 import Header from "../../../components/layout/Header";
-import {PlatformAPI} from "../../../platform/PlatformAPI";
 import {ModelEntityData} from "../../../types/chameleon-platform.common";
 import {DateUtils} from "../../../utils/DateUtils";
+import {PlatformAPI} from "../../../platform/PlatformAPI";
 
-export const modelColumn = {
+const modelColumn = {
     list: ['Model Name', 'Input Type', 'Output Type', 'Register', 'Last Modified Date', 'start']
 };
 
@@ -27,30 +27,30 @@ export default function Models() {
     } = useStateContext();
     const [models, setModels] = useState<ModelEntityData[]>([]);
     const [selectedModelId, setSelectedModelId] = useState<number>(-1);
+    const location = useLocation();
 
     useEffect(() => {
+        setSelectedModelId(-1);
         let completed = false;
-
         (async function () {
             try {
-                const models = await PlatformAPI.getModels();
+                const models = (location.pathname === '/models/my') ? await PlatformAPI.getMyModels() : await PlatformAPI.getModels();
                 if (!completed) {
                     setModels(models);
                 }
             } catch (error) {
                 console.error(error);
+                setModels([]);
             }
         })();
-
         return () => {
             completed = true;
         };
-    }, []);
+    }, [location.pathname]);
 
     const onModelSelect = (modelData: ModelEntityData) => {
         setSelectedModelId(modelData.id);
     };
-
 
     const ArrangeMenu = () => (
       <div className="flex items-center gap-2">
@@ -58,11 +58,6 @@ export default function Models() {
           <BiAddToQueue size="25" color="#484848" className="pl-1"/>
           <span
             className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Create Model</span>
-        </Link>
-        <Link to="/" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
-          <BiPencil size="25" color="#484848" className="pl-1"/>
-          <span
-            className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Update Model</span>
         </Link>
         <Link to="/" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
           <BiTrash size="25" color="#484848" className="pl-1"/>
@@ -88,11 +83,6 @@ export default function Models() {
           <BiAddToQueue size="25" color="#484848" className="pl-1"/>
           <span
             className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Create Model</span>
-        </Link>
-        <Link to="/" className="flex gap-1 border-b-1 border-gray-400 hover:bg-gray-100 items-center">
-          <BiPencil size="25" color="#484848" className="pl-1"/>
-          <span
-            className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Update Model</span>
         </Link>
         <Link to="/" className="flex gap-1 hover:bg-gray-100 items-center">
           <RiDeleteBinLine size="25" color="#484848" className="pl-1"/>
@@ -128,9 +118,7 @@ export default function Models() {
       <div>
           <Table hoverable={true}>
               <Table.Head>
-                  {modelColumn.list.map((item) => (
-                      <Table.HeadCell>{item}</Table.HeadCell>
-                  ))}
+                  {modelColumn.list.map((item) => (<Table.HeadCell>{item}</Table.HeadCell>))}
               </Table.Head>
               <Table.Body className="divide-y">
                   {models.map((modelData) => (
@@ -161,7 +149,9 @@ export default function Models() {
         <div className="w-full m-2 md:m-10 mt-24">
             <div className="flex justify-between items-center">
                 <div className="flex">
-                    <Header title="Models"/>
+                    {(location.pathname === '/models/my') ?
+                        <Header title="My Models"/> : <Header title="All Models"/>
+                    }
                     <button onClick={() => setCurrentLayout("GridLayout")} type="button"
                             className={`ml-2 mr-1 text-xl rounded-full p-2 hover:bg-light-gray focus:bg-gray ${currentLayout === "GridLayout" ? "bg-light-gray" : null}`}>
                         {<HiViewGrid size="21" className="text-gray-500"/>}
@@ -178,9 +168,15 @@ export default function Models() {
             </div>
         </div>
         {selectedModelId > 0 ?
-            <div className="w-[700px] ease-in-out duration-300 translate-x-0"><Description modelId={selectedModelId} setSelectedModelId={setSelectedModelId}/></div>
+            <div className="w-[700px] ease-in-out duration-300 translate-x-0">
+                <Description modelId={selectedModelId} setSelectedModelId={setSelectedModelId}/>
+            </div>
             :
-            <div className="w-0 ease-in-out duration-300 translate-x-full hidden"><Description modelId={selectedModelId} setSelectedModelId={setSelectedModelId}/></div>
+            <div className="w-0 ease-in-out duration-300 translate-x-full">
+                <div className="hidden">
+                    <Description modelId={selectedModelId} setSelectedModelId={setSelectedModelId}/>
+                </div>
+            </div>
         }
     </div>
   );

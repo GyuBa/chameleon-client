@@ -1,18 +1,18 @@
 import React, {CSSProperties, ReactNode} from "react";
 
-type HeaderData = {
+export type HeaderData = {
     category?: string;
     title?: string;
 }
 
-type DefaultButtonData = {
+export type DefaultButtonData = {
     style?: CSSProperties | undefined,
     className?: string,
     icon?: ReactNode,
     text?: string,
 }
 // TODO: onClick, event type 수정 필요
-type SubmitButtonData = {
+export type SubmitButtonData = {
     className?: string,
     text?: string,
     onClick?: Promise<void> | any,
@@ -20,14 +20,7 @@ type SubmitButtonData = {
     disabled?: boolean
 }
 
-// TODO:WebSocketData type 수정 필요
-type WebSocketData = {
-    style?: CSSProperties | undefined,
-    className?: string,
-    event?: JSX.Element | any,
-}
-
-type Parameter = {
+export type Parameter = {
     name: string;
     type: string;
     minInteger?: number,
@@ -48,7 +41,7 @@ type Parameter = {
     description?: string,
 }
 
-type DownloadButtonProps = {
+export type DownloadButtonProps = {
     url: string;
     format: string;
     filename: string;
@@ -58,5 +51,3 @@ export interface DescriptionProps {
     modelId: number;
     setSelectedModelId: React.Dispatch<React.SetStateAction<number>>;
 }
-
-export type {Parameter, HeaderData, DefaultButtonData, SubmitButtonData, WebSocketData, DownloadButtonProps};

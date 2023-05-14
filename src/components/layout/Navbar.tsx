@@ -8,7 +8,7 @@ import UserProfile from "./UserProfile";
 
 export default function Navbar() {
     const {handleClick, isClicked, handleActiveMenu} = useStateContext();
-    const {username} = useGetUserInfo();
+    const {user} = useGetUserInfo();
 
     return (
         <div className="flex w-full justify-between p-2 relative z-40 bg-white">
@@ -21,7 +21,7 @@ export default function Navbar() {
                     <BsFillPersonFill className="w-5 h-5"/>
                     <p>
                         <span className="text-gray-700 text-14">Welcome,</span>{' '}
-                        <span className="text-gray-700 font-bold ml-1 text-14">{username}</span>
+                        <span className="text-gray-700 font-bold ml-1 text-14">{user.username}</span>
                     </p>
                     <MdKeyboardArrowDown className="text-gray-400 text-14"/>
                 </div>

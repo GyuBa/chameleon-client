@@ -8,7 +8,7 @@ import Button from '../button/Button';
 import SubmitButton from '../button/SubmitButton';
 
 export default function UserProfile() {
-    const {username, email} = useGetUserInfo();
+    const {handleSignOut, user} = useGetUserInfo();
 
     return (
         <div className="nav-item absolute right-1 top-12 bg-white p-8 rounded-3xl w-96">
@@ -20,8 +20,8 @@ export default function UserProfile() {
             <div className="flex gap-5 items-center mt-6 border-color border-b-1 pb-6">
                 <BsPersonCircle className="w-24 h-24"/>
                 <div>
-                    <p className="font-semibold text-xl">{username}</p>
-                    <p className="text-gray-500 text-sm font-semibold">{email}</p>
+                    <p className="font-semibold text-xl">{user.username}</p>
+                    <p className="text-gray-500 text-sm font-semibold">{user.email}</p>
                 </div>
             </div>
             <div>
@@ -46,7 +46,7 @@ export default function UserProfile() {
             <div className="mt-5">
                 <Link to="/sign-in"
                       className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight text-slate-900">
-                    <SubmitButton className="color-btn w-full p-3" text="Sign Out"/>
+                    <SubmitButton className="color-btn w-full p-3" text="Sign Out" onClick={handleSignOut}/>
                 </Link>
             </div>
         </div>

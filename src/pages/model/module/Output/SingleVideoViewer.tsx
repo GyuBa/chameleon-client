@@ -44,7 +44,7 @@ export default function SingleVideoViewer() {
                                   onClick={() => DownloadUtils.download(videoURL, 'test')}/>
                 </div>
             </div>
-            <div className="overflow-y-auto max-h-[352px]">
+            <div className="overflow-y-auto max-h-[350px]">
                 <p className="px-2 pt-2">Output Format : {extension} </p>
                 <p className="px-2 pt-2">Size : {FileUtils.formatBytes(fileSize)} </p>
                 <video src={videoURL} className="video-js vjs-classic-skin" controls autoPlay={false} ref={videoRef}/>
