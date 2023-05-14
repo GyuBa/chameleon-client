@@ -63,7 +63,7 @@ export default function ZipGalleryViewer() {
                                   onClick={() => DownloadUtils.download(url, 'test')}/>
                 </div>
             </div>
-            <div className="overflow-y-auto max-h-[352px]">
+            <div className="overflow-y-auto max-h-[350px]">
                 <p className="px-2 pt-2">Output Format : {outputExtensions} </p>
                 <p className="px-2 pt-2">Size : {FileUtils.formatBytes(size)} </p>
             </div>

@@ -146,7 +146,7 @@ export default function ExecuteModel() {
                                               rounded-md hover:border-black"/>
                             </div>
                         </div>
-                        <div className="overflow-auto max-h-[217px] h-full">
+                        <div className="overflow-auto max-h-[213px] h-full">
                             <section className="container h-full">
                                 <div {...getRootProps()}
                                     className={hideDrop ? "hidden" : "dropzone cursor-pointer justify-center"}>
