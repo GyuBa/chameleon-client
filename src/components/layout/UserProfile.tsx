@@ -8,7 +8,7 @@ import Button from '../button/Button';
 import SubmitButton from '../button/SubmitButton';
 
 export default function UserProfile() {
-    const {username, email, handleSignOut} = useGetUserInfo();
+    const {handleSignOut, user} = useGetUserInfo();
 
     return (
         <div className="nav-item absolute right-1 top-12 bg-white p-8 rounded-3xl w-96">
@@ -20,8 +20,8 @@ export default function UserProfile() {
             <div className="flex gap-5 items-center mt-6 border-color border-b-1 pb-6">
                 <BsPersonCircle className="w-24 h-24"/>
                 <div>
-                    <p className="font-semibold text-xl">{username}</p>
-                    <p className="text-gray-500 text-sm font-semibold">{email}</p>
+                    <p className="font-semibold text-xl">{user.username}</p>
+                    <p className="text-gray-500 text-sm font-semibold">{user.email}</p>
                 </div>
             </div>
             <div>

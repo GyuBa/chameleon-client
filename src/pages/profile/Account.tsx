@@ -7,7 +7,7 @@ import Button from "../../components/button/Button";
 import Header from "../../components/layout/Header";
 
 export default function Account() {
-  const {username, email} = useGetUserInfo();
+  const {user} = useGetUserInfo();
 
   return (
     <div className="contents">
@@ -18,8 +18,8 @@ export default function Account() {
           <div className="flex items-center">
             <BsPersonCircle className="w-20 h-20"/>
             <div className="w-full p-3">
-              <p className="font-extrabold text-xl">{username}</p>
-              <p>{email}</p>
+              <p className="font-extrabold text-xl">{user.username}</p>
+              <p>{user.email}</p>
             </div>
           </div>
         </div>
