@@ -37,18 +37,20 @@ export default function App() {
 
     return (
         <Routes>
-            <Route path="/" element={getCookieValue('connect.sid') ? <Layout/> : <Navigate to="/sign-in" replace/>}>
-                <Route path="/account" element={<Account/>}/>
-                <Route path="/change-password" element={<ChangePassword/>}/>
-                <Route path="/payment" element={<Payment/>}/>
-                <Route path="/models/my" element={<Models/>}/>
-                <Route path="/models/all" element={<Models/>}/>
-                <Route path="/models/:modelId" element={<ExecuteModel/>}/>
-                <Route path="/models/create" element={<CreateModel/>}/>
-                <Route path="/models/create/description" element={<CreateDescription/>}/>
-                <Route path="/models/create/parameters" element={<CreateParameters/>}/>
-                <Route path="/histories" element={<History/>}/>
-            </Route>
+            {getCookieValue('connect.sid') ? (
+                <Route path="/" element={<Layout/>}>
+                    <Route path="/account" element={<Account/>}/>
+                    <Route path="/change-password" element={<ChangePassword/>}/>
+                    <Route path="/payment" element={<Payment/>}/>
+                    <Route path="/models/my" element={<Models/>}/>
+                    <Route path="/models/all" element={<Models/>}/>
+                    <Route path="/models/:modelId" element={<ExecuteModel/>}/>
+                    <Route path="/models/create" element={<CreateModel/>}/>
+                    <Route path="/models/create/description" element={<CreateDescription/>}/>
+                    <Route path="/models/create/parameters" element={<CreateParameters/>}/>
+                    <Route path="/histories" element={<History/>}/>
+                </Route>
+            ) : (<Route path="/*" element={(<Navigate to="/sign-in" replace/>)}/>)}
             <Route path="/sign-in" element={(<SignIn/>)}/>
             <Route path="/sign-up" element={(<SignUp/>)}/>
         </Routes>

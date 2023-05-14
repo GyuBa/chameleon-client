@@ -118,9 +118,7 @@ export default function Models() {
       <div>
           <Table hoverable={true}>
               <Table.Head>
-                  {modelColumn.list.map((item) => (
-                      <Table.HeadCell>{item}</Table.HeadCell>
-                  ))}
+                  {modelColumn.list.map((item) => (<Table.HeadCell>{item}</Table.HeadCell>))}
               </Table.Head>
               <Table.Body className="divide-y">
                   {models.map((modelData) => (
