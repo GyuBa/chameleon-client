@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useParams} from "react-router-dom";
 import InputModule from "../module/Input"
 import OutputModule from "../module/Output"
 import OutputDescriptionModule from "../module/OutputDescription"
@@ -17,9 +17,10 @@ export default function ExecuteModel() {
     const [parameter, setParameter] = useState(initialData);
     const location = useLocation();
     const modelData = location.state.modelData;
-    const schema = modelData?.parameters.schema;
-    const uiSchema = modelData?.parameters.uiSchema
+    const schema = modelData?.parameters?.schema;
+    const uiSchema = modelData?.parameters?.uischema
 
+    const {uniqueName, userName} = useParams();
 
     return (
         <div className="contents">
@@ -65,6 +66,7 @@ export default function ExecuteModel() {
                         </div>
                     </div>
                     {InputModule(parameter, modelData)}
+                    <OutputModule/>
                     <OutputDescriptionModule/>
                 </div>
             </div>

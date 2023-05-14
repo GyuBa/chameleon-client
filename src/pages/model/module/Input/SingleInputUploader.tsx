@@ -5,7 +5,6 @@ import {useDropzone} from "react-dropzone";
 import {FileUtils} from "../../../../utils/FileUtils"
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
 import {ModelEntityData, WSMessageType} from "../../../../types/chameleon-platform.common";
-import useGetUserInfo from "../../../../service/authentication/UserInfoService";
 import useWebSocket from "react-use-websocket";
 
 type IFile = File & { preview?: string };
@@ -13,20 +12,26 @@ export default function SingleInputUploader(parameter : Object, modelData : Mode
     const [files, setFiles] = useState<IFile[]>([]);
     const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [uploadExplain, setUploadExplain] = useState<string>('');
-    const loadedUser = useGetUserInfo();
-    const userName = loadedUser?.username
-    const encodedName = encodeURIComponent(userName);
-    let modelUniqueName = modelData?.uniqueName
 
-    useEffect(() => {
-        const loadModel = async () => {
-            const response = await fetch(`model/${userName}/${modelUniqueName}`);
-            console.log(response)
-        };
-
-        loadModel();
-    }, [modelUniqueName]);
-
+    const {
+        lastJsonMessage
+    } = useWebSocket((window.location.protocol.startsWith('https') ? 'wss://' : 'ws://') + window.location.host + '/websocket ', {
+        shouldReconnect: (closeEvent) => true,
+        share : true,
+        onMessage: (message) => {
+            let data = JSON.parse(message.data);
+            if (data?.msg === WSMessageType.UPDATE_MODEL) {
+                console.log(data);
+            } else if (data?.msg === WSMessageType.UPDATE_MODELS) {
+                console.log(data);
+            } else if (data?.msg === WSMessageType.UPDATE_HISTORIES) {
+                console.log(data);
+            } else if (data?.msg === WSMessageType.UPDATE_HISTORY) {
+                console.log(data);
+            } else
+                console.log(data);
+        }
+    });
 
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
         accept: {'*/*': []},
@@ -79,8 +84,8 @@ export default function SingleInputUploader(parameter : Object, modelData : Mode
                 input: files[0]
                 });
             setUploadExplain('Upload Done')
-            console.log(executeInfo)
             console.log('Upload done!');
+            console.log(lastJsonMessage)
 
         } catch (error) {
             setFiles([]);
