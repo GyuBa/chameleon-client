@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef} from "react";
 import SubmitButton from "../../../../components/button/SubmitButton";
 import {BiDownload} from "react-icons/bi";
 import videojs from "video.js"
@@ -6,22 +6,17 @@ import 'video.js/dist/video-js.css';
 import '../../../../styles/custom-video-js.css';
 import {FileUtils} from "../../../../utils/FileUtils";
 import {DownloadUtils} from "../../../../utils/DownloadUtils"
-import axios from "axios";
+import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
 const videoURL = '/videos/video.mp4'
 
-export default function SingleVideoViewer() {
+export default function SingleVideoViewer(historyStatus : HistoryEntityData) {
 
-    const extension = videoURL.split('.').pop();
     const videoRef = useRef<HTMLVideoElement>(null);
-    const [fileSize, setFileSize] = useState<number>(0);
-
-    axios
-        .get(videoURL, { responseType: 'blob' })
-        .then((response) => {
-            const size = response.headers['content-length'];
-            setFileSize(Number(size));
-        })
-        .catch((error) => console.error(error));
+    let outputInformation = historyStatus?.outputInfo?.fileName
+    const extension = outputInformation?.split('.').pop();
+    let outputPath = historyStatus?.outputPath
+    let outputSize = historyStatus?.outputInfo?.fileSize
+    let outputName = historyStatus?.outputInfo?.fileName
 
     useEffect(() => {
         if (videoRef.current) {
@@ -42,13 +37,13 @@ export default function SingleVideoViewer() {
                 <div className="flex items-center rounded-lg hover:bg-light-gray focus:bg-gray">
                     <BiDownload size="20" color="#484848" className="pl-1"/>
                     <SubmitButton text="Download" className="text-sm"
-                                  onClick={async () => {DownloadUtils.download(videoURL, 'test');}}></SubmitButton>
+                                  onClick={async () => {DownloadUtils.download('/'+ outputPath, outputName);}}></SubmitButton>
                 </div>
             </div>
             <div className="overflow-y-auto max-h-[352px]">
                 <p className="px-2 pt-2">Output Format : {extension} </p>
-                <p className="px-2 pt-2">Size : {FileUtils.formatBytes(fileSize)} </p>
-                <video src={videoURL} className="video-js vjs-classic-skin" controls autoPlay={false} ref={videoRef}/>
+                <p className="px-2 pt-2">Size : {FileUtils.formatBytes(outputSize)} </p>
+                <video src={'/'+ outputPath} className="video-js vjs-classic-skin" controls autoPlay={false} ref={videoRef}/>
             </div>
         </div>
     );

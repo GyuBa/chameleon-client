@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Route, Routes} from 'react-router-dom';
+import {Route, Routes, useLocation} from 'react-router-dom';
 import './App.css';
 import './styles/Dropzone.css';
 import useWebSocket from "react-use-websocket";
@@ -18,11 +18,32 @@ import CreateParameters from "./pages/model/create/CreateParameter";
 import {WSMessageType} from "./types/chameleon-platform.common";
 
 export default function App() {
+
+    const location = useLocation();
     const {
+        sendMessage,
         sendJsonMessage,
-        lastJsonMessage
+        lastMessage,
+        lastJsonMessage,
+        readyState,
+        getWebSocket,
     } = useWebSocket((window.location.protocol.startsWith('https') ? 'wss://' : 'ws://') + window.location.host + '/websocket', {
         shouldReconnect: (closeEvent) => true,
+        share : true,
+        onMessage: (message) => {
+            let data = JSON.parse(message.data);
+            console.log(data.path)
+            if (data?.msg === WSMessageType.UPDATE_MODEL) {
+                console.log(data);
+            } else if (data?.msg === WSMessageType.UPDATE_MODELS) {
+                console.log(data);
+            } else if (data?.msg === WSMessageType.UPDATE_HISTORIES) {
+                console.log(data);
+            } else if (data?.msg === WSMessageType.UPDATE_HISTORY) {
+                console.log(data);
+            } else
+                console.log(data)
+        }
     });
 
     useEffect(() => {
@@ -30,11 +51,11 @@ export default function App() {
         if (lastJsonMessage && message.msg === WSMessageType.READY) {
             sendJsonMessage({msg: WSMessageType.PATH, path: window.location.pathname});
         }
-    }, [sendJsonMessage, lastJsonMessage]);
+    }, [sendJsonMessage, lastJsonMessage, window.location.pathname]);
 
     useEffect(() => {
         sendJsonMessage({msg: WSMessageType.PATH, path: window.location.pathname});
-    }, [sendJsonMessage]);
+    }, [sendJsonMessage, window.location.pathname]);
 
     return (
         <Routes>

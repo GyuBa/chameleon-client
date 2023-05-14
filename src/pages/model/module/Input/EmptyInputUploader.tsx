@@ -1,12 +1,17 @@
-import React, {useEffect, useState} from "react";
+import React, {useState, useEffect} from "react";
 import SubmitButton from "../../../../components/button/SubmitButton";
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
+import {HistoryEntityData, ModelEntityData} from "../../../../types/chameleon-platform.common";
+import useWebSocket from "react-use-websocket";
+import useGetUserInfo from "../../../../service/authentication/UserInfoService"
+export default function EmptyInputUploader(parameter : Object, modelData : ModelEntityData) {
 
-export default function EmptyInputUploader(parameter : Object, modelData : any) {
+    const loadedUser = useGetUserInfo();
+    const username = loadedUser?.username
     let modelId = modelData?.id
+    let modelUniqueName = modelData?.uniqueName
     let file = new File(["{}"], "empty");
     let parameters = JSON.stringify({parameter : parameter});
-    const [historyStatus, setHistoryStatus] = useState<string>('');
 
     const handleModelStart = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -24,24 +29,6 @@ export default function EmptyInputUploader(parameter : Object, modelData : any) 
             console.log('Upload error...');
         }
     }
-
-    useEffect(() => {
-        let completed = false;
-
-        (async function () {
-            try {
-                const model = await PlatformAPI.getHistories();
-                console.log(model)
-
-            } catch (error) {
-                console.error(error);
-            }
-        })();
-
-        return () => {
-            completed = true;
-        };
-    }, []);
 
     return (
         <div>

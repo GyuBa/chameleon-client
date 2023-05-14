@@ -4,14 +4,29 @@ import SubmitButton from "../../../../components/button/SubmitButton";
 import {useDropzone} from "react-dropzone";
 import {FileUtils} from "../../../../utils/FileUtils"
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
+import {ModelEntityData, WSMessageType} from "../../../../types/chameleon-platform.common";
+import useGetUserInfo from "../../../../service/authentication/UserInfoService";
+import useWebSocket from "react-use-websocket";
 
 type IFile = File & { preview?: string };
-export default function SingleInputUploader(parameter : Object, modelData : any) {
-
+export default function SingleInputUploader(parameter : Object, modelData : ModelEntityData) {
     const [files, setFiles] = useState<IFile[]>([]);
     const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [uploadExplain, setUploadExplain] = useState<string>('');
-    const [historyStatus, setHistoryStatus] = useState<string>('');
+    const loadedUser = useGetUserInfo();
+    const userName = loadedUser?.username
+    const encodedName = encodeURIComponent(userName);
+    let modelUniqueName = modelData?.uniqueName
+
+    useEffect(() => {
+        const loadModel = async () => {
+            const response = await fetch(`model/${userName}/${modelUniqueName}`);
+            console.log(response)
+        };
+
+        loadModel();
+    }, [modelUniqueName]);
+
 
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
         accept: {'*/*': []},
@@ -51,27 +66,8 @@ export default function SingleInputUploader(parameter : Object, modelData : any)
         return () => files.forEach(file => URL.revokeObjectURL(file.preview as string));
     });
 
-    useEffect(() => {
-        let completed = false;
-
-        (async function () {
-            try {
-                const model = await PlatformAPI.getHistories();
-                console.log(model)
-
-            } catch (error) {
-                console.error(error);
-            }
-        })();
-
-        return () => {
-            completed = true;
-        };
-    }, []);
-
     let parameters = JSON.stringify({parameter : parameter});
     const modelId = modelData?.id
-    console.log(modelData)
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -82,13 +78,14 @@ export default function SingleInputUploader(parameter : Object, modelData : any)
                 parameters,
                 input: files[0]
                 });
-            console.log(executeInfo);
+            setUploadExplain('Upload Done')
+            console.log(executeInfo)
             console.log('Upload done!');
 
         } catch (error) {
             setFiles([]);
             setHideDrop(false);
-            setUploadExplain('Execute error..')
+            setUploadExplain('Upload error..')
             console.log('Upload error...');
         }
     }

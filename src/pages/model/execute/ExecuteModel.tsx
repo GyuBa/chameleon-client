@@ -9,8 +9,6 @@ import {JsonForms} from "@jsonforms/react";
 import {JsonViewer} from "@textea/json-viewer";
 import Button from "../../../components/button/Button";
 import Header from "../../../components/layout/Header";
-import EmptyInputUploader from "../module/Input/EmptyInputUploader";
-import SingleInputUploader from "../module/Input/SingleInputUploader";
 
 const initialData = {};
 
@@ -21,15 +19,6 @@ export default function ExecuteModel() {
     const modelData = location.state.modelData;
     const schema = modelData?.parameters.schema;
     const uiSchema = modelData?.parameters.uiSchema
-
-    const modules = [EmptyInputUploader, SingleInputUploader];
-    let target : string;
-    let inputType = modelData?.inputType;
-    if (inputType === "none")
-        target = 'EmptyInputUploader';
-    else
-        target = "SingleInputUploader";
-    let Module = modules.find(m => m.name === target);
 
 
     return (
@@ -76,7 +65,6 @@ export default function ExecuteModel() {
                         </div>
                     </div>
                     {InputModule(parameter, modelData)}
-                    <OutputModule/>
                     <OutputDescriptionModule/>
                 </div>
             </div>
