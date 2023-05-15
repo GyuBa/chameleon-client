@@ -7,8 +7,10 @@ export interface HistoryEntityData {
     status: HistoryStatus;
     inputPath: string;
     inputInfo: ModelInputInfo;
+    inputType: ModelInputType;
     outputPath: string;
     outputInfo: ModelOutputInfo;
+    outputType: ModelOutputType;
     description: string;
     executor: UserEntityData;
     model: ModelEntityData;
@@ -25,8 +27,10 @@ export const History: Array<keyof HistoryEntityData> = [
     'status',
     'inputPath',
     'inputInfo',
+    'inputType',
     'outputPath',
     'outputInfo',
+    'outputType',
     'description',
     'executor',
     'model',
@@ -68,6 +72,8 @@ export interface ModelEntityData {
     outputType: ModelOutputType;
     parameters: ModelParameters;
     config: ModelConfig;
+    category: string;
+    point: number;
 }
 
 export const Model: Array<keyof ModelEntityData> = [
@@ -84,6 +90,8 @@ export const Model: Array<keyof ModelEntityData> = [
     'outputType',
     'parameters',
     'config',
+    'category',
+    'point'
 ];
 
 
@@ -107,12 +115,14 @@ export interface UserEntityData {
     id: number;
     email: string;
     username: string;
+    point: number;
 }
 
 export const User: Array<keyof UserEntityData> = [
     'id',
     'email',
     'username',
+    'point'
 ];
 
 export interface WalletEntityData {
@@ -233,9 +243,9 @@ export type ResponseData = {
 }
 
 export type ModelInputInfo = {
-    size: number;
     mimeType: string;
-    originalName: string;
+    fileSize: number;
+    fileName: string;
 }
 
 export type ModelOutputInfo = {
