@@ -10,21 +10,11 @@ import {JsonViewer} from "@textea/json-viewer";
 import Button from "../../../components/button/Button";
 import Header from "../../../components/layout/Header";
 import {Oval} from "react-loader-spinner";
-import {
-    HistoryEntityData,
-    HistoryStatus,
-    ModelEntityData,
-    WSMessageType
-} from "../../../types/chameleon-platform.common";
+import {HistoryEntityData, HistoryStatus, ModelEntityData, WSMessageType} from "../../../types/chameleon-platform.common";
 import {PlatformAPI} from "../../../platform/PlatformAPI"
 import useWebSocket from "react-use-websocket";
 
 const initialData = {};
-
-function Loding() {
-    return (<Oval color="#ff0000" height={100} width={100}/>);
-};
-
 export default function ExecuteModel() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const [isLoading, setIsLoading] = useState(0);

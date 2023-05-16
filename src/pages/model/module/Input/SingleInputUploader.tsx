@@ -3,7 +3,7 @@ import SubmitButton from "../../../../components/button/SubmitButton";
 import {useDropzone} from "react-dropzone";
 import {FileUtils} from "../../../../utils/FileUtils"
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
-import {HistoryEntityData, ModelEntityData, ModelInputType} from "../../../../types/chameleon-platform.common";
+import {HistoryEntityData, ModelEntityData} from "../../../../types/chameleon-platform.common";
 import {DownloadUtils} from "../../../../utils/DownloadUtils"
 // import * as zip from "@zip.js/zip.js";
 

@@ -6,7 +6,7 @@ import 'video.js/dist/video-js.css';
 import '../../../../styles/custom-video-js.css';
 import {FileUtils} from "../../../../utils/FileUtils";
 import {DownloadUtils} from "../../../../utils/DownloadUtils"
-import {HistoryEntityData, ModelEntityData} from "../../../../types/chameleon-platform.common";
+import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
 const videoURL = '/videos/video.mp4'
 
 export default function SingleVideoViewer(executeData : HistoryEntityData) {

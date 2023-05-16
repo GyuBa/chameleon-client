@@ -3,7 +3,7 @@ import SubmitButton from "../../../../components/button/SubmitButton"
 import {BiDownload} from "react-icons/bi";
 import {DownloadUtils} from "../../../../utils/DownloadUtils";
 import {FileUtils} from "../../../../utils/FileUtils";
-import {HistoryEntityData, ModelEntityData} from "../../../../types/chameleon-platform.common";
+import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
 
 export default function SingleTextViewer(executeData: HistoryEntityData) {
     let outputInformation = executeData?.outputInfo?.fileName
