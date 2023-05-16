@@ -5,7 +5,7 @@ import {createParam, createSchema, userSchema, userUISchema} from "../../../asse
 import {JsonSchema} from "@jsonforms/core";
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
-import ErrorBoundary from "../module/ParamErrorboundary";
+import ErrorBoundary from "../module/Errorboundary";
 import MonaCoEditor from "@monaco-editor/react";
 import "../../../styles/HideFormName.css"
 import {PlatformAPI} from "../../../platform/PlatformAPI";

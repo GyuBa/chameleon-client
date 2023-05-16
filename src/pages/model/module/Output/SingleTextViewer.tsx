@@ -3,31 +3,33 @@ import SubmitButton from "../../../../components/button/SubmitButton"
 import {BiDownload} from "react-icons/bi";
 import {DownloadUtils} from "../../../../utils/DownloadUtils";
 import {FileUtils} from "../../../../utils/FileUtils";
-import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
+import {HistoryEntityData, ModelEntityData} from "../../../../types/chameleon-platform.common";
 
-export default function SingleTextViewer(historyStatus : HistoryEntityData) {
-    let outputInformation = historyStatus?.outputInfo?.fileName
+export default function SingleTextViewer(executeData: HistoryEntityData) {
+    let outputInformation = executeData?.outputInfo?.fileName
     const extension = outputInformation?.split('.').pop();
-    let outputPath = historyStatus?.outputPath
-    let outputSize = historyStatus?.outputInfo?.fileSize
-    let outputName = historyStatus?.outputInfo?.fileName
+    let outputPath = executeData?.outputPath
+    let outputSize = executeData?.outputInfo?.fileSize
+    let outputName = executeData?.outputInfo?.fileName
 
     return (
         <div>
-            <div className="pb-1 flex justify-between items-center border-b">
+            <div className="md:p-2 space-x-3 flex justify-between items-center border-b border-gray-300" style={{ backgroundColor: '#F6F6F6' }}>
                 <p className="text-xl font-semibold">Output</p>
-                <div className="flex items-center rounded-lg hover:bg-light-gray focus:bg-gray">
+                <div className="pt-1 flex items-center rounded-lg hover:drop-shadow-xl focus:bg-white bg-white">
                     <BiDownload size="20" color="#484848" className="pl-1"/>
                     <SubmitButton text="Download" className="text-sm"
-                                  onClick={async () => {DownloadUtils.download('/'+outputPath, outputName);}}></SubmitButton>
+                                  onClick={async () => {
+                                      DownloadUtils.download('/' + outputPath, outputName);
+                                  }}></SubmitButton>
                 </div>
             </div>
             <div className="overflow-y-auto max-h-[352px]">
-                <p className="px-2 pt-2">Output Format : {extension} </p>
-                <p className="px-2 pt-2">Size : {FileUtils.formatBytes(outputSize)} </p>
-                <p className="px-2 pt-2">Output : </p>
+                <p><span className="px-2 pt-2 font-semibold">Output Format :</span>{extension} </p>
+                <p><span className="px-2 pt-2 font-semibold">Size :</span>{FileUtils.formatBytes(outputSize)} </p>
+                <p><span className="px-2 pt-2 font-semibold">Output :</span></p>
                 <br/>
-                <p className="px-2 pt-2" style={{whiteSpace: "pre-wrap"}}>{'/'+outputPath}</p>
+                <p className="px-2 pt-2" style={{whiteSpace: "pre-wrap"}}>{'/' + outputPath}</p>
             </div>
         </div>
 

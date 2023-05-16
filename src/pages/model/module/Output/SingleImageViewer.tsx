@@ -5,18 +5,18 @@ import { DownloadUtils } from "../../../../utils/DownloadUtils";
 import { FileUtils } from "../../../../utils/FileUtils";
 import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
 
-export default function SingleImageViewer(historyStatus : HistoryEntityData) {
-    let outputInformation = historyStatus?.outputInfo?.fileName
+export default function SingleImageViewer(executeData : HistoryEntityData) {
+    let outputInformation = executeData?.outputInfo?.fileName
     const extension = outputInformation?.split('.').pop();
-    let outputPath = historyStatus?.outputPath
-    let outputSize = historyStatus?.outputInfo?.fileSize
-    let outputName = historyStatus?.outputInfo?.fileName
+    let outputPath = executeData?.outputPath
+    let outputSize = executeData?.outputInfo?.fileSize
+    let outputName = executeData?.outputInfo?.fileName
 
     return (
         <div>
-            <div className="pb-1 flex justify-between items-center border-b">
+            <div className="md:p-2 space-x-3 flex justify-between items-center border-b border-gray-300" style={{ backgroundColor: '#F6F6F6' }}>
                 <p className="text-xl font-semibold">Output</p>
-                <div className="flex items-center rounded-lg hover:bg-light-gray focus:bg-gray">
+                <div className="pt-1 flex items-center rounded-lg hover:drop-shadow-xl focus:bg-white bg-white">
                     <BiDownload size="20" color="#484848" className="pl-1"/>
                     <SubmitButton text="Download" className="text-sm" onClick={async() => {
                         if(outputName) {
@@ -26,9 +26,10 @@ export default function SingleImageViewer(historyStatus : HistoryEntityData) {
                 </div>
             </div>
             <div className="overflow-y-auto max-h-[352px]">
-                <p className="px-2 pt-2">Output Format : {extension} </p>
-                <p className="px-2 pt-2">Size : {FileUtils.formatBytes(outputSize)} </p>
-                {outputPath ? <img style={{width: "100%"}} src={'/' + outputPath} alt="" /> : <></>}
+                <br/>
+                <p> <span className="px-2 pt-2 font-semibold">Output Format :</span>{extension} </p>
+                <p> <span className="px-2 pt-2 font-semibold">Size :</span>{FileUtils.formatBytes(outputSize)} </p>
+                {outputPath ? <img style={{width: "100%", objectFit: 'contain', maxWidth: '100%', maxHeight: '100%'}} src={'/' + outputPath} alt="" /> : <></>}
             </div>
         </div>
     );

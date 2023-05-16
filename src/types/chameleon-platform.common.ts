@@ -9,6 +9,7 @@ export interface HistoryEntityData {
     inputInfo: ModelInputInfo;
     outputPath: string;
     outputInfo: ModelOutputInfo;
+    outputType : string;
     description: string;
     executor: UserEntityData;
     model: ModelEntityData;
@@ -155,7 +156,8 @@ export enum ModelOutputType {
     IMAGE = 'image',
     VIDEO = 'video',
     SOUND = 'sound',
-    TEXT = 'text'
+    TEXT = 'text',
+    BINARY = 'binary'
 }
 
 export enum WSMessageType {
@@ -215,13 +217,14 @@ export type HistoriesRequestOptions = {
 
 /* Etc Types */
 export type ModelInputInfo = {
-    size: number;
+    fileSize: number;
     mimeType: string;
-    originalName: string;
+    fileName: string;
 }
 
 export type ModelOutputInfo = {
     fileName: string;
+    mimeType : string;
     fileSize: number;
 }
 
