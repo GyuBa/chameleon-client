@@ -139,7 +139,7 @@ export default function ExecuteModel() {
                             </div>
                         </div>
                     </div>
-                    {InputModule(parameter, modelData!, executeData!)}
+                    {InputModule('execute', parameter, modelData!, executeData!)}
                     {OutputModule(executeData!)}
                     {OutputDescriptionModule(executeData!)}
                 </div>

@@ -65,7 +65,7 @@ export function HistoryDetail() {
                             </div>
                         </div>
                     </div>
-                    {InputModule(parameter, historyData.model!, historyData!)}
+                    {InputModule('history', parameter, historyData.model!, historyData!)}
                     {OutputModule(historyData!)}
                     {OutputDescriptionModule(historyData!)}
                 </div>

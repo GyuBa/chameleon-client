@@ -3,7 +3,7 @@ import SubmitButton from "../../../../components/button/SubmitButton";
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
 import {HistoryEntityData, ModelEntityData} from "../../../../types/chameleon-platform.common";
 
-export default function EmptyInputUploader(parameter : Object, modelData : ModelEntityData, executeData : HistoryEntityData) {
+export default function EmptyInputUploader(type: string, parameter : Object, modelData : ModelEntityData, executeData : HistoryEntityData) {
 
     let parameters = JSON.stringify({ parameter: parameter });
     let file = new File(["{}"], "empty");
@@ -28,7 +28,13 @@ export default function EmptyInputUploader(parameter : Object, modelData : Model
                 <p className="text-xl font-semibold">Control Model</p>
             </div>
             <div className="flex justify-center items-center mt-20">
-                <SubmitButton onClick={handleModelStart} text="Start Model" className="color-btn text-2xl" disabled={executeData !== undefined}/>
+                {
+                    type == 'execute' ? (
+                        <SubmitButton onClick={handleModelStart} text="Start Model" className="color-btn text-2xl" disabled={executeData !== undefined}/>
+                    ) : (
+                        ''
+                    )
+                }
             </div>
         </div>
     );
