@@ -9,7 +9,7 @@ import {DownloadUtils} from "../../../../utils/DownloadUtils"
 
 type IFile = File & { preview?: string };
 
-export default function SingleInputUploader(parameter: Object, modelData: ModelEntityData, executeData: HistoryEntityData) {
+export default function SingleInputUploader(type: string, parameter: Object, modelData: ModelEntityData, executeData: HistoryEntityData) {
     const [files, setFiles] = useState<IFile[]>([]);
     const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [uploadExplain, setUploadExplain] = useState<string>('');
@@ -88,14 +88,19 @@ export default function SingleInputUploader(parameter: Object, modelData: ModelE
             <div className="md:p-2 space-x-3 flex justify-between items-center border-b border-gray-300"
                  style={{backgroundColor: '#F6F6F6'}}>
                 <p className="text-xl font-semibold">Input Upload</p>
-                <div className="flex items-center gap-4">
-                    <SubmitButton onClick={removeFile} text="remove"
-                                  className="text-sm py-1 px-1.5 border border-gray border-solid
+                {
+                    type=='execute'? (
+                        <div className="flex items-center gap-4">
+                            <SubmitButton onClick={removeFile} text="remove"
+                                          className="text-sm py-1 px-1.5 border border-gray border-solid
                                               rounded-md hover:bg-white bg-white" disabled={executeData !== undefined}/>
-                    <SubmitButton onClick={handleSubmit} text="start"
-                                  className="text-sm py-1 px-1.5 border border-gray border-solid
+                            <SubmitButton onClick={handleSubmit} text="start"
+                                          className="text-sm py-1 px-1.5 border border-gray border-solid
                                               rounded-md hover:bg-white bg-white" disabled={executeData !== undefined}/>
-                </div>
+                        </div>
+                    ) : ('')
+                }
+
             </div>
             <div className="overflow-auto max-h-[213px] h-full">
                 <section className="container h-full">
