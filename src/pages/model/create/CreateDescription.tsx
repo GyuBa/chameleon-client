@@ -31,8 +31,8 @@ export default function CreateDescription() {
     return (
         <div className="contents">
             <div className="w-full m-2 md:my-7 md:mx-10 mt-12">
-                <div className="flex space-x-3 border-b">
-                    <div className="py-2 border-b-4 transition-colors duration-300 border-teal-500">Model Description</div>
+                <div className="flex space-x-3">
+                    <div className="py-2 pt-[36.5px]"></div>
                 </div>
                 <div className="py-4 flex justify-between items-center">
                     <Header title="Model Description"/>

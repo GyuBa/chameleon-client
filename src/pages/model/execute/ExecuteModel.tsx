@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Link, useLocation, useParams} from "react-router-dom";
 import InputModule from "../module/Input"
 import OutputModule from "../module/Output"
-import OutputDescription from "../module/OutputDescription"
+import OutputDescriptionModule from "../module/OutputDescription"
 import {executeParam} from "../../../assets/Dummy";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonForms} from "@jsonforms/react";
@@ -17,7 +17,6 @@ import useWebSocket from "react-use-websocket";
 const initialData = {};
 export default function ExecuteModel() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
-    const [isLoading, setIsLoading] = useState(0);
     const [parameter, setParameter] = useState(initialData);
     const [modelData, setModelData] = useState<ModelEntityData>();
     const [executeData, setExecuteData] = useState<HistoryEntityData>();
@@ -142,7 +141,7 @@ export default function ExecuteModel() {
                     </div>
                     {InputModule(parameter, modelData!, executeData!)}
                     {OutputModule(executeData!)}
-                    {OutputDescription(executeData!)}
+                    {OutputDescriptionModule(executeData!)}
                 </div>
             </div>
         </div>

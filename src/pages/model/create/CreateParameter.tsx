@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {Parameter} from "../../../types/chameleon-client";
 import {createParam, createSchema, userSchema, userUISchema} from "../../../assets/Dummy";
@@ -12,6 +12,7 @@ import {PlatformAPI} from "../../../platform/PlatformAPI";
 import Header from "../../../components/layout/Header";
 import Button from "../../../components/button/Button";
 import SubmitButton from "../../../components/button/SubmitButton";
+import {RiErrorWarningFill} from "react-icons/ri";
 
 const initialData = {};
 
@@ -22,7 +23,7 @@ const initialParameters: Parameter[] = [
 function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
     const properties: any = {};
 
-    parameters.forEach((param, index) => {
+    parameters.forEach((param) => {
         const paramName = param.name;
         const paramType = param.type;
         if (paramType === "string") {
@@ -140,12 +141,14 @@ export default function CreateParameters() {
     const [status, setStatus] = useState(0);
     const location = useLocation();
     const [isLoading, setIsLoading] = useState(false);
+    const [isCompleted, setIsCompleted] = useState(true);
+    const [showError, setShowError] = useState(false);
 
     if (status === 0) {
         transSchema = generateJsonFormsSchema(formData);
         transUISchema = {
             type: 'VerticalLayout',
-            elements: formData.map((param, index) => ({
+            elements: formData.map((param) => ({
                 type: 'Control',
                 scope: `#/properties/${param.name === undefined ? "no" : param.name}`
             }))
@@ -183,7 +186,7 @@ export default function CreateParameters() {
         setIsLoading(true);
 
         try {
-            const uploadResult = await PlatformAPI.uploadModel({
+            const uploadResult = await PlatformAPI.uploadModelWithImage({
                 modelName,
                 inputType,
                 outputType,
@@ -197,6 +200,7 @@ export default function CreateParameters() {
             navigate('/models/my');
         } catch (error: any) {
             setIsLoading(false);
+            setIsCompleted(false);
             if (error.response && error.response.status === 501) {
                 console.error(error.response.data);
             } else {
@@ -204,6 +208,19 @@ export default function CreateParameters() {
             }
         }
     };
+
+    useEffect(() => {
+        if (!isCompleted) {
+            setShowError(true);
+            const timeout = setTimeout(() => {
+                setShowError(false);
+                setIsCompleted(true);
+            }, 3000);
+            return () => {
+                clearTimeout(timeout);
+            };
+        }
+    }, [isCompleted]);
 
     return (
         <div className="contents">
@@ -231,6 +248,13 @@ export default function CreateParameters() {
                             <h1 className="mx-2 text-gray-500">JSONForms</h1>
                         </div>
                         <div className="flex gap-3 float-right">
+                            {!isLoading && !isCompleted && (
+                                <div className={`flex px-3 py-2 text-red-800 justify-center items-center rounded-lg bg-red-50 ${
+                                    showError ? 'opacity-100 ease-in duration-150' : 'opacity-0 ease-out duration-150'}`}>
+                                    <RiErrorWarningFill size={20}/>
+                                    <div className="ml-2 text-sm font-medium">Warning: Upload Error! Check if there are any blanks.</div>
+                                </div>
+                            )}
                             <Link to="/models/create/description">
                                 <Button className="white-btn w-16 p-2" text="back"/>
                             </Link>
@@ -292,17 +316,16 @@ export default function CreateParameters() {
                                                 <h1 className="md:py-3 text-xl font-bold">Schema</h1>
                                                 <div className="border border-gray-200 block bg-white">
                                                     <MonaCoEditor
-                                                        className = "monaco-editor"
+                                                        className="monaco-editor"
                                                         language="json"
-                                                        height={480}
+                                                        height={230}
                                                         theme="vs-light"
                                                         value={schema}
                                                         onChange={(value) => {
                                                             try {
                                                                 setStatus(1);
                                                                 setSchema(value || '');
-                                                                const parsedSchema = JSON.parse(value || '');
-                                                                transSchema = parsedSchema;
+                                                                transSchema = JSON.parse(value || '');
                                                             } catch (error) {
                                                                 console.error(error);
                                                             }
@@ -314,7 +337,7 @@ export default function CreateParameters() {
                                                             },
                                                             automaticLayout: true,
                                                             fontSize: 17,
-                                                            lineNumbers : "off"
+                                                            scrollBeyondLastLine: false,
                                                         }}
                                                     />
                                                 </div>
@@ -323,17 +346,16 @@ export default function CreateParameters() {
                                                 <h1 className="md:py-3 text-xl font-bold">UISchema</h1>
                                                 <div className="border border-gray-200 block bg-white">
                                                     <MonaCoEditor
-                                                        className = "monaco-editor"
+                                                        className="monaco-editor"
                                                         language="json"
-                                                        height={480}
+                                                        height={230}
                                                         theme="vs-light"
                                                         value={uiSchema}
                                                         onChange={(value) => {
                                                             try {
-                                                                setStatus(1)
+                                                                setStatus(1);
                                                                 setUISchema(value || '');
-                                                                const parsedUISchema = JSON.parse(value || '');
-                                                                transUISchema = parsedUISchema;
+                                                                transUISchema = JSON.parse(value || '');
                                                             } catch (error) {
                                                                 console.error(error);
                                                             }
@@ -343,7 +365,8 @@ export default function CreateParameters() {
                                                                 enabled: false,
                                                             },
                                                             automaticLayout: true,
-                                                            fontSize: 17
+                                                            fontSize: 17,
+                                                            scrollBeyondLastLine: false,
                                                         }}
                                                     />
                                                 </div>
@@ -371,28 +394,31 @@ export default function CreateParameters() {
                     </div>
                 </div>
             </div>
-            {
-                isLoading && (
-                    <div className="fixed top-0 left-0 z-50 w-screen h-screen flex justify-center items-center">
-                        <div role="status">
-                            <svg aria-hidden="true"
-                                 className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
-                                 viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                                    fill="currentColor"/>
-                                <path
-                                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                                    fill="currentFill"/>
-                            </svg>
-                        </div>
-                    </div>
-                    // Another Design Draft
-                    //<div className="fixed top-0 left-0 z-50 w-screen h-screen flex justify-center items-center">
-                    //  <div className="px-3 py-1 text-xs font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">loading...</div>
-                    //</div>
-                )
-            }
+            {isLoading && (
+				<div className="fixed top-0 left-0 z-50 w-screen h-screen flex justify-center items-center">
+					<div role="status">
+						<svg aria-hidden="true"
+						     className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+						     viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0
+								50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144
+								50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186
+								50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+								fill="currentColor"/>
+							<path
+								d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227
+								92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422
+								4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345
+								1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717
+								44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928
+								12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121
+								86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+								fill="currentFill"/>
+						</svg>
+					</div>
+				</div>
+            )}
         </div>
     );
 };

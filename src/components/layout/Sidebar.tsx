@@ -16,7 +16,7 @@ export default function Sidebar() {
             {activeMenu && (
                 <div>
                     <div className="flex justify-between items-center">
-                        <Link to="/main" onClick={handleCloseSideBar}
+                        <Link to="/models/all" onClick={handleCloseSideBar}
                               className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight text-slate-900">
                             <GiChameleonGlyph/><span>Chameleon</span>
                         </Link>

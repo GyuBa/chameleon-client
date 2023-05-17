@@ -28,7 +28,7 @@ export default function SingleVideoViewer(executeData : HistoryEntityData) {
             });
             player.play();
         }
-    })
+    });
 
     return (
         <div>

@@ -57,16 +57,12 @@ export const userProfileData = [
     {
         icon: <GiArtificialHive/>,
         title: 'My Models',
-        name: 'model',
+        name: 'models/my',
         desc: 'My Model Lists',
         iconColor: 'rgb(0, 194, 146)',
         iconBg: 'rgb(235, 250, 242)',
     },
 ];
-
-export const modelColumn = {
-    list: ['Model Name', 'Input Type', 'Output Type', 'Register', 'Last Modified Date', 'start']
-};
 
 export const userSchema = {
     type: 'object',

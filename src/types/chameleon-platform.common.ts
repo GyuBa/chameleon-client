@@ -1,5 +1,4 @@
 /* EntityData & Keys */
-
 export interface HistoryEntityData {
     id: number;
     createdTime: Date;
@@ -7,11 +6,14 @@ export interface HistoryEntityData {
     status: HistoryStatus;
     inputPath: string;
     inputInfo: ModelInputInfo;
+    inputType: ModelInputType;
     outputPath: string;
     outputInfo: ModelOutputInfo;
-    outputType : string;
+    outputType: ModelOutputType;
     description: string;
     executor: UserEntityData;
+    parent: HistoryEntityData;
+    numberOfParents: number;
     model: ModelEntityData;
     startedTime: Date;
     endedTime: Date;
@@ -26,10 +28,14 @@ export const History: Array<keyof HistoryEntityData> = [
     'status',
     'inputPath',
     'inputInfo',
+    'inputType',
     'outputPath',
     'outputInfo',
+    'outputType',
     'description',
     'executor',
+    'parent',
+    'numberOfParents',
     'model',
     'startedTime',
     'endedTime',
@@ -69,6 +75,8 @@ export interface ModelEntityData {
     outputType: ModelOutputType;
     parameters: ModelParameters;
     config: ModelConfig;
+    category: string;
+    point: number;
 }
 
 export const Model: Array<keyof ModelEntityData> = [
@@ -85,6 +93,8 @@ export const Model: Array<keyof ModelEntityData> = [
     'outputType',
     'parameters',
     'config',
+    'category',
+    'point'
 ];
 
 
@@ -108,12 +118,14 @@ export interface UserEntityData {
     id: number;
     email: string;
     username: string;
+    point: number;
 }
 
 export const User: Array<keyof UserEntityData> = [
     'id',
     'email',
     'username',
+    'point'
 ];
 
 export interface WalletEntityData {
@@ -171,8 +183,30 @@ export enum WSMessageType {
     UPDATE_HISTORIES = 'UpdateHistories'
 }
 
+export type WSPathMessage = {
+    msg: WSMessageType.PATH;
+    path: string;
+};
+
+export type WSTerminalResizeMessage = {
+    msg: WSMessageType.TERMINAL_RESIZE;
+    historyId: number;
+    rows: number;
+    cols: number;
+};
+
+export type WSUpdateHistoryMessage = {
+    msg: WSMessageType.UPDATE_HISTORY;
+    history: HistoryEntityData
+}
+
+export type WSTerminalMessage = {
+    msg: WSMessageType.TERMINAL;
+    data: string;
+}
+
+
 export enum SocketMessageType {
-    HELLO = 'Hello',
     LAUNCH = 'Launch',
     FILE_WAIT = 'FileWait',
     FILE_RECEIVE_END = 'FileReceiveEnd',
@@ -182,8 +216,50 @@ export enum SocketMessageType {
     FILE = 'File',
     REQUEST_FILE = 'RequestFile',
     WAIT_RECEIVE = 'WaitReceive',
-    LAUNCH_MODEL = 'LaunchModel'
+    LAUNCH_MODEL = 'LaunchModel',
+    EXIT = 'Exit'
 }
+
+export type SocketLaunchMessage = {
+    msg: SocketMessageType.LAUNCH;
+    isMainConnection: boolean;
+    historyId: number;
+    executionData?: ExecutionData
+};
+export type SocketFileWaitMessage = { msg: SocketMessageType.FILE_WAIT; };
+export type SocketFileReceiveEndMessage = { msg: SocketMessageType.FILE_RECEIVE_END; };
+export type SocketTerminalMessage = {
+    msg: SocketMessageType.TERMINAL;
+    data: string
+};
+export type SocketTerminalResizeMessage = {
+    msg: SocketMessageType.TERMINAL_RESIZE;
+    rows: number;
+    cols: number;
+};
+export type SocketProcessEndMessage = { msg: SocketMessageType.PROCESS_END; };
+export type SocketFileMessage = {
+    msg: SocketMessageType.FILE;
+    fileSize: number;
+    filePath?: string;
+};
+
+export type SocketRequestFileMessage = {
+    msg: SocketMessageType.REQUEST_FILE,
+    filePath: string;
+};
+
+export type SocketWaitReceiveMessage = { msg: SocketMessageType.WAIT_RECEIVE; };
+export type SocketLaunchModelMessage = {
+    msg: SocketMessageType.LAUNCH_MODEL,
+    scriptPath: string;
+    options: LaunchOptions;
+};
+export type SocketExitMessage = {
+    msg: SocketMessageType.EXIT,
+    code: number;
+    message?: string;
+};
 
 export enum SocketReceiveMode {
     JSON,
@@ -191,15 +267,17 @@ export enum SocketReceiveMode {
 }
 
 /* Upload Parameters */
-export type ModelUploadData = {
+export type ModelCommonUploadData = {
     modelName: string;
     inputType: string;
     outputType: string;
     regionName: string;
     parameters: string;
-    file: File;
     description: string
 }
+export type ModelImageUploadData = ModelCommonUploadData & { file: File }
+
+export type ModelDockerfileUploadData = ModelCommonUploadData & { files: File[] }
 
 export type ModelExecuteData = {
     modelId: number;
@@ -216,6 +294,22 @@ export type HistoriesRequestOptions = {
 }
 
 /* Etc Types */
+export type ResponseData = {
+    msg: 'ok' |
+        'server_error' |
+        'non_field_error' |
+        'unable_credential_errors' |
+        'duplicated_email_error' |
+        'duplicated_name_error' |
+        'not_authenticated_error' |
+        'not_found_error' |
+        'wrong_information_error' |
+        'wrong_request_error' |
+        'wrong_permission_error' |
+        'region_not_found';
+    reason?: string;
+}
+
 export type ModelInputInfo = {
     fileSize: number;
     mimeType: string;
@@ -250,4 +344,17 @@ export type ModelConfig = {
 export type TerminalResizeOption = {
     rows: number;
     cols: number;
+}
+
+export type LaunchOptions = {
+    rows?: number;
+    cols?: number;
+}
+
+export type ExecutionData = {
+    username: string;
+    uniqueName: string;
+    inputPath?: string;
+    parametersPath?: string;
+    outputPath?: string;
 }

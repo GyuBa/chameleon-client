@@ -92,7 +92,7 @@ export default function Payment() {
             alert(`결제 실패: ${error_msg}`);
         }
         alert(Number(k_money) + Number(t_money) + Number(p_money));
-        document.location.href = "/main"
+        document.location.href = "/models/all";
     }
 
     function KaKaopay() {
