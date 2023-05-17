@@ -2,10 +2,13 @@ import {useEffect, useMemo} from "react";
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {UserEntityData} from "../../types/chameleon-platform.common";
 
-const emptyUser: UserEntityData = {id: -1, username: "", email: ""};
+const emptyUser: UserEntityData = {id: -1, username: "", email: "", point: -1};
 let loadedUser: UserEntityData = emptyUser;
 
-export default function useGetUserInfo(): { handleSignOut: () => Promise<void> } & { getCookieValue: (name: string) => (string | null), user: UserEntityData } {
+export default function useGetUserInfo(): { handleSignOut: () => Promise<void> } & {
+    getCookieValue: (name: string) => (string | null),
+    user: UserEntityData
+} {
     const getCookieValue = useMemo(() => {
         return (name: string) => {
             const cookies = document.cookie.split(';');
