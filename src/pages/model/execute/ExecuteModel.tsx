@@ -10,7 +10,7 @@ import {JsonViewer} from "@textea/json-viewer";
 import Button from "../../../components/button/Button";
 import Header from "../../../components/layout/Header";
 import {Oval} from "react-loader-spinner";
-import {HistoryEntityData, HistoryStatus, ModelEntityData, WSMessageType} from "../../../types/chameleon-platform.common";
+import {HistoryEntityData, HistoryStatus, ModelEntityData, WSMessageType, WSUpdateHistoryMessage} from "../../../types/chameleon-platform.common";
 import {PlatformAPI} from "../../../platform/PlatformAPI"
 import useWebSocket from "react-use-websocket";
 
@@ -57,7 +57,7 @@ export default function ExecuteModel() {
     }, [sendJsonMessage, path]);
 
     useEffect(() => {
-        let message = lastJsonMessage as any;
+        let message = lastJsonMessage as unknown as WSUpdateHistoryMessage;
         if (message?.msg === WSMessageType.UPDATE_HISTORY) {
             setExecuteData(message?.history)
         }

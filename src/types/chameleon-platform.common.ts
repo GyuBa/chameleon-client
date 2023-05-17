@@ -205,7 +205,6 @@ export type WSTerminalMessage = {
     data: string;
 }
 
-
 export enum SocketMessageType {
     LAUNCH = 'Launch',
     FILE_WAIT = 'FileWait',
@@ -226,6 +225,7 @@ export type SocketLaunchMessage = {
     historyId: number;
     executionData?: ExecutionData
 };
+
 export type SocketFileWaitMessage = { msg: SocketMessageType.FILE_WAIT; };
 export type SocketFileReceiveEndMessage = { msg: SocketMessageType.FILE_RECEIVE_END; };
 export type SocketTerminalMessage = {

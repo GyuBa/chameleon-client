@@ -9,7 +9,7 @@ import {DownloadUtils} from "../../../../utils/DownloadUtils"
 
 type IFile = File & { preview?: string };
 
-export default function SingleInputUploader(parameter: Object, modelData: ModelEntityData, executeData : HistoryEntityData) {
+export default function SingleInputUploader(parameter: Object, modelData: ModelEntityData, executeData: HistoryEntityData) {
     const [files, setFiles] = useState<IFile[]>([]);
     const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [uploadExplain, setUploadExplain] = useState<string>('');
@@ -17,9 +17,9 @@ export default function SingleInputUploader(parameter: Object, modelData: ModelE
 
     let accept: any = {};
     if (extension) {
-        accept = { [`${extension}/*`]: [] };
+        accept = {[`${extension}/*`]: []};
     } else {
-        accept = { 'image/*': [] };
+        accept = {'image/*': []};
     }
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
         accept,
@@ -85,7 +85,8 @@ export default function SingleInputUploader(parameter: Object, modelData: ModelE
 
     return (
         <div>
-            <div className="md:p-2 space-x-3 flex justify-between items-center border-b border-gray-300" style={{ backgroundColor: '#F6F6F6' }}>
+            <div className="md:p-2 space-x-3 flex justify-between items-center border-b border-gray-300"
+                 style={{backgroundColor: '#F6F6F6'}}>
                 <p className="text-xl font-semibold">Input Upload</p>
                 <div className="flex items-center gap-4">
                     <SubmitButton onClick={removeFile} text="remove"
@@ -100,28 +101,30 @@ export default function SingleInputUploader(parameter: Object, modelData: ModelE
                 <section className="container h-full">
                     {executeData?.status !== undefined ? (
                         <div>
-                            <div className="overflow-y-auto max-h-[350px]">
-                                <br/>
-                                <p> <span className="px-2 pt-2 font-semibold">FileName :</span>{executeData?.inputInfo?.fileName} </p>
-                                <p> <span className="px-2 pt-2 font-semibold">Type :</span>{executeData?.inputInfo?.mimeType} </p>
-                                <p> <span className="px-2 pt-2 font-semibold">Size :</span>{FileUtils.formatBytes(executeData?.inputInfo?.fileSize)} </p>
-                                <div className="px-2 pt-2" style={{overflow:'hidden', display:'flex', justifyContent:'center'}}>
-                                    {executeData?.inputInfo?.mimeType?.startsWith('image') ? <a href='#' onClick={e =>{
-                                        DownloadUtils.download('/' + executeData?.inputPath, executeData?.inputInfo?.fileName);
-                                    }}>
-                                        {executeData?.inputInfo?.mimeType?.startsWith('image') ? <img src={'/' + executeData?.inputPath} style={{
+                            <br/>
+                            <p><span className="px-2 pt-2 font-semibold">FileName :</span>{executeData?.inputInfo?.fileName}</p>
+                            <p><span className="px-2 pt-2 font-semibold">Type :</span>{executeData?.inputInfo?.mimeType}
+                            </p>
+                            <p><span className="px-2 pt-2 font-semibold">Size :</span>{FileUtils.formatBytes(executeData?.inputInfo?.fileSize)}</p>
+                            <div className="px-2 pt-2"
+                                 style={{overflow: 'hidden', display: 'flex', justifyContent: 'center'}}>
+                                {executeData?.inputInfo?.mimeType?.startsWith('image') ? <a href='#' onClick={e => {
+                                    DownloadUtils.download('/' + executeData?.inputPath, executeData?.inputInfo?.fileName);
+                                }}>
+                                    {executeData?.inputInfo?.mimeType?.startsWith('image') ?
+                                        <img src={'/' + executeData?.inputPath} style={{
                                             objectFit: 'contain',
                                             maxWidth: '100%',
                                             maxHeight: '100%',
                                         }}/> : <></>}
-                                    </a> : <></>}
-                                </div>
+                                </a> : <></>}
                             </div>
                         </div>
                     ) : (
                         <div>
                             <div {...getRootProps()}
-                                 className={hideDrop ? "hidden" : "dropzone cursor-pointer justify-center"} style={{ height: '200px' }}>
+                                 className={hideDrop ? "hidden" : "dropzone cursor-pointer justify-center"}
+                                 style={{height: '200px'}}>
                                 <input {...getInputProps()}/>
                                 <p className="inline-block px-1 text-gray-500 hover:text-gray-700">
                                     Drag & drop some files here, or click to select files</p>
