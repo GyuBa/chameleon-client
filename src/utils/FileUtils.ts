@@ -1,7 +1,6 @@
 export class FileUtils {
     static formatBytes(bytes: number, decimals = 2) {
         if (!+bytes) return '0 Bytes'
-        console.log(bytes)
 
         const k = 1024
         const dm = decimals < 0 ? 0 : decimals

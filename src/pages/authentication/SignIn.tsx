@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
-import chameleon from '../../assets/images/chameleon.png';
 import SubmitButton from "../../components/button/SubmitButton";
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {AxiosError} from "axios";
 import useGetUserInfo from "../../service/authentication/UserInfoService";
 
+const imageURL = '/logo1.png'
 export default function SignIn() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -48,7 +48,7 @@ export default function SignIn() {
             <div className="flex justify-center mt-10 px-6 text-gray-800">
                 <div className="mt-10 g-6">
                     <div className="flex justify-center my-10">
-                        <img style={{width: '30%'}} className="object-cover w-full" src={chameleon} alt="chameleon"/>
+                        <img style={{width: '70%'}} className="object-cover w-full" src={imageURL} alt="chameleon"/>
                     </div>
                     <div className="w-auto my-10">
                         <form>

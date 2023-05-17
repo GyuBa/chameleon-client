@@ -168,7 +168,8 @@ export enum ModelOutputType {
     IMAGE = 'image',
     VIDEO = 'video',
     SOUND = 'sound',
-    TEXT = 'text'
+    TEXT = 'text',
+    BINARY = 'binary'
 }
 
 export enum WSMessageType {
@@ -204,7 +205,6 @@ export type WSTerminalMessage = {
     data: string;
 }
 
-
 export enum SocketMessageType {
     LAUNCH = 'Launch',
     FILE_WAIT = 'FileWait',
@@ -225,6 +225,7 @@ export type SocketLaunchMessage = {
     historyId: number;
     executionData?: ExecutionData
 };
+
 export type SocketFileWaitMessage = { msg: SocketMessageType.FILE_WAIT; };
 export type SocketFileReceiveEndMessage = { msg: SocketMessageType.FILE_RECEIVE_END; };
 export type SocketTerminalMessage = {
@@ -310,13 +311,14 @@ export type ResponseData = {
 }
 
 export type ModelInputInfo = {
-    mimeType?: string;
     fileSize: number;
+    mimeType: string;
     fileName: string;
 }
 
 export type ModelOutputInfo = {
     fileName: string;
+    mimeType : string;
     fileSize: number;
 }
 

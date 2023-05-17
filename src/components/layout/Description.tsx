@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Badge} from "flowbite-react";
 import MDEditor from "@uiw/react-md-editor";
 import SubmitButton from "../button/SubmitButton";
@@ -32,8 +32,11 @@ export default function Description({modelId, setSelectedModelId}: DescriptionPr
         };
     }, [modelId]);
 
+    const username = modelData?.register?.username;
+    const uniqueName = modelData?.uniqueName;
+
     const handleStart = () => {
-        if(modelId > -1) navigate(`/models/${modelId}`, { state: { modelData } });
+        if(modelId > -1) navigate(`/model/${username}/${uniqueName}`);
     };
 
     return (
