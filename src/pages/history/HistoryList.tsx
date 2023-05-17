@@ -22,14 +22,14 @@ export function HistoryList({rows}: HistoryRow) {
         <div>
             <Table hoverable={true}>
                 <Table.Head>
-                    {historyColumn.list.map((item) => (
-                        <Table.HeadCell>{item}</Table.HeadCell>
+                    {historyColumn.list.map((item, index) => (
+                        <Table.HeadCell key={index}>{item}</Table.HeadCell>
                     ))}
                 </Table.Head>
-                <Table.Body className="divide-y">
+                <Table.Body className="bg-white">
                     {
                         rows.length!=0?rows.map((row) => (
-                            <Table.Row key={`history-${row.id}`} className={'bg-white'}>
+                            <Table.Row key={row.id} className={'bg-white'}>
                                 <Table.Cell>{row.id}</Table.Cell>
                                 <Table.Cell>{row.model.name?row.model.name:''}</Table.Cell>
                                 <Table.Cell>{DateUtils.formatDate(row.startedTime)}</Table.Cell>
