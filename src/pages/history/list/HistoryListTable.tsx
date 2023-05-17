@@ -33,7 +33,7 @@ export function HistoryListTable({rows}: HistoryRow) {
                                 <Table.Cell>{row.id}</Table.Cell>
                                 <Table.Cell>{row.model.name?row.model.name:''}</Table.Cell>
                                 <Table.Cell>{DateUtils.formatDate(row.startedTime)}</Table.Cell>
-                                <Table.Cell>{DateUtils.formatDate(row.endedTime)}</Table.Cell>
+                                <Table.Cell>{row.endedTime?DateUtils.formatDate(row.endedTime): '-'}</Table.Cell>
                                 <Table.Cell>{row.executor.username}</Table.Cell>
                                 <Table.Cell>
                                     <div className="flex"><Badge color={getStatusColor(row.status)}>{row.status}</Badge></div>
