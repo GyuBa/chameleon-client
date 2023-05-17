@@ -56,6 +56,7 @@ export default function App() {
                     <Route path="/models/create/description" element={<CreateDescription/>}/>
                     <Route path="/models/create/parameters" element={<CreateParameters/>}/>
                     <Route path="/histories" element={<History/>}/>
+                    <Route path="/history/detail" element={<History/>}/>
                 </Route>
             ) : (<Route path="/*" element={<Navigate to="/sign-in" replace/>}/>)}
             <Route path="/sign-in" element={(<SignIn/>)}/>
