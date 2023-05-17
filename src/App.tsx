@@ -14,7 +14,7 @@ import SignIn from "./pages/authentication/SignIn";
 import SignUp from "./pages/authentication/SignUp";
 import CreateParameters from "./pages/model/create/CreateParameter";
 import {WSMessageType} from "./types/chameleon-platform.common";
-import History from "./pages/history/History";
+import HistoryList from "./pages/history/list/HistoryList";
 import Models from "./pages/model/board/Models";
 import useGetUserInfo from "./service/authentication/UserInfoService";
 
@@ -55,8 +55,8 @@ export default function App() {
                     <Route path="/models/create" element={<CreateModel/>}/>
                     <Route path="/models/create/description" element={<CreateDescription/>}/>
                     <Route path="/models/create/parameters" element={<CreateParameters/>}/>
-                    <Route path="/histories" element={<History/>}/>
-                    <Route path="/history/detail" element={<History/>}/>
+                    <Route path="/histories" element={<HistoryList/>}/>
+                    <Route path="/history/detail" element={<HistoryList/>}/>
                 </Route>
             ) : (<Route path="/*" element={<Navigate to="/sign-in" replace/>}/>)}
             <Route path="/sign-in" element={(<SignIn/>)}/>

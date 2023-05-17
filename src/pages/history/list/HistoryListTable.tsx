@@ -1,8 +1,8 @@
 import {Badge, Table} from "flowbite-react";
-import {historyColumn} from "../../assets/Dummy";
+import {historyColumn} from "../../../assets/Dummy";
 import React from "react";
-import {HistoryEntityData, HistoryStatus} from "../../types/chameleon-platform.common";
-import {DateUtils} from "../../utils/DateUtils";
+import {HistoryEntityData, HistoryStatus} from "../../../types/chameleon-platform.common";
+import {DateUtils} from "../../../utils/DateUtils";
 
 type HistoryRow = {
     rows: HistoryEntityData[]
@@ -17,7 +17,7 @@ function getStatusColor(status: HistoryStatus):string{
     else return 'pink'
 }
 
-export function HistoryList({rows}: HistoryRow) {
+export function HistoryListTable({rows}: HistoryRow) {
     return (
         <div>
             <Table hoverable={true}>

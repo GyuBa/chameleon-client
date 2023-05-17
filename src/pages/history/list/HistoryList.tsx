@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {PlatformAPI} from "../../platform/PlatformAPI";
-import Header from "../../components/layout/Header";
-import {HistoryList} from "./HistoryList";
-import {HistoryEntityData} from "../../types/chameleon-platform.common";
+import {PlatformAPI} from "../../../platform/PlatformAPI";
+import Header from "../../../components/layout/Header";
+import {HistoryListTable} from "./HistoryListTable";
+import {HistoryEntityData} from "../../../types/chameleon-platform.common";
 
-export default function History() {
+export default function HistoryList() {
     const [histories, setHistories] = useState<HistoryEntityData[]>([]);
 
     useEffect(() => {
@@ -38,7 +38,7 @@ export default function History() {
                     </div>
                 </div>
                 <div className="mt-10 max-h-screen overflow-auto">
-                    <HistoryList rows={histories}/>
+                    <HistoryListTable rows={histories}/>
                 </div>
             </div>
         </div>
