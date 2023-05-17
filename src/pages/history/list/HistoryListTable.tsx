@@ -3,6 +3,7 @@ import {historyColumn} from "../../../assets/Dummy";
 import React from "react";
 import {HistoryEntityData, HistoryStatus} from "../../../types/chameleon-platform.common";
 import {DateUtils} from "../../../utils/DateUtils";
+import {useNavigate} from "react-router-dom";
 
 type HistoryRow = {
     rows: HistoryEntityData[]
@@ -18,6 +19,10 @@ function getStatusColor(status: HistoryStatus):string{
 }
 
 export function HistoryListTable({rows}: HistoryRow) {
+    const navigate = useNavigate();
+    const navigateToDetail = (id: number) => {
+        navigate('/history/detail',{state:{'id': id}})
+    }
     return (
         <div>
             <Table hoverable={true}>
@@ -29,7 +34,7 @@ export function HistoryListTable({rows}: HistoryRow) {
                 <Table.Body className="bg-white">
                     {
                         rows.length!=0?rows.map((row) => (
-                            <Table.Row key={row.id} className={'bg-white'}>
+                            <Table.Row key={row.id} className={'bg-white'} onClick={() => navigateToDetail(row.id)}>
                                 <Table.Cell>{row.id}</Table.Cell>
                                 <Table.Cell>{row.model.name?row.model.name:''}</Table.Cell>
                                 <Table.Cell>{DateUtils.formatDate(row.startedTime)}</Table.Cell>
