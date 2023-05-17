@@ -21,7 +21,7 @@ function getStatusColor(status: HistoryStatus):string{
 export function HistoryListTable({rows}: HistoryRow) {
     const navigate = useNavigate();
     const navigateToDetail = (id: number) => {
-        navigate('/history/detail',{state:{'id': id}})
+        navigate('/history/detail',{state: rows[id]})
     }
     return (
         <div>
@@ -33,8 +33,8 @@ export function HistoryListTable({rows}: HistoryRow) {
                 </Table.Head>
                 <Table.Body className="bg-white">
                     {
-                        rows.length!=0?rows.map((row) => (
-                            <Table.Row key={row.id} className={'bg-white'} onClick={() => navigateToDetail(row.id)}>
+                        rows.length!=0?rows.map((row, index) => (
+                            <Table.Row key={row.id} className={'bg-white'} onClick={() => navigateToDetail(index)}>
                                 <Table.Cell>{row.id}</Table.Cell>
                                 <Table.Cell>{row.model.name?row.model.name:''}</Table.Cell>
                                 <Table.Cell>{DateUtils.formatDate(row.startedTime)}</Table.Cell>
