@@ -11,11 +11,11 @@ export default function Layout() {
     return (
         <div className="flex relative">
             {activeMenu ? (
-                <div className="w-72 fixed sidebar bg-white z-50 ease-in-out duration-300 translate-x-0">
+                <div className="w-72 fixed sidebar bg-white z-50 ease-in-out duration-300">
                     <Sidebar/>
                 </div>
             ) : (
-                <div className="w-0 ease-in-out duration-300 translate-x-1">
+                <div className="w-0 ease-in-out duration-300">
                     <Sidebar/>
                 </div>
             )}

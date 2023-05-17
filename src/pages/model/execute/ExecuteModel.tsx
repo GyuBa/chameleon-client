@@ -17,11 +17,12 @@ const initialData = {};
 export default function ExecuteModel() {
     const [files, setFiles] = useState<IFile[]>([]);
     const [activeTabIndex, setActiveTabIndex] = useState(0);
+    const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [data, setData] = useState(initialData);
     const location = useLocation();
-    const schema = location.state.schema
-    const uischema = location.state.uischema
-    const [hideDrop, setHideDrop] = useState<boolean>(false);
+    const schema = location.state.schema;
+    const uischema = location.state.uischema;
+    const modelData = location.state?.modelData;
 
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
         accept: {'*/*': []},
@@ -94,7 +95,7 @@ export default function ExecuteModel() {
         <div className="contents">
             <div className="w-full m-2 md:m-10 mt-24">
                 <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
-                    <Header title="Model"/>
+                    <Header title={modelData?.name}/>
                     <Link to="/models/all"><Button className="color-btn text-sm w-full p-1.5" text="back"/></Link>
                 </div>
                 <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
@@ -145,7 +146,7 @@ export default function ExecuteModel() {
                                               rounded-md hover:border-black"/>
                             </div>
                         </div>
-                        <div className="overflow-auto max-h-[217px] h-full">
+                        <div className="overflow-auto max-h-[213px] h-full">
                             <section className="container h-full">
                                 <div {...getRootProps()}
                                     className={hideDrop ? "hidden" : "dropzone cursor-pointer justify-center"}>

@@ -1,30 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {BsPersonCircle} from "react-icons/bs";
 import {HiOutlineLockClosed} from "react-icons/hi";
-import {useStateContext} from "../../contexts/ContextProvider";
 import {Link} from "react-router-dom";
 import useGetUserInfo from "../../service/authentication/UserInfoService";
-import useUpdateUserInfo from "../../service/authentication/UserUpdateService";
 import Button from "../../components/button/Button";
-import SubmitButton from "../../components/button/SubmitButton";
 import Header from "../../components/layout/Header";
 
 export default function Account() {
-  const {onClickButton, isClickedButton} = useStateContext();
-  const {username, email} = useGetUserInfo();
-  const {user, setUser, updateUser} = useUpdateUserInfo();
-  const [newName, setNewName] = useState('');
-
-  const onClickChangeName = async () => {
-      try {
-          await updateUser(newName);
-          setUser({...user, username: newName});
-          setNewName('');
-          onClickButton('changeName');
-      } catch (error) {
-          console.error(error);
-      }
-  };
+  const {user} = useGetUserInfo();
 
   return (
     <div className="contents">
@@ -35,33 +18,8 @@ export default function Account() {
           <div className="flex items-center">
             <BsPersonCircle className="w-20 h-20"/>
             <div className="w-full p-3">
-              {isClickedButton.changeName ? (
-                <input
-                  type="text"
-                  className="form-control block w-3/4 px-4 py-2 text-base font-normal
-                  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
-                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
-                  focus:border-blue-600 focus:outline-none"
-                  id="change-name"
-                  placeholder={username}
-                  value={newName} onChange={(e) => setNewName(e.target.value)}
-                />
-              ) : (
-                <p className="font-extrabold text-xl">{username}</p>
-              )}
-              <p>{email}</p>
-            </div>
-            <div onClick={() => onClickButton('changeName')}>
-              {isClickedButton.changeName ? (
-                <div className="flex gap-3">
-                  <Button className="white-btn text-sm p-2" text="cancel"/>
-                  <SubmitButton
-                    className="color-btn text-sm p-2" text="change"
-                    onClick={onClickChangeName}/>
-                </div>
-              ) : (
-                <Button className="color-btn text-sm p-2" text="rename"/>
-              )}
+              <p className="font-extrabold text-xl">{user.username}</p>
+              <p>{user.email}</p>
             </div>
           </div>
         </div>
@@ -71,7 +29,7 @@ export default function Account() {
             <HiOutlineLockClosed className="mx-4 w-10 h-10"/>
             <p className="w-full p-2">Password</p>
             <Link to="/change-password">
-              <Button className="color-btn text-sm p-2" text="update"/>
+              <Button className="color-btn text-sm p-2" text="change"/>
             </Link>
           </div>
         </div>

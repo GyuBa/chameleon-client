@@ -4,11 +4,12 @@ import chameleon from '../../assets/images/chameleon.png';
 import SubmitButton from "../../components/button/SubmitButton";
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {AxiosError} from "axios";
-
+import useGetUserInfo from "../../service/authentication/UserInfoService";
 
 export default function SignIn() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const { getCookieValue } = useGetUserInfo();
 
     const signIn = async (e: any) => {
         e.preventDefault();
@@ -21,7 +22,10 @@ export default function SignIn() {
         } else {
             try {
                 await PlatformAPI.signIn(email, password);
-                document.location.href = "../../Main";
+                const isSignedIn = getCookieValue('connect.sid');
+                if(isSignedIn) {
+                    window.location.href = '/models/all';
+                }
             } catch (e) {
                 if (e instanceof AxiosError && e.status === 401) {
                     alert('로그인에 실패하였습니다.');
@@ -92,7 +96,7 @@ export default function SignIn() {
                                 <Link to="#!" className="text-gray-800">Forgot password?</Link>
                             </div>
                             <div className="text-center lg:text-left">
-                                <SubmitButton className="color-btn w-full" text="Sign In" event={SignIn} onClick={signIn} disabled={!email || !password}/>
+                                <SubmitButton className="color-btn w-full" text="Sign In" onClick={signIn} disabled={!email || !password}/>
                             </div>
                         </form>
                     </div>

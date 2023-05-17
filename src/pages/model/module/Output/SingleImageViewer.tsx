@@ -27,7 +27,7 @@ export default function SingleImageViewer() {
                         onClick={() => DownloadUtils.download(imageURL, 'image.png')}/>
                 </div>
             </div>
-            <div className="overflow-y-auto max-h-[352px]">
+            <div className="overflow-y-auto max-h-[350px]">
                 <p className="px-2 pt-2">Output Format : {extension} </p>
                 <p className="px-2 pt-2">Size : {FileUtils.formatBytes(fileSize)} </p>
                 <img style={{width: "100%"}} src={imageURL} alt=""/>
