@@ -52,11 +52,11 @@ export default function Description({modelId, setSelectedModelId}: DescriptionPr
                 </div>
                 <div className="mt-4 overflow-auto max-h-screen">
                     <div className="flex my-2 items-center gap-2">
-                        <p className="text-lg font-bold">Model Name:</p>
+                        <p className="text-lg font-bold">Name:</p>
                         <p className="font-medium">{modelData?.name}</p>
                     </div>
                     <div className="flex my-2 items-center gap-2">
-                        <p className="text-lg font-bold">Model Register:</p>
+                        <p className="text-lg font-bold">Register:</p>
                         <p className="font-medium">{modelData?.register?.username}</p>
                     </div>
                     <div className="flex my-2 items-center gap-2">
@@ -78,9 +78,7 @@ export default function Description({modelId, setSelectedModelId}: DescriptionPr
                 </div>
                 <div className="flex items-center">
                     <div data-color-mode="light" className="my-4 whitespace-pre-wrap">
-                        <p className="text-lg font-bold">Model Description</p>
-                        <MDEditor.Markdown className="py-2" source={modelData?.description}
-                                           style={{whiteSpace: 'pre-wrap'}}/>
+                        <MDEditor.Markdown className="py-2" source={modelData?.description} style={{whiteSpace: 'pre-wrap'}}/>
                     </div>
                 </div>
             </div>
