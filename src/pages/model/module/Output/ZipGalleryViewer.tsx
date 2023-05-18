@@ -1,6 +1,6 @@
 import {BiDownload} from "react-icons/bi";
 import React, {useEffect, useState} from "react";
-import SubmitButton from "../../../../components/button/SubmitButton";
+
 import {DownloadUtils} from "../../../../utils/DownloadUtils";
 import {FileUtils} from "../../../../utils/FileUtils";
 
@@ -59,8 +59,9 @@ export default function ZipGalleryViewer() {
                 <p className="text-xl font-semibold">Output</p>
                 <div className="flex items-center rounded-lg hover:bg-light-gray focus:bg-gray">
                     <BiDownload size="20" color="#484848" className="pl-1"/>
-                    <SubmitButton text="Download" className="text-sm"
-                                  onClick={() => DownloadUtils.download(url, 'test')}/>
+                    <button className="submit-btn text-sm"
+                            onClick={() => DownloadUtils.download(url, 'test')}>Download
+                    </button>
                 </div>
             </div>
             <div className="overflow-y-auto max-h-[350px]">

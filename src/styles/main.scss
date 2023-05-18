@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+@layer components {
+  /*my-test 클래스를 쓰면 위와 같은 tailwind class 모두가 한꺼번에 바로 적용됨*/
+  .my-test-class {
+    @apply m-5 p-4 text-lg underline;
+  }
+
+  .default-btn {
+    @apply hover:drop-shadow-xl whitespace-nowrap
+  }
+
+  .disabled-btn {
+    @apply default-btn hover:md:filter-none bg-gray-300 text-white rounded-md
+  }
+
+  .blue-btn {
+    @apply default-btn bg-main-blue text-white rounded-md
+  }
+
+  .white-btn {
+    @apply default-btn bg-white text-black rounded-md;
+  }
+
+  .black-btn {
+    @apply default-btn bg-black text-white rounded-md;
+  }
+
+  .submit-btn {
+    &:disabled {
+      @apply disabled-btn whitespace-nowrap p-2
+    }
+
+    &:enabled {
+      @apply blue-btn hover:drop-shadow-xl whitespace-nowrap p-2
+    }
+  }
+}

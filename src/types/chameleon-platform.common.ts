@@ -318,7 +318,7 @@ export type ModelInputInfo = {
 
 export type ModelOutputInfo = {
     fileName: string;
-    mimeType : string;
+    mimeType: string;
     fileSize: number;
 }
 

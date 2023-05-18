@@ -2,8 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {tabsData} from "../../../../assets/Dummy";
 import {Link, useNavigate} from "react-router-dom";
 import {useDropzone} from "react-dropzone";
-import Button from "../../../../components/button/Button";
-import SubmitButton from "../../../../components/button/SubmitButton";
 import Header from "../../../../components/layout/Header";
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
 import {RegionEntityData} from "../../../../types/chameleon-platform.common";
@@ -94,8 +92,10 @@ export default function Dockerfile() {
                     <h1 className="mx-2 text-gray-500">{tabsData[1].label}</h1>
                 </div>
                 <div className="flex gap-3 float-right">
-                    <Link to="/models/my"><Button className="white-btn w-16 p-2" text="back"/></Link>
-                    <SubmitButton onClick={handleClick} className="color-btn w-16" text="next"/>
+                    <Link to="/models/my">
+                        <button className="white-btn w-16 p-2">back</button>
+                    </Link>
+                    <button onClick={handleClick} className="submit-btn w-16">next</button>
                 </div>
             </div>
             <div className="gap-4 grid md:pt-10 md:px-5 md:my-2 md:grid-cols-2">
@@ -172,9 +172,10 @@ export default function Dockerfile() {
                                 </div>
                                 <ul className={hideDrop ? "px-5 pb-5 pt-2" : "hidden"}>{acceptedFileItems}</ul>
                                 <div className="pt-2 pr-3">
-                                    <SubmitButton onClick={removeFile} text="remove"
-                                                  className="float-right text-sm py-1 px-1.5 border border-gray border-solid
-                                rounded-md hover:border-black"/>
+                                    <button onClick={removeFile}
+                                            className="submit-btn float-right text-sm py-1 px-1.5 border border-gray border-solid
+                                rounded-md hover:border-black">remove
+                                    </button>
                                 </div>
                             </section>
                         </div>
