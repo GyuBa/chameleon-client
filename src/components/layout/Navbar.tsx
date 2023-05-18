@@ -21,7 +21,7 @@ export default function Navbar() {
                 <Link to='/payment' className="flex items-center gap-2 cursor-pointer px-2 mx-2 hover:bg-light-gray rounded-lg">
                     <GrMoney className="w-5 h-5"/>
                     <p>
-                        <span className="text-gray-700 text-14">My point </span>
+                        <span className="text-gray-700 text-14">Point </span>
                         <span className="text-gray-700 font-bold ml-1 text-14">₩{user.point.toLocaleString('ko-KR')}</span>
                     </p>
                 </Link>

@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import {tabsData} from "../../../assets/Dummy"
-import Tarfile from "./tab/TarFile"
-import Dockerfile from "./tab/Dockerfile";
+import {tabsData} from "../../../assets/Dummy";
+import CreateModelTab from "./tab/CreateModelTab";
 
 export default function CreateModel() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -15,8 +14,8 @@ export default function CreateModel() {
                             return (
                                 <button
                                     key={idx}
-                                    className={`py-2 border-b-4 transition-colors duration-300 ${
-                                        idx === activeTabIndex
+                                    className={`py-2 border-b-4 transition-colors duration-300 
+                                    ${idx === activeTabIndex
                                             ? "border-teal-500"
                                             : "border-transparent hover:border-gray-200"
                                     }`}
@@ -28,10 +27,10 @@ export default function CreateModel() {
                     </div>
                     <div className="tab-content tab-space">
                         <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
-                            <Tarfile activeTabIndex={activeTabIndex}/>
+                            <CreateModelTab activeTabIndex={activeTabIndex}/>
                         </div>
                         <div className={activeTabIndex === 1 ? "block" : "hidden"} id="link2">
-                            <Dockerfile activeTabIndex={activeTabIndex}/>
+                            <CreateModelTab activeTabIndex={activeTabIndex}/>
                         </div>
                     </div>
                 </div>
