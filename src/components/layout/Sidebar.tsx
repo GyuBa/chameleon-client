@@ -15,7 +15,7 @@ export default function Sidebar() {
                     <div className="flex justify-between items-center">
                         <Link to="/models/all" onClick={handleCloseSideBar}
                               className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight text-slate-900">
-                            <GiChameleonGlyph/><span>Chameleon</span>
+                            <GiChameleonGlyph/><span>Chameleon Platform</span>
                         </Link>
                         <button
                             type="button"
