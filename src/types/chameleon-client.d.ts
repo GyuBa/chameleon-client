@@ -51,3 +51,8 @@ export interface DescriptionProps {
     modelId: number;
     setSelectedModelId: React.Dispatch<React.SetStateAction<number>>;
 }
+
+export interface InputModelInfo {
+    modelId: number | undefined;
+    inputPath: number | undefined;
+}
