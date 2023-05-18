@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import kakao from '../../assets/images/kakao.png'
-import payco from '../../assets/images/payco.png'
-import toss from '../../assets/images/toss.png'
+import kakao from '../../assets/images/payment/kakao.png'
+import payco from '../../assets/images/payment/payco.png'
+import toss from '../../assets/images/payment/toss.png'
 import Header from "../../components/layout/Header";
 import {PlatformAPI} from "../../platform/PlatformAPI";
 
@@ -186,7 +186,7 @@ export default function Payment() {
                         <p className="text-center text-red-500 margin-top: 30px text-align = center"
                         >페이코의 최소 충전금액은 5,000원이며 <br/>최대 충전금액은 50,000원입니다.</p> <br/>
                         <button onClick={Payco}
-                            className={`black-btn text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
+                                className={`black-btn text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
                         >charge
                         </button>
                     </div>
@@ -225,7 +225,7 @@ export default function Payment() {
                         <p className="text-center text-red-500 margin-top: 30px text-align = center"
                         >토스의 최소 충전금액은 5,000원이며 <br/>최대 충전금액은 50,000원입니다.</p> <br/>
                         <button onClick={Toss}
-                            className={`black-btn text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
+                                className={`black-btn text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
                         >charge
                         </button>
                     </div>

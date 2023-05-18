@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {Badge} from "flowbite-react";
 import MDEditor from "@uiw/react-md-editor";
-import SubmitButton from "../button/SubmitButton";
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {ModelEntityData} from "../../types/chameleon-platform.common";
 import {DescriptionProps} from "../../types/chameleon-client";
@@ -36,7 +35,7 @@ export default function Description({modelId, setSelectedModelId}: DescriptionPr
     const uniqueName = modelData?.uniqueName;
 
     const handleStart = () => {
-        if(modelId > -1) navigate(`/model/${username}/${uniqueName}`);
+        if (modelId > -1) navigate(`/model/${username}/${uniqueName}`);
     };
 
     return (
@@ -46,7 +45,7 @@ export default function Description({modelId, setSelectedModelId}: DescriptionPr
                     className="flex justify-between items-center pb-6 border-b-1 border-gray-300 overflow-auto max-h-screen">
                     <p className="text-3xl font-extrabold tracking-tight text-slate-900">{modelData?.name}</p>
                     <div className="flex gap-2 items-center">
-                        <SubmitButton className="color-btn text-sm w-full p-1.5" text="start" onClick={handleStart}/>
+                        <button className="submit-btn text-sm w-full p-1.5" onClick={handleStart}>start</button>
                         <button className="text-gray-500 text-2xl rounded-full hover:text-black hover:bg-light-gray"
                                 onClick={() => setSelectedModelId(-1)}><MdOutlineCancel/></button>
                     </div>

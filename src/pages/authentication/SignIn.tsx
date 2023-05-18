@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
-import SubmitButton from "../../components/button/SubmitButton";
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {AxiosError} from "axios";
 import useGetUserInfo from "../../service/authentication/UserInfoService";
@@ -9,7 +8,7 @@ const imageURL = '/logo1.png'
 export default function SignIn() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const { getCookieValue } = useGetUserInfo();
+    const {getCookieValue} = useGetUserInfo();
 
     const signIn = async (e: any) => {
         e.preventDefault();
@@ -23,7 +22,7 @@ export default function SignIn() {
             try {
                 await PlatformAPI.signIn(email, password);
                 const isSignedIn = getCookieValue('connect.sid');
-                if(isSignedIn) {
+                if (isSignedIn) {
                     window.location.href = '/models/all';
                 }
             } catch (e) {
@@ -96,7 +95,9 @@ export default function SignIn() {
                                 <Link to="#!" className="text-gray-800">Forgot password?</Link>
                             </div>
                             <div className="text-center lg:text-left">
-                                <SubmitButton className="color-btn w-full" text="Sign In" onClick={signIn} disabled={!email || !password}/>
+                                <button className="submit-btn w-full" onClick={signIn}
+                                        disabled={!email || !password}>Sign In
+                                </button>
                             </div>
                         </form>
                     </div>

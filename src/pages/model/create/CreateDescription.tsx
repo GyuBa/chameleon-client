@@ -1,9 +1,7 @@
 import React, {useState} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import MDEditor from '@uiw/react-md-editor';
-import Button from "../../../components/button/Button";
 import Header from "../../../components/layout/Header";
-import SubmitButton from "../../../components/button/SubmitButton";
 
 export default function CreateDescription() {
     const navigate = useNavigate();
@@ -32,9 +30,9 @@ export default function CreateDescription() {
                     <Header title="Model Description"/>
                     <div className="flex gap-3 float-right">
                         <Link to="/models/create">
-                            <Button className="white-btn w-16 p-2" text="back"/>
+                            <button className="white-btn w-16 p-2">back</button>
                         </Link>
-                        <SubmitButton onClick={handleClick} className="color-btn w-16" text="next"/>
+                        <button onClick={handleClick} className="blue-btn w-16">next</button>
                     </div>
                 </div>
                 <div data-color-mode="light" className="container pt-5 max-w-full">

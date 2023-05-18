@@ -1,4 +1,5 @@
 import React, {CSSProperties, ReactNode} from "react";
+import {ModelInputType} from "./chameleon-platform.common";
 
 export type HeaderData = {
     category?: string;
@@ -50,4 +51,9 @@ export type DownloadButtonProps = {
 export interface DescriptionProps {
     modelId: number;
     setSelectedModelId: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export interface InputModelInfo {
+    id: number;
+    inputType: ModelInputType;
 }

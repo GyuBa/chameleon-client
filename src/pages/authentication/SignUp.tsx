@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import {Link} from 'react-router-dom';
-import SubmitButton from "../../components/button/SubmitButton";
+
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {AxiosError} from "axios";
 
@@ -10,17 +10,17 @@ export default function SignUp() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [username, setUsername] = useState<string>("");
-    
+
     const [emailMessage, setEmailMessage] = useState<string>("");
     const [passwordMessage, setPasswordMessage] = useState<string>("");
     const [usernameMessage, setUsernameMessage] = useState<string>("");
-    
+
     const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
     const [isValidPassword, setIsValidPassword] = useState<boolean>(false);
     const [isValidUsername, setIsValidUsername] = useState<boolean>(false);
 
     const signUp = useCallback(
-        async (e: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLDivElement>) => {
+        async (e: React.FormEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLDivElement>) => {
             e.preventDefault();
             try {
                 await PlatformAPI.signUp(email, password, username);
@@ -126,7 +126,8 @@ export default function SignUp() {
                                     placeholder="Email Address"
                                 />
                                 {email.length > 0 &&
-                                    <span className={`message ${isValidEmail ? 'success' : 'error'}`}>{emailMessage} </span>}
+                                    <span
+                                        className={`message ${isValidEmail ? 'success' : 'error'}`}>{emailMessage} </span>}
                             </div>
                             <div className="mb-6">
                                 <input
@@ -143,9 +144,10 @@ export default function SignUp() {
                                         className={`message ${isValidPassword ? 'success' : 'error'}`}>{passwordMessage} </span>}
                             </div>
                             <div className="text-center lg:text-left">
-                                <SubmitButton
-                                    className="color-btn w-full" text="Sign Up" event={SignUp} onClick={signUp}
-                                    disabled={!(isValidUsername && isValidEmail && isValidPassword)}/>
+                                <button
+                                    className="submit-btn w-full" onClick={signUp}
+                                    disabled={!(isValidUsername && isValidEmail && isValidPassword)}>Sign Up
+                                </button>
                             </div>
                         </form>
                     </div>
