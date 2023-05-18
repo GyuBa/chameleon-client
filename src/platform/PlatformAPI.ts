@@ -24,16 +24,6 @@ export class PlatformAPI {
         }
     };
 
-    private static restoreTimeProperty(object: any) {
-        for (const key in object) {
-            if (object[key] && typeof object[key] === 'object') {
-                this.restoreTimeProperty(object[key]);
-            } else if (typeof object[key] === 'string' && (key.toLowerCase().endsWith('date') || key.toLowerCase().endsWith('time'))) {
-                object[key] = new Date(object[key]);
-            }
-        }
-    }
-
     public static toFormData(data: any): FormData {
         const formData = new FormData();
         Object.entries(data).forEach(([name, value]: [string, any]) =>
@@ -131,5 +121,15 @@ export class PlatformAPI {
     public static async updatePoint(amount: number): Promise<ResponseData> {
         const response = await this.instance.post('/points/update', {amount}, this.defaultConfig);
         return response?.data;
+    }
+
+    private static restoreTimeProperty(object: any) {
+        for (const key in object) {
+            if (object[key] && typeof object[key] === 'object') {
+                this.restoreTimeProperty(object[key]);
+            } else if (typeof object[key] === 'string' && (key.toLowerCase().endsWith('date') || key.toLowerCase().endsWith('time'))) {
+                object[key] = new Date(object[key]);
+            }
+        }
     }
 }
