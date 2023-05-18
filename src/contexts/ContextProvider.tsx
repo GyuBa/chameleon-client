@@ -1,19 +1,20 @@
 import React, {createContext, useContext, useState} from 'react';
 import {useMediaQuery} from "react-responsive";
 
-const StateContext = createContext();
+const StateContext = createContext({});
 const initialState = {userProfile: false, ChangeName: false,};
 
-export const ContextProvider = ({children}) => {
+export const ContextProvider = ({children}: { children: React.ReactNode }) => {
     const [activeMenu, setActiveMenu] = useState(true);
     const [isClicked, setIsClicked] = useState(initialState);
-    const [isClickedButton, setIsClickedButton] = useState(initialState);
+    const [isClickedButton, setIsClickedButton] = useState<any>(initialState);
+    // TODO: any 제거
     const [menuState, setMenuState] = useState(false);
     const [currentLayout, setCurrentLayout] = useState('GridLayout');
 
-    const handleClick = (clicked) => setIsClicked({...initialState, [clicked]: true});
+    const handleClick = (clicked: string) => setIsClicked({...initialState, [clicked]: true});
 
-    const onClickButton = (buttonName) => {
+    const onClickButton = (buttonName: string) => {
         if (buttonName === 'changeName') {
             console.log("check_1");
             setIsClickedButton({...isClickedButton, changeName: !isClickedButton.changeName});
