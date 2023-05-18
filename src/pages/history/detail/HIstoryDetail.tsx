@@ -9,7 +9,7 @@ import {executeParam} from "../../../assets/Dummy";
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonViewer} from "@textea/json-viewer";
-import {InputModelInfo, InputType} from "../../../types/chameleon-client";
+import {InputModelInfo, PageType} from "../../../types/chameleon-client";
 
 export function HistoryDetail() {
     const location = useLocation();
@@ -72,7 +72,7 @@ export function HistoryDetail() {
                             </div>
                         </div>
                     </div>
-                    {InputModule(InputType.HISTORY, parameter, inputModelData!, historyData!)}
+                    {InputModule(PageType.HISTORY, parameter, inputModelData!, historyData!)}
                     {OutputModule(historyData!)}
                     {OutputDescriptionModule(historyData!)}
                 </div>
