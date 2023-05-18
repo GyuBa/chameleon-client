@@ -1,4 +1,5 @@
 import React, {CSSProperties, ReactNode} from "react";
+import {ModelInputType} from "./chameleon-platform.common";
 
 export type HeaderData = {
     category?: string;
@@ -53,6 +54,6 @@ export interface DescriptionProps {
 }
 
 export interface InputModelInfo {
-    modelId: number | undefined;
-    inputPath: number | undefined;
+    id: number;
+    inputType: ModelInputType;
 }
