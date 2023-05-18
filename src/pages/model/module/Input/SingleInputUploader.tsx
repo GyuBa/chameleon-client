@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {useDropzone} from "react-dropzone";
 import {FileUtils} from "../../../../utils/FileUtils"
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
-import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
+import {HistoryEntityData, ModelParameters} from "../../../../types/chameleon-platform.common";
 import {DownloadUtils} from "../../../../utils/DownloadUtils"
 import {InputModelInfo} from "../../../../types/chameleon-client";
 import {PageType} from "../../../../types/chameleon-client.enum";
@@ -11,7 +11,7 @@ import {PageType} from "../../../../types/chameleon-client.enum";
 
 type IFile = File & { preview?: string };
 
-export default function SingleInputUploader(type: PageType, parameter: Object, modelData: InputModelInfo, executeData: HistoryEntityData) {
+export default function SingleInputUploader(type: PageType, parameters: ModelParameters, modelData: InputModelInfo, executeData: HistoryEntityData) {
     const [files, setFiles] = useState<IFile[]>([]);
     const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [uploadExplain, setUploadExplain] = useState<string>('');
@@ -61,7 +61,6 @@ export default function SingleInputUploader(type: PageType, parameter: Object, m
         return () => files.forEach(file => URL.revokeObjectURL(file.preview as string));
     });
 
-    let parameters = JSON.stringify({parameter: parameter});
     const modelId = modelData?.id
 
     const handleSubmit = async (event: React.FormEvent<HTMLButtonElement>) => {

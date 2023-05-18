@@ -179,7 +179,7 @@ export default function CreateParameters() {
     const description = location.state?.description;
     const activeTabIndex = location.state?.activeTabIndex;
 
-    const parameters = JSON.stringify({schema: transSchema, uiSchema: transUISchema});
+    const parameters = {schema: transSchema, uischema: transUISchema};
 
     const handleSubmit = async (event: React.FormEvent<HTMLButtonElement>) => {
         event.preventDefault();

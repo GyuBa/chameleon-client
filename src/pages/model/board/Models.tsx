@@ -104,7 +104,7 @@ export default function Models() {
                         <p className="font-semibold text-xl break-all">{modelData.name}</p>
                         {isFree ? ( <div className="text-emerald-600 px-1">FREE</div> ) : (
                             <div className="flex gap-2 justify-between items-center">
-                                <div className="text-red-600 pl-2">￦{(1231).toLocaleString('ko-KR')}{modelData.point}</div>
+                                <div className="text-red-600 pl-2">￦{modelData.price}</div>
                             </div>
                         )}
                     </div>
