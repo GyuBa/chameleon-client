@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import {links} from '../../assets/Dummy';
-import {useStateContext} from '../../contexts/ContextProvider';
 import {GiChameleonGlyph} from 'react-icons/gi';
 import {MdOutlineCancel} from 'react-icons/md';
+import {useStateContext} from "../../contexts/ContextProvider";
 
 export default function Sidebar() {
     const {activeMenu, setActiveMenu, handleCloseSideBar} = useStateContext();

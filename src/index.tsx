@@ -5,8 +5,8 @@ import './styles/main.scss';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {ContextProvider} from './contexts/ContextProvider';
 import {BrowserRouter} from 'react-router-dom';
+import ContextProvider from "./contexts/ContextProvider";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement

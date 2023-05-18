@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Badge, Table} from "flowbite-react";
 import {Link, useLocation} from "react-router-dom";
-import {useStateContext} from "../../../contexts/ContextProvider";
 import {HiViewGrid} from "react-icons/hi";
 import {FiList} from "react-icons/fi";
 import {RiDeleteBinLine} from "react-icons/ri";
@@ -12,6 +11,7 @@ import Header from "../../../components/layout/Header";
 import {ModelEntityData} from "../../../types/chameleon-platform.common";
 import {DateUtils} from "../../../utils/DateUtils";
 import {PlatformAPI} from "../../../platform/PlatformAPI";
+import {useStateContext} from "../../../contexts/ContextProvider";
 
 const modelColumn = {
     list: ['Model Name', 'Input Type', 'Output Type', 'Register', 'Last Modified Date', 'start']
@@ -112,7 +112,7 @@ export default function Models() {
                         <div className="flex py-3 gap-3">
                             <Badge color="indigo">Input: {modelData.inputType}</Badge>
                             <Badge color="purple">Output: {modelData.outputType}</Badge>
-                            <Badge className="bg-teal-100 text-teal-500">Machine Learning{modelData.category}</Badge>
+                            <Badge className="bg-teal-100 text-teal-500">{modelData.category}</Badge>
                         </div>
                     </div>
                     <div className="flex mt-10 justify-between">

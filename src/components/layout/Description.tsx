@@ -73,7 +73,7 @@ export default function Description({modelId, setSelectedModelId}: DescriptionPr
                         <div className="pt-3"><Badge color="purple">Output: {modelData?.outputType}</Badge></div>
                     </div>
                     <div className="flex my-2 justify-items-start gap-2">
-                        <div className="pt-3"><Badge className="bg-teal-100 text-teal-500">Machine Learning{modelData?.category}</Badge></div>
+                        <div className="pt-3"><Badge className="bg-teal-100 text-teal-500">{modelData?.category}</Badge></div>
                     </div>
                 </div>
                 <div className="flex items-center">

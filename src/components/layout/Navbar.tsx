@@ -2,11 +2,11 @@ import React from 'react';
 import {AiOutlineMenu} from 'react-icons/ai';
 import {BsFillPersonFill} from 'react-icons/bs';
 import {MdKeyboardArrowDown} from 'react-icons/md';
-import {useStateContext} from '../../contexts/ContextProvider';
 import useGetUserInfo from "../../service/authentication/UserInfoService";
 import UserProfile from "./UserProfile";
 import {GrMoney} from "react-icons/gr";
 import {Link} from "react-router-dom";
+import {useStateContext} from "../../contexts/ContextProvider";
 
 export default function Navbar() {
     const {handleClick, isClicked, handleActiveMenu} = useStateContext();

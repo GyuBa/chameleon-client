@@ -1,10 +1,11 @@
 import React, {createContext, useContext, useState} from 'react';
 import {useMediaQuery} from "react-responsive";
 
-const StateContext = createContext({});
+const StateContext = createContext<any>({});
+
 const initialState = {userProfile: false, ChangeName: false,};
 
-export const ContextProvider = ({children}: { children: React.ReactNode }) => {
+export default function ContextProvider({children}: { children: React.ReactNode }) {
     const [activeMenu, setActiveMenu] = useState(true);
     const [isClicked, setIsClicked] = useState(initialState);
     const [isClickedButton, setIsClickedButton] = useState<any>(initialState);
@@ -61,5 +62,6 @@ export const ContextProvider = ({children}: { children: React.ReactNode }) => {
     );
 };
 
-export const useStateContext = () => useContext(StateContext) as any;
-// TODO 타입 형으로 정리
+export function useStateContext() {
+    return useContext(StateContext);
+}
