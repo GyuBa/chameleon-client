@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
-import {Route, Routes, useLocation, Navigate} from 'react-router-dom';
+import {Navigate, Route, Routes, useLocation} from 'react-router-dom';
 import './App.css';
-import './styles/Dropzone.css';
+import './styles/dropzone.css';
 import useWebSocket from "react-use-websocket";
 import Layout from "./components/layout/Layout";
 import Account from "./pages/profile/Account";
