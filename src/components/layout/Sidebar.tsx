@@ -2,9 +2,9 @@ import React from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import {links} from '../../assets/Dummy';
 import {useStateContext} from '../../contexts/ContextProvider';
-import {GiChameleonGlyph} from 'react-icons/gi';
 import {MdOutlineCancel} from 'react-icons/md';
 
+const imageURL = '/logo1.png'
 export default function Sidebar() {
     const {activeMenu, setActiveMenu, handleCloseSideBar} = useStateContext();
 
@@ -18,7 +18,7 @@ export default function Sidebar() {
                     <div className="flex justify-between items-center">
                         <Link to="/models/all" onClick={handleCloseSideBar}
                               className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight text-slate-900">
-                            <GiChameleonGlyph/><span>Chameleon</span>
+                            <img style={{width: '10%'}} className="object-cover w-full" src={imageURL} alt="chameleon"/><span>Chameleon</span>
                         </Link>
                         <button
                             type="button"
