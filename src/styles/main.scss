@@ -64,7 +64,7 @@
   }
 
   .side-bar-nav-link-active {
-    @apply side-bar-nav-link bg-main-blue text-white hover:md:filter-none
+    @apply side-bar-nav-link bg-main-blue text-white hover:bg-main-blue
   }
 
 }
