@@ -14,11 +14,11 @@ export function HistoryDetail() {
     const location = useLocation();
     const historyData = location.state;
     const parameter = historyData.parameters.parameter;
+
+    console.log(historyData.parameters)
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     // 외부 공유시 useEffect 이용하여 모델 적용
     const [modelId, ] = useState(-1);
-    const schema = historyData.model.schema;
-    const uiSchema = historyData.model.uiSchema;
 
     return (
         <div className="contents">
@@ -26,7 +26,12 @@ export function HistoryDetail() {
                 <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
                     <div className="flex justify-between items-end">
                         <Header title="History"/>
-                        <h1 className="mx-2 text-gray-500">{historyData.model?.name}</h1>
+                        <h1 className="mx-2 text-gray-500">{historyData.model ? (
+                            historyData.model.name
+                        ) : (
+                            'Deleted'
+                        )}
+                        </h1>
                     </div>
                     <Link to="/models/all"><Button className="color-btn text-sm w-full p-1.5" text="back"/></Link>
                 </div>
@@ -53,11 +58,10 @@ export function HistoryDetail() {
                         <div className="tab-content tab-space overflow-y-auto max-h-[212px] md:p-2">
                             <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
                                 <JsonForms
-                                    schema={schema}
-                                    uischema={uiSchema}
                                     data={parameter}
                                     renderers={materialRenderers}
                                     cells={materialCells}
+                                    readonly
                                 />
                             </div>
                             <div className={activeTabIndex === 1 ? "block" : "hidden"} id="link2">
