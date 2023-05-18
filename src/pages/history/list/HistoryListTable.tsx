@@ -36,7 +36,10 @@ export function HistoryListTable({rows}: HistoryRow) {
                         rows.length!=0?rows.map((row, index) => (
                             <Table.Row key={row.id} className={'bg-white'} onClick={() => navigateToDetail(index)}>
                                 <Table.Cell>{row.id}</Table.Cell>
-                                <Table.Cell>{row.model.name?row.model.name:''}</Table.Cell>
+                                <Table.Cell>{row.model?(
+                                    row.model.name ) : (
+                                        <Badge color={'failure'}> deleted </Badge>
+                                )}</Table.Cell>
                                 <Table.Cell>{DateUtils.formatDate(row.startedTime)}</Table.Cell>
                                 <Table.Cell>{row.endedTime?DateUtils.formatDate(row.endedTime): '-'}</Table.Cell>
                                 <Table.Cell>{row.executor.username}</Table.Cell>

@@ -16,7 +16,6 @@ export default function HistoryList() {
                 const histories = await PlatformAPI.getMyHistories();
                 if (!completed) {
                     setHistories(histories);
-                    console.log(histories);
                 }
             } catch (error) {
                 console.error(error);
