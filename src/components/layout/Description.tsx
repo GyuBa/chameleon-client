@@ -68,9 +68,16 @@ export default function Description({modelId, setSelectedModelId}: DescriptionPr
                         <p className="text-lg font-bold">Parameters</p>
                     </div>
                     <p>{JSON.stringify(modelData?.parameters)}</p>
-                    <div className="flex my-2">
-                        <div className="pr-3 pt-3"><Badge color="indigo">Input: {modelData?.inputType}</Badge></div>
-                        <div className="px-3 pt-3"><Badge color="purple">Output: {modelData?.outputType}</Badge></div>
+                    <div className="flex my-2 items-center">
+                        <p className="text-lg font-bold">Point: </p>
+                        <p>{modelData?.point}</p>
+                    </div>
+                    <div className="flex my-2 justify-items-start gap-2">
+                        <div className="pt-3"><Badge color="indigo">Input: {modelData?.inputType}</Badge></div>
+                        <div className="pt-3"><Badge color="purple">Output: {modelData?.outputType}</Badge></div>
+                    </div>
+                    <div className="flex my-2 justify-items-start gap-2">
+                        <div className="pt-3"><Badge className="bg-teal-100 text-teal-500">Machine Learning{modelData?.category}</Badge></div>
                     </div>
                 </div>
                 <div className="flex items-center">
