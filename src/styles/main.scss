@@ -38,4 +38,24 @@
       @apply blue-btn hover:drop-shadow-xl whitespace-nowrap p-2
     }
   }
+
+  .sign-in-input-common {
+    @apply block border border-gray-300 bg-white transition focus:outline-none
+  }
+
+  .sign-in-input-text {
+    @apply sign-in-input-common w-full px-4 py-2 text-base font-normal text-gray-700 bg-clip-padding border-solid rounded ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
+  }
+
+  .sign-in-input-checkbox {
+    @apply sign-in-input-common appearance-none h-4 w-4 rounded-sm checked:bg-blue-600 checked:border-blue-600 duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer
+  }
+
+  .sign-up-input-text {
+    @apply text-base form-control block w-full px-4 py-2 font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+  }
+
+  .create-tab-input-text {
+    @apply block w-full px-4 py-2 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+  }
 }
