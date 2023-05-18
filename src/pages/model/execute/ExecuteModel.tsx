@@ -10,9 +10,16 @@ import {JsonViewer} from "@textea/json-viewer";
 import Button from "../../../components/button/Button";
 import Header from "../../../components/layout/Header";
 import {Oval} from "react-loader-spinner";
-import {HistoryEntityData, HistoryStatus, ModelEntityData, WSMessageType, WSUpdateHistoryMessage} from "../../../types/chameleon-platform.common";
+import {
+    HistoryEntityData,
+    HistoryStatus,
+    ModelEntityData,
+    WSMessageType,
+    WSUpdateHistoryMessage
+} from "../../../types/chameleon-platform.common";
 import {PlatformAPI} from "../../../platform/PlatformAPI"
 import useWebSocket from "react-use-websocket";
+import {InputType} from "../../../types/chameleon-client";
 
 const initialData = {};
 export default function ExecuteModel() {
@@ -139,7 +146,7 @@ export default function ExecuteModel() {
                             </div>
                         </div>
                     </div>
-                    {InputModule('execute', parameter, modelData!, executeData!)}
+                    {InputModule(InputType.EXECUTE, parameter, modelData!, executeData!)}
                     {OutputModule(executeData!)}
                     {OutputDescriptionModule(executeData!)}
                 </div>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Link, useLocation} from "react-router-dom";
 import Header from "../../../components/layout/Header";
 import Button from "../../../components/button/Button";
@@ -9,7 +9,7 @@ import {executeParam} from "../../../assets/Dummy";
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonViewer} from "@textea/json-viewer";
-import {InputModelInfo} from "../../../types/chameleon-client";
+import {InputModelInfo, InputType} from "../../../types/chameleon-client";
 
 export function HistoryDetail() {
     const location = useLocation();
@@ -72,7 +72,7 @@ export function HistoryDetail() {
                             </div>
                         </div>
                     </div>
-                    {InputModule('history', parameter, inputModelData!, historyData!)}
+                    {InputModule(InputType.HISTORY, parameter, inputModelData!, historyData!)}
                     {OutputModule(historyData!)}
                     {OutputDescriptionModule(historyData!)}
                 </div>
