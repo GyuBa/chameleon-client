@@ -14,7 +14,7 @@ import {DateUtils} from "../../../utils/DateUtils";
 import {PlatformAPI} from "../../../platform/PlatformAPI";
 
 const modelColumn = {
-    list: ['Model Name', 'Input Type', 'Output Type', 'Register', 'Last Modified Date', 'start']
+    list: ['Model Name', 'Input Type', 'Output Type', 'Register', 'Created Date', 'start']
 };
 
 export default function Models() {
@@ -116,7 +116,7 @@ export default function Models() {
                         </div>
                     </div>
                     <div className="flex mt-10 justify-between">
-                        <div className="text-sm text-gray-500 py-3">Updated {DateUtils.formatDate(modelData.updatedTime)} · {modelData.register.username}</div>
+                        <div className="text-sm text-gray-500 py-3">Created at {DateUtils.formatDate(modelData.createdTime)} · {modelData.register.username}</div>
                         <div className="py-3"><Badge color="gray">{modelData.image.region.name}</Badge></div>
                     </div>
                 </div>
@@ -142,7 +142,7 @@ export default function Models() {
                                 <div className="flex"><Badge color="purple">{modelData.outputType}</Badge></div>
                             </Table.Cell>
                             <Table.Cell>{modelData.register.username}</Table.Cell>
-                            <Table.Cell>{DateUtils.formatDate(modelData.updatedTime)}</Table.Cell>
+                            <Table.Cell>{DateUtils.formatDate(modelData.createdTime)}</Table.Cell>
                             <Table.Cell>
                                 <VscDebugStart onClick={() => onModelSelect(modelData)}
                                                className="text-white py-1 w-10 h-6 rounded bg-blue-500 hover:bg-blue-600 hover:drop-shadow-lg"/>
