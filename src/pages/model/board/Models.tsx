@@ -102,18 +102,16 @@ export default function Models() {
                    className="w-auto px-5 p-5 mb-4 mr-1 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl cursor-pointer">
                   <p className="border-b-2 font-semibold text-xl break-all">{modelData.name}</p>
                   <div className="flex justify-between items-center">
-                      <div className="flex">
-                          <div className="py-3"><Badge color="indigo">Input: {modelData.inputType}</Badge></div>
-                          <div className="p-3"><Badge color="purple">Output: {modelData.outputType}</Badge></div>
+                      <div className="flex py-3 gap-3">
+                          <Badge color="indigo">Input: {modelData.inputType}</Badge>
+                          <Badge color="purple">Output: {modelData.outputType}</Badge>
+                          <Badge className="bg-teal-100 text-teal-500">Machine Learning{modelData.category}</Badge>
                       </div>
                       {isFree ? ( <div className="text-emerald-600 px-2">FREE</div> ) : (
                           <div className="flex gap-2 justify-between items-center">
                               <div className="text-red-600 pl-2">￦{modelData.point}</div>
                           </div>
                       )}
-                  </div>
-                  <div className="flex gap-2">
-                      <Badge className="bg-teal-100 text-teal-500">Machine Learning{modelData.category}</Badge>
                   </div>
                   <div className="flex mt-10 justify-between">
                       <div className="text-sm text-gray-500 py-3">Updated {DateUtils.formatDate(modelData.updatedTime)} · {modelData.register.username}</div>
