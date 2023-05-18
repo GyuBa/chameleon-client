@@ -71,14 +71,14 @@ export default function SingleInputUploader(type: string, parameter: Object, mod
                 parameters,
                 input: files[0]
             });
-            console.log(executeInfo)
-            setUploadExplain('Upload Done')
+            console.log(executeInfo);
+            setUploadExplain('Upload Done');
             console.log('Upload done!');
 
         } catch (error) {
             setFiles([]);
             setHideDrop(false);
-            setUploadExplain('Upload error..')
+            setUploadExplain('Upload error..');
             console.log('Upload error...');
         }
     }

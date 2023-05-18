@@ -28,10 +28,10 @@ export default function CreateModel() {
                     </div>
                     <div className="tab-content tab-space">
                         <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
-                            <Tarfile/>
+                            <Tarfile activeTabIndex={activeTabIndex}/>
                         </div>
                         <div className={activeTabIndex === 1 ? "block" : "hidden"} id="link2">
-                            <Dockerfile/>
+                            <Dockerfile activeTabIndex={activeTabIndex}/>
                         </div>
                     </div>
                 </div>

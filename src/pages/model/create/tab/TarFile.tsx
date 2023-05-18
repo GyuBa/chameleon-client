@@ -10,7 +10,7 @@ import {RegionEntityData} from "../../../../types/chameleon-platform.common";
 
 type IFile = File & { preview?: string };
 
-export default function TarFile() {
+export default function TarFile({ activeTabIndex }: { activeTabIndex: number }) {
     const navigate = useNavigate();
     const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [files, setFiles] = useState<IFile[]>([]);
@@ -35,13 +35,7 @@ export default function TarFile() {
 
     const handleClick = () => {
         navigate("/models/create/description", {
-            state: {
-                files: files,
-                modelName: modelName,
-                inputType: inputType,
-                outputType: outputType,
-                regionName: regionName,
-            },
+            state: { files, modelName, inputType, outputType, regionName, activeTabIndex }
         });
     };
 
@@ -174,7 +168,7 @@ export default function TarFile() {
                                      className={hideDrop ? "hidden" : "dropzone cursor-pointer h-48"}>
                                     <input {...getInputProps()} />
                                     <p className="inline-block px-1 text-gray-500 hover:text-gray-700">
-                                        Drag & drop some tar file here, or click to select tar file</p>
+                                        Drag & drop a Tar File here, or click to select a Tar File</p>
                                 </div>
                                 <ul className={hideDrop ? "px-5 pb-5 pt-2" : "hidden"}>{acceptedFileItems}</ul>
                                 <div className="pt-2 pr-3">

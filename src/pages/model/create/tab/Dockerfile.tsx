@@ -10,7 +10,7 @@ import {RegionEntityData} from "../../../../types/chameleon-platform.common";
 
 type IFile = File & { preview?: string };
 
-export default function Dockerfile() {
+export default function Dockerfile({ activeTabIndex }: { activeTabIndex: number }) {
     const navigate = useNavigate();
     const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [files, setFiles] = useState<IFile[]>([]);
@@ -35,7 +35,7 @@ export default function Dockerfile() {
 
     const handleClick = () => {
         navigate("/models/create/description", {
-            state: {files, modelName, inputType, outputType, regionName}
+            state: { files, modelName, inputType, outputType, regionName, activeTabIndex }
         });
     };
 
@@ -168,7 +168,7 @@ export default function Dockerfile() {
                                      className={hideDrop ? "hidden" : "dropzone cursor-pointer"}>
                                     <input {...getInputProps()} />
                                     <p className="inline-block px-1 text-gray-500 hover:text-gray-700">
-                                        Drag & drop some dockerfile here, or click to select dockerfile</p>
+                                        Drag & drop a Dockerfile here, or click to select a Dockerfile</p>
                                 </div>
                                 <ul className={hideDrop ? "px-5 pb-5 pt-2" : "hidden"}>{acceptedFileItems}</ul>
                                 <div className="pt-2 pr-3">
