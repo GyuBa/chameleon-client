@@ -47,12 +47,6 @@ export default function Account() {
             </Link>
           </div>
         </div>
-        <div className="pt-2">
-          <button type="button"
-                  className="float-right p-2 text-sm text-gray-500 hover:drop-shadow-xl whitespace-nowrap"
-          >Delete Your Account
-          </button>
-        </div>
       </div>
     </div>
   );
