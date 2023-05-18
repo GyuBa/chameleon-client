@@ -5,7 +5,8 @@ import {FileUtils} from "../../../../utils/FileUtils"
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
 import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
 import {DownloadUtils} from "../../../../utils/DownloadUtils"
-import {InputModelInfo, PageType} from "../../../../types/chameleon-client";
+import {InputModelInfo} from "../../../../types/chameleon-client";
+import {PageType} from "../../../../types/chameleon-client.enum";
 // import * as zip from "@zip.js/zip.js";
 
 type IFile = File & { preview?: string };

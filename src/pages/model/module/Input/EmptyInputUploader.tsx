@@ -2,7 +2,8 @@ import React from "react";
 import SubmitButton from "../../../../components/button/SubmitButton";
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
 import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
-import {InputModelInfo, PageType} from "../../../../types/chameleon-client";
+import {InputModelInfo} from "../../../../types/chameleon-client";
+import {PageType} from "../../../../types/chameleon-client.enum";
 
 export default function EmptyInputUploader(type: PageType, parameter : Object, modelData : InputModelInfo, executeData : HistoryEntityData) {
 

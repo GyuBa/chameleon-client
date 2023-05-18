@@ -19,7 +19,7 @@ import {
 } from "../../../types/chameleon-platform.common";
 import {PlatformAPI} from "../../../platform/PlatformAPI"
 import useWebSocket from "react-use-websocket";
-import {PageType} from "../../../types/chameleon-client";
+import {PageType} from "../../../types/chameleon-client.enum";
 
 const initialData = {};
 export default function ExecuteModel() {
