@@ -104,10 +104,7 @@ export default function Dockerfile() {
                         <h1 className="md:py-5 text-xl font-bold">Model Name</h1>
                         <input
                             type="text"
-                            className="form-control block w-full px-4 py-2 text-base font-normal
-                  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
-                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
-                  focus:border-blue-600 focus:outline-none"
+                            className="create-tab-input-text"
                             id="model-name"
                             placeholder="Model Name"
                             value={modelName}
@@ -116,10 +113,7 @@ export default function Dockerfile() {
                     <div className="mb-3">
                         <h1 className="md:py-5 text-xl font-bold">Input Type</h1>
                         <select id="Input"
-                                className="form-control block w-full px-4 py-2 text-base font-normal
-                  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
-                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
-                  focus:border-blue-600 focus:outline-none"
+                                className="create-tab-input-text"
                                 value={inputType}
                                 onChange={handleInputTypeChange}>
                             <option value="none">(none)</option>
@@ -131,10 +125,7 @@ export default function Dockerfile() {
                     <div className="mb-3">
                         <h1 className="md:py-5 text-xl font-bold">Output Type</h1>
                         <select id="Output"
-                                className="form-control block w-full px-4 py-2 text-base font-normal
-                  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
-                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
-                  focus:border-blue-600 focus:outline-none"
+                                className="create-tab-input-text"
                                 value={outputType}
                                 onChange={handleOutputTypeChange}>
                             <option value="image">image</option>
@@ -147,10 +138,7 @@ export default function Dockerfile() {
                     <div className="mb-3">
                         <h1 className="md:py-5 text-xl font-bold">Model Region</h1>
                         <select id="countries"
-                                className="form-control block w-full px-4 py-2 text-base font-normal
-                  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
-                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
-                  focus:border-blue-600 focus:outline-none"
+                                className="create-tab-input-text"
                                 value={regionName}
                                 onChange={handleRegionNameChange}>
                             {regions.map((region: { id: number; name: string; }) => (
