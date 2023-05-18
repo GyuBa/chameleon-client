@@ -3,13 +3,14 @@ import SubmitButton from "../../../../components/button/SubmitButton";
 import {useDropzone} from "react-dropzone";
 import {FileUtils} from "../../../../utils/FileUtils"
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
-import {HistoryEntityData, ModelEntityData} from "../../../../types/chameleon-platform.common";
+import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
 import {DownloadUtils} from "../../../../utils/DownloadUtils"
+import {InputModelInfo} from "../../../../types/chameleon-client";
 // import * as zip from "@zip.js/zip.js";
 
 type IFile = File & { preview?: string };
 
-export default function SingleInputUploader(type: string, parameter: Object, modelData: ModelEntityData, executeData: HistoryEntityData) {
+export default function SingleInputUploader(type: string, parameter: Object, modelData: InputModelInfo, executeData: HistoryEntityData) {
     const [files, setFiles] = useState<IFile[]>([]);
     const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [uploadExplain, setUploadExplain] = useState<string>('');

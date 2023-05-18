@@ -1,9 +1,10 @@
 import React from "react";
 import SubmitButton from "../../../../components/button/SubmitButton";
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
-import {HistoryEntityData, ModelEntityData} from "../../../../types/chameleon-platform.common";
+import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
+import {InputModelInfo} from "../../../../types/chameleon-client";
 
-export default function EmptyInputUploader(type: string, parameter : Object, modelData : ModelEntityData, executeData : HistoryEntityData) {
+export default function EmptyInputUploader(type: string, parameter : Object, modelData : InputModelInfo, executeData : HistoryEntityData) {
 
     let parameters = JSON.stringify({ parameter: parameter });
     let file = new File(["{}"], "empty");

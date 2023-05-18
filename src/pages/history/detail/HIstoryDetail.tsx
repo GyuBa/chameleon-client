@@ -9,14 +9,17 @@ import {executeParam} from "../../../assets/Dummy";
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonViewer} from "@textea/json-viewer";
+import {InputModelInfo} from "../../../types/chameleon-client";
 
 export function HistoryDetail() {
     const location = useLocation();
     const historyData = location.state;
     const parameter = historyData.parameters.parameter;
 
-    console.log(historyData.parameters)
+    console.log(historyData)
     const [activeTabIndex, setActiveTabIndex] = useState(0);
+    const inputModelData:InputModelInfo = { id: -1, inputType: historyData.inputType };
+
     // 외부 공유시 useEffect 이용하여 모델 적용
     const [modelId, ] = useState(-1);
 
@@ -33,7 +36,7 @@ export function HistoryDetail() {
                         )}
                         </h1>
                     </div>
-                    <Link to="/models/all"><Button className="color-btn text-sm w-full p-1.5" text="back"/></Link>
+                    <Link to="/histories"><Button className="color-btn text-sm w-full p-1.5" text="back"/></Link>
                 </div>
                 <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
                     <div className="row-span-2 rounded-lg border-1 border-gray-300 overflow-auto">
@@ -69,7 +72,7 @@ export function HistoryDetail() {
                             </div>
                         </div>
                     </div>
-                    {InputModule('history', parameter, historyData.model!, historyData!)}
+                    {InputModule('history', parameter, inputModelData!, historyData!)}
                     {OutputModule(historyData!)}
                     {OutputDescriptionModule(historyData!)}
                 </div>
