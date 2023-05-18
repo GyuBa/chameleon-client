@@ -176,6 +176,7 @@ export default function CreateParameters() {
     const outputType = location.state?.outputType;
     const regionName = location.state?.regionName;
     const description = location.state?.description;
+    const activeTabIndex = location.state?.activeTabIndex;
 
     const parameters = JSON.stringify({schema: transSchema, uiSchema: transUISchema});
 
@@ -184,15 +185,24 @@ export default function CreateParameters() {
         setIsLoading(true);
 
         try {
-            const uploadResult = await PlatformAPI.uploadModelWithImage({
-                modelName,
-                inputType,
-                outputType,
-                regionName,
-                description,
-                parameters,
-                file: files[0]
-            });
+            const uploadResult = (activeTabIndex === 0) ?
+                await PlatformAPI.uploadModelWithImage({
+                    modelName,
+                    inputType,
+                    outputType,
+                    regionName,
+                    description,
+                    parameters,
+                    file: files[0]
+                }) : await PlatformAPI.uploadModelWithDockerfile({
+                    modelName,
+                    inputType,
+                    outputType,
+                    regionName,
+                    description,
+                    parameters,
+                    files: files
+                });
             console.log(uploadResult);
             setIsLoading(false);
             navigate('/models/my');
