@@ -57,3 +57,8 @@ export interface InputModelInfo {
     id: number;
     inputType: ModelInputType;
 }
+
+export enum InputType {
+    HISTORY = 'history',
+    EXECUTE = 'execute',
+}
