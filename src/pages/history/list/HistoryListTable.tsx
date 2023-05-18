@@ -40,7 +40,7 @@ export function HistoryListTable({rows}: HistoryRow) {
                 </Table.Head>
                 <Table.Body className="bg-white">
                     {
-                        rows.length != 0 ? rows.map((row, index) => (
+                        rows.length !== 0 ? rows.map((row, index) => (
                             <Table.Row key={row.id} className={'bg-white'} onClick={() => navigateToDetail(index)}>
                                 <Table.Cell>{row.id}</Table.Cell>
                                 <Table.Cell>{row.model ? (
