@@ -1,24 +1,9 @@
-import React, {CSSProperties, ReactNode} from "react";
+import React from "react";
 import {ModelInputType} from "./chameleon-platform.common";
 
 export type HeaderData = {
     category?: string;
     title?: string;
-}
-
-export type DefaultButtonData = {
-    style?: CSSProperties | undefined,
-    className?: string,
-    icon?: ReactNode,
-    text?: string,
-}
-// TODO: onClick, event type 수정 필요
-export type SubmitButtonData = {
-    className?: string,
-    text?: string,
-    onClick?: Promise<void> | any,
-    event?: JSX.Element | any,
-    disabled?: boolean
 }
 
 export type Parameter = {

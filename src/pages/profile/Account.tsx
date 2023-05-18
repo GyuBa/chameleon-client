@@ -42,7 +42,7 @@ export default function Account() {
                         <HiOutlineLockClosed className="mx-4 w-10 h-10"/>
                         <p className="w-full p-2 font-semibold">Password</p>
                         <Link to="/change-password">
-                            <Button className="color-btn text-sm p-2" text="change"/>
+                            <button className="blue-btn text-sm p-2">change</button>
                         </Link>
                     </div>
                 </div>
