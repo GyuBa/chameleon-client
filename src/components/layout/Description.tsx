@@ -52,20 +52,20 @@ export default function Description({modelId, setSelectedModelId}: DescriptionPr
                     </div>
                 </div>
                 <div className="mt-4 overflow-auto max-h-screen">
-                    <div className="flex my-2 items-center">
-                        <p className="text-lg font-bold">Model Name:ㅤ</p>
+                    <div className="flex my-2 items-center gap-2">
+                        <p className="text-lg font-bold">Model Name:</p>
                         <p className="font-medium">{modelData?.name}</p>
                     </div>
-                    <div className="flex my-2 items-center">
-                        <p className="text-lg font-bold">Model Register:ㅤ</p>
+                    <div className="flex my-2 items-center gap-2">
+                        <p className="text-lg font-bold">Model Register:</p>
                         <p className="font-medium">{modelData?.register?.username}</p>
                     </div>
-                    <div className="flex my-2 items-center">
-                        <p className="text-lg font-bold">Region:ㅤ</p>
+                    <div className="flex my-2 items-center gap-2">
+                        <p className="text-lg font-bold">Region:</p>
                         <p className="font-medium">{modelData?.image?.region?.name}</p>
                     </div>
                     <div className="flex my-2 items-center gap-2">
-                        <p className="text-lg font-bold">Price: </p>
+                        <p className="text-lg font-bold">Price:</p>
                         <p className="font-medium">₩{modelData?.point}{(1231).toLocaleString('ko-KR')}</p>
                         <p className="text-sm font-semibold text-red-500">at once</p>
                     </div>

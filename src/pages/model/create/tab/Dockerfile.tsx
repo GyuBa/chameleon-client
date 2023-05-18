@@ -60,9 +60,6 @@ export default function Dockerfile({ activeTabIndex }: { activeTabIndex: number 
     }, []);
 
     const {getRootProps, getInputProps} = useDropzone({
-        accept: {
-            'application/x-tar': []
-        },
         onDrop: acceptedFiles => {
             setHideDrop(true);
             setFiles(acceptedFiles.map(file => Object.assign(file, {
