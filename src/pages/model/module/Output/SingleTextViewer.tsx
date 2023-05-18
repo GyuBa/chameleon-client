@@ -1,5 +1,5 @@
 import React from "react";
-import SubmitButton from "../../../../components/button/SubmitButton"
+
 import {BiDownload} from "react-icons/bi";
 import {DownloadUtils} from "../../../../utils/DownloadUtils";
 import {FileUtils} from "../../../../utils/FileUtils";
@@ -14,14 +14,16 @@ export default function SingleTextViewer(executeData: HistoryEntityData) {
 
     return (
         <div>
-            <div className="md:p-2 space-x-3 flex justify-between items-center border-b border-gray-300" style={{ backgroundColor: '#F6F6F6' }}>
+            <div className="md:p-2 space-x-3 flex justify-between items-center border-b border-gray-300"
+                 style={{backgroundColor: '#F6F6F6'}}>
                 <p className="text-xl font-semibold">Output</p>
                 <div className="pt-1 flex items-center rounded-lg hover:drop-shadow-xl focus:bg-white bg-white">
                     <BiDownload size="20" color="#484848" className="pl-1"/>
-                    <SubmitButton text="Download" className="text-sm"
-                                  onClick={async () => {
-                                      DownloadUtils.download('/' + outputPath, outputName);
-                                  }}></SubmitButton>
+                    <button className="submit-btn text-sm"
+                            onClick={async () => {
+                                DownloadUtils.download('/' + outputPath, outputName);
+                            }}>Download
+                    </button>
                 </div>
             </div>
             <div className="overflow-y-auto max-h-[352px]">

@@ -1,5 +1,5 @@
 import React from "react";
-import SubmitButton from "../../../../components/button/SubmitButton";
+
 import {BiDownload} from "react-icons/bi";
 import {DownloadUtils} from "../../../../utils/DownloadUtils";
 import {FileUtils} from "../../../../utils/FileUtils";
@@ -19,11 +19,12 @@ export default function SingleImageViewer(executeData: HistoryEntityData) {
                 <p className="text-xl font-semibold">Output</p>
                 <div className="pt-1 flex items-center rounded-lg hover:drop-shadow-xl focus:bg-white bg-white">
                     <BiDownload size="20" color="#484848" className="pl-1"/>
-                    <SubmitButton text="Download" className="text-sm" onClick={async () => {
+                    <button className="submit-btn text-sm" onClick={async () => {
                         if (outputName) {
                             DownloadUtils.download('/' + outputPath, outputName);
                         }
-                    }}></SubmitButton>
+                    }}>Download
+                    </button>
                 </div>
             </div>
             <div className="overflow-y-auto max-h-[352px]">

@@ -7,7 +7,6 @@ import {executeParam} from "../../../assets/Dummy";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonForms} from "@jsonforms/react";
 import {JsonViewer} from "@textea/json-viewer";
-import Button from "../../../components/button/Button";
 import Header from "../../../components/layout/Header";
 import {Oval} from "react-loader-spinner";
 import {
@@ -19,7 +18,7 @@ import {
 } from "../../../types/chameleon-platform.common";
 import {PlatformAPI} from "../../../platform/PlatformAPI"
 import useWebSocket from "react-use-websocket";
-import {PageType} from "../../../types/chameleon-client";
+import {PageType} from "../../../types/chameleon-client.enum";
 
 const initialData = {};
 export default function ExecuteModel() {
@@ -106,7 +105,9 @@ export default function ExecuteModel() {
                             </div>
                         </div>
                     </div>
-                    <Link to="/models/all"><Button className="color-btn text-sm w-full p-1.5" text="back"/></Link>
+                    <Link to="/models/all">
+                        <button className="blue-btn text-sm w-full p-1.5">back</button>
+                    </Link>
                 </div>
                 <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
                     <div className="row-span-2 rounded-lg border-1 border-gray-300 overflow-auto">

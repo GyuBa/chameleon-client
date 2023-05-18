@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Link, useLocation} from "react-router-dom";
 import Header from "../../../components/layout/Header";
-import Button from "../../../components/button/Button";
 import OutputModule from "../../model/module/Output";
 import OutputDescriptionModule from "../../model/module/OutputDescription";
 import InputModule from "../../model/module/Input";
@@ -9,7 +8,8 @@ import {executeParam} from "../../../assets/Dummy";
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonViewer} from "@textea/json-viewer";
-import {InputModelInfo, PageType} from "../../../types/chameleon-client";
+import {InputModelInfo} from "../../../types/chameleon-client";
+import {PageType} from "../../../types/chameleon-client.enum";
 
 export function HistoryDetail() {
     const location = useLocation();
@@ -18,10 +18,10 @@ export function HistoryDetail() {
 
     console.log(historyData)
     const [activeTabIndex, setActiveTabIndex] = useState(0);
-    const inputModelData:InputModelInfo = { id: -1, inputType: historyData.inputType };
+    const inputModelData: InputModelInfo = {id: -1, inputType: historyData.inputType};
 
     // 외부 공유시 useEffect 이용하여 모델 적용
-    const [modelId, ] = useState(-1);
+    const [modelId,] = useState(-1);
 
     return (
         <div className="contents">
@@ -36,7 +36,9 @@ export function HistoryDetail() {
                         )}
                         </h1>
                     </div>
-                    <Link to="/histories"><Button className="color-btn text-sm w-full p-1.5" text="back"/></Link>
+                    <Link to="/histories">
+                        <button className="blue-btn text-sm w-full p-1.5">back</button>
+                    </Link>
                 </div>
                 <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
                     <div className="row-span-2 rounded-lg border-1 border-gray-300 overflow-auto">

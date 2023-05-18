@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
-import SubmitButton from "../../../../components/button/SubmitButton";
+
 import {useDropzone} from "react-dropzone";
 import {FileUtils} from "../../../../utils/FileUtils"
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
 import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
 import {DownloadUtils} from "../../../../utils/DownloadUtils"
-import {InputModelInfo, PageType} from "../../../../types/chameleon-client";
+import {InputModelInfo} from "../../../../types/chameleon-client";
+import {PageType} from "../../../../types/chameleon-client.enum";
 // import * as zip from "@zip.js/zip.js";
 
 type IFile = File & { preview?: string };
@@ -63,7 +64,7 @@ export default function SingleInputUploader(type: PageType, parameter: Object, m
     let parameters = JSON.stringify({parameter: parameter});
     const modelId = modelData?.id
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
         try {
@@ -90,14 +91,18 @@ export default function SingleInputUploader(type: PageType, parameter: Object, m
                  style={{backgroundColor: '#F6F6F6'}}>
                 <p className="text-xl font-semibold">Input Upload</p>
                 {
-                    type==PageType.EXECUTE? (
+                    type == PageType.EXECUTE ? (
                         <div className="flex items-center gap-4">
-                            <SubmitButton onClick={removeFile} text="remove"
-                                          className="text-sm py-1 px-1.5 border border-gray border-solid
-                                              rounded-md hover:bg-white bg-white" disabled={executeData !== undefined}/>
-                            <SubmitButton onClick={handleSubmit} text="start"
-                                          className="text-sm py-1 px-1.5 border border-gray border-solid
-                                              rounded-md hover:bg-white bg-white" disabled={executeData !== undefined}/>
+                            <button onClick={removeFile}
+                                    className="submit-btn text-sm py-1 px-1.5 border border-gray border-solid
+                                              rounded-md hover:bg-white bg-white"
+                                    disabled={executeData !== undefined}>remove
+                            </button>
+                            <button onClick={handleSubmit}
+                                    className="submit-btn text-sm py-1 px-1.5 border border-gray border-solid
+                                              rounded-md hover:bg-white bg-white"
+                                    disabled={executeData !== undefined}>start
+                            </button>
                         </div>
                     ) : ('')
                 }
@@ -108,10 +113,14 @@ export default function SingleInputUploader(type: PageType, parameter: Object, m
                     {executeData?.status !== undefined ? (
                         <div>
                             <br/>
-                            <p><span className="px-2 pt-2 font-semibold">FileName :</span>{executeData?.inputInfo?.fileName}</p>
+                            <p><span
+                                className="px-2 pt-2 font-semibold">FileName :</span>{executeData?.inputInfo?.fileName}
+                            </p>
                             <p><span className="px-2 pt-2 font-semibold">Type :</span>{executeData?.inputInfo?.mimeType}
                             </p>
-                            <p><span className="px-2 pt-2 font-semibold">Size :</span>{FileUtils.formatBytes(executeData?.inputInfo?.fileSize)}</p>
+                            <p><span
+                                className="px-2 pt-2 font-semibold">Size :</span>{FileUtils.formatBytes(executeData?.inputInfo?.fileSize)}
+                            </p>
                             <div className="px-2 pt-2"
                                  style={{overflow: 'hidden', display: 'flex', justifyContent: 'center'}}>
                                 {executeData?.inputInfo?.mimeType?.startsWith('image') ? <a href='#' onClick={e => {
