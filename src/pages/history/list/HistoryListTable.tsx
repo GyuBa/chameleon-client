@@ -38,7 +38,7 @@ export function HistoryListTable({rows}: HistoryRow) {
                                 <Table.Cell>{row.id}</Table.Cell>
                                 <Table.Cell>{row.model?(
                                     row.model.name ) : (
-                                        <Badge color={'failure'}> deleted </Badge>
+                                        <p style={{color: "red"}}>deleted</p>
                                 )}</Table.Cell>
                                 <Table.Cell>{DateUtils.formatDate(row.startedTime)}</Table.Cell>
                                 <Table.Cell>{row.endedTime?DateUtils.formatDate(row.endedTime): '-'}</Table.Cell>
