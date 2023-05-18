@@ -28,7 +28,7 @@ export default function Models() {
     const [models, setModels] = useState<ModelEntityData[]>([]);
     const [selectedModelId, setSelectedModelId] = useState<number>(-1);
     // TODO: 모델이 Free인지 아닌지 & category를 사용하는 모델인지 아닌지 확인.
-    const [isFree, setIsFree] = useState<boolean>(true);
+    const [isFree, setIsFree] = useState<boolean>(false);
     const [isOptional, setIsOptional] = useState<boolean>(false);
     const location = useLocation();
 
@@ -100,18 +100,20 @@ export default function Models() {
           {models.map((modelData) => (
               <div key={modelData.id} onClick={() => onModelSelect(modelData)}
                    className="w-auto px-5 p-5 mb-4 mr-1 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl cursor-pointer">
-                  <p className="border-b-2 font-semibold text-xl break-all">{modelData.name}</p>
+                  <div className="flex border-b-2 justify-between">
+                      <p className="font-semibold text-xl break-all">{modelData.name}</p>
+                      {isFree ? ( <div className="text-emerald-600 px-1">FREE</div> ) : (
+                          <div className="flex gap-2 justify-between items-center">
+                              <div className="text-red-600 pl-2">￦{(1231).toLocaleString('ko-KR')}{modelData.point}</div>
+                          </div>
+                      )}
+                  </div>
                   <div className="flex justify-between items-center">
                       <div className="flex py-3 gap-3">
                           <Badge color="indigo">Input: {modelData.inputType}</Badge>
                           <Badge color="purple">Output: {modelData.outputType}</Badge>
                           <Badge className="bg-teal-100 text-teal-500">Machine Learning{modelData.category}</Badge>
                       </div>
-                      {isFree ? ( <div className="text-emerald-600 px-2">FREE</div> ) : (
-                          <div className="flex gap-2 justify-between items-center">
-                              <div className="text-red-600 pl-2">￦{modelData.point}</div>
-                          </div>
-                      )}
                   </div>
                   <div className="flex mt-10 justify-between">
                       <div className="text-sm text-gray-500 py-3">Updated {DateUtils.formatDate(modelData.updatedTime)} · {modelData.register.username}</div>
