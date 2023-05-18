@@ -22,13 +22,13 @@ export default function Navbar() {
                     <GrMoney className="w-5 h-5"/>
                     <p>
                         <span className="text-gray-700 text-14">My point </span>
-                        <span className="text-gray-700 font-bold ml-1 text-14">{user.point}</span>
+                        <span className="text-gray-700 font-bold ml-1 text-14">₩{user.point.toLocaleString('ko-KR')}</span>
                     </p>
                 </Link>
                 <div onClick={() => handleClick('userProfile')}
                      className="flex items-center gap-2 cursor-pointer px-2 hover:bg-light-gray rounded-lg">
                     <BsFillPersonFill className="w-5 h-5"/>
-                    <span className="text-gray-700 font-bold ml-1 text-14">{user.username}</span>
+                    <span className="text-gray-700 font-bold text-14">{user.username}</span>
                     <MdKeyboardArrowDown className="text-gray-400 text-14"/>
                 </div>
                 {isClicked.userProfile && (<UserProfile/>)}

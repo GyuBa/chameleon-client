@@ -22,6 +22,7 @@ export default function UserProfile() {
                 <div>
                     <p className="font-semibold text-xl">{user.username}</p>
                     <p className="text-gray-500 text-sm font-semibold">{user.email}</p>
+                    <p className="text-sm font-semibold">₩{user.point.toLocaleString('ko-KR')}</p>
                 </div>
             </div>
             <div>
