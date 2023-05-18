@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Link, useLocation} from "react-router-dom";
 import Header from "../../../components/layout/Header";
 import Button from "../../../components/button/Button";
@@ -9,16 +9,19 @@ import {executeParam} from "../../../assets/Dummy";
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonViewer} from "@textea/json-viewer";
+import {InputModelInfo, PageType} from "../../../types/chameleon-client";
 
 export function HistoryDetail() {
     const location = useLocation();
     const historyData = location.state;
     const parameter = historyData.parameters.parameter;
+
+    console.log(historyData)
     const [activeTabIndex, setActiveTabIndex] = useState(0);
+    const inputModelData:InputModelInfo = { id: -1, inputType: historyData.inputType };
+
     // 외부 공유시 useEffect 이용하여 모델 적용
     const [modelId, ] = useState(-1);
-    const schema = historyData.model.schema;
-    const uiSchema = historyData.model.uiSchema;
 
     return (
         <div className="contents">
@@ -26,9 +29,14 @@ export function HistoryDetail() {
                 <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
                     <div className="flex justify-between items-end">
                         <Header title="History"/>
-                        <h1 className="mx-2 text-gray-500">{historyData.model?.name}</h1>
+                        <h1 className="mx-2 text-gray-500">{historyData.model ? (
+                            historyData.model.name
+                        ) : (
+                            'Deleted'
+                        )}
+                        </h1>
                     </div>
-                    <Link to="/models/all"><Button className="color-btn text-sm w-full p-1.5" text="back"/></Link>
+                    <Link to="/histories"><Button className="color-btn text-sm w-full p-1.5" text="back"/></Link>
                 </div>
                 <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
                     <div className="row-span-2 rounded-lg border-1 border-gray-300 overflow-auto">
@@ -53,11 +61,10 @@ export function HistoryDetail() {
                         <div className="tab-content tab-space overflow-y-auto max-h-[212px] md:p-2">
                             <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
                                 <JsonForms
-                                    schema={schema}
-                                    uischema={uiSchema}
                                     data={parameter}
                                     renderers={materialRenderers}
                                     cells={materialCells}
+                                    readonly
                                 />
                             </div>
                             <div className={activeTabIndex === 1 ? "block" : "hidden"} id="link2">
@@ -65,7 +72,7 @@ export function HistoryDetail() {
                             </div>
                         </div>
                     </div>
-                    {InputModule('history', parameter, historyData.model!, historyData!)}
+                    {InputModule(PageType.HISTORY, parameter, inputModelData!, historyData!)}
                     {OutputModule(historyData!)}
                     {OutputDescriptionModule(historyData!)}
                 </div>

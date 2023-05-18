@@ -3,13 +3,14 @@ import SubmitButton from "../../../../components/button/SubmitButton";
 import {useDropzone} from "react-dropzone";
 import {FileUtils} from "../../../../utils/FileUtils"
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
-import {HistoryEntityData, ModelEntityData} from "../../../../types/chameleon-platform.common";
+import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
 import {DownloadUtils} from "../../../../utils/DownloadUtils"
+import {InputModelInfo, PageType} from "../../../../types/chameleon-client";
 // import * as zip from "@zip.js/zip.js";
 
 type IFile = File & { preview?: string };
 
-export default function SingleInputUploader(type: string, parameter: Object, modelData: ModelEntityData, executeData: HistoryEntityData) {
+export default function SingleInputUploader(type: PageType, parameter: Object, modelData: InputModelInfo, executeData: HistoryEntityData) {
     const [files, setFiles] = useState<IFile[]>([]);
     const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [uploadExplain, setUploadExplain] = useState<string>('');
@@ -89,7 +90,7 @@ export default function SingleInputUploader(type: string, parameter: Object, mod
                  style={{backgroundColor: '#F6F6F6'}}>
                 <p className="text-xl font-semibold">Input Upload</p>
                 {
-                    type=='execute'? (
+                    type==PageType.EXECUTE? (
                         <div className="flex items-center gap-4">
                             <SubmitButton onClick={removeFile} text="remove"
                                           className="text-sm py-1 px-1.5 border border-gray border-solid

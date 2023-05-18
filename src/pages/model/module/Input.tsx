@@ -1,9 +1,10 @@
 import React from "react";
 import SingleInputUploader from "../module/Input/SingleInputUploader"
 import EmptyInputUploader from "../module/Input/EmptyInputUploader"
-import {HistoryEntityData, ModelEntityData, ModelInputType} from "../../../types/chameleon-platform.common";
+import {HistoryEntityData, ModelInputType} from "../../../types/chameleon-platform.common";
+import {InputModelInfo, PageType} from "../../../types/chameleon-client";
 
-export default function InputModule(type: string, parameter: Object, modelData: ModelEntityData, executeData: HistoryEntityData) {
+export default function InputModule(type: PageType, parameter: Object, modelData: InputModelInfo, executeData: HistoryEntityData) {
     let inputType = modelData?.inputType;
     let Module;
 
