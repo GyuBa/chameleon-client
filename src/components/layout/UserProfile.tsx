@@ -4,16 +4,19 @@ import {BsPersonCircle} from 'react-icons/bs';
 import {userProfileData} from '../../assets/Dummy';
 import {Link, NavLink} from 'react-router-dom';
 import useGetUserInfo from "../../service/authentication/UserInfoService";
+import {useStateContext} from "../../contexts/ContextProvider";
 
 
 export default function UserProfile() {
     const {handleSignOut, user} = useGetUserInfo();
+    const {setIsClicked, initialState} = useStateContext();
 
     return (
         <div className="nav-item absolute right-1 top-12 bg-white p-8 rounded-3xl w-96">
             <div className="flex justify-between items-center">
                 <p className="font-semibold text-lg">User Profile</p>
-                <button style={{color: "rgb(153, 171, 180)", borderRadius: "50%"}}
+                {/*TODO: ContextProvider 사용하지 말고 닫기 버튼 및 추가 기능 구현 */}
+                <button onClick={() => setIsClicked(initialState)} style={{color: "rgb(153, 171, 180)", borderRadius: "50%"}}
                         className="default-btn text-2xl p-2 hover:bg-light-gray"><MdOutlineCancel/></button>
             </div>
             <div className="flex gap-5 items-center mt-6 border-color border-b-1 pb-6">
