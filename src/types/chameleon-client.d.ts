@@ -57,8 +57,3 @@ export interface InputModelInfo {
     id: number;
     inputType: ModelInputType;
 }
-
-export enum PageType {
-    HISTORY = 'history',
-    EXECUTE = 'execute',
-}

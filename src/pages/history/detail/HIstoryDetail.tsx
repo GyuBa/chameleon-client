@@ -9,7 +9,8 @@ import {executeParam} from "../../../assets/Dummy";
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonViewer} from "@textea/json-viewer";
-import {InputModelInfo, PageType} from "../../../types/chameleon-client";
+import {InputModelInfo} from "../../../types/chameleon-client";
+import {PageType} from "../../../types/chameleon-client.enum";
 
 export function HistoryDetail() {
     const location = useLocation();
