@@ -8,9 +8,6 @@ import {MdOutlineCancel} from 'react-icons/md';
 export default function Sidebar() {
     const {activeMenu, setActiveMenu, handleCloseSideBar} = useStateContext();
 
-    const activeLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-white text-md m-2';
-    const normalLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 hover:bg-light-gray m-2';
-
     return (
         <div className="h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10">
             {activeMenu && (
@@ -35,10 +32,7 @@ export default function Sidebar() {
                                         onClick={handleCloseSideBar}
                                         to={`/${link.link}`}
                                         key={link.name}
-                                        style={({isActive}) => ({
-                                            backgroundColor: isActive ? '#1E4DB7' : '',
-                                        })}
-                                        className={({isActive}) => (isActive ? activeLink : normalLink)}
+                                        className={({isActive}) => isActive ? 'side-bar-nav-link-active' : 'side-bar-nav-link'}
                                     >
                                         {link.icon}
                                         <span className="capitalize">{link.name}</span>

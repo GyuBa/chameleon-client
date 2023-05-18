@@ -20,11 +20,7 @@ export default function Layout() {
                 </div>
             )}
             <div
-                className={
-                    activeMenu
-                        ? 'w-full min-h-screen md:ml-72'
-                        : 'w-full min-h-screen'
-                }
+                className={`w-full min-h-screen ${activeMenu ? 'md:ml-72' : ''}`}
             >
                 <div className="fixed md:static navbar w-full">
                     <Navbar/>
