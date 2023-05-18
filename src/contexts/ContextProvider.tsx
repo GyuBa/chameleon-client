@@ -61,4 +61,5 @@ export const ContextProvider = ({children}: { children: React.ReactNode }) => {
     );
 };
 
-export const useStateContext = () => useContext(StateContext);
+export const useStateContext = () => useContext(StateContext) as any;
+// TODO 타입 형으로 정리
