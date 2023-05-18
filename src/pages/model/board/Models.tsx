@@ -116,10 +116,7 @@ export default function Models() {
                       <Badge className="bg-teal-100 text-teal-500">Machine Learning{modelData.category}</Badge>
                   </div>
                   <div className="flex mt-10 justify-between">
-                      <div
-                          className="text-sm text-gray-500 py-3">Updated {DateUtils.formatDate(modelData.updatedTime)} · {modelData.register.username} ·
-                          20KB
-                      </div>
+                      <div className="text-sm text-gray-500 py-3">Updated {DateUtils.formatDate(modelData.updatedTime)} · {modelData.register.username}</div>
                       <div className="py-3"><Badge color="gray">{modelData.image.region.name}</Badge></div>
                   </div>
               </div>

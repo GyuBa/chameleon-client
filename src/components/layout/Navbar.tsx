@@ -13,7 +13,7 @@ export default function Navbar() {
     const {user} = useGetUserInfo();
 
     return (
-        <div className="flex w-full justify-between p-1 relative z-50 bg-white">
+        <div className="flex w-full justify-between p-1 relative z-40 bg-white">
             <button type="button" onClick={handleActiveMenu}
                     className="main-color relative text-xl rounded-full p-3 hover:bg-light-gray"
             ><AiOutlineMenu/></button>

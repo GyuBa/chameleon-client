@@ -32,7 +32,7 @@ export default function CreateDescription() {
         <div className="contents">
             <div className="w-full m-2 md:my-7 md:mx-10 mt-12">
                 <div className="flex space-x-3">
-                    <div className="py-2 pt-[36.5px]"></div>
+                    <div className="py-2 pt-[36.5px]"/>
                 </div>
                 <div className="py-4 flex justify-between items-center">
                     <Header title="Model Description"/>

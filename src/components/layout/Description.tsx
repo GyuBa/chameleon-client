@@ -64,10 +64,6 @@ export default function Description({modelId, setSelectedModelId}: DescriptionPr
                         <p className="text-lg font-bold">Region:ㅤ</p>
                         <p className="font-medium">{modelData?.image?.region?.name}</p>
                     </div>
-                    <div className="flex mt-2 mb-2 items-center">
-                        <p className="text-lg font-bold">Parameters</p>
-                    </div>
-                    <p>{JSON.stringify(modelData?.parameters)}</p>
                     <div className="flex my-2 items-center gap-2">
                         <p className="text-lg font-bold">Price: </p>
                         <p className="font-medium">₩{modelData?.point}{(1231).toLocaleString('ko-KR')}</p>
