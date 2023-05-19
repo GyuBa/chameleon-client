@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Badge, Table} from "flowbite-react";
 import {Link, useLocation} from "react-router-dom";
-import {useStateContext} from "../../../contexts/ContextProvider";
 import {HiViewGrid} from "react-icons/hi";
 import {FiList} from "react-icons/fi";
 import {RiDeleteBinLine} from "react-icons/ri";
@@ -11,25 +10,22 @@ import Header from "../../../components/layout/Header";
 import {ModelEntityData} from "../../../types/chameleon-platform.common";
 import {DateUtils} from "../../../utils/DateUtils";
 import {PlatformAPI} from "../../../platform/PlatformAPI";
+import {useMediaQuery} from "react-responsive";
 
 const modelColumn = {
     list: ['Id', 'Model Name', 'Input Type', 'Output Type', 'Region', 'Register', 'Created Date', 'Category', 'Price']
 };
 
 export default function Models() {
-    const {
-        menuState,
-        onClickMenu,
-        currentLayout,
-        setCurrentLayout,
-        isDesktopOrMobile
-    } = useStateContext();
+    const [currentLayout, setCurrentLayout] = useState('GridLayout');
+    const [menuState, setMenuState] = useState(false);
     const [models, setModels] = useState<ModelEntityData[]>([]);
     const [selectedModelId, setSelectedModelId] = useState<number>(-1);
+    const location = useLocation();
+    const isDesktopOrMobile = useMediaQuery({query: '(max-width:767px)'});
     // TODO: 모델이 Free인지 아닌지 & category를 사용하는 모델인지 아닌지 확인.
     const [isFree, setIsFree] = useState<boolean>(false);
     const [isOptional, setIsOptional] = useState<boolean>(false);
-    const location = useLocation();
 
     useEffect(() => {
         setSelectedModelId(-1);
@@ -71,7 +67,7 @@ export default function Models() {
 
     const DropdownMenu = () => (
         <div>
-            <button type="button" onClick={onClickMenu}
+            <button type="button" onClick={() => {setMenuState(prevState => !prevState)}}
                     className="relative text-xl rounded-full p-1 hover:bg-light-gray focus:bg-gray">
                 {<BiDotsVerticalRounded aria-hidden="true" size="30"/>}
             </button>
@@ -131,7 +127,7 @@ export default function Models() {
                 </Table.Head>
                 <Table.Body className="divide-y">
                     {models.map((modelData) => (
-                        <Table.Row className="bg-white" onClick={() => onModelSelect(modelData)}>
+                        <Table.Row className="bg-white cursor-pointer" onClick={() => onModelSelect(modelData)}>
                             <Table.Cell>{modelData.id}</Table.Cell>
                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900">{modelData.name}</Table.Cell>
                             <Table.Cell>
