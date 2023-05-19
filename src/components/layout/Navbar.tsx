@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import {AiOutlineMenu} from 'react-icons/ai';
 import {BsFillPersonFill} from 'react-icons/bs';
 import {MdKeyboardArrowDown} from 'react-icons/md';
@@ -12,6 +12,19 @@ export default function Navbar() {
     const {activeMenu, setActiveMenu} = useStateContext();
     const {user} = useGetUserInfo();
     const [isUserProfileOpen, setUserProfileOpen] = useState(false);
+    const userProfileRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        function handleClickOutside(event : MouseEvent) {
+            if (userProfileRef.current && !userProfileRef.current.contains(event.target as Node)) {
+                setUserProfileOpen(false);
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
         <div className="flex w-full justify-between p-1 relative z-40 bg-white">
@@ -27,6 +40,7 @@ export default function Navbar() {
                     </p>
                 </Link>
                 <div onClick={() => setUserProfileOpen((prevState) => !prevState)}
+                     ref={userProfileRef}
                      className="flex items-center gap-2 cursor-pointer px-2 hover:bg-light-gray rounded-lg">
                     <BsFillPersonFill className="w-5 h-5"/>
                     <span className="text-gray-700 font-bold text-14">{user.username}</span>
