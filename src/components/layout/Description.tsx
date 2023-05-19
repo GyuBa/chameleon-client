@@ -63,17 +63,21 @@ export default function Description({modelId, setSelectedModelId}: DescriptionPr
                         <p className="text-lg font-bold">Region:</p>
                         <p className="font-medium">{modelData?.image?.region?.name}</p>
                     </div>
-                    <div className="flex my-2 items-center gap-2">
-                        <p className="text-lg font-bold">Price:</p>
-                        <p className="font-medium">₩{modelData?.price}</p>
-                    </div>
+                    {modelData?.price !== 0 && (
+                        <div className="flex my-2 items-center gap-2">
+                            <p className="text-lg font-bold">Price:</p>
+                            <p className="font-medium">₩{modelData?.price}</p>
+                        </div>
+                    )}
                     <div className="flex my-2 justify-items-start gap-2">
                         <div className="pt-3"><Badge color="indigo">Input: {modelData?.inputType}</Badge></div>
                         <div className="pt-3"><Badge color="purple">Output: {modelData?.outputType}</Badge></div>
                     </div>
-                    <div className="flex my-2 justify-items-start gap-2">
-                        <div className="pt-3"><Badge className="bg-teal-100 text-teal-500">{modelData?.category}</Badge></div>
-                    </div>
+                    {modelData?.category !== null && (
+                        <div className="flex my-2 justify-items-start gap-2">
+                            <div className="pt-3"><Badge className="bg-teal-100 text-teal-500">{modelData?.category}</Badge></div>
+                        </div>
+                    )}
                 </div>
                 <div className="flex items-center">
                     <div data-color-mode="light" className="my-4 whitespace-pre-wrap">
