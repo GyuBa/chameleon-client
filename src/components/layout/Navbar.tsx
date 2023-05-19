@@ -16,7 +16,8 @@ export default function Navbar() {
 
     useEffect(() => {
         function handleClickOutside(event : MouseEvent) {
-            if (userProfileRef.current && !userProfileRef.current.contains(event.target as Node)) {
+            const clickedElement = event.target as Element;
+            if (userProfileRef.current && !userProfileRef.current.contains(clickedElement) && !clickedElement.closest('.user-profile')) {
                 setUserProfileOpen(false);
             }
         }
