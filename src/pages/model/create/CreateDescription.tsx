@@ -12,11 +12,13 @@ export default function CreateDescription() {
     const inputType = location.state?.inputType;
     const outputType = location.state?.outputType;
     const regionName = location.state?.regionName;
+    const category = location.state?.category;
+    const price = location.state?.price;
     const activeTabIndex = location.state?.activeTabIndex;
 
     const handleClick = () => {
         navigate("/models/create/parameters", {
-            state: { files, modelName, inputType, outputType, regionName, description, activeTabIndex },
+            state: { files, modelName, inputType, outputType, regionName, category, price, description, activeTabIndex },
         });
     };
 

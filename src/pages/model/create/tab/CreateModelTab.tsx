@@ -19,7 +19,7 @@ export default function CreateModelTab({ activeTabIndex }: { activeTabIndex: num
 	const [regionName, setRegionName] = useState<string>('');
 	const [regions, setRegions] = useState<RegionEntityData[]>([]);
 	const [category, setCategory] = useState<string>('');
-	const [price, setPrice] = useState<number>(0);
+	const [price, setPrice] = useState<number>();
 
 	const handleModelNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setModelName(event.target.value);
@@ -181,7 +181,8 @@ export default function CreateModelTab({ activeTabIndex }: { activeTabIndex: num
 					<div className="mb-3">
 						<h1 className="md:py-5 text-xl font-bold">Price (Option)</h1>
 						<input
-							type="text"
+							type="number"
+							min="0"
 							className="form-control block w-full px-4 py-2 text-base font-normal
                   text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
                   rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
