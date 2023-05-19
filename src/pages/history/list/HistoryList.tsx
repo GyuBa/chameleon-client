@@ -33,7 +33,7 @@ export default function HistoryList() {
             <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
                 <div className="flex justify-between items-center">
                     <div className="flex">
-                        <Header category="" title="Histories"/>
+                        <Header title="Histories"/>
                     </div>
                 </div>
                 <div className="mt-10 max-h-screen overflow-auto">

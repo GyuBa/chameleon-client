@@ -6,7 +6,10 @@ import {MdOutlineCancel} from 'react-icons/md';
 import {useStateContext} from "../../contexts/ContextProvider";
 
 export default function Sidebar() {
-    const {activeMenu, setActiveMenu, handleCloseSideBar} = useStateContext();
+    const {activeMenu, setActiveMenu} = useStateContext();
+    const handleCloseSideBar = () => {
+        if (activeMenu !== undefined) setActiveMenu(false);
+    };
 
     return (
         <div className="h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10">
