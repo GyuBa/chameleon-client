@@ -30,7 +30,7 @@ export default function EmptyInputUploader(type: PageType, parameters: ModelPara
             </div>
             <div className="flex justify-center items-center mt-20">
                 {
-                    type == PageType.EXECUTE ? (
+                    type === PageType.EXECUTE ? (
                         <button onClick={handleModelStart} className="submit-btn text-2xl"
                                 disabled={executeData !== undefined}>Start Model</button>
                     ) : (

@@ -143,7 +143,7 @@ export default function Models() {
                                 <div className="flex"><Badge className="bg-teal-100 text-teal-500">{modelData.category}</Badge></div>
                             </Table.Cell>
                             <Table.Cell>
-                                <div className="text-red-600">￦{(1231).toLocaleString('ko-KR')}{modelData.point}</div>
+                                <div className="text-red-600">￦{modelData.price}</div>
                             </Table.Cell>
                         </Table.Row>
                     ))}
