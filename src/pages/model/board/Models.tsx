@@ -6,7 +6,6 @@ import {HiViewGrid} from "react-icons/hi";
 import {FiList} from "react-icons/fi";
 import {RiDeleteBinLine} from "react-icons/ri";
 import {BiAddToQueue, BiDotsVerticalRounded, BiTrash} from "react-icons/bi";
-import {VscDebugStart} from "react-icons/vsc";
 import Description from "../../../components/layout/Description";
 import Header from "../../../components/layout/Header";
 import {ModelEntityData} from "../../../types/chameleon-platform.common";
@@ -14,7 +13,7 @@ import {DateUtils} from "../../../utils/DateUtils";
 import {PlatformAPI} from "../../../platform/PlatformAPI";
 
 const modelColumn = {
-    list: ['Model Name', 'Input Type', 'Output Type', 'Register', 'Created Date', 'start']
+    list: ['Id', 'Model Name', 'Input Type', 'Output Type', 'Region', 'Register', 'Created Date', 'Category', 'Price']
 };
 
 export default function Models() {
@@ -112,7 +111,7 @@ export default function Models() {
                         <div className="flex py-3 gap-3">
                             <Badge color="indigo">Input: {modelData.inputType}</Badge>
                             <Badge color="purple">Output: {modelData.outputType}</Badge>
-                            <Badge className="bg-teal-100 text-teal-500">Machine Learning{modelData.category}</Badge>
+                            <Badge className="bg-teal-100 text-teal-500">{modelData.category}</Badge>
                         </div>
                     </div>
                     <div className="flex mt-10 justify-between">
@@ -132,20 +131,23 @@ export default function Models() {
                 </Table.Head>
                 <Table.Body className="divide-y">
                     {models.map((modelData) => (
-                        <Table.Row className="bg-white">
-                            <Table.Cell
-                                className="whitespace-nowrap font-medium text-gray-900">{modelData.name}</Table.Cell>
+                        <Table.Row className="bg-white" onClick={() => onModelSelect(modelData)}>
+                            <Table.Cell>{modelData.id}</Table.Cell>
+                            <Table.Cell className="whitespace-nowrap font-medium text-gray-900">{modelData.name}</Table.Cell>
                             <Table.Cell>
                                 <div className="flex"><Badge color="indigo">{modelData.inputType}</Badge></div>
                             </Table.Cell>
                             <Table.Cell>
                                 <div className="flex"><Badge color="purple">{modelData.outputType}</Badge></div>
                             </Table.Cell>
+                            <Table.Cell>{modelData.image.region.name}</Table.Cell>
                             <Table.Cell>{modelData.register.username}</Table.Cell>
                             <Table.Cell>{DateUtils.formatDate(modelData.createdTime)}</Table.Cell>
                             <Table.Cell>
-                                <VscDebugStart onClick={() => onModelSelect(modelData)}
-                                               className="text-white py-1 w-10 h-6 rounded bg-blue-500 hover:bg-blue-600 hover:drop-shadow-lg"/>
+                                <div className="flex"><Badge className="bg-teal-100 text-teal-500">{modelData.category}</Badge></div>
+                            </Table.Cell>
+                            <Table.Cell>
+                                <div className="text-red-600">￦{(1231).toLocaleString('ko-KR')}{modelData.point}</div>
                             </Table.Cell>
                         </Table.Row>
                     ))}
