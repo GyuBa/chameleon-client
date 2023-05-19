@@ -5,32 +5,27 @@ import {HiViewGrid} from "react-icons/hi";
 import {FiList} from "react-icons/fi";
 import {RiDeleteBinLine} from "react-icons/ri";
 import {BiAddToQueue, BiDotsVerticalRounded, BiTrash} from "react-icons/bi";
-import {VscDebugStart} from "react-icons/vsc";
 import Description from "../../../components/layout/Description";
 import Header from "../../../components/layout/Header";
 import {ModelEntityData} from "../../../types/chameleon-platform.common";
 import {DateUtils} from "../../../utils/DateUtils";
 import {PlatformAPI} from "../../../platform/PlatformAPI";
-import {useStateContext} from "../../../contexts/ContextProvider";
+import {useMediaQuery} from "react-responsive";
 
 const modelColumn = {
-    list: ['Model Name', 'Input Type', 'Output Type', 'Register', 'Last Modified Date', 'start']
+    list: ['Id', 'Model Name', 'Input Type', 'Output Type', 'Region', 'Register', 'Created Date', 'Category', 'Price']
 };
 
 export default function Models() {
-    const {
-        menuState,
-        onClickMenu,
-        currentLayout,
-        setCurrentLayout,
-        isDesktopOrMobile
-    } = useStateContext();
+    const [currentLayout, setCurrentLayout] = useState('GridLayout');
+    const [menuState, setMenuState] = useState(false);
     const [models, setModels] = useState<ModelEntityData[]>([]);
     const [selectedModelId, setSelectedModelId] = useState<number>(-1);
+    const location = useLocation();
+    const isDesktopOrMobile = useMediaQuery({query: '(max-width:767px)'});
     // TODO: 모델이 Free인지 아닌지 & category를 사용하는 모델인지 아닌지 확인.
     const [isFree, setIsFree] = useState<boolean>(false);
     const [isOptional, setIsOptional] = useState<boolean>(false);
-    const location = useLocation();
 
     useEffect(() => {
         setSelectedModelId(-1);
@@ -72,7 +67,7 @@ export default function Models() {
 
     const DropdownMenu = () => (
         <div>
-            <button type="button" onClick={onClickMenu}
+            <button type="button" onClick={() => {setMenuState(prevState => !prevState)}}
                     className="relative text-xl rounded-full p-1 hover:bg-light-gray focus:bg-gray">
                 {<BiDotsVerticalRounded aria-hidden="true" size="30"/>}
             </button>
@@ -116,7 +111,7 @@ export default function Models() {
                         </div>
                     </div>
                     <div className="flex mt-10 justify-between">
-                        <div className="text-sm text-gray-500 py-3">Updated {DateUtils.formatDate(modelData.updatedTime)} · {modelData.register.username}</div>
+                        <div className="text-sm text-gray-500 py-3">Created at {DateUtils.formatDate(modelData.createdTime)} · {modelData.register.username}</div>
                         <div className="py-3"><Badge color="gray">{modelData.image.region.name}</Badge></div>
                     </div>
                 </div>
@@ -132,20 +127,23 @@ export default function Models() {
                 </Table.Head>
                 <Table.Body className="divide-y">
                     {models.map((modelData) => (
-                        <Table.Row className="bg-white">
-                            <Table.Cell
-                                className="whitespace-nowrap font-medium text-gray-900">{modelData.name}</Table.Cell>
+                        <Table.Row className="bg-white cursor-pointer" onClick={() => onModelSelect(modelData)}>
+                            <Table.Cell>{modelData.id}</Table.Cell>
+                            <Table.Cell className="whitespace-nowrap font-medium text-gray-900">{modelData.name}</Table.Cell>
                             <Table.Cell>
                                 <div className="flex"><Badge color="indigo">{modelData.inputType}</Badge></div>
                             </Table.Cell>
                             <Table.Cell>
                                 <div className="flex"><Badge color="purple">{modelData.outputType}</Badge></div>
                             </Table.Cell>
+                            <Table.Cell>{modelData.image.region.name}</Table.Cell>
                             <Table.Cell>{modelData.register.username}</Table.Cell>
-                            <Table.Cell>{DateUtils.formatDate(modelData.updatedTime)}</Table.Cell>
+                            <Table.Cell>{DateUtils.formatDate(modelData.createdTime)}</Table.Cell>
                             <Table.Cell>
-                                <VscDebugStart onClick={() => onModelSelect(modelData)}
-                                               className="text-white py-1 w-10 h-6 rounded bg-blue-500 hover:bg-blue-600 hover:drop-shadow-lg"/>
+                                <div className="flex"><Badge className="bg-teal-100 text-teal-500">{modelData.category}</Badge></div>
+                            </Table.Cell>
+                            <Table.Cell>
+                                <div className="text-red-600">￦{(1231).toLocaleString('ko-KR')}{modelData.point}</div>
                             </Table.Cell>
                         </Table.Row>
                     ))}
