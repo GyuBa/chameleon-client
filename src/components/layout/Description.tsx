@@ -66,7 +66,7 @@ export default function Description({modelId, setSelectedModelId}: DescriptionPr
                     {modelData?.price !== 0 && (
                         <div className="flex my-2 items-center gap-2">
                             <p className="text-lg font-bold">Price:</p>
-                            <p className="font-medium">₩{modelData?.price}</p>
+                            <p className="font-medium">￦{modelData?.price.toLocaleString('ko-KR')}</p>
                         </div>
                     )}
                     <div className="flex my-2 justify-items-start gap-2">

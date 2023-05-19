@@ -96,7 +96,7 @@ export default function Models() {
                         <p className="font-semibold text-xl break-all">{modelData.name}</p>
                         {modelData.price !== 0 && (
                             <div className="flex gap-2 justify-between items-center">
-                                <div className="text-red-600 pl-2">￦{modelData.price}</div>
+                                <div className="text-red-600 pl-2">￦{modelData.price.toLocaleString('ko-KR')}</div>
                             </div>
                         )}
                     </div>
@@ -143,7 +143,7 @@ export default function Models() {
                                 </Table.Cell>
                             )}
                             {modelData.price === 0 ? ( <Table.Cell></Table.Cell> ) : (
-                                <Table.Cell><div className="text-red-600">￦{modelData.price}</div></Table.Cell>)}
+                                <Table.Cell><div className="text-red-600">￦{modelData.price.toLocaleString('ko-KR')}</div></Table.Cell>)}
                         </Table.Row>
                     ))}
                 </Table.Body>
