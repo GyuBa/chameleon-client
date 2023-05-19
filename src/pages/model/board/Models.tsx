@@ -23,19 +23,16 @@ export default function Models() {
     const [selectedModelId, setSelectedModelId] = useState<number>(-1);
     const location = useLocation();
     const isDesktopOrMobile = useMediaQuery({query: '(max-width:767px)'});
-    // TODO: 모델이 Free인지 아닌지 & category를 사용하는 모델인지 아닌지 확인.
-    const [isFree, setIsFree] = useState<boolean>(false);
-    const [isOptional, setIsOptional] = useState<boolean>(false);
 
     useEffect(() => {
         setSelectedModelId(-1);
         let completed = false;
         (async function () {
             try {
-                const models = (location.pathname === '/models/my') ? await PlatformAPI.getMyModels() : await PlatformAPI.getModels();
-                if (!completed) {
-                    setModels(models);
-                }
+                const models = (location.pathname === '/models/my')
+                    ? await PlatformAPI.getMyModels()
+                    : await PlatformAPI.getModels();
+                if (!completed) setModels(models);
             } catch (error) {
                 console.error(error);
                 setModels([]);
@@ -97,7 +94,7 @@ export default function Models() {
                     className="w-auto px-5 p-5 mb-4 mr-1 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl cursor-pointer">
                     <div className="flex border-b-2 justify-between">
                         <p className="font-semibold text-xl break-all">{modelData.name}</p>
-                        {isFree ? ( <div className="text-emerald-600 px-1">FREE</div> ) : (
+                        {modelData.price === 0 ? ( <></> ) : (
                             <div className="flex gap-2 justify-between items-center">
                                 <div className="text-red-600 pl-2">￦{modelData.price}</div>
                             </div>
@@ -107,7 +104,9 @@ export default function Models() {
                         <div className="flex py-3 gap-3">
                             <Badge color="indigo">Input: {modelData.inputType}</Badge>
                             <Badge color="purple">Output: {modelData.outputType}</Badge>
-                            <Badge className="bg-teal-100 text-teal-500">{modelData.category}</Badge>
+                            {modelData.category === '' ? ( <></> ) : (
+                                <Badge className="bg-teal-100 text-teal-500">{modelData.category}</Badge>
+                            )}
                         </div>
                     </div>
                     <div className="flex mt-10 justify-between">
@@ -138,11 +137,15 @@ export default function Models() {
                             <Table.Cell>{modelData.image.region.name}</Table.Cell>
                             <Table.Cell>{modelData.register.username}</Table.Cell>
                             <Table.Cell>{TimeUtils.formatTime(modelData.createdTime)}</Table.Cell>
+                            {modelData.category === '' ? ( <></> ) : (
+                                <Table.Cell>
+                                    <div className="flex">
+                                        <Badge className="bg-teal-100 text-teal-500">{modelData.category}</Badge>
+                                    </div>
+                                </Table.Cell>
+                            )}
                             <Table.Cell>
-                                <div className="flex"><Badge className="bg-teal-100 text-teal-500">{modelData.category}</Badge></div>
-                            </Table.Cell>
-                            <Table.Cell>
-                                <div className="text-red-600">￦{modelData.price}</div>
+                                {modelData.price === 0 ? ( <></> ) : (<div className="text-red-600">￦{modelData.price}</div>)}
                             </Table.Cell>
                         </Table.Row>
                     ))}

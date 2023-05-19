@@ -19,7 +19,7 @@ export default function CreateModelTab({ activeTabIndex }: { activeTabIndex: num
 	const [regionName, setRegionName] = useState<string>('');
 	const [regions, setRegions] = useState<RegionEntityData[]>([]);
 	const [category, setCategory] = useState<string>('');
-	const [price, setPrice] = useState<number>();
+	const [price, setPrice] = useState<number>(0);
 
 	const handleModelNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setModelName(event.target.value);
