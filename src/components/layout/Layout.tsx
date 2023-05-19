@@ -1,9 +1,9 @@
-import React from "react";
-import {useStateContext} from "../../contexts/ContextProvider";
+import React, {useContext} from "react";
 import {Outlet} from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import {useStateContext} from "../../contexts/ContextProvider";
 
 export default function Layout() {
     const {activeMenu} = useStateContext();
@@ -20,11 +20,7 @@ export default function Layout() {
                 </div>
             )}
             <div
-                className={
-                    activeMenu
-                        ? 'w-full min-h-screen md:ml-72'
-                        : 'w-full min-h-screen'
-                }
+                className={`w-full min-h-screen ${activeMenu ? 'md:ml-72' : ''}`}
             >
                 <div className="fixed md:static navbar w-full">
                     <Navbar/>

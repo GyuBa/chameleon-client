@@ -65,7 +65,7 @@ export default function Description({modelId, setSelectedModelId}: DescriptionPr
                     </div>
                     <div className="flex my-2 items-center gap-2">
                         <p className="text-lg font-bold">Price:</p>
-                        <p className="font-medium">₩{modelData?.point}{(1231).toLocaleString('ko-KR')}</p>
+                        <p className="font-medium">₩{modelData?.price}</p>
                     </div>
                     <div className="flex my-2 justify-items-start gap-2">
                         <div className="pt-3"><Badge color="indigo">Input: {modelData?.inputType}</Badge></div>

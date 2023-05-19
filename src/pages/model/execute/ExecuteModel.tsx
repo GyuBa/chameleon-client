@@ -12,7 +12,7 @@ import {Oval} from "react-loader-spinner";
 import {
     HistoryEntityData,
     HistoryStatus,
-    ModelEntityData,
+    ModelEntityData, ModelParameters,
     WSMessageType,
     WSUpdateHistoryMessage
 } from "../../../types/chameleon-platform.common";
@@ -20,10 +20,10 @@ import {PlatformAPI} from "../../../platform/PlatformAPI"
 import useWebSocket from "react-use-websocket";
 import {PageType} from "../../../types/chameleon-client.enum";
 
-const initialData = {};
+const initialData: ModelParameters = {} as ModelParameters;
 export default function ExecuteModel() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
-    const [parameter, setParameter] = useState(initialData);
+    const [parameters, setParameters] = useState<ModelParameters>(initialData);
     const [modelData, setModelData] = useState<ModelEntityData>();
     const [executeData, setExecuteData] = useState<HistoryEntityData>();
     const {username, uniqueName} = useParams();
@@ -134,20 +134,20 @@ export default function ExecuteModel() {
                                 <JsonForms
                                     schema={schema}
                                     uischema={uiSchema}
-                                    data={parameter}
+                                    data={parameters}
                                     renderers={materialRenderers}
                                     cells={materialCells}
                                     onChange={({data}) => {
-                                        setParameter(data);
+                                        setParameters(data);
                                     }}
                                 />
                             </div>
                             <div className={activeTabIndex === 1 ? "block" : "hidden"} id="link2">
-                                <JsonViewer value={parameter ? parameter : {}}/>
+                                <JsonViewer value={parameters ? parameters : {}}/>
                             </div>
                         </div>
                     </div>
-                    {InputModule(PageType.EXECUTE, parameter, modelData!, executeData!)}
+                    {InputModule(PageType.EXECUTE, parameters, modelData!, executeData!)}
                     {OutputModule(executeData!)}
                     {OutputDescriptionModule(executeData!)}
                 </div>

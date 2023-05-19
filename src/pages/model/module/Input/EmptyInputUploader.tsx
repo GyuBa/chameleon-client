@@ -1,12 +1,11 @@
 import React from "react";
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
-import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
+import {HistoryEntityData, ModelParameters} from "../../../../types/chameleon-platform.common";
 import {InputModelInfo} from "../../../../types/chameleon-client";
 import {PageType} from "../../../../types/chameleon-client.enum";
 
-export default function EmptyInputUploader(type: PageType, parameter: Object, modelData: InputModelInfo, executeData: HistoryEntityData) {
+export default function EmptyInputUploader(type: PageType, parameters: ModelParameters, modelData: InputModelInfo, executeData: HistoryEntityData) {
 
-    let parameters = JSON.stringify({parameter: parameter});
     let file = new File(["{}"], "empty");
     const modelId = modelData?.id;
 

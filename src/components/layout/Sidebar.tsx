@@ -1,18 +1,15 @@
 import React from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import {links} from '../../assets/Dummy';
-import {useStateContext} from '../../contexts/ContextProvider';
 import {GiChameleonGlyph} from 'react-icons/gi';
 import {MdOutlineCancel} from 'react-icons/md';
+import {useStateContext} from "../../contexts/ContextProvider";
 
 export default function Sidebar() {
     const {activeMenu, setActiveMenu} = useStateContext();
     const handleCloseSideBar = () => {
         if (activeMenu !== undefined) setActiveMenu(false);
     };
-
-    const activeLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-white text-md m-2';
-    const normalLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 hover:bg-light-gray m-2';
 
     return (
         <div className="h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10">
@@ -21,7 +18,7 @@ export default function Sidebar() {
                     <div className="flex justify-between items-center">
                         <Link to="/models/all" onClick={handleCloseSideBar}
                               className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight text-slate-900">
-                            <GiChameleonGlyph/><span>Chameleon</span>
+                            <GiChameleonGlyph/><span>Chameleon Platform</span>
                         </Link>
                         <button
                             type="button"
@@ -38,10 +35,7 @@ export default function Sidebar() {
                                         onClick={handleCloseSideBar}
                                         to={`/${link.link}`}
                                         key={link.name}
-                                        style={({isActive}) => ({
-                                            backgroundColor: isActive ? '#1E4DB7' : '',
-                                        })}
-                                        className={({isActive}) => (isActive ? activeLink : normalLink)}
+                                        className={({isActive}) => isActive ? 'side-bar-nav-link-active' : 'side-bar-nav-link'}
                                     >
                                         {link.icon}
                                         <span className="capitalize">{link.name}</span>

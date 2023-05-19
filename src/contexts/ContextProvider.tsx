@@ -1,7 +1,7 @@
 import React, {createContext, useContext, useState} from 'react';
-const StateContext = createContext();
+const StateContext = createContext<any>({});
 
-export const ContextProvider = ({children}) => {
+export default function ContextProvider({children}: { children: React.ReactNode }) {
     const [activeMenu, setActiveMenu] = useState(true);
 
     return (
@@ -9,4 +9,6 @@ export const ContextProvider = ({children}) => {
     );
 };
 
-export const useStateContext = () => useContext(StateContext);
+export function useStateContext() {
+    return useContext(StateContext);
+}

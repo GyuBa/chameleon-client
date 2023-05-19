@@ -58,4 +58,13 @@
   .create-tab-input-text {
     @apply block w-full px-4 py-2 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
   }
+
+  .side-bar-nav-link {
+    @apply flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg m-2 hover:bg-light-gray
+  }
+
+  .side-bar-nav-link-active {
+    @apply side-bar-nav-link bg-main-blue text-white hover:bg-main-blue
+  }
+
 }

@@ -17,7 +17,7 @@ export interface HistoryEntityData {
     model: ModelEntityData;
     startedTime: Date;
     endedTime: Date;
-    parameters: any;
+    parameters: ModelParameters;
     terminal: string;
 }
 
@@ -76,7 +76,7 @@ export interface ModelEntityData {
     parameters: ModelParameters;
     config: ModelConfig;
     category: string;
-    point: number;
+    price: number;
 }
 
 export const Model: Array<keyof ModelEntityData> = [
@@ -94,7 +94,7 @@ export const Model: Array<keyof ModelEntityData> = [
     'parameters',
     'config',
     'category',
-    'point'
+    'price'
 ];
 
 
@@ -155,7 +155,7 @@ export enum HistoryStatus {
 }
 
 export enum ModelInputType {
-    NONE = 'none',
+    EMPTY = 'empty',
     IMAGE = 'image',
     VIDEO = 'video',
     SOUND = 'sound',
@@ -169,6 +169,7 @@ export enum ModelOutputType {
     VIDEO = 'video',
     SOUND = 'sound',
     TEXT = 'text',
+    ZIP = 'zip',
     BINARY = 'binary'
 }
 
@@ -205,6 +206,7 @@ export type WSTerminalMessage = {
     data: string;
 }
 
+
 export enum SocketMessageType {
     LAUNCH = 'Launch',
     FILE_WAIT = 'FileWait',
@@ -225,7 +227,6 @@ export type SocketLaunchMessage = {
     historyId: number;
     executionData?: ExecutionData
 };
-
 export type SocketFileWaitMessage = { msg: SocketMessageType.FILE_WAIT; };
 export type SocketFileReceiveEndMessage = { msg: SocketMessageType.FILE_RECEIVE_END; };
 export type SocketTerminalMessage = {
@@ -269,11 +270,13 @@ export enum SocketReceiveMode {
 /* Upload Parameters */
 export type ModelCommonUploadData = {
     modelName: string;
-    inputType: string;
-    outputType: string;
+    inputType: ModelInputType;
+    outputType: ModelOutputType;
     regionName: string;
-    parameters: string;
+    parameters: ModelParameters;
     description: string
+    category?: string;
+    price?: number;
 }
 export type ModelImageUploadData = ModelCommonUploadData & { file: File }
 
@@ -281,7 +284,7 @@ export type ModelDockerfileUploadData = ModelCommonUploadData & { files: File[] 
 
 export type ModelExecuteData = {
     modelId: number;
-    parameters: string;
+    parameters: ModelParameters;
     input: File;
 }
 
@@ -311,14 +314,13 @@ export type ResponseData = {
 }
 
 export type ModelInputInfo = {
+    mimeType?: string;
     fileSize: number;
-    mimeType: string;
     fileName: string;
 }
 
 export type ModelOutputInfo = {
     fileName: string;
-    mimeType: string;
     fileSize: number;
 }
 
