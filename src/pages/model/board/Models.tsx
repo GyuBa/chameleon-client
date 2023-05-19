@@ -8,12 +8,12 @@ import {BiAddToQueue, BiDotsVerticalRounded, BiTrash} from "react-icons/bi";
 import Description from "../../../components/layout/Description";
 import Header from "../../../components/layout/Header";
 import {ModelEntityData} from "../../../types/chameleon-platform.common";
-import {DateUtils} from "../../../utils/DateUtils";
+import {TimeUtils} from "../../../utils/TimeUtils";
 import {PlatformAPI} from "../../../platform/PlatformAPI";
 import {useMediaQuery} from "react-responsive";
 
 const modelColumn = {
-    list: ['Id', 'Model Name', 'Input Type', 'Output Type', 'Region', 'Register', 'Created Date', 'Category', 'Price']
+    list: ['Model Name', 'Input Type', 'Output Type', 'Region', 'Register', 'Created Time', 'Category', 'Price']
 };
 
 export default function Models() {
@@ -111,7 +111,7 @@ export default function Models() {
                         </div>
                     </div>
                     <div className="flex mt-10 justify-between">
-                        <div className="text-sm text-gray-500 py-3">Created at {DateUtils.formatDate(modelData.createdTime)} · {modelData.register.username}</div>
+                        <div className="text-sm text-gray-500 py-3">{TimeUtils.timeSince(modelData.createdTime)} · {modelData.register.username}</div>
                         <div className="py-3"><Badge color="gray">{modelData.image.region.name}</Badge></div>
                     </div>
                 </div>
@@ -128,7 +128,6 @@ export default function Models() {
                 <Table.Body className="divide-y">
                     {models.map((modelData) => (
                         <Table.Row className="bg-white cursor-pointer" onClick={() => onModelSelect(modelData)}>
-                            <Table.Cell>{modelData.id}</Table.Cell>
                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900">{modelData.name}</Table.Cell>
                             <Table.Cell>
                                 <div className="flex"><Badge color="indigo">{modelData.inputType}</Badge></div>
@@ -138,7 +137,7 @@ export default function Models() {
                             </Table.Cell>
                             <Table.Cell>{modelData.image.region.name}</Table.Cell>
                             <Table.Cell>{modelData.register.username}</Table.Cell>
-                            <Table.Cell>{DateUtils.formatDate(modelData.createdTime)}</Table.Cell>
+                            <Table.Cell>{TimeUtils.formatTime(modelData.createdTime)}</Table.Cell>
                             <Table.Cell>
                                 <div className="flex"><Badge className="bg-teal-100 text-teal-500">{modelData.category}</Badge></div>
                             </Table.Cell>

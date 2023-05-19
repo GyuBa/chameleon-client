@@ -18,6 +18,8 @@ export default function CreateModelTab({ activeTabIndex }: { activeTabIndex: num
 	const [outputType, setOutputType] = useState<string>('image');
 	const [regionName, setRegionName] = useState<string>('');
 	const [regions, setRegions] = useState<RegionEntityData[]>([]);
+	const [category, setCategory] = useState<string>('');
+	const [price, setPrice] = useState<number>(0);
 
 	const handleModelNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setModelName(event.target.value);
@@ -31,10 +33,16 @@ export default function CreateModelTab({ activeTabIndex }: { activeTabIndex: num
 	const handleRegionNameChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setRegionName(event.target.value);
 	};
+	const handleCategoryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setCategory(event.target.value);
+	};
+	const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setPrice(Number(event.target.value));
+	};
 
 	const handleClick = () => {
 		navigate("/models/create/description", {
-			state: { files, modelName, inputType, outputType, regionName, activeTabIndex }
+			state: { files, modelName, inputType, outputType, regionName, category, price, activeTabIndex }
 		});
 	};
 
@@ -141,8 +149,6 @@ export default function CreateModelTab({ activeTabIndex }: { activeTabIndex: num
 							<option value="text">text</option>
 						</select>
 					</div>
-				</div>
-				<div>
 					<div className="mb-3">
 						<h1 className="md:py-5 text-xl font-bold">Model Region</h1>
 						<select id="countries"
@@ -156,6 +162,34 @@ export default function CreateModelTab({ activeTabIndex }: { activeTabIndex: num
 								<option key={region.id} value={region.name}>{region.name}</option>
 							))}
 						</select>
+					</div>
+				</div>
+				<div>
+					<div className="mb-3">
+						<h1 className="md:py-5 text-xl font-bold">Category (Option)</h1>
+						<input
+							type="text"
+							className="form-control block w-full px-4 py-2 text-base font-normal
+                  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
+                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
+                  focus:border-blue-600 focus:outline-none"
+							id="category"
+							placeholder="Category"
+							value={category}
+							onChange={handleCategoryChange}/>
+					</div>
+					<div className="mb-3">
+						<h1 className="md:py-5 text-xl font-bold">Price (Option)</h1>
+						<input
+							type="text"
+							className="form-control block w-full px-4 py-2 text-base font-normal
+                  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
+                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
+                  focus:border-blue-600 focus:outline-none"
+							id="price"
+							placeholder="Price"
+							value={price}
+							onChange={handlePriceChange}/>
 					</div>
 					<div className="mb-3">
 						<h1 className="md:py-5 text-xl font-bold">File Upload</h1>
