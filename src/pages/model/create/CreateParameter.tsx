@@ -176,6 +176,8 @@ export default function CreateParameters() {
     const inputType = location.state?.inputType;
     const outputType = location.state?.outputType;
     const regionName = location.state?.regionName;
+    const category = location.state?.category;
+    const price = location.state?.price;
     const description = location.state?.description;
     const activeTabIndex = location.state?.activeTabIndex;
 
@@ -192,6 +194,8 @@ export default function CreateParameters() {
                     inputType,
                     outputType,
                     regionName,
+                    category,
+                    price,
                     description,
                     parameters,
                     file: files[0]
@@ -200,6 +204,8 @@ export default function CreateParameters() {
                     inputType,
                     outputType,
                     regionName,
+                    category,
+                    price,
                     description,
                     parameters,
                     files: files

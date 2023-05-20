@@ -8,7 +8,7 @@ export default function UserProfile() {
     const {handleSignOut, user} = useGetUserInfo();
 
     return (
-        <div className="nav-item absolute right-1 top-12 bg-white p-8 rounded-3xl w-96">
+        <div className="user-profile nav-item absolute right-1 top-12 bg-white p-8 rounded-3xl w-96 drop-shadow-xl">
             <div className="flex justify-between items-center">
                 <p className="font-semibold text-lg">User Profile</p>
             </div>

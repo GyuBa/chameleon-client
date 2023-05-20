@@ -1,7 +1,7 @@
 import {Badge, Table} from "flowbite-react";
 import React from "react";
 import {HistoryEntityData, HistoryStatus} from "../../../types/chameleon-platform.common";
-import {DateUtils} from "../../../utils/DateUtils";
+import {TimeUtils} from "../../../utils/TimeUtils";
 import {useNavigate} from "react-router-dom";
 
 type HistoryRow = {
@@ -40,15 +40,15 @@ export function HistoryListTable({rows}: HistoryRow) {
                 </Table.Head>
                 <Table.Body className="bg-white">
                     {
-                        rows.length != 0 ? rows.map((row, index) => (
+                        rows.length !== 0 ? rows.map((row, index) => (
                             <Table.Row key={row.id} className="bg-white" onClick={() => navigateToDetail(index)}>
                                 <Table.Cell>{row.id}</Table.Cell>
                                 <Table.Cell>{row.model ? (
                                     row.model.name) : (
                                     <p style={{color: "red"}}>deleted</p>
                                 )}</Table.Cell>
-                                <Table.Cell>{DateUtils.formatDate(row.startedTime)}</Table.Cell>
-                                <Table.Cell>{row.endedTime ? DateUtils.formatDate(row.endedTime) : '-'}</Table.Cell>
+                                <Table.Cell>{TimeUtils.formatTime(row.startedTime)}</Table.Cell>
+                                <Table.Cell>{row.endedTime ? TimeUtils.formatTime(row.endedTime) : '-'}</Table.Cell>
                                 <Table.Cell>{row.executor.username}</Table.Cell>
                                 <Table.Cell>
                                     <div className="flex"><Badge color={getStatusColor(row.status)}>{row.status}</Badge>
