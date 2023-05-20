@@ -155,7 +155,7 @@ export enum HistoryStatus {
 }
 
 export enum ModelInputType {
-    NONE = 'none',
+    EMPTY = 'empty',
     IMAGE = 'image',
     VIDEO = 'video',
     SOUND = 'sound',
@@ -169,7 +169,8 @@ export enum ModelOutputType {
     VIDEO = 'video',
     SOUND = 'sound',
     TEXT = 'text',
-    BINARY = 'binary'
+    BINARY = 'binary',
+    ZIP = 'zip'
 }
 
 export enum WSMessageType {
