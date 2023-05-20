@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Badge, Table} from "flowbite-react";
 import {Link, useLocation} from "react-router-dom";
 import {HiViewGrid, HiOutlineSearch} from "react-icons/hi";
@@ -25,6 +25,8 @@ export default function Models() {
     const [selectedModelId, setSelectedModelId] = useState<number>(-1);
     const location = useLocation();
     const isDesktopOrMobile = useMediaQuery({query: '(max-width:767px)'});
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchOption, setSearchOption] = useState(ModelSearchOption.NAME);
 
     useEffect(() => {
         setSelectedModelId(-1);
@@ -33,7 +35,7 @@ export default function Models() {
             try {
                 const models = (location.pathname === '/models/my')
                     ? await PlatformAPI.getMyModels()
-                    : await PlatformAPI.getModels();
+                    : await PlatformAPI.getModels({ searchOption, searchTerm });
                 if (!completed) setModels(models);
             } catch (error) {
                 console.error(error);
@@ -43,7 +45,7 @@ export default function Models() {
         return () => {
             completed = true;
         };
-    }, [location.pathname]);
+    }, [location.pathname, searchOption, searchTerm]);
 
     const onModelSelect = (modelData: ModelEntityData) => {
         setSelectedModelId(modelData.id);
@@ -155,25 +157,36 @@ export default function Models() {
 
     const Dropdown = () => {
         const [isOpen, setIsOpen] = useState(false);
-
+        const handleCategorySelect = (category :  ModelSearchOption) => {
+            setSearchOption(category);
+            setIsOpen(false);
+            setSearchTerm('');
+        };
         return (
             <div className="relative">
                 <button id="dropdown-button"
-                    className="inline-flex items-center py-2.5 px-4 text-sm font-medium text-center
+                    className="flex items-center py-2.5 px-4 text-sm font-medium
                     text-gray-900 bg-gray-100 border border-gray-300 rounded-l-lg hover:bg-gray-200
-                    focus:ring-4 focus:outline-none focus:ring-gray-100"
+                    focus:ring-4 focus:outline-none focus:ring-gray-100 w-[190px]"
                     type="button"
                     onClick={() => setIsOpen(!isOpen)}
-                >Categories<MdKeyboardArrowDown size={20} className="text-gray-400 text-14"/>
+                >
+                    <div className="flex-grow text-left">
+                        {searchOption}
+                    </div>
+                    <div className="text-right">
+                        <MdKeyboardArrowDown size={20} className="text-gray-400 text-14"/>
+                    </div>
                 </button>
                 {isOpen && (
                     <div id="dropdown"
                         className="absolute w-full z-20 bg-white divide-y divide-gray-100 rounded-lg shadow">
                         <ul className="py-2 text-sm text-gray-700">
                             {ModelSearchOptions.map((item) => (
-                                <li>
+                                <li key={item}>
                                     <button type="button"
                                             className="inline-flex text-left w-full px-4 py-2 hover:bg-gray-100"
+                                            onClick={() => handleCategorySelect(item)}
                                     >{item}</button>
                                 </li>
                             ))}
@@ -184,32 +197,39 @@ export default function Models() {
         );
     };
 
-    const SearchBar = () => (
-        <form>
+    const SearchBar = () => {
+        const [temporarySearchTerm, setTemporarySearchTerm] = useState('');
+        return(
             <div className="flex">
-                <Dropdown />
+                <Dropdown/>
                 <div className="relative w-96">
                     <input
                         type="search"
                         id="search-dropdown"
                         className="block p-2.5 w-full z-20 text-sm text-gray-900
-                        bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2
-                        border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Search Models Name, Input, Output..."
-                        required
+                    bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2
+                    border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Search Model Name, Input, Output..."
+                        value={temporarySearchTerm}
+                        onChange={(e) => setTemporarySearchTerm(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                setSearchTerm(temporarySearchTerm);
+                            }
+                        }}
                     />
                     <button
-                        type="submit"
+                        type="button"
                         className="absolute top-0 right-0 p-2.5 text-sm font-medium
-                        text-white bg-main-blue rounded-r-lg border border-blue-700
-                        hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-                        <HiOutlineSearch size={20}/>
-                        <span className="sr-only">Search</span>
+                    text-white bg-main-blue rounded-r-lg border border-blue-700
+                    hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                        onClick={() => setSearchTerm(temporarySearchTerm)}
+                    ><HiOutlineSearch size={20}/>
                     </button>
                 </div>
             </div>
-        </form>
-    );
+        )
+    };
 
     return (
         <div className="contents">
