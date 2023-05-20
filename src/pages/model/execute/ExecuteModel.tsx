@@ -34,7 +34,9 @@ export default function ExecuteModel() {
         (async function get() {
             try {
                 const model = await PlatformAPI.getModelByUsernameAndUniqueName(username!, uniqueName!)
-                setModelData(model);
+                if (!completed &&  model.register?.username === username && model.uniqueName === uniqueName) {
+                    setModelData(model);
+                }
             } catch (error) {
                 console.error(error);
             }
@@ -88,14 +90,10 @@ export default function ExecuteModel() {
         <div className="contents">
             <div className="w-full m-2 md:m-10 mt-24">
                 <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
-                    <div className="flex justify-between items-end">
-                        <Header title="Model"/>
-                        <h1 className="mx-2 text-gray-500">{modelData?.name}</h1>
-                        <div>
+                    <div className="flex justify-between">
+                        <Header title={modelData?.name}/>
+                        <div className="flex items-center md:px-2">
                             <div>
-                                {executeData?.status === undefined && (
-                                    <h1 className="rounded-lg text-xs p-1.5 bg-blue-900 text-white">Stand By</h1>
-                                )}
                                 {executeData?.status === HistoryStatus.RUNNING && (
                                     <h1 className="rounded-lg text-xs p-1.5 bg-yellow-500 text-white">Running...</h1>
                                 )}
@@ -112,7 +110,7 @@ export default function ExecuteModel() {
                 <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
                     <div className="row-span-2 rounded-lg border-1 border-gray-300 overflow-auto">
                         <div className="border-b border-gray-300" style={{backgroundColor: '#F6F6F6'}}>
-                            <div className="flex md:p-2 space-x-3 rounded-lg">
+                            <div className="flex md:px-5 md:py-2 space-x-3 rounded-lg">
                                 {executeParam.map((tab, idx) => {
                                     return (
                                         <button
@@ -129,7 +127,7 @@ export default function ExecuteModel() {
                                 })}
                             </div>
                         </div>
-                        <div className="tab-content tab-space overflow-y-auto max-h-[212px] md:p-2">
+                        <div className="tab-content tab-space overflow-y-auto max-h-[212px] md:px-5">
                             <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
                                 <JsonForms
                                     schema={schema}
