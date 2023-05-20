@@ -1,6 +1,7 @@
 import React from "react";
 import SingleInputUploader from "../module/Input/SingleInputUploader"
 import EmptyInputUploader from "../module/Input/EmptyInputUploader"
+import MultiInputUploader from "../module/Input/MultipleInputUploader"
 import {HistoryEntityData, ModelInputType} from "../../../types/chameleon-platform.common";
 import {InputModelInfo} from "../../../types/chameleon-client";
 import {PageType} from "../../../types/chameleon-client.enum";
@@ -9,8 +10,10 @@ export default function InputModule(type: PageType, parameter: Object, modelData
     let inputType = modelData?.inputType;
     let Module;
 
-    if (inputType === ModelInputType.NONE) {
+    if (inputType === ModelInputType.EMPTY) {
         Module = (parameter && modelData) ? () => EmptyInputUploader(type, parameter, modelData, executeData) : null;
+    } else if (inputType === ModelInputType.ZIP) {
+        Module = (parameter && modelData) ? () => MultiInputUploader(type, parameter, modelData, executeData) : null
     } else if (inputType === undefined) {
         Module = null;
     } else
