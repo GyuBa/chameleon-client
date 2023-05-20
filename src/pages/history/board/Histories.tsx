@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {PlatformAPI} from "../../../platform/PlatformAPI";
-import Header from "../../../components/layout/Header";
-import {HistoryListTable} from "./HistoryListTable";
+import {HistoriesTable} from "./HistoriesTable";
 import {HistoryEntityData} from "../../../types/chameleon-platform.common";
 
-export default function HistoryList() {
+export default function Histories() {
     const [histories, setHistories] = useState<HistoryEntityData[]>([]);
 
     useEffect(() => {
@@ -12,8 +11,7 @@ export default function HistoryList() {
 
         (async function () {
             try {
-                // const histories = await PlatformAPI.getMyHistories();
-                const histories = await PlatformAPI.getMyHistories();
+                const histories = await PlatformAPI.getHistories();
                 if (!completed) {
                     setHistories(histories);
                 }
@@ -33,11 +31,11 @@ export default function HistoryList() {
             <div className="w-full m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
                 <div className="flex justify-between items-center">
                     <div className="flex">
-                        <Header title="Histories"/>
+                        <p className='head-text'>Histories</p>
                     </div>
                 </div>
                 <div className="mt-10 max-h-screen overflow-auto">
-                    <HistoryListTable rows={histories}/>
+                    <HistoriesTable histories={histories}/>
                 </div>
             </div>
         </div>
