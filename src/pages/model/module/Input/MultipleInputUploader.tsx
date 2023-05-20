@@ -25,7 +25,6 @@ export default function MultiInputUploader(type: PageType, parameter: Object, mo
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
         accept,
         onDrop: async acceptedFiles => {
-            acceptedFiles = acceptedFiles;
             setFiles(acceptedFiles);
         }
     });
@@ -91,7 +90,7 @@ export default function MultiInputUploader(type: PageType, parameter: Object, mo
                  style={{backgroundColor: '#F6F6F6'}}>
                 <p className="text-xl font-semibold">Input Upload</p>
                 {
-                    type == PageType.EXECUTE ? (
+                    type === PageType.EXECUTE ? (
                         <div className="flex items-center gap-4">
                             <button onClick={removeFile}
                                     className="submit-btn text-sm py-1 px-1.5 border border-gray border-solid
