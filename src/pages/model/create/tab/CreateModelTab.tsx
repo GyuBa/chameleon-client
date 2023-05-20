@@ -20,24 +20,9 @@ const tabsData = {
     [ModelFileType.DOCKERFILE]: {image: dockerfile, label: 'Dockerfile'}
 };
 
-export default function CreateModelTab({modelFileType}: { modelFileType: ModelFileType }) {
+export default function CreateModelTab() {
     const navigate = useNavigate();
     const {modelData, setModelData, regions, setRegions} = useGlobalContext();
-
-    useEffect(() => {
-        if (!modelData) {
-            setModelData({
-                modelName: '',
-                inputType: ModelInputType.EMPTY,
-                outputType: ModelOutputType.BINARY,
-                regionName: '',
-                category: '',
-                price: 0,
-                modelFileType,
-                description: `# Your model name \n\n Please enter a description of the model`
-            } as ModelUploadData);
-        }
-    }, []);
 
     useEffect(() => {
         let completed = false;
@@ -66,7 +51,7 @@ export default function CreateModelTab({modelFileType}: { modelFileType: ModelFi
     };
 
     const {getRootProps, getInputProps} = useDropzone({
-        accept: modelFileType === ModelFileType.IMAGE ? {
+        accept: modelData?.fileType === ModelFileType.IMAGE ? {
             'application/x-tar': []
         } : {},
         onDrop: acceptedFiles => {
@@ -74,7 +59,7 @@ export default function CreateModelTab({modelFileType}: { modelFileType: ModelFi
                 modelData.files = acceptedFiles.map(file => Object.assign(file, {
                     preview: URL.createObjectURL(file)
                 }));
-                setModelData(modelData);
+                setModelData({...modelData});
             }
         }
     });
@@ -91,11 +76,11 @@ export default function CreateModelTab({modelFileType}: { modelFileType: ModelFi
 
     const removeFile = () => {
         modelData.files = [];
-        setModelData(modelData);
+        setModelData({...modelData});
     }
 
-    const label = tabsData[modelFileType].label;
-    const image = tabsData[modelFileType].image;
+    const label = tabsData[modelData?.fileType]?.label;
+    const image = tabsData[modelData?.fileType]?.image;
 
     return (
         <div className="py-4">
@@ -188,7 +173,7 @@ export default function CreateModelTab({modelFileType}: { modelFileType: ModelFi
                         <div className="py-2 rounded border border-solid border-gray-300 text-center item-center">
                             <img
                                 alt="img"
-                                className={modelFileType === ModelFileType.IMAGE ? 'tar-image' : 'dockerfile-image'}
+                                className={modelData?.fileType === ModelFileType.IMAGE ? 'tar-image' : 'dockerfile-image'}
                                 src={image}/>
                             <section className="container h-full">
                                 <div {...getRootProps()}

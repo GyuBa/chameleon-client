@@ -47,7 +47,7 @@ export type GlobalContextData = {
 
 export type IFile = File & { preview?: string };
 
-export type ModelUploadData = ModelCommonUploadData & { files: IFile[], file: IFile, modelFileType: ModelFileType };
+export type ModelUploadData = ModelCommonUploadData & { files: IFile[], file: IFile, fileType: ModelFileType };
 
 export interface DescriptionProps {
     modelId: number;
@@ -74,7 +74,7 @@ export interface ModelsLayoutProps {
 
 export interface ParameterBuilderProps {
     parameters: ModelParameters;
-    setParameters: React.Dispatch<React.SetStateAction<ModelParameters>>;
+    setParameters: Function;
 }
 
 export type ParameterEditorTabProps = {

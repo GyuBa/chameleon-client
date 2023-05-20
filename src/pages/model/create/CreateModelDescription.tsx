@@ -13,7 +13,7 @@ export default function CreateModelDescription() {
     }
 
     const handleClick = () => {
-        setModelData(modelData);
+        setModelData({...modelData});
         navigate(SitePaths.CREATE_MODEL_PARAMETERS);
     }
 

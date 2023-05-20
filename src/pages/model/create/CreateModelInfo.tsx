@@ -1,9 +1,41 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import CreateModelTab from "./tab/CreateModelTab";
-import {ModelFileType} from "../../../types/chameleon-client.enum";
+import {ModelFileType, ParameterType} from "../../../types/chameleon-client.enum";
+import useGlobalContext from "../../../contexts/hook/useGlobalContext";
+import {ModelInputType, ModelOutputType} from "../../../types/chameleon-platform.common";
+import {ModelUploadData} from "../../../types/chameleon-client";
+import {JsonFormUtils} from "../../../utils/JsonFormUtils";
 
 export default function CreateModelInfo() {
-    const [modelFileType, setModelFileType] = useState<ModelFileType>(ModelFileType.IMAGE);
+    const {modelData, setModelData} = useGlobalContext();
+
+    useEffect(() => {
+        if (!modelData) {
+            setModelData({
+                modelName: '',
+                inputType: ModelInputType.EMPTY,
+                outputType: ModelOutputType.BINARY,
+                regionName: '',
+                category: '',
+                price: 0,
+                fileType: ModelFileType.IMAGE,
+                description: `# Your model name \n\n Please enter a description of the model`,
+                parameters: {
+                    schema: JsonFormUtils.generateSchema([
+                        {name: 'name', type: ParameterType.STRING}
+                    ]),
+                    uischema: {
+                        type: 'VerticalLayout',
+                        elements: [{
+                            type: 'Control',
+                            scope: `#/properties/name`
+                        }]
+                    },
+                    data: {}
+                }
+            } as ModelUploadData);
+        }
+    }, []);
 
     return (
         <div className="contents">
@@ -11,29 +43,24 @@ export default function CreateModelInfo() {
                 <div>
                     <div className="flex space-x-3 border-b">
                         <button
-                            className={ModelFileType.IMAGE === modelFileType
+                            className={ModelFileType.IMAGE === modelData?.fileType
                                 ? "default-tab-active"
                                 : "default-tab-inactive"
                             }
-                            onClick={() => setModelFileType(ModelFileType.IMAGE)}>
+                            onClick={() => setModelData({...modelData, fileType: ModelFileType.IMAGE})}>
                             Tar image
                         </button>
                         <button
-                            className={ModelFileType.DOCKERFILE === modelFileType
+                            className={ModelFileType.DOCKERFILE === modelData?.fileType
                                 ? "default-tab-active"
                                 : "default-tab-inactive"
                             }
-                            onClick={() => setModelFileType(ModelFileType.DOCKERFILE)}>
+                            onClick={() => setModelData({...modelData, fileType: ModelFileType.DOCKERFILE})}>
                             Dockerfile
                         </button>
                     </div>
                     <div className="tab-content tab-space">
-                        <div className={ModelFileType.IMAGE === modelFileType ? "block" : "hidden"}>
-                            <CreateModelTab modelFileType={modelFileType}/>
-                        </div>
-                        <div className={ModelFileType.DOCKERFILE === modelFileType ? "block" : "hidden"}>
-                            <CreateModelTab modelFileType={modelFileType}/>
-                        </div>
+                        <CreateModelTab/>
                     </div>
                 </div>
             </div>

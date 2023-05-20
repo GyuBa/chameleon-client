@@ -18,28 +18,6 @@ export default function CreateModelParameters() {
     const [isCompleted, setIsCompleted] = useState(true);
     const [showError, setShowError] = useState(false);
 
-    const [parameters, setParameters] = useState<ModelParameters>({
-        schema: JsonFormUtils.generateSchema([
-            {name: 'name', type: ParameterType.STRING}
-        ]),
-        uischema: {
-            type: 'VerticalLayout',
-            elements: [{
-                type: 'Control',
-                scope: `#/properties/name`
-            }]
-        },
-        data: {}
-    });
-
-    useEffect(() => {
-        if (modelData) {
-            modelData.parameters = parameters;
-            setModelData(modelData);
-        }
-    }, [parameters]);
-
-
     useEffect(() => {
         if (!isCompleted) {
             setShowError(true);
@@ -62,7 +40,7 @@ export default function CreateModelParameters() {
         event.preventDefault();
         setIsLoading(true);
         try {
-            if (modelData.modelFileType === ModelFileType.IMAGE) {
+            if (modelData.fileType === ModelFileType.IMAGE) {
                 modelData.file = modelData.files?.[0];
                 modelData.files = undefined as any;
                 await PlatformAPI.uploadModelWithImage(modelData);
@@ -121,8 +99,11 @@ export default function CreateModelParameters() {
                     </div>
                     <div className="tab-content tab-space">
                         {builderType === BuilderType.SIMPLE ?
-                            <SimpleParameterBuilder parameters={parameters} setParameters={setParameters}/> :
-                            <ComplexParameterBuilder parameters={parameters} setParameters={setParameters}/>}
+                            <SimpleParameterBuilder parameters={modelData?.parameters}
+                                                    setParameters={(parameters: ModelParameters) => {
+                                                        setModelData({...modelData, parameters});
+                                                    }}/> :
+                            <ComplexParameterBuilder/>}
                     </div>
                 </div>
             </div>
