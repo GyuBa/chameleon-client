@@ -10,7 +10,7 @@ import {InputModelInfo} from "../../../../types/chameleon-client";
 import {PageType} from "../../../../types/chameleon-client.enum";
 // import * as zip from "@zip.js/zip.js";
 
-const binaryIconURL = '/logo1.png'
+const binaryIconURL = '/images/binary-code'
 type IFile = File & { preview?: string };
 
 export default function SingleInputUploader(type: PageType, parameter: Object, modelData: InputModelInfo, executeData: HistoryEntityData) {
