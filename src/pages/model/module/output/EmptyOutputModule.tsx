@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function NullViewer() {
+export default function EmptyOutputModule() {
     return (
         <div>
             <div className="md:p-2 space-x-3 flex justify-between items-center border-b border-gray-300"

@@ -4,11 +4,9 @@ import {HistoryEntityData, ModelParameters} from "../../../../types/chameleon-pl
 import {InputModelInfo} from "../../../../types/chameleon-client";
 import {PageType} from "../../../../types/chameleon-client.enum";
 
-export default function EmptyInputUploader(type: PageType, parameters: ModelParameters, modelData: InputModelInfo, executeData: HistoryEntityData) {
-
+export default function EmptyInputModule(type: PageType, parameters: ModelParameters, modelData: InputModelInfo, executeData: HistoryEntityData) {
     let file = new File(["{}"], "empty");
     const modelId = modelData?.id;
-
     const handleModelStart = async (event: React.FormEvent<HTMLButtonElement>) => {
         event.preventDefault();
 

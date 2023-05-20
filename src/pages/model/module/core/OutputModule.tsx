@@ -1,9 +1,9 @@
-import {HistoryEntityData, HistoryStatus, ModelOutputType} from "../../../types/chameleon-platform.common";
-import SingleImageViewer from "./Output/SingleImageViewer"
-import SingleTextViewer from "./Output/SingleTextViewer";
-import SingleVideoViewer from "./Output/SingleVideoViewer";
+import {HistoryEntityData, HistoryStatus, ModelOutputType} from "../../../../types/chameleon-platform.common";
+import ImageOutputModule from "../output/ImageOutputModule"
+import TextOutputModule from "../output/TextOutputModule";
+import VideoOutputModule from "../output/VideoOutputModule";
 import React from "react";
-import NullViewer from "./Output/NullViewer";
+import EmptyOutputModule from "../output/EmptyOutputModule";
 
 export default function OutputModule(executeData: HistoryEntityData) {
     let outputType = executeData?.outputType;
@@ -12,13 +12,13 @@ export default function OutputModule(executeData: HistoryEntityData) {
     let Module;
 
     if (status === HistoryStatus.FINISHED && (outputType === ModelOutputType.IMAGE || outputType === ModelOutputType.BINARY)) {
-        Module = (executeData) ? () => SingleImageViewer(executeData) : NullViewer;
+        Module = (executeData) ? () => ImageOutputModule(executeData) : EmptyOutputModule;
     } else if (status === HistoryStatus.FINISHED && outputType === ModelOutputType.TEXT) {
-        Module = (executeData) ? () => SingleTextViewer(executeData) : NullViewer;
+        Module = (executeData) ? () => TextOutputModule(executeData) : EmptyOutputModule;
     } else if (status === HistoryStatus.FINISHED && outputType === ModelOutputType.VIDEO) {
-        Module = (executeData) ? () => SingleVideoViewer(executeData) : NullViewer;
+        Module = (executeData) ? () => VideoOutputModule(executeData) : EmptyOutputModule;
     } else
-        Module = NullViewer
+        Module = EmptyOutputModule
 
     return (
         <div className="row-span-3 col-span-2 rounded-lg border-1 border-gray-300 overflow-auto">
