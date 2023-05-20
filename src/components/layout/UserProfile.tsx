@@ -1,9 +1,28 @@
 import React from 'react';
-import {BsPersonCircle} from 'react-icons/bs';
-import {userProfileData} from '../../assets/Dummy';
+import {BsFillPersonLinesFill, BsPersonCircle} from 'react-icons/bs';
 import {Link, NavLink} from 'react-router-dom';
 import useGetUserInfo from "../../service/authentication/UserInfoService";
+import {GiArtificialHive} from "react-icons/gi";
+import {SitePaths} from "../../types/chameleon-platform.common";
 
+export const userProfileData = [
+    {
+        icon: <BsFillPersonLinesFill/>,
+        title: 'My Profile',
+        name: 'account',
+        desc: 'Account Settings',
+        iconColor: '#03C9D7',
+        iconBg: '#E5FAFB',
+    },
+    {
+        icon: <GiArtificialHive/>,
+        title: 'My Models',
+        name: 'models/my',
+        desc: 'My Model Lists',
+        iconColor: 'rgb(0, 194, 146)',
+        iconBg: 'rgb(235, 250, 242)',
+    },
+];
 export default function UserProfile() {
     const {handleSignOut, user} = useGetUserInfo();
 
@@ -40,7 +59,7 @@ export default function UserProfile() {
                 ))}
             </div>
             <div className="mt-5">
-                <Link to="/sign-in"
+                <Link to={SitePaths.SIGN_IN}
                       className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight text-slate-900">
                     <button className="submit-btn w-full p-3" onClick={handleSignOut}>Sign Out</button>
                 </Link>

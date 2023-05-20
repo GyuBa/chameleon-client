@@ -3,10 +3,9 @@ import {Outlet} from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import {useStateContext} from "../../contexts/ContextProvider";
-
+import useGlobalContext from "../../contexts/hook/useGlobalContext";
 export default function Layout() {
-    const {activeMenu} = useStateContext();
+    const {activeMenu} = useGlobalContext();
 
     return (
         <div className="flex relative">

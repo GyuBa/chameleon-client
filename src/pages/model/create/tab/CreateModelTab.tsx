@@ -1,220 +1,214 @@
 import React, {useEffect, useState} from 'react';
-import {tabsData} from "../../../../assets/Dummy";
 import {Link, useNavigate} from "react-router-dom";
 import {useDropzone} from "react-dropzone";
-import Header from "../../../../components/layout/Header";
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
-import {RegionEntityData} from "../../../../types/chameleon-platform.common";
+import {
+    ModelInputType,
+    ModelOutputType,
+    RegionEntityData,
+    SitePaths
+} from "../../../../types/chameleon-platform.common";
 import {FileUtils} from "../../../../utils/FileUtils";
+import {ModelFileType} from "../../../../types/chameleon-client.enum";
+import tar from "../../../../assets/images/upload/tar.png";
+import dockerfile from "../../../../assets/images/upload/dockerfile.png";
+import useGlobalContext from "../../../../contexts/hook/useGlobalContext";
+import {ModelUploadData} from "../../../../types/chameleon-client";
 
-type IFile = File & { preview?: string };
+const tabsData = {
+    [ModelFileType.IMAGE]: {image: tar, label: 'Tar file'},
+    [ModelFileType.DOCKERFILE]: {image: dockerfile, label: 'Dockerfile'}
+};
 
-export default function CreateModelTab({ activeTabIndex }: { activeTabIndex: number }) {
-	const navigate = useNavigate();
-	const [hideDrop, setHideDrop] = useState<boolean>(false);
-	const [files, setFiles] = useState<IFile[]>([]);
-	const [modelName, setModelName] = useState<string>('');
-	const [inputType, setInputType] = useState<string>('none');
-	const [outputType, setOutputType] = useState<string>('image');
-	const [regionName, setRegionName] = useState<string>('');
-	const [regions, setRegions] = useState<RegionEntityData[]>([]);
-	const [category, setCategory] = useState<string>('');
-	const [price, setPrice] = useState<number>(0);
+export default function CreateModelTab({modelFileType}: { modelFileType: ModelFileType }) {
+    const navigate = useNavigate();
+    const {modelData, setModelData, regions, setRegions} = useGlobalContext();
 
-	const handleModelNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setModelName(event.target.value);
-	};
-	const handleInputTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setInputType(event.target.value);
-	};
-	const handleOutputTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setOutputType(event.target.value);
-	};
-	const handleRegionNameChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setRegionName(event.target.value);
-	};
-	const handleCategoryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setCategory(event.target.value);
-	};
-	const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setPrice(Number(event.target.value));
-	};
+    useEffect(() => {
+        if (!modelData) {
+            setModelData({
+                modelName: '',
+                inputType: ModelInputType.EMPTY,
+                outputType: ModelOutputType.BINARY,
+                regionName: '',
+                category: '',
+                price: 0,
+                modelFileType,
+                description: `# Your model name \n\n Please enter a description of the model`
+            } as ModelUploadData);
+        }
+    }, []);
 
-	const handleClick = () => {
-		navigate("/models/create/description", {
-			state: { files, modelName, inputType, outputType, regionName, category, price, activeTabIndex }
-		});
-	};
+    useEffect(() => {
+        let completed = false;
+        (async () => {
+            try {
+                const loadedRegions = await PlatformAPI.getRegions();
+                if (!completed && modelData) {
+                    setRegions(loadedRegions);
+                    if (!modelData.regionName) {
+                        modelData.regionName = loadedRegions?.[0]?.name;
+                    }
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        })();
+        return () => {
+            completed = true;
+        };
+    }, [modelData]);
 
-	useEffect(() => {
-		let completed = false;
+    const handleClick = () => {
+        navigate(SitePaths.CREATE_MODEL_DESCRIPTION, {
+            state: modelData
+        });
+    };
 
-		(async function get() {
-			try {
-				const regions = await PlatformAPI.getRegions();
-				if (!completed) {
-					setRegions(regions);
-					setRegionName(regions?.[0]?.name);
-				}
-			} catch (error) {
-				console.error(error);
-			}
-		})();
+    const {getRootProps, getInputProps} = useDropzone({
+        accept: modelFileType === ModelFileType.IMAGE ? {
+            'application/x-tar': []
+        } : {},
+        onDrop: acceptedFiles => {
+            if (modelData) {
+                modelData.files = acceptedFiles.map(file => Object.assign(file, {
+                    preview: URL.createObjectURL(file)
+                }));
+                setModelData(modelData);
+            }
+        }
+    });
 
-		return () => {
-			completed = true;
-		};
-	}, []);
+    const acceptedFileItems = modelData?.files?.map(file => (
+        <li key={file.name}>
+            {file.name} - {FileUtils.formatBytes(file.size)}
+        </li>
+    ));
 
-	const {getRootProps, getInputProps} = useDropzone({
-		accept: activeTabIndex === 0 ? {
-			'application/x-tar': []
-		} : undefined,
-		onDrop: acceptedFiles => {
-			setHideDrop(true);
-			setFiles(acceptedFiles.map(file => Object.assign(file, {
-				preview: URL.createObjectURL(file)
-			})));
-		}
-	});
+    useEffect(() => {
+        return () => modelData?.files?.forEach(file => URL.revokeObjectURL(file.preview as string));
+    }, [modelData?.files]);
 
-	const acceptedFileItems = files.map(file => (
-		<li key={file.name}>
-			{file.name} - {FileUtils.formatBytes(file.size)}
-		</li>
-	));
+    const removeFile = () => {
+        modelData.files = [];
+        setModelData(modelData);
+    }
 
-	useEffect(() => {
-		return () => files.forEach(file => URL.revokeObjectURL(file.preview as string));
-	}, [files]);
+    const label = tabsData[modelFileType].label;
+    const image = tabsData[modelFileType].image;
 
-	const removeFile = () => {
-		setFiles([]);
-		setHideDrop(false);
-	}
-
-	return (
-		<div className="py-4">
-			<div className="flex justify-between items-center">
-				<div className="flex items-end">
-					<Header title="Model Info"/>
-					<h1 className="mx-2 text-gray-500">{tabsData[activeTabIndex].label}</h1>
-				</div>
-				<div className="flex gap-3 float-right">
-					<Link to="/models/my"><button className="white-btn w-16 p-2">back</button></Link>
-					<button onClick={handleClick} className="submit-btn w-16">next</button>
-				</div>
-			</div>
-			<div className="gap-4 grid md:pt-10 md:px-5 md:my-2 md:grid-cols-2">
-				<div>
-					<div className="md:mt-0 mt-5 mb-3">
-						<h1 className="md:py-5 text-xl font-bold">Model Name</h1>
-						<input
-							type="text"
-							className="form-control block w-full px-4 py-2 text-base font-normal
-                  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
-                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
-                  focus:border-blue-600 focus:outline-none"
-							id="model-name"
-							placeholder="Model Name"
-							value={modelName}
-							onChange={handleModelNameChange}/>
-					</div>
-					<div className="mb-3">
-						<h1 className="md:py-5 text-xl font-bold">Input Type</h1>
-						<select id="Input"
-						        className="form-control block w-full px-4 py-2 text-base font-normal
-                  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
-                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
-                  focus:border-blue-600 focus:outline-none"
-						        value={inputType}
-						        onChange={handleInputTypeChange}>
-							<option value="none">(none)</option>
-							<option value="image">image</option>
-							<option value="binary">binary</option>
-							<option value="text">text</option>
-						</select>
-					</div>
-					<div className="mb-3">
-						<h1 className="md:py-5 text-xl font-bold">Output Type</h1>
-						<select id="Output"
-						        className="form-control block w-full px-4 py-2 text-base font-normal
-                  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
-                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
-                  focus:border-blue-600 focus:outline-none"
-						        value={outputType}
-						        onChange={handleOutputTypeChange}>
-							<option value="image">image</option>
-							<option value="binary">binary</option>
-							<option value="text">text</option>
-						</select>
-					</div>
-					<div className="mb-3">
-						<h1 className="md:py-5 text-xl font-bold">Model Region</h1>
-						<select id="countries"
-						        className="form-control block w-full px-4 py-2 text-base font-normal
-                  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
-                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
-                  focus:border-blue-600 focus:outline-none"
-						        value={regionName}
-						        onChange={handleRegionNameChange}>
-							{regions.map((region: { id: number; name: string; }) => (
-								<option key={region.id} value={region.name}>{region.name}</option>
-							))}
-						</select>
-					</div>
-				</div>
-				<div>
-					<div className="mb-3">
-						<h1 className="md:py-5 text-xl font-bold">Category (Option)</h1>
-						<input
-							type="text"
-							className="form-control block w-full px-4 py-2 text-base font-normal
-                  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
-                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
-                  focus:border-blue-600 focus:outline-none"
-							id="category"
-							placeholder="Category"
-							value={category}
-							onChange={handleCategoryChange}/>
-					</div>
-					<div className="mb-3">
-						<h1 className="md:py-5 text-xl font-bold">Price (Option)</h1>
-						<input
-							type="number"
-							min="0"
-							className="form-control block w-full px-4 py-2 text-base font-normal
-                  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
-                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
-                  focus:border-blue-600 focus:outline-none"
-							id="price"
-							placeholder="Price"
-							value={price}
-							onChange={handlePriceChange}/>
-					</div>
-					<div className="mb-3">
-						<h1 className="md:py-5 text-xl font-bold">File Upload</h1>
-						<div className="py-2 rounded border border-solid border-gray-300 text-center item-center">
-							<img style={activeTabIndex === 0 ? {width: '60px', height: '70px'} : {width: '56px', height: '70px'}} alt="img"
-							     className="object-cover w-full inline-block align-middle" src={tabsData[activeTabIndex].img}/>
-							<section className="container h-full">
-								<div {...getRootProps()}
-								     className={hideDrop ? "hidden" : "dropzone cursor-pointer"}>
-									<input {...getInputProps()} />
-									<p className="inline-block px-1 text-gray-500 hover:text-gray-700">
-										Drag & drop a {tabsData[activeTabIndex].label} here, or click to select a {tabsData[activeTabIndex].label}</p>
-								</div>
-								<ul className={hideDrop ? "px-5 pb-5 pt-2" : "hidden"}>{acceptedFileItems}</ul>
-								<div className="pt-2 pr-3">
-									<button onClick={removeFile}
-									        className="submit-btn float-right text-sm py-1 px-1.5 border border-gray border-solid rounded-md hover:border-black">remove
-									</button>
-								</div>
-							</section>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+    return (
+        <div className="py-4">
+            <div className="flex justify-between items-center">
+                <div className="flex items-end">
+                    <p className='head-text'>Model Info</p>
+                    <h1 className="mx-2 text-gray-500">{label}</h1>
+                </div>
+                <div className="flex gap-3 float-right">
+                    <Link to={SitePaths.MY_MODELS}>
+                        <button className="white-btn w-16 p-2">back</button>
+                    </Link>
+                    <button onClick={handleClick} className="submit-btn w-16">next</button>
+                </div>
+            </div>
+            <div className="gap-4 grid md:pt-10 md:px-5 md:my-2 md:grid-cols-2">
+                <div>
+                    <div className="md:mt-0 mt-5 mb-3">
+                        <h1 className="md:py-5 text-xl font-bold">Model Name</h1>
+                        <input
+                            type="text"
+                            className="model-info-input"
+                            placeholder="Model Name"
+                            defaultValue={modelData?.modelName}
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                                modelData.modelName = event.target.value
+                            }
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <h1 className="md:py-5 text-xl font-bold">Input Type</h1>
+                        <select
+                            className="model-info-input"
+                            defaultValue={modelData?.inputType}
+                        >
+                            {Object.values(ModelInputType).map(type => <option key={type} value={type}>{type}</option>)}
+                        </select>
+                    </div>
+                    <div className="mb-3">
+                        <h1 className="md:py-5 text-xl font-bold">Output Type</h1>
+                        <select
+                            className="model-info-input"
+                            defaultValue={modelData?.outputType}
+                            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => modelData.outputType = event.target.value as ModelOutputType}
+                        >
+                            {Object.values(ModelOutputType).map(type => <option key={type}
+                                                                                value={type}>{type}</option>)}
+                        </select>
+                    </div>
+                    <div className="mb-3">
+                        <h1 className="md:py-5 text-xl font-bold">Model Region</h1>
+                        <select
+                            className="model-info-input"
+                            defaultValue={modelData?.regionName}
+                            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => modelData.regionName = event.target.value}
+                        >
+                            {regions.map((region: { id: number; name: string; }) => (
+                                <option key={region.id} value={region.name}>{region.name}</option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <div className="mb-3">
+                        <h1 className="md:py-5 text-xl font-bold">Category (Optional)</h1>
+                        <input
+                            type="text"
+                            className="model-info-input"
+                            id="category"
+                            placeholder="Category"
+                            defaultValue={modelData?.category}
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => modelData.category = event.target.value}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <h1 className="md:py-5 text-xl font-bold">Price (Optional)</h1>
+                        <input
+                            step={100}
+                            type="number"
+                            min="0"
+                            className="model-info-input"
+                            id="price"
+                            placeholder="Price"
+                            defaultValue={modelData?.price}
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => modelData.price = parseInt(event.target.value)}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <h1 className="md:py-5 text-xl font-bold">File Upload</h1>
+                        <div className="py-2 rounded border border-solid border-gray-300 text-center item-center">
+                            <img
+                                alt="img"
+                                className={modelFileType === ModelFileType.IMAGE ? 'tar-image' : 'dockerfile-image'}
+                                src={image}/>
+                            <section className="container h-full">
+                                <div {...getRootProps()}
+                                     className={modelData?.files?.length > 0 ? "hidden" : "dropzone cursor-pointer"}>
+                                    <input {...getInputProps()} />
+                                    <p className="inline-block px-1 text-gray-500 hover:text-gray-700">
+                                        Drag & drop a {label} here, or click to select
+                                        a {label}</p>
+                                </div>
+                                <ul className={modelData?.files?.length > 0 ? "px-5 pb-5 pt-2" : "hidden"}>{acceptedFileItems}</ul>
+                                <div className="pt-2 pr-3">
+                                    <button onClick={removeFile}
+                                            className="submit-btn float-right text-sm py-1 px-1.5 border border-gray border-solid rounded-md hover:border-black">remove
+                                    </button>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 };

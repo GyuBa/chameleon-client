@@ -1,3 +1,6 @@
-.array-JSONForm span[id*="expand-panel"] {
+.array-jsonform span[id*="expand-panel"] {
+    padding-left: 15px;
+}
+.array-jsonform .MuiTypography-root {
     display: none;
 }

@@ -6,10 +6,11 @@ import useGetUserInfo from "../../service/authentication/UserInfoService";
 import UserProfile from "./UserProfile";
 import {GrMoney} from "react-icons/gr";
 import {Link} from "react-router-dom";
-import {useStateContext} from "../../contexts/ContextProvider";
+import {SitePaths} from "../../types/chameleon-platform.common";
+import useGlobalContext from "../../contexts/hook/useGlobalContext";
 
 export default function Navbar() {
-    const {activeMenu, setActiveMenu} = useStateContext();
+    const {activeMenu, setActiveMenu} = useGlobalContext();
     const {user} = useGetUserInfo();
     const [isUserProfileOpen, setUserProfileOpen] = useState(false);
     const userProfileRef = useRef<HTMLDivElement>(null);
@@ -33,7 +34,7 @@ export default function Navbar() {
                     className="main-color relative text-xl rounded-full p-3 hover:bg-light-gray"
             ><AiOutlineMenu/></button>
             <div className="flex">
-                <Link to='/payment' className="flex items-center gap-2 cursor-pointer px-2 mx-2 hover:bg-light-gray rounded-lg">
+                <Link to={SitePaths.PAYMENT} className="flex items-center gap-2 cursor-pointer px-2 mx-2 hover:bg-light-gray rounded-lg">
                     <GrMoney className="w-5 h-5"/>
                     <p>
                         <span className="text-gray-700 text-14">Point </span>
