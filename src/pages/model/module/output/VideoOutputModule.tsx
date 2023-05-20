@@ -10,7 +10,7 @@ import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
 
 const videoURL = '/videos/video.mp4'
 
-export default function SingleVideoViewer(executeData: HistoryEntityData) {
+export default function VideoOutputModule(executeData: HistoryEntityData) {
 
     const videoRef = useRef<HTMLVideoElement>(null);
     let outputInformation = executeData?.outputInfo?.fileName

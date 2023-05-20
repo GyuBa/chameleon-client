@@ -29,7 +29,7 @@ const computeFileSize = async () => {
     return rawSize;
 };
 
-export default function ZipGalleryViewer() {
+export default function ZipGalleryOutputModule() {
 
     let outputExtensions = 'zip';
     const [size, setSize] = useState<number>(0);

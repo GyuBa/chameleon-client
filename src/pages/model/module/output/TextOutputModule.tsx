@@ -5,7 +5,7 @@ import {DownloadUtils} from "../../../../utils/DownloadUtils";
 import {FileUtils} from "../../../../utils/FileUtils";
 import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
 
-export default function SingleTextViewer(executeData: HistoryEntityData) {
+export default function TextOutputModule(executeData: HistoryEntityData) {
     let outputInformation = executeData?.outputInfo?.fileName
     const extension = outputInformation?.split('.').pop();
     let outputPath = executeData?.outputPath

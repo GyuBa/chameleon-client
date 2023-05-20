@@ -11,7 +11,7 @@ import {PageType} from "../../../../types/chameleon-client.enum";
 
 type IFile = File & { preview?: string };
 
-export default function SingleInputUploader(type: PageType, parameters: ModelParameters, modelData: InputModelInfo, executeData: HistoryEntityData) {
+export default function SingleInputModule(type: PageType, parameters: ModelParameters, modelData: InputModelInfo, executeData: HistoryEntityData) {
     const [files, setFiles] = useState<IFile[]>([]);
     const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [uploadExplain, setUploadExplain] = useState<string>('');
