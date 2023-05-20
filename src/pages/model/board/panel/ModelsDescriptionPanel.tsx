@@ -2,12 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {Badge} from "flowbite-react";
 import MDEditor from "@uiw/react-md-editor";
-import {PlatformAPI} from "../../platform/PlatformAPI";
-import {ModelEntityData} from "../../types/chameleon-platform.common";
-import {DescriptionProps} from "../../types/chameleon-client";
+import {PlatformAPI} from "../../../../platform/PlatformAPI";
+import {ModelEntityData, SitePaths} from "../../../../types/chameleon-platform.common";
+import {DescriptionProps} from "../../../../types/chameleon-client";
 import {MdOutlineCancel} from "react-icons/md";
 
-export default function Description({modelId, setSelectedModelId}: DescriptionProps) {
+export default function ModelsDescriptionPanel({modelId, setSelectedModelId}: DescriptionProps) {
     const [modelData, setModelData] = useState<ModelEntityData>();
     const navigate = useNavigate();
 
@@ -15,7 +15,7 @@ export default function Description({modelId, setSelectedModelId}: DescriptionPr
         let completed = false;
 
         if (modelId > -1)
-            (async function () {
+            setTimeout(async function () {
                 try {
                     const model = await PlatformAPI.getModelById(modelId);
                     if (!completed && model.id === modelId) {
@@ -24,8 +24,7 @@ export default function Description({modelId, setSelectedModelId}: DescriptionPr
                 } catch (error) {
                     console.error(error);
                 }
-            })();
-
+            });
         return () => {
             completed = true;
         };
@@ -35,7 +34,7 @@ export default function Description({modelId, setSelectedModelId}: DescriptionPr
     const uniqueName = modelData?.uniqueName;
 
     const handleStart = () => {
-        if (modelId > -1) navigate(`/model/${username}/${uniqueName}`);
+        if (modelId > -1) navigate(SitePaths.MODEL(username!, uniqueName!));
     };
 
     return (
@@ -75,13 +74,15 @@ export default function Description({modelId, setSelectedModelId}: DescriptionPr
                     </div>
                     {modelData?.category !== null && (
                         <div className="flex my-2 justify-items-start gap-2">
-                            <div className="pt-3"><Badge className="bg-teal-100 text-teal-500">{modelData?.category}</Badge></div>
+                            <div className="pt-3"><Badge
+                                className="bg-teal-100 text-teal-500">{modelData?.category}</Badge></div>
                         </div>
                     )}
                 </div>
                 <div className="flex items-center">
                     <div data-color-mode="light" className="my-4 whitespace-pre-wrap">
-                        <MDEditor.Markdown className="py-2" source={modelData?.description} style={{whiteSpace: 'pre-wrap'}}/>
+                        <MDEditor.Markdown className="py-2" source={modelData?.description}
+                                           style={{whiteSpace: 'pre-wrap'}}/>
                     </div>
                 </div>
             </div>

@@ -1,23 +1,20 @@
 import React, {useEffect, useState} from 'react';
-import {Badge, Table} from "flowbite-react";
 import {Link, useLocation} from "react-router-dom";
 import {HiViewGrid} from "react-icons/hi";
 import {FiList} from "react-icons/fi";
 import {RiDeleteBinLine} from "react-icons/ri";
 import {BiAddToQueue, BiDotsVerticalRounded, BiTrash} from "react-icons/bi";
-import Description from "../../../components/layout/Description";
-import Header from "../../../components/layout/Header";
-import {ModelEntityData} from "../../../types/chameleon-platform.common";
-import {TimeUtils} from "../../../utils/TimeUtils";
+import ModelsDescriptionPanel from "./panel/ModelsDescriptionPanel";
+import {ModelEntityData, SitePaths} from "../../../types/chameleon-platform.common";
 import {PlatformAPI} from "../../../platform/PlatformAPI";
 import {useMediaQuery} from "react-responsive";
+import {ModelsLayout} from "../../../types/chameleon-client.enum";
+import {ModelsProps} from "../../../types/chameleon-client";
+import ModelsGridLayout from "./layout/ModelsGridLayout";
+import ModelsListLayout from "./layout/ModelsListLayout";
 
-const modelColumn = {
-    list: ['Model Name', 'Input Type', 'Output Type', 'Region', 'Register', 'Created Time', 'Category', 'Price']
-};
-
-export default function Models() {
-    const [currentLayout, setCurrentLayout] = useState('GridLayout');
+export default function Models(props: ModelsProps) {
+    const [currentLayout, setCurrentLayout] = useState<ModelsLayout>(ModelsLayout.GRID_LAYOUT);
     const [menuState, setMenuState] = useState(false);
     const [models, setModels] = useState<ModelEntityData[]>([]);
     const [selectedModelId, setSelectedModelId] = useState<number>(-1);
@@ -29,7 +26,7 @@ export default function Models() {
         let completed = false;
         (async function () {
             try {
-                const models = (location.pathname === '/models/my')
+                const models = props.ownOnly
                     ? await PlatformAPI.getMyModels()
                     : await PlatformAPI.getModels();
                 if (!completed) setModels(models);
@@ -41,7 +38,7 @@ export default function Models() {
         return () => {
             completed = true;
         };
-    }, [location.pathname]);
+    }, [props.ownOnly]);
 
     const onModelSelect = (modelData: ModelEntityData) => {
         setSelectedModelId(modelData.id);
@@ -49,7 +46,8 @@ export default function Models() {
 
     const ArrangeMenu = () => (
         <div className="flex items-center gap-2">
-            <Link to="/models/create" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
+            <Link to={SitePaths.CREATE_MODEL}
+                  className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
                 <BiAddToQueue size="25" color="#484848" className="pl-1"/>
                 <span
                     className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Create Model</span>
@@ -64,7 +62,9 @@ export default function Models() {
 
     const DropdownMenu = () => (
         <div>
-            <button type="button" onClick={() => {setMenuState(prevState => !prevState)}}
+            <button type="button" onClick={() => {
+                setMenuState(prevState => !prevState)
+            }}
                     className="relative text-xl rounded-full p-1 hover:bg-light-gray focus:bg-gray">
                 {<BiDotsVerticalRounded aria-hidden="true" size="30"/>}
             </button>
@@ -74,80 +74,17 @@ export default function Models() {
 
     const Menu = () => (
         <div className="nav-item absolute right-4 top-30 bg-white drop-shadow-lg py-2 px-4 rounded-lg w-40">
-            <Link to="/models/create" className="flex gap-1 border-b-1 border-gray-400 hover:bg-gray-100 items-center">
+            <Link to={SitePaths.CREATE_MODEL}
+                  className="flex gap-1 border-b-1 border-gray-400 hover:bg-gray-100 items-center">
                 <BiAddToQueue size="25" color="#484848" className="pl-1"/>
                 <span
                     className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Create Model</span>
             </Link>
-            <Link to="/" className="flex gap-1 hover:bg-gray-100 items-center">
+            <Link to={SitePaths.ROOT} className="flex gap-1 hover:bg-gray-100 items-center">
                 <RiDeleteBinLine size="25" color="#484848" className="pl-1"/>
                 <span
                     className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Delete Model</span>
             </Link>
-        </div>
-    );
-
-    const GridLayout = () => (
-        <div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 gap-4">
-            {models.map((modelData) => (
-                <div key={modelData.id} onClick={() => onModelSelect(modelData)}
-                    className="w-auto px-5 p-5 mb-4 mr-1 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl cursor-pointer">
-                    <div className="flex border-b-2 justify-between">
-                        <p className="font-semibold text-xl break-all">{modelData.name}</p>
-                        {modelData.price !== 0 && (
-                            <div className="flex gap-2 justify-between items-center">
-                                <div className="text-red-600 pl-2">￦{modelData.price.toLocaleString('ko-KR')}</div>
-                            </div>
-                        )}
-                    </div>
-                    <div className="flex justify-between items-center">
-                        <div className="flex py-3 gap-3">
-                            <Badge color="indigo">Input: {modelData.inputType}</Badge>
-                            <Badge color="purple">Output: {modelData.outputType}</Badge>
-                            {modelData.category !== null && (<Badge className="bg-teal-100 text-teal-500">{modelData.category}</Badge>)}
-                        </div>
-                    </div>
-                    <div className="flex mt-10 justify-between">
-                        <div className="text-sm text-gray-500 py-3">{TimeUtils.timeSince(modelData.createdTime)} · {modelData.register.username}</div>
-                        <div className="py-3"><Badge color="gray">{modelData.image.region.name}</Badge></div>
-                    </div>
-                </div>
-            ))}
-        </div>
-    );
-
-    const ListLayout = () => (
-        <div>
-            <Table hoverable={true}>
-                <Table.Head>
-                    {modelColumn.list.map((item) => (<Table.HeadCell>{item}</Table.HeadCell>))}
-                </Table.Head>
-                <Table.Body className="divide-y">
-                    {models.map((modelData) => (
-                        <Table.Row className="bg-white cursor-pointer" onClick={() => onModelSelect(modelData)}>
-                            <Table.Cell className="whitespace-nowrap font-medium text-gray-900">{modelData.name}</Table.Cell>
-                            <Table.Cell>
-                                <div className="flex"><Badge color="indigo">{modelData.inputType}</Badge></div>
-                            </Table.Cell>
-                            <Table.Cell>
-                                <div className="flex"><Badge color="purple">{modelData.outputType}</Badge></div>
-                            </Table.Cell>
-                            <Table.Cell>{modelData.image.region.name}</Table.Cell>
-                            <Table.Cell>{modelData.register.username}</Table.Cell>
-                            <Table.Cell>{TimeUtils.formatTime(modelData.createdTime)}</Table.Cell>
-                            {modelData.category === null ? (<Table.Cell></Table.Cell>) : (
-                                <Table.Cell>
-                                    <div className="flex">
-                                        <Badge className="bg-teal-100 text-teal-500">{modelData.category}</Badge>
-                                    </div>
-                                </Table.Cell>
-                            )}
-                            {modelData.price === 0 ? ( <Table.Cell></Table.Cell> ) : (
-                                <Table.Cell><div className="text-red-600">￦{modelData.price.toLocaleString('ko-KR')}</div></Table.Cell>)}
-                        </Table.Row>
-                    ))}
-                </Table.Body>
-            </Table>
         </div>
     );
 
@@ -157,31 +94,33 @@ export default function Models() {
                 <div className="flex justify-between items-center">
                     <div className="flex">
                         {(location.pathname === '/models/my') ?
-                            <Header title="My Models"/> : <Header title="All Models"/>
+                            <p className='head-text'>My Models</p> : <p className='head-text'>All Models</p>
                         }
-                        <button onClick={() => setCurrentLayout("GridLayout")} type="button"
-                                className={`ml-2 mr-1 text-xl rounded-full p-2 hover:bg-light-gray focus:bg-gray ${currentLayout === "GridLayout" ? "bg-light-gray" : null}`}>
+                        <button onClick={() => setCurrentLayout(ModelsLayout.GRID_LAYOUT)} type="button"
+                                className={`ml-2 mr-1 text-xl rounded-full p-2 hover:bg-light-gray focus:bg-gray ${currentLayout === ModelsLayout.GRID_LAYOUT ? "bg-light-gray" : ''}`}>
                             {<HiViewGrid size="21" className="text-gray-500"/>}
                         </button>
-                        <button onClick={() => setCurrentLayout("ListLayout")} type="button"
-                                className={`text-xl rounded-full p-2 hover:bg-light-gray focus:bg-gray ${currentLayout === "ListLayout" ? "bg-light-gray" : null}`}>
+                        <button onClick={() => setCurrentLayout(ModelsLayout.LIST_LAYOUT)} type="button"
+                                className={`text-xl rounded-full p-2 hover:bg-light-gray focus:bg-gray ${currentLayout === ModelsLayout.LIST_LAYOUT ? "bg-light-gray" : ''}`}>
                             {<FiList size="21" className="text-gray-500"/>}
                         </button>
                     </div>
                     {!isDesktopOrMobile ? <ArrangeMenu/> : <DropdownMenu/>}
                 </div>
                 <div className="mt-10 max-h-screen overflow-auto">
-                    {currentLayout === "GridLayout" ? <GridLayout/> : <ListLayout/>}
+                    {currentLayout === ModelsLayout.GRID_LAYOUT ?
+                        <ModelsGridLayout models={models} onModelSelect={onModelSelect}/> :
+                        <ModelsListLayout models={models} onModelSelect={onModelSelect}/>}
                 </div>
             </div>
             {selectedModelId > 0 ?
                 <div className="w-[700px] ease-in-out duration-300 translate-x-0">
-                    <Description modelId={selectedModelId} setSelectedModelId={setSelectedModelId}/>
+                    <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId}/>
                 </div>
                 :
                 <div className="w-0 ease-in-out duration-300 translate-x-full">
                     <div className="hidden">
-                        <Description modelId={selectedModelId} setSelectedModelId={setSelectedModelId}/>
+                        <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId}/>
                     </div>
                 </div>
             }
