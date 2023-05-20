@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import kakao from '../../assets/images/payment/kakao.png'
 import payco from '../../assets/images/payment/payco.png'
 import toss from '../../assets/images/payment/toss.png'
-import Header from "../../components/layout/Header";
 import {PlatformAPI} from "../../platform/PlatformAPI";
+import {SitePaths} from "../../types/chameleon-platform.common";
 
 export interface Iamport {
     init: (accountID: string) => void;
@@ -92,7 +92,7 @@ export default function Payment() {
             alert(`결제 실패: ${error_msg}`);
         }
         alert(Number(k_money) + Number(t_money) + Number(p_money));
-        document.location.href = "/models/all";
+        document.location.href = SitePaths.ALL_MODELS;
     }
 
     function KaKaopay() {
@@ -110,7 +110,7 @@ export default function Payment() {
     return (
         <div className="contents">
             <div className="m-2 md:m-10 mt-24">
-                <Header title="Charge Points"/>
+                <p className='head-text'>Charge Points</p>
                 <div className="my-4 border-gray-400 rounded-3xl border-1 p-6 grid grid-cols-3 divide-x">
                     <div className="text-center">
                         <img className="card-img-top" width="400" height="700" src={kakao} alt="kakao"/>
