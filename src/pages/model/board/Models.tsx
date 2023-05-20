@@ -184,9 +184,9 @@ export default function Models(props: ModelsProps) {
                             {<FiList size="21" className="text-gray-500"/>}
                         </button>
                         {!isDesktopOrMobile ? <ArrangeMenu/> : <DropdownMenu/>}
-                        <div className="flex">
-                            {(location.pathname === '/models/all') && <SearchBar/>}
-                        </div>
+                    </div>
+                    <div className="flex">
+                        {<SearchBar/>}
                     </div>
                 </div>
                 <div className="mt-10 max-h-screen overflow-auto">
