@@ -1,20 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import {Badge, Table} from "flowbite-react";
 import {Link, useLocation} from "react-router-dom";
-import {HiViewGrid} from "react-icons/hi";
+import {HiViewGrid, HiOutlineSearch} from "react-icons/hi";
 import {FiList} from "react-icons/fi";
 import {RiDeleteBinLine} from "react-icons/ri";
 import {BiAddToQueue, BiDotsVerticalRounded, BiTrash} from "react-icons/bi";
 import Description from "../../../components/layout/Description";
 import Header from "../../../components/layout/Header";
-import {ModelEntityData} from "../../../types/chameleon-platform.common";
+import {ModelEntityData, ModelSearchOption} from "../../../types/chameleon-platform.common";
 import {TimeUtils} from "../../../utils/TimeUtils";
 import {PlatformAPI} from "../../../platform/PlatformAPI";
 import {useMediaQuery} from "react-responsive";
+import {MdKeyboardArrowDown} from "react-icons/md";
 
 const modelColumn = {
     list: ['Model Name', 'Input Type', 'Output Type', 'Region', 'Register', 'Created Time', 'Category', 'Price']
 };
+const ModelSearchOptions = Object.values(ModelSearchOption);
 
 export default function Models() {
     const [currentLayout, setCurrentLayout] = useState('GridLayout');
@@ -23,6 +25,8 @@ export default function Models() {
     const [selectedModelId, setSelectedModelId] = useState<number>(-1);
     const location = useLocation();
     const isDesktopOrMobile = useMediaQuery({query: '(max-width:767px)'});
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchOption, setSearchOption] = useState(ModelSearchOption.NAME);
 
     useEffect(() => {
         setSelectedModelId(-1);
@@ -31,7 +35,7 @@ export default function Models() {
             try {
                 const models = (location.pathname === '/models/my')
                     ? await PlatformAPI.getMyModels()
-                    : await PlatformAPI.getModels();
+                    : await PlatformAPI.getModels({ searchOption, searchTerm });
                 if (!completed) setModels(models);
             } catch (error) {
                 console.error(error);
@@ -41,23 +45,23 @@ export default function Models() {
         return () => {
             completed = true;
         };
-    }, [location.pathname]);
+    }, [location.pathname, searchOption, searchTerm]);
 
     const onModelSelect = (modelData: ModelEntityData) => {
         setSelectedModelId(modelData.id);
     };
 
     const ArrangeMenu = () => (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
             <Link to="/models/create" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
                 <BiAddToQueue size="25" color="#484848" className="pl-1"/>
                 <span
-                    className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Create Model</span>
+                    className="text-gray-700 flex justify-between w-full px-1 py-1 text-sm leading-5 text-left">Create Model</span>
             </Link>
             <Link to="/" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
                 <BiTrash size="25" color="#484848" className="pl-1"/>
                 <span
-                    className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Delete Model</span>
+                    className="text-gray-700 flex justify-between w-full px-1 py-1 text-sm leading-5 text-left">Delete Model</span>
             </Link>
         </div>
     );
@@ -151,6 +155,82 @@ export default function Models() {
         </div>
     );
 
+    const Dropdown = () => {
+        const [isOpen, setIsOpen] = useState(false);
+        const handleCategorySelect = (category :  ModelSearchOption) => {
+            setSearchOption(category);
+            setIsOpen(false);
+            setSearchTerm('');
+        };
+        return (
+            <div className="relative">
+                <button id="dropdown-button"
+                    className="flex items-center py-2.5 px-4 text-sm font-medium
+                    text-gray-900 bg-gray-100 border border-gray-300 rounded-l-lg hover:bg-gray-200
+                    focus:ring-4 focus:outline-none focus:ring-gray-100 w-[190px]"
+                    type="button"
+                    onClick={() => setIsOpen(!isOpen)}
+                >
+                    <div className="flex-grow text-left">
+                        {searchOption}
+                    </div>
+                    <div className="text-right">
+                        <MdKeyboardArrowDown size={20} className="text-gray-400 text-14"/>
+                    </div>
+                </button>
+                {isOpen && (
+                    <div id="dropdown"
+                        className="absolute w-full z-20 bg-white divide-y divide-gray-100 rounded-lg shadow">
+                        <ul className="py-2 text-sm text-gray-700">
+                            {ModelSearchOptions.map((item) => (
+                                <li key={item}>
+                                    <button type="button"
+                                            className="inline-flex text-left w-full px-4 py-2 hover:bg-gray-100"
+                                            onClick={() => handleCategorySelect(item)}
+                                    >{item}</button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+            </div>
+        );
+    };
+
+    const SearchBar = () => {
+        const [temporarySearchTerm, setTemporarySearchTerm] = useState('');
+        return(
+            <div className="flex">
+                <Dropdown/>
+                <div className="relative w-96">
+                    <input
+                        type="search"
+                        id="search-dropdown"
+                        className="block p-2.5 w-full z-20 text-sm text-gray-900
+                    bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2
+                    border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Search Model Name, Input, Output..."
+                        value={temporarySearchTerm}
+                        onChange={(e) => setTemporarySearchTerm(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                setSearchTerm(temporarySearchTerm);
+                            }
+                        }}
+                    />
+                    <button
+                        type="button"
+                        className="absolute top-0 right-0 p-2.5 text-sm font-medium
+                    text-white bg-main-blue rounded-r-lg border border-blue-700
+                    hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                        onClick={() => setSearchTerm(temporarySearchTerm)}
+                    ><HiOutlineSearch size={20}/>
+                    </button>
+                </div>
+            </div>
+        )
+    };
+
     return (
         <div className="contents">
             <div className="w-full m-2 md:m-10 mt-24">
@@ -167,8 +247,11 @@ export default function Models() {
                                 className={`text-xl rounded-full p-2 hover:bg-light-gray focus:bg-gray ${currentLayout === "ListLayout" ? "bg-light-gray" : null}`}>
                             {<FiList size="21" className="text-gray-500"/>}
                         </button>
+                        {!isDesktopOrMobile ? <ArrangeMenu/> : <DropdownMenu/>}
                     </div>
-                    {!isDesktopOrMobile ? <ArrangeMenu/> : <DropdownMenu/>}
+                    <div className="flex">
+                        {(location.pathname === '/models/all') && <SearchBar/>}
+                    </div>
                 </div>
                 <div className="mt-10 max-h-screen overflow-auto">
                     {currentLayout === "GridLayout" ? <GridLayout/> : <ListLayout/>}
