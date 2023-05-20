@@ -1,14 +1,15 @@
+import React from "react";
 import {HistoryEntityData, HistoryStatus, ModelOutputType} from "../../../types/chameleon-platform.common";
+import NullViewer from "./Output/NullViewer";
 import SingleImageViewer from "./Output/SingleImageViewer"
 import SingleTextViewer from "./Output/SingleTextViewer";
 import SingleVideoViewer from "./Output/SingleVideoViewer";
-import React from "react";
-import NullViewer from "./Output/NullViewer";
+import SingleSoundViewer from "./Output/SingleSoundViewer";
+import ZipGalleryViewer from "./Output/ZipGalleryViewer";
 
 export default function OutputModule(executeData: HistoryEntityData) {
     let outputType = executeData?.outputType;
     let status = executeData?.status
-
     let Module;
 
     if (status === HistoryStatus.FINISHED && (outputType === ModelOutputType.IMAGE || outputType === ModelOutputType.BINARY)) {
@@ -17,6 +18,10 @@ export default function OutputModule(executeData: HistoryEntityData) {
         Module = (executeData) ? () => SingleTextViewer(executeData) : NullViewer;
     } else if (status === HistoryStatus.FINISHED && outputType === ModelOutputType.VIDEO) {
         Module = (executeData) ? () => SingleVideoViewer(executeData) : NullViewer;
+    } else if (status === HistoryStatus.FINISHED && outputType === ModelOutputType.SOUND) {
+        Module = (executeData) ? () => SingleSoundViewer(executeData) : NullViewer;
+    } else if (status === HistoryStatus.FINISHED && outputType === ModelOutputType.ZIP) {
+        Module = (executeData) ? () => ZipGalleryViewer(executeData) : NullViewer;
     } else
         Module = NullViewer
 
