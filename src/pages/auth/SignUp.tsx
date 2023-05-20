@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {AxiosError} from "axios";
+import {SitePaths} from "../../types/chameleon-platform.common";
 
 const imageURL = '/logo1.png'
 
@@ -26,7 +27,7 @@ export default function SignUp() {
                 await PlatformAPI.signUp(email, password, username);
                 console.log("가입 성공");
                 alert("가입에 성공하였습니다.");
-                document.location.href = "/sign-in";
+                document.location.href = SitePaths.SIGN_IN;
             } catch (e) {
                 if (e instanceof AxiosError && e.status === 401) {
                     alert('가입에 실패하였습니다.');
@@ -94,7 +95,7 @@ export default function SignUp() {
                         <form>
                             <div className="flex flex-row items-center justify-center lg:justify-start">
                                 <p className="text-sm mb-0 mr-4 text-black">Already have an Account?</p>
-                                <Link to="/sign-in"
+                                <Link to={SitePaths.SIGN_IN}
                                       className="text-sm text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
                                 >Sign In</Link>
                             </div>

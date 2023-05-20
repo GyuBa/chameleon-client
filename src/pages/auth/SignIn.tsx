@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {AxiosError} from "axios";
 import useGetUserInfo from "../../service/authentication/UserInfoService";
+import {SitePaths} from "../../types/chameleon-platform.common";
 
 const imageURL = '/logo1.png'
 export default function SignIn() {
@@ -23,7 +24,7 @@ export default function SignIn() {
                 await PlatformAPI.signIn(email, password);
                 const isSignedIn = getCookieValue('connect.sid');
                 if (isSignedIn) {
-                    window.location.href = '/models/all';
+                    window.location.href = SitePaths.ALL_MODELS;
                 }
             } catch (e) {
                 if (e instanceof AxiosError && e.status === 401) {
@@ -53,7 +54,7 @@ export default function SignIn() {
                         <form>
                             <div className="flex flex-row items-center justify-center lg:justify-start">
                                 <p className="text-sm mb-0 mr-4 text-black">Don't have an account?</p>
-                                <Link to="/sign-up"
+                                <Link to={SitePaths.SIGN_UP}
                                       className="text-sm text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
                                 >Sign Up</Link>
                             </div>
