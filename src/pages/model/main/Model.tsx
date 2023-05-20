@@ -1,27 +1,27 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useLocation, useParams} from "react-router-dom";
-import InputModule from "../module/Input"
-import OutputModule from "../module/Output"
-import OutputDescriptionModule from "../module/OutputDescription"
-import {executeParam} from "../../../assets/Dummy";
+import OutputDescriptionModule from "../module/description/OutputDescription"
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonForms} from "@jsonforms/react";
 import {JsonViewer} from "@textea/json-viewer";
-import Header from "../../../components/layout/Header";
 import {Oval} from "react-loader-spinner";
 import {
     HistoryEntityData,
     HistoryStatus,
-    ModelEntityData, ModelParameters,
+    ModelEntityData,
+    ModelParameters,
+    SitePaths,
     WSMessageType,
     WSUpdateHistoryMessage
 } from "../../../types/chameleon-platform.common";
 import {PlatformAPI} from "../../../platform/PlatformAPI"
 import useWebSocket from "react-use-websocket";
 import {PageType} from "../../../types/chameleon-client.enum";
+import InputModule from "../module/core/InputModule";
+import OutputModule from "../module/core/OutputModule";
 
 const initialData: ModelParameters = {} as ModelParameters;
-export default function ExecuteModel() {
+export default function Model() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const [parameters, setParameters] = useState<ModelParameters>(initialData);
     const [modelData, setModelData] = useState<ModelEntityData>();
@@ -30,8 +30,7 @@ export default function ExecuteModel() {
 
     let path = useLocation().pathname.slice(1);
     useEffect(() => {
-        let completed = false;
-        (async function get() {
+        (async function () {
             try {
                 const model = await PlatformAPI.getModelByUsernameAndUniqueName(username!, uniqueName!)
                 setModelData(model);
@@ -39,10 +38,6 @@ export default function ExecuteModel() {
                 console.error(error);
             }
         })();
-
-        return () => {
-            completed = true;
-        };
     }, [username, uniqueName]);
 
     const {
@@ -89,7 +84,7 @@ export default function ExecuteModel() {
             <div className="w-full m-2 md:m-10 mt-24">
                 <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
                     <div className="flex justify-between items-end">
-                        <Header title="Model"/>
+                        <p className='head-text'>Model</p>
                         <h1 className="mx-2 text-gray-500">{modelData?.name}</h1>
                         <div>
                             <div>
@@ -105,7 +100,7 @@ export default function ExecuteModel() {
                             </div>
                         </div>
                     </div>
-                    <Link to="/models/all">
+                    <Link to={SitePaths.ALL_MODELS}>
                         <button className="blue-btn text-sm w-full p-1.5">back</button>
                     </Link>
                 </div>
@@ -113,7 +108,7 @@ export default function ExecuteModel() {
                     <div className="row-span-2 rounded-lg border-1 border-gray-300 overflow-auto">
                         <div className="border-b border-gray-300" style={{backgroundColor: '#F6F6F6'}}>
                             <div className="flex md:p-2 space-x-3 rounded-lg">
-                                {executeParam.map((tab, idx) => {
+                                {['Parameters', 'Parameters (JSON)'].map((label, idx) => {
                                     return (
                                         <button
                                             key={idx}
@@ -123,7 +118,7 @@ export default function ExecuteModel() {
                                                     : "border-transparent hover:border-gray-200"
                                             }`}
                                             onClick={() => setActiveTabIndex(idx)}>
-                                            {tab.label}
+                                            {label}
                                         </button>
                                     );
                                 })}
