@@ -8,7 +8,7 @@ export default function ModelsListLayout({models, onModelSelect}: ModelsLayoutPr
         <Table hoverable={true}>
             <Table.Head>
                 {['Model Name', 'Input Type', 'Output Type', 'Region', 'Register', 'Created Time', 'Category', 'Price'].map((item) => (
-                    <Table.HeadCell>{item}</Table.HeadCell>))}
+                    <Table.HeadCell key={item}>{item}</Table.HeadCell>))}
             </Table.Head>
             <Table.Body className="divide-y">
                 {models.map((modelData) => (
