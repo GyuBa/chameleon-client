@@ -1,16 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Badge, Table} from "flowbite-react";
 import {Link, useLocation} from "react-router-dom";
-import {HiViewGrid, HiOutlineSearch} from "react-icons/hi";
+import {HiOutlineSearch, HiViewGrid} from "react-icons/hi";
 import {FiList} from "react-icons/fi";
 import {RiDeleteBinLine} from "react-icons/ri";
 import {BiAddToQueue, BiDotsVerticalRounded, BiTrash} from "react-icons/bi";
 import ModelsDescriptionPanel from "./panel/ModelsDescriptionPanel";
-import {ModelEntityData, SitePaths} from "../../../types/chameleon-platform.common";
-import Description from "../../../components/layout/Description";
-import Header from "../../../components/layout/Header";
-import {ModelEntityData, ModelSearchOption} from "../../../types/chameleon-platform.common";
-import {TimeUtils} from "../../../utils/TimeUtils";
+import {ModelEntityData, ModelSearchOption, SitePaths} from "../../../types/chameleon-platform.common";
 import {PlatformAPI} from "../../../platform/PlatformAPI";
 import {useMediaQuery} from "react-responsive";
 import {ModelsLayout} from "../../../types/chameleon-client.enum";
@@ -35,8 +30,8 @@ export default function Models(props: ModelsProps) {
         (async function () {
             try {
                 const models = props.ownOnly
-                    ? await PlatformAPI.getMyModels( {searchOption, searchTerm} )
-                    : await PlatformAPI.getModels({ searchOption, searchTerm });
+                    ? await PlatformAPI.getMyModels({searchOption, searchTerm})
+                    : await PlatformAPI.getModels({searchOption, searchTerm});
                 if (!completed) setModels(models);
             } catch (error) {
                 console.error(error);
@@ -98,7 +93,7 @@ export default function Models(props: ModelsProps) {
 
     const Dropdown = () => {
         const [isOpen, setIsOpen] = useState(false);
-        const handleCategorySelect = (category :  ModelSearchOption) => {
+        const handleCategorySelect = (category: ModelSearchOption) => {
             setSearchOption(category);
             setIsOpen(false);
             setSearchTerm('');
@@ -106,11 +101,11 @@ export default function Models(props: ModelsProps) {
         return (
             <div className="relative">
                 <button id="dropdown-button"
-                    className="flex items-center py-2.5 px-4 text-sm font-medium
+                        className="flex items-center py-2.5 px-4 text-sm font-medium
                     text-gray-900 bg-gray-100 border border-gray-300 rounded-l-lg hover:bg-gray-200
                     focus:ring-4 focus:outline-none focus:ring-gray-100 w-[190px]"
-                    type="button"
-                    onClick={() => setIsOpen(!isOpen)}
+                        type="button"
+                        onClick={() => setIsOpen(!isOpen)}
                 >
                     <div className="flex-grow text-left">
                         {searchOption}
@@ -121,9 +116,9 @@ export default function Models(props: ModelsProps) {
                 </button>
                 {isOpen && (
                     <div id="dropdown"
-                        className="absolute w-full z-20 bg-white divide-y divide-gray-100 rounded-lg shadow">
+                         className="absolute w-full z-20 bg-white divide-y divide-gray-100 rounded-lg shadow">
                         <ul className="py-2 text-sm text-gray-700">
-                            {ModelSearchOptions.map((item) => (
+                            {Object.values(ModelSearchOption).map((item) => (
                                 <li key={item}>
                                     <button type="button"
                                             className="inline-flex text-left w-full px-4 py-2 hover:bg-gray-100"
@@ -140,7 +135,7 @@ export default function Models(props: ModelsProps) {
 
     const SearchBar = () => {
         const [temporarySearchTerm, setTemporarySearchTerm] = useState('');
-        return(
+        return (
             <div className="flex">
                 <Dropdown/>
                 <div className="relative w-96">
@@ -188,8 +183,11 @@ export default function Models(props: ModelsProps) {
                                 className={`text-xl rounded-full p-2 hover:bg-light-gray focus:bg-gray ${currentLayout === ModelsLayout.LIST_LAYOUT ? "bg-light-gray" : ''}`}>
                             {<FiList size="21" className="text-gray-500"/>}
                         </button>
+                        {!isDesktopOrMobile ? <ArrangeMenu/> : <DropdownMenu/>}
+                        <div className="flex">
+                            {(location.pathname === '/models/all') && <SearchBar/>}
+                        </div>
                     </div>
-                    {!isDesktopOrMobile ? <ArrangeMenu/> : <DropdownMenu/>}
                 </div>
                 <div className="mt-10 max-h-screen overflow-auto">
                     {currentLayout === ModelsLayout.GRID_LAYOUT ?

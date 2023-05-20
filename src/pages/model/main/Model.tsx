@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useLocation, useParams} from "react-router-dom";
-import OutputDescriptionModule from "../module/description/OutputDescription"
+import OutputDescriptionModule from "../module/description/OutputDescriptionModule"
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonForms} from "@jsonforms/react";
 import {JsonViewer} from "@textea/json-viewer";
