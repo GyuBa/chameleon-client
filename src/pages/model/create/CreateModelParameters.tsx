@@ -33,8 +33,10 @@ export default function CreateModelParameters() {
     });
 
     useEffect(() => {
-        modelData.parameters = parameters;
-        setModelData(modelData);
+        if (modelData) {
+            modelData.parameters = parameters;
+            setModelData(modelData);
+        }
     }, [parameters]);
 
 
