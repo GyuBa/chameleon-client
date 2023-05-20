@@ -1,12 +1,52 @@
 import React from 'react';
 import {Link, NavLink} from 'react-router-dom';
-import {links} from '../../assets/Dummy';
-import {GiChameleonGlyph} from 'react-icons/gi';
-import {MdOutlineCancel} from 'react-icons/md';
-import {useStateContext} from "../../contexts/ContextProvider";
+import {SitePaths} from "../../types/chameleon-platform.common";
+import {BiCreditCard, BiFolder} from 'react-icons/bi';
+import {RiHistoryFill} from 'react-icons/ri';
+import {MdOutlineAccountCircle, MdOutlineCancel} from 'react-icons/md';
+import useGlobalContext from "../../contexts/hook/useGlobalContext";
+import {GiChameleonGlyph} from "react-icons/gi";
 
+
+const links = [
+    {
+        title: 'Models',
+        links: [
+            {
+                name: 'All Models',
+                link: SitePaths.ALL_MODELS,
+                icon: <BiFolder/>,
+            },
+            {
+                name: 'My Models',
+                link: SitePaths.MY_MODELS,
+                icon: <BiFolder/>,
+            },
+            {
+                name: 'Histories',
+                link: SitePaths.HISTORIES,
+                icon: <RiHistoryFill/>,
+            },
+        ],
+    },
+    {
+        title: 'My Profile',
+        links: [
+            {
+                name: 'Account',
+                link: SitePaths.ACCOUNT,
+                icon: <MdOutlineAccountCircle/>,
+            },
+            {
+                name: 'Payment',
+                link: SitePaths.PAYMENT,
+                icon: <BiCreditCard/>,
+            },
+        ],
+    },
+];
 export default function Sidebar() {
-    const {activeMenu, setActiveMenu} = useStateContext();
+    const {activeMenu, setActiveMenu} = useGlobalContext();
     const handleCloseSideBar = () => {
         if (activeMenu !== undefined) setActiveMenu(false);
     };
@@ -16,7 +56,7 @@ export default function Sidebar() {
             {activeMenu && (
                 <div>
                     <div className="flex justify-between items-center">
-                        <Link to="/models/all" onClick={handleCloseSideBar}
+                        <Link to={SitePaths.ALL_MODELS} onClick={handleCloseSideBar}
                               className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight text-slate-900">
                             <GiChameleonGlyph/><span>Chameleon Platform</span>
                         </Link>
@@ -33,7 +73,7 @@ export default function Sidebar() {
                                 {item.links.map((link) => (
                                     <NavLink
                                         onClick={handleCloseSideBar}
-                                        to={`/${link.link}`}
+                                        to={`${link.link}`}
                                         key={link.name}
                                         className={({isActive}) => isActive ? 'side-bar-nav-link-active' : 'side-bar-nav-link'}
                                     >
