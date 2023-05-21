@@ -6,6 +6,10 @@ import {HistoryEntityData, ModelInputType, ModelParameters} from "../../../../ty
 import {InputModelInfo} from "../../../../types/chameleon-client";
 import {PageType} from "../../../../types/chameleon-client.enum";
 
+const InputModuleMap = {
+  [ModelInputType.IMAGE]: EmptyInputModule,
+  [ModelInputType.SOUND]: SingleInputModule,
+};
 export default function InputModule(type: PageType, parameters: ModelParameters, modelData: InputModelInfo, executeData: HistoryEntityData) {
     let inputType = modelData?.inputType;
     let Module;

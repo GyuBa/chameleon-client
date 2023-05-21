@@ -2,14 +2,13 @@ import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {AxiosError} from "axios";
-import useGetUserInfo from "../../service/authentication/UserInfoService";
 import {SitePaths} from "../../types/chameleon-platform.common";
+import {CookieUtils} from "../../utils/CookieUtils";
 
 const imageURL = '/logo1.png'
 export default function SignIn() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const {getCookieValue} = useGetUserInfo();
 
     const signIn = async (e: any) => {
         e.preventDefault();
@@ -22,7 +21,7 @@ export default function SignIn() {
         } else {
             try {
                 await PlatformAPI.signIn(email, password);
-                const isSignedIn = getCookieValue('connect.sid');
+                const isSignedIn = CookieUtils.getCookieValue('connect.sid');
                 if (isSignedIn) {
                     window.location.href = SitePaths.ALL_MODELS;
                 }

@@ -1,9 +1,10 @@
 import React from 'react';
 import {BsFillPersonLinesFill, BsPersonCircle} from 'react-icons/bs';
 import {Link, NavLink} from 'react-router-dom';
-import useGetUserInfo from "../../service/authentication/UserInfoService";
 import {GiArtificialHive} from "react-icons/gi";
 import {SitePaths} from "../../types/chameleon-platform.common";
+import useGlobalContext from "../../contexts/hook/useGlobalContext";
+import {PlatformAPI} from "../../platform/PlatformAPI";
 
 export const userProfileData = [
     {
@@ -24,7 +25,7 @@ export const userProfileData = [
     },
 ];
 export default function UserProfile() {
-    const {handleSignOut, user} = useGetUserInfo();
+    const {user} = useGlobalContext();
 
     return (
         <div className="user-profile nav-item absolute right-1 top-12 bg-white p-8 rounded-3xl w-96 drop-shadow-xl">
@@ -61,7 +62,10 @@ export default function UserProfile() {
             <div className="mt-5">
                 <Link to={SitePaths.SIGN_IN}
                       className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight text-slate-900">
-                    <button className="submit-btn w-full p-3" onClick={handleSignOut}>Sign Out</button>
+                    <button className="submit-btn w-full p-3" onClick={async () => {
+                        await PlatformAPI.signOut();
+                    }}>Sign Out
+                    </button>
                 </Link>
             </div>
         </div>
