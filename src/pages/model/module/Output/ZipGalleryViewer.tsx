@@ -3,10 +3,10 @@ import fetchProgress from 'fetch-progress';
 import {BlobReader, BlobWriter, ZipReader} from '@zip.js/zip.js';
 import {Gallery, Image} from "react-grid-gallery";
 import Lightbox from "yet-another-react-lightbox";
-import Zoom from "yet-another-react-lightbox/plugins/zoom";
+/* import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Captions from "yet-another-react-lightbox/plugins/captions";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
-import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
+import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen"; */
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/captions.css";
