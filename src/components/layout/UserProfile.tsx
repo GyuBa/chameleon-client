@@ -1,20 +1,35 @@
 import React from 'react';
-import {MdOutlineCancel} from 'react-icons/md';
-import {BsPersonCircle} from 'react-icons/bs';
-import {userProfileData} from '../../assets/Dummy';
+import {BsFillPersonLinesFill, BsPersonCircle} from 'react-icons/bs';
 import {Link, NavLink} from 'react-router-dom';
 import useGetUserInfo from "../../service/authentication/UserInfoService";
+import {GiArtificialHive} from "react-icons/gi";
+import {SitePaths} from "../../types/chameleon-platform.common";
 
-
+export const userProfileData = [
+    {
+        icon: <BsFillPersonLinesFill/>,
+        title: 'My Profile',
+        name: 'account',
+        desc: 'Account Settings',
+        iconColor: '#03C9D7',
+        iconBg: '#E5FAFB',
+    },
+    {
+        icon: <GiArtificialHive/>,
+        title: 'My Models',
+        name: 'models/my',
+        desc: 'My Model Lists',
+        iconColor: 'rgb(0, 194, 146)',
+        iconBg: 'rgb(235, 250, 242)',
+    },
+];
 export default function UserProfile() {
     const {handleSignOut, user} = useGetUserInfo();
 
     return (
-        <div className="nav-item absolute right-1 top-12 bg-white p-8 rounded-3xl w-96">
+        <div className="user-profile nav-item absolute right-1 top-12 bg-white p-8 rounded-3xl w-96 drop-shadow-xl">
             <div className="flex justify-between items-center">
                 <p className="font-semibold text-lg">User Profile</p>
-                <button style={{color: "rgb(153, 171, 180)", borderRadius: "50%"}}
-                        className="default-btn text-2xl p-2 hover:bg-light-gray"><MdOutlineCancel/></button>
             </div>
             <div className="flex gap-5 items-center mt-6 border-color border-b-1 pb-6">
                 <BsPersonCircle className="w-24 h-24"/>
@@ -44,7 +59,7 @@ export default function UserProfile() {
                 ))}
             </div>
             <div className="mt-5">
-                <Link to="/sign-in"
+                <Link to={SitePaths.SIGN_IN}
                       className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight text-slate-900">
                     <button className="submit-btn w-full p-3" onClick={handleSignOut}>Sign Out</button>
                 </Link>

@@ -4,11 +4,6 @@
 @tailwind variants;
 
 @layer components {
-  /*my-test 클래스를 쓰면 위와 같은 tailwind class 모두가 한꺼번에 바로 적용됨*/
-  .my-test-class {
-    @apply m-5 p-4 text-lg underline;
-  }
-
   .default-btn {
     @apply hover:drop-shadow-xl whitespace-nowrap
   }
@@ -57,5 +52,45 @@
 
   .create-tab-input-text {
     @apply block w-full px-4 py-2 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+  }
+
+  .side-bar-nav-link {
+    @apply flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg m-2 hover:bg-light-gray
+  }
+
+  .side-bar-nav-link-active {
+    @apply side-bar-nav-link bg-main-blue text-white hover:bg-main-blue
+  }
+
+  .default-tab {
+    @apply py-2 border-b-4 transition-colors duration-300
+  }
+
+  .default-tab-active {
+    @apply default-tab border-teal-500
+  }
+
+  .default-tab-inactive {
+    @apply default-tab border-transparent hover:border-gray-200
+  }
+
+  .model-info-input {
+    @apply block w-full px-4 py-2 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+  }
+
+  .file-image {
+    @apply object-cover w-full inline-block align-middle h-[70px]
+  }
+
+  .tar-image {
+    @apply file-image w-[60px]
+  }
+
+  .dockerfile-image {
+    @apply file-image w-[56px]
+  }
+
+  .head-text {
+    @apply text-3xl font-extrabold tracking-tight text-slate-900
   }
 }

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Navigate, Route, Routes, useLocation} from 'react-router-dom';
 import './App.css';
 import './styles/dropzone.css';
@@ -7,17 +7,19 @@ import Layout from "./components/layout/Layout";
 import Account from "./pages/profile/Account";
 import ChangePassword from "./pages/profile/ChangePassword";
 import Payment from "./pages/profile/Payment";
-import ExecuteModel from "./pages/model/execute/ExecuteModel";
-import CreateModel from "./pages/model/create/CreateModel";
-import CreateDescription from "./pages/model/create/CreateDescription";
-import SignIn from "./pages/authentication/SignIn";
-import SignUp from "./pages/authentication/SignUp";
-import CreateParameters from "./pages/model/create/CreateParameter";
-import {WSMessageType} from "./types/chameleon-platform.common";
-import HistoryList from "./pages/history/list/HistoryList";
+import Model from "./pages/model/main/Model";
+import CreateModelInfo from "./pages/model/create/CreateModelInfo";
+import CreateModelParameters from "./pages/model/create/CreateModelParameters";
+import SignIn from "./pages/auth/SignIn";
+import SignUp from "./pages/auth/SignUp";
+import {RegionEntityData, SitePaths, WSMessageType} from "./types/chameleon-platform.common";
+import Histories from "./pages/history/board/Histories";
 import Models from "./pages/model/board/Models";
+import History from "./pages/history/main/History";
 import useGetUserInfo from "./service/authentication/UserInfoService";
-import {HistoryDetail} from "./pages/history/detail/HIstoryDetail";
+import {ModelUploadData, ParameterDetail} from "./types/chameleon-client";
+import GlobalContextProvider from "./contexts/GlobalContextProvider";
+import CreateModelDescription from "./pages/model/create/CreateModelDescription";
 
 export default function App() {
 
@@ -43,25 +45,45 @@ export default function App() {
         sendJsonMessage({msg: WSMessageType.PATH, path});
     }, [path]);
 
+    const [activeMenu, setActiveMenu] = useState<boolean>(true);
+    const [modelData, setModelData] = useState<ModelUploadData>(undefined!);
+    const [regions, setRegions] = useState<RegionEntityData[]>([]);
+    const [parameterDetails, setParameterDetails] = useState<ParameterDetail[]>([]);
+
     return (
-        <Routes>
-            {getCookieValue('connect.sid') ? (
-                <Route path="/" element={(<Layout/>)}>
-                    <Route path="/account" element={<Account/>}/>
-                    <Route path="/change-password" element={<ChangePassword/>}/>
-                    <Route path="/payment" element={<Payment/>}/>
-                    <Route path="/models/my" element={<Models/>}/>
-                    <Route path="/models/all" element={<Models/>}/>
-                    <Route path="/model/:username/:uniqueName" element={<ExecuteModel/>}/>
-                    <Route path="/models/create" element={<CreateModel/>}/>
-                    <Route path="/models/create/description" element={<CreateDescription/>}/>
-                    <Route path="/models/create/parameters" element={<CreateParameters/>}/>
-                    <Route path="/histories" element={<HistoryList/>}/>
-                    <Route path="/history/detail" element={<HistoryDetail/>}/>
-                </Route>
-            ) : (<Route path="/*" element={<Navigate to="/sign-in" replace/>}/>)}
-            <Route path="/sign-in" element={(<SignIn/>)}/>
-            <Route path="/sign-up" element={(<SignUp/>)}/>
-        </Routes>
+        <GlobalContextProvider value={{
+            activeMenu,
+            setActiveMenu,
+            modelData,
+            setModelData,
+            regions,
+            setRegions,
+            parameterDetails,
+            setParameterDetails
+        }}>
+            <Routes>
+                {getCookieValue('connect.sid') ? (
+                    <Route path="/" element={(<Layout/>)}>
+                        <Route path={SitePaths.ACCOUNT} element={<Account/>}/>
+                        <Route path={SitePaths.CHANGE_PASSWORD} element={<ChangePassword/>}/>
+                        <Route path={SitePaths.PAYMENT} element={<Payment/>}/>
+                        <Route path={SitePaths.MODELS} element={<Navigate to={SitePaths.ALL_MODELS} replace/>}/>
+                        <Route path={SitePaths.ALL_MODELS} element={<Models/>}/>
+                        <Route path={SitePaths.MY_MODELS} element={<Models ownOnly={true}/>}/>
+                        <Route path={SitePaths.MODEL(':username', ':uniqueName')} element={<Model/>}/>
+                        <Route path={SitePaths.CREATE_MODEL}
+                               element={<Navigate to={SitePaths.CREATE_MODEL_INFO} replace/>}/>
+                        <Route path={SitePaths.CREATE_MODEL_INFO} element={<CreateModelInfo/>}/>
+                        <Route path={SitePaths.CREATE_MODEL_DESCRIPTION} element={<CreateModelDescription/>}/>
+                        <Route path={SitePaths.CREATE_MODEL_PARAMETERS} element={<CreateModelParameters/>}/>
+                        <Route path={SitePaths.HISTORIES} element={<Histories/>}/>
+                        <Route path={SitePaths.HISTORY('detail')} element={<History/>}/>
+                    </Route>
+                ) : (<Route path="/*" element={<Navigate to={SitePaths.SIGN_IN} replace/>}/>)}
+                <Route path={SitePaths.SIGN_IN} element={(<SignIn/>)}/>
+                <Route path={SitePaths.SIGN_UP} element={(<SignUp/>)}/>
+            </Routes>
+        </GlobalContextProvider>
+
     );
 };

@@ -17,7 +17,7 @@ export interface HistoryEntityData {
     model: ModelEntityData;
     startedTime: Date;
     endedTime: Date;
-    parameters: any;
+    parameters: ModelParameters;
     terminal: string;
 }
 
@@ -76,7 +76,7 @@ export interface ModelEntityData {
     parameters: ModelParameters;
     config: ModelConfig;
     category: string;
-    point: number;
+    price: number;
 }
 
 export const Model: Array<keyof ModelEntityData> = [
@@ -94,7 +94,7 @@ export const Model: Array<keyof ModelEntityData> = [
     'parameters',
     'config',
     'category',
-    'point'
+    'price'
 ];
 
 
@@ -169,8 +169,18 @@ export enum ModelOutputType {
     VIDEO = 'video',
     SOUND = 'sound',
     TEXT = 'text',
-    BINARY = 'binary',
-    ZIP = 'zip'
+    ZIP = 'zip',
+    BINARY = 'binary'
+}
+
+export enum ModelSearchOption {
+    NAME = 'Name',
+    DESCRIPTION = 'Description',
+    NAME_AND_DESCRIPTION = 'Name & Description',
+    CATEGORY = 'Category',
+    INPUT_TYPE = 'Input Type',
+    OUTPUT_TYPE = 'Output Type',
+    REGISTER = 'Register'
 }
 
 export enum WSMessageType {
@@ -206,6 +216,7 @@ export type WSTerminalMessage = {
     data: string;
 }
 
+
 export enum SocketMessageType {
     LAUNCH = 'Launch',
     FILE_WAIT = 'FileWait',
@@ -226,7 +237,6 @@ export type SocketLaunchMessage = {
     historyId: number;
     executionData?: ExecutionData
 };
-
 export type SocketFileWaitMessage = { msg: SocketMessageType.FILE_WAIT; };
 export type SocketFileReceiveEndMessage = { msg: SocketMessageType.FILE_RECEIVE_END; };
 export type SocketTerminalMessage = {
@@ -270,11 +280,13 @@ export enum SocketReceiveMode {
 /* Upload Parameters */
 export type ModelCommonUploadData = {
     modelName: string;
-    inputType: string;
-    outputType: string;
+    inputType: ModelInputType;
+    outputType: ModelOutputType;
     regionName: string;
-    parameters: string;
+    parameters: ModelParameters;
     description: string
+    category?: string;
+    price?: number;
 }
 export type ModelImageUploadData = ModelCommonUploadData & { file: File }
 
@@ -282,16 +294,14 @@ export type ModelDockerfileUploadData = ModelCommonUploadData & { files: File[] 
 
 export type ModelExecuteData = {
     modelId: number;
-    parameters: string;
+    parameters: ModelParameters;
     input: File;
 }
 
 export type ModelsRequestOptions = {
-    ownOnly?: boolean
-}
-
-export type HistoriesRequestOptions = {
-    ownOnly?: boolean
+    ownOnly?: boolean;
+    searchTerm?: string | ModelInputType | ModelOutputType;
+    searchOption?: ModelSearchOption;
 }
 
 /* Etc Types */
@@ -312,20 +322,20 @@ export type ResponseData = {
 }
 
 export type ModelInputInfo = {
+    mimeType?: string;
     fileSize: number;
-    mimeType: string;
     fileName: string;
 }
 
 export type ModelOutputInfo = {
     fileName: string;
-    mimeType: string;
     fileSize: number;
 }
 
 export type ModelParameters = {
     uischema: any;
     schema: any;
+    data: any;
 }
 
 export type ModelConfig = {
@@ -358,4 +368,23 @@ export type ExecutionData = {
     inputPath?: string;
     parametersPath?: string;
     outputPath?: string;
+}
+
+export const SitePaths = {
+    ROOT: '/',
+    PAYMENT: '/payment',
+    MODEL: (username: string, uniqueName: string) => `/model/${username}/${uniqueName}`,
+    MODELS: '/models',
+    ALL_MODELS: '/models/all',
+    MY_MODELS: '/models/my',
+    CREATE_MODEL: '/models/create',
+    CREATE_MODEL_INFO: '/models/create/info',
+    CREATE_MODEL_DESCRIPTION: '/models/create/description',
+    CREATE_MODEL_PARAMETERS: '/models/create/parameters',
+    HISTORY: (historyId: number | string) => `/history/${Number.isInteger(historyId) ? (historyId as number + 1) : historyId}`,
+    HISTORIES: '/histories',
+    ACCOUNT: '/account',
+    SIGN_IN: '/sign-in',
+    SIGN_UP: '/sign-up',
+    CHANGE_PASSWORD: '/change-password'
 }

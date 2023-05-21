@@ -1,22 +1,63 @@
 import React from 'react';
 import {Link, NavLink} from 'react-router-dom';
-import {links} from '../../assets/Dummy';
-import {useStateContext} from '../../contexts/ContextProvider';
-import {MdOutlineCancel} from 'react-icons/md';
+import {SitePaths} from "../../types/chameleon-platform.common";
+import {BiCreditCard, BiFolder} from 'react-icons/bi';
+import {RiHistoryFill} from 'react-icons/ri';
+import {MdOutlineAccountCircle, MdOutlineCancel} from 'react-icons/md';
+import useGlobalContext from "../../contexts/hook/useGlobalContext";
+import {GiChameleonGlyph} from "react-icons/gi";
 
 const imageURL = '/logo1.png'
-export default function Sidebar() {
-    const {activeMenu, setActiveMenu, handleCloseSideBar} = useStateContext();
 
-    const activeLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-white text-md m-2';
-    const normalLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 hover:bg-light-gray m-2';
+const links = [
+    {
+        title: 'Models',
+        links: [
+            {
+                name: 'All Models',
+                link: SitePaths.ALL_MODELS,
+                icon: <BiFolder/>,
+            },
+            {
+                name: 'My Models',
+                link: SitePaths.MY_MODELS,
+                icon: <BiFolder/>,
+            },
+            {
+                name: 'Histories',
+                link: SitePaths.HISTORIES,
+                icon: <RiHistoryFill/>,
+            },
+        ],
+    },
+    {
+        title: 'My Profile',
+        links: [
+            {
+                name: 'Account',
+                link: SitePaths.ACCOUNT,
+                icon: <MdOutlineAccountCircle/>,
+            },
+            {
+                name: 'Payment',
+                link: SitePaths.PAYMENT,
+                icon: <BiCreditCard/>,
+            },
+        ],
+    },
+];
+export default function Sidebar() {
+    const {activeMenu, setActiveMenu} = useGlobalContext();
+    const handleCloseSideBar = () => {
+        if (activeMenu !== undefined) setActiveMenu(false);
+    };
 
     return (
         <div className="h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10">
             {activeMenu && (
                 <div>
                     <div className="flex justify-between items-center">
-                        <Link to="/models/all" onClick={handleCloseSideBar}
+                        <Link to={SitePaths.ALL_MODELS} onClick={handleCloseSideBar}
                               className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight text-slate-900">
                             <img style={{width: '10%'}} className="object-cover w-full" src={imageURL} alt="chameleon"/><span>Chameleon</span>
                         </Link>
@@ -33,12 +74,9 @@ export default function Sidebar() {
                                 {item.links.map((link) => (
                                     <NavLink
                                         onClick={handleCloseSideBar}
-                                        to={`/${link.link}`}
+                                        to={`${link.link}`}
                                         key={link.name}
-                                        style={({isActive}) => ({
-                                            backgroundColor: isActive ? '#1E4DB7' : '',
-                                        })}
-                                        className={({isActive}) => (isActive ? activeLink : normalLink)}
+                                        className={({isActive}) => isActive ? 'side-bar-nav-link-active' : 'side-bar-nav-link'}
                                     >
                                         {link.icon}
                                         <span className="capitalize">{link.name}</span>
