@@ -2,20 +2,19 @@ import React, {useEffect, useState} from "react";
 import {useDropzone} from "react-dropzone";
 import {FileUtils} from "../../../../utils/FileUtils"
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
-import {HistoryEntityData, ModelInputType} from "../../../../types/chameleon-platform.common";
+import {HistoryEntityData, ModelInputType, ModelParameters} from "../../../../types/chameleon-platform.common";
 import {InputModelInfo} from "../../../../types/chameleon-client";
 import {PageType} from "../../../../types/chameleon-client.enum";
 import JSZip from 'jszip';
 
 type IFile = File & { preview?: string };
 
-export default function MultiInputUploader(type: PageType, parameter: Object, modelData: InputModelInfo, executeData: HistoryEntityData) {
+export default function MultiInputModule(type: PageType, parameters: ModelParameters, modelData: InputModelInfo, executeData: HistoryEntityData) {
     const [files, setFiles] = useState<IFile[]>([]);
     const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [uploadExplain, setUploadExplain] = useState<string>('');
 
     let accept: any = {};
-    let parameters = JSON.stringify({parameter: parameter});
     let modelId = modelData?.id
 
     if (modelData?.inputType === ModelInputType.ZIP) {

@@ -1,12 +1,12 @@
 import React from "react";
 import {DownloadUtils} from "../../../../utils/DownloadUtils";
 import {FileUtils} from "../../../../utils/FileUtils";
-import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
+import {HistoryEntityData, ModelOutputType} from "../../../../types/chameleon-platform.common";
 
 export default function ImageOutputModule(executeData: HistoryEntityData) {
     let outputInformation = executeData?.outputInfo?.fileName
     let outputType = executeData?.outputType
-    const extension = (outputType === outputInformation) ? outputType : outputInformation.split('.').pop();
+    const extension = (outputType === ModelOutputType.BINARY) ? outputType : outputInformation.split('.').pop();
     let outputPath = executeData?.outputPath
     let outputSize = executeData?.outputInfo?.fileSize
     let outputName = executeData?.outputInfo?.fileName

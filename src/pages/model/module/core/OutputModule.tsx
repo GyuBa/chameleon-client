@@ -3,9 +3,9 @@ import {HistoryEntityData, HistoryStatus, ModelOutputType} from "../../../../typ
 import ImageOutputModule from "../output/ImageOutputModule"
 import TextOutputModule from "../output/TextOutputModule";
 import VideoOutputModule from "../output/VideoOutputModule";
-import SoundOutputModule from "./Output/SoundOutputModule";
+import SoundOutputModule from "../output/SoundOutputModule";
 import EmptyOutputModule from "../output/EmptyOutputModule";
-import ZipGalleryOutputModule from "./Output/ZipGalleryOutputModule";
+import ZipGalleryOutputModule from "../output/ZipGalleryOutputModule";
 
 export default function OutputModule(executeData: HistoryEntityData) {
     let outputType = executeData?.outputType;
@@ -19,9 +19,9 @@ export default function OutputModule(executeData: HistoryEntityData) {
     } else if (status === HistoryStatus.FINISHED && outputType === ModelOutputType.VIDEO) {
         Module = (executeData) ? () => VideoOutputModule(executeData) : EmptyOutputModule;
     } else if (status === HistoryStatus.FINISHED && outputType === ModelOutputType.SOUND) {
-        Module = (executeData) ? () => SoundOutputModule(executeData) : NullViewer;
+        Module = (executeData) ? () => SoundOutputModule(executeData) : EmptyOutputModule;
     } else if (status === HistoryStatus.FINISHED && outputType === ModelOutputType.ZIP) {
-        Module = (executeData) ? () => ZipGalleryOutputModule(executeData) : NullViewer;
+        Module = (executeData) ? () => ZipGalleryOutputModule(executeData) : EmptyOutputModule;
     }else
         Module = EmptyOutputModule
 

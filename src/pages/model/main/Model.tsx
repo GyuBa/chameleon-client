@@ -17,10 +17,11 @@ import {
 import {PlatformAPI} from "../../../platform/PlatformAPI"
 import useWebSocket from "react-use-websocket";
 import {PageType} from "../../../types/chameleon-client.enum";
-import InputModule from "../module/core/InputModule";
+import InputModule from "../module/core/InputModule"
 import OutputModule from "../module/core/OutputModule";
 
 const initialData: ModelParameters = {} as ModelParameters;
+
 export default function Model() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const [parameters, setParameters] = useState<ModelParameters>(initialData);
@@ -29,13 +30,12 @@ export default function Model() {
     const {username, uniqueName} = useParams();
 
     let path = useLocation().pathname.slice(1);
+
     useEffect(() => {
         (async function () {
             try {
                 const model = await PlatformAPI.getModelByUsernameAndUniqueName(username!, uniqueName!)
-                if (!completed &&  model.register?.username === username && model.uniqueName === uniqueName) {
-                    setModelData(model);
-                }
+                setModelData(model);
             } catch (error) {
                 console.error(error);
             }
@@ -56,7 +56,7 @@ export default function Model() {
     });
 
     useEffect(() => {
-        sendJsonMessage({msg: WSMessageType.PATH, path: path});
+        sendJsonMessage({msg: WSMessageType.PATH, path});
     }, [sendJsonMessage, path]);
 
     useEffect(() => {
@@ -86,7 +86,7 @@ export default function Model() {
             <div className="w-full m-2 md:m-10 mt-24">
                 <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
                     <div className="flex justify-between">
-                        <Header title={modelData?.name}/>
+                        <p className='head-text'>{modelData?.name}</p>
                         <div className="flex items-center md:px-2">
                             <div>
                                 {executeData?.status === HistoryStatus.RUNNING && (

@@ -24,7 +24,6 @@ export default function SingleInputModule(type: PageType, parameters: ModelParam
 
     let extension = modelData?.inputType
     let accept: any = {};
-    let parameters = JSON.stringify({parameter: parameter});
     let modelId = modelData?.id
     let inputPath = executeData?.inputPath
 
@@ -185,6 +184,7 @@ export default function SingleInputModule(type: PageType, parameters: ModelParam
                                                 src={'/' + inputPath}
                                                 className="video-js vjs-theme-city"
                                                 controls
+                                                autoPlay={false}
                                                 ref={videoRef}
                                                 style={{ maxWidth: '100%', maxHeight : '70%'}}
                                             />

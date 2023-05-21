@@ -4,7 +4,7 @@ import {FileUtils} from "../../../../utils/FileUtils";
 import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
 import AudioPlayer from "react-h5-audio-player";
 
-export default function SingleSoundViewer(executeData: HistoryEntityData) {
+export default function SoundOutputModule(executeData: HistoryEntityData) {
     let outputInformation = executeData?.outputInfo?.fileName
     const extension = outputInformation?.split('.').pop();
     let outputPath = executeData?.outputPath
