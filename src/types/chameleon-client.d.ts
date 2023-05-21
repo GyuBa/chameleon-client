@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     HistoryEntityData,
     ModelCommonUploadData,
@@ -42,12 +42,13 @@ export type GlobalContextData = {
     setModelData: React.Dispatch<React.SetStateAction<ModelUploadData>>
     regions: RegionEntityData[];
     setRegions: React.Dispatch<React.SetStateAction<RegionEntityData[]>>
-
+    parameterDetails: ParameterDetail[]
+    setParameterDetails: React.Dispatch<React.SetStateAction<ParameterDetail[]>>
 };
 
 export type IFile = File & { preview?: string };
 
-export type ModelUploadData = ModelCommonUploadData & { files: IFile[], file: IFile, modelFileType: ModelFileType };
+export type ModelUploadData = ModelCommonUploadData & { files: IFile[], file: IFile, fileType: ModelFileType };
 
 export interface DescriptionProps {
     modelId: number;
@@ -74,7 +75,7 @@ export interface ModelsLayoutProps {
 
 export interface ParameterBuilderProps {
     parameters: ModelParameters;
-    setParameters: React.Dispatch<React.SetStateAction<ModelParameters>>;
+    setParameters: Function;
 }
 
 export type ParameterEditorTabProps = {

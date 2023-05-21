@@ -17,7 +17,7 @@ import Histories from "./pages/history/board/Histories";
 import Models from "./pages/model/board/Models";
 import History from "./pages/history/main/History";
 import useGetUserInfo from "./service/authentication/UserInfoService";
-import {ModelUploadData} from "./types/chameleon-client";
+import {ModelUploadData, ParameterDetail} from "./types/chameleon-client";
 import GlobalContextProvider from "./contexts/GlobalContextProvider";
 import CreateModelDescription from "./pages/model/create/CreateModelDescription";
 
@@ -48,9 +48,19 @@ export default function App() {
     const [activeMenu, setActiveMenu] = useState<boolean>(true);
     const [modelData, setModelData] = useState<ModelUploadData>(undefined!);
     const [regions, setRegions] = useState<RegionEntityData[]>([]);
+    const [parameterDetails, setParameterDetails] = useState<ParameterDetail[]>([]);
 
     return (
-        <GlobalContextProvider value={{activeMenu, setActiveMenu, modelData, setModelData, regions, setRegions}}>
+        <GlobalContextProvider value={{
+            activeMenu,
+            setActiveMenu,
+            modelData,
+            setModelData,
+            regions,
+            setRegions,
+            parameterDetails,
+            setParameterDetails
+        }}>
             <Routes>
                 {getCookieValue('connect.sid') ? (
                     <Route path="/" element={(<Layout/>)}>

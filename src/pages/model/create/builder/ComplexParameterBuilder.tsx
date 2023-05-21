@@ -6,6 +6,7 @@ import {ParameterBuilderProps} from "../../../../types/chameleon-client";
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import ParameterEditorTab from "./tab/ParameterEditorTab";
+import useGlobalContext from "../../../../contexts/hook/useGlobalContext";
 
 const editorOptions = {
     minimap: {
@@ -15,46 +16,27 @@ const editorOptions = {
     fontSize: 17,
     scrollBeyondLastLine: false,
 };
-export default function ComplexParameterBuilder({parameters, setParameters}: ParameterBuilderProps) {
+export default function ComplexParameterBuilder() {
+    const {modelData, setModelData} = useGlobalContext();
     const [propertyType, setPropertyType] = useState<JsonFormPropertyType>(JsonFormPropertyType.SCHEMA);
-    const [schemaString, setSchemaString] = useState<string>(JSON.stringify(parameters.schema, null, 4));
-    const [uiSchemaString, setUISchemaString] = useState<string>(JSON.stringify(parameters.uischema, null, 4));
-    const [dataString, setDataString] = useState<string>(JSON.stringify(parameters.data, null, 4));
+    const [schemaString, setSchemaString] = useState<string>(JSON.stringify(modelData?.parameters.schema, null, 4));
+    const [uiSchemaString, setUISchemaString] = useState<string>(JSON.stringify(modelData?.parameters.uischema, null, 4));
+    const [dataString, setDataString] = useState<string>(JSON.stringify(modelData?.parameters.data, null, 4));
 
     useEffect(() => {
         try {
-            setParameters({
-                ...parameters,
-                schema: JSON.parse(schemaString),
-                uischema: JSON.parse(uiSchemaString),
-                data: JSON.parse(dataString)
-            });
+            setModelData({
+                ...modelData, parameters: {
+                    ...modelData?.parameters,
+                    schema: JSON.parse(schemaString),
+                    uischema: JSON.parse(uiSchemaString),
+                    data: JSON.parse(dataString)
+                }
+            })
         } catch (error) {
             console.error(error);
         }
     }, [schemaString, uiSchemaString, dataString]);
-
-    const EditorTab = ({tabType, value, onChange}: {
-        tabType: JsonFormPropertyType,
-        value: string,
-        onChange: (value: string | undefined) => void
-    }) => {
-        return <div className="tab-content tab-space">
-            <div className={propertyType === tabType ? "block" : "hidden"}>
-                <div className="border border-gray-200 block bg-white">
-                    <MonaCoEditor
-                        className="monaco-editor"
-                        language="json"
-                        height='500px'
-                        theme="vs-light"
-                        options={editorOptions}
-                        value={value}
-                        onChange={onChange}
-                    />
-                </div>
-            </div>
-        </div>;
-    }
 
     return <div>
         <div>
@@ -90,9 +72,9 @@ export default function ComplexParameterBuilder({parameters, setParameters}: Par
                     <h1 className="md:py-3 text-xl font-bold">Result</h1>
                     <ErrorBoundary>
                         {<JsonForms
-                            data={parameters.data}
-                            schema={parameters.schema}
-                            uischema={parameters.uischema}
+                            data={modelData?.parameters.data}
+                            schema={modelData?.parameters.schema}
+                            uischema={modelData?.parameters.uischema}
                             renderers={materialRenderers}
                             cells={materialCells}
                         />}
