@@ -8,6 +8,7 @@ import {HistoryEntityData, ModelInputType} from "../../../../types/chameleon-pla
 import {DownloadUtils} from "../../../../utils/DownloadUtils"
 import {InputModelInfo} from "../../../../types/chameleon-client";
 import {PageType} from "../../../../types/chameleon-client.enum";
+import videojs from "video.js";
 // import * as zip from "@zip.js/zip.js";
 
 const binaryIconURL = '/images/binary-code'
@@ -132,6 +133,14 @@ export default function SingleInputUploader(type: PageType, parameter: Object, m
         return () => files.forEach(file => URL.revokeObjectURL(file.preview as string));
     });
 
+    useEffect(() => {
+        if (videoRef.current) {
+            const player = videojs(videoRef.current, {}, () => {
+            });
+            player.play();
+        }
+    })
+
     return (
         <div>
             <div className="md:px-5 md:py-2 space-x-3 flex justify-between items-center border-b border-gray-300"
@@ -172,7 +181,13 @@ export default function SingleInputUploader(type: PageType, parameter: Object, m
                                         </div>}
                                     {executeData?.inputInfo?.mimeType?.startsWith('video') &&
                                         <div>
-                                            <video src={'/' + inputPath} className="video-js vjs-classic-skin" controls/>
+                                            <video
+                                                src={'/' + inputPath}
+                                                className="video-js vjs-theme-city"
+                                                controls
+                                                ref={videoRef}
+                                                style={{ maxWidth: '100%', maxHeight : '70%'}}
+                                            />
                                         </div>}
                                 </div>
                             </div>
