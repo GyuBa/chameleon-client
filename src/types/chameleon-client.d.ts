@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     HistoryEntityData,
     ModelCommonUploadData,
@@ -42,7 +42,8 @@ export type GlobalContextData = {
     setModelData: React.Dispatch<React.SetStateAction<ModelUploadData>>
     regions: RegionEntityData[];
     setRegions: React.Dispatch<React.SetStateAction<RegionEntityData[]>>
-
+    parameterDetails: ParameterDetail[]
+    setParameterDetails: React.Dispatch<React.SetStateAction<ParameterDetail[]>>
 };
 
 export type IFile = File & { preview?: string };

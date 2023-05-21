@@ -7,10 +7,13 @@ import {ModelUploadData} from "../../../types/chameleon-client";
 import {JsonFormUtils} from "../../../utils/JsonFormUtils";
 
 export default function CreateModelInfo() {
-    const {modelData, setModelData} = useGlobalContext();
+    const {modelData, setModelData, setParameterDetails} = useGlobalContext();
 
     useEffect(() => {
         if (!modelData) {
+            const parameterDetails = [
+                {name: 'name', type: ParameterType.STRING}
+            ];
             setModelData({
                 modelName: '',
                 inputType: ModelInputType.EMPTY,
@@ -21,9 +24,7 @@ export default function CreateModelInfo() {
                 fileType: ModelFileType.IMAGE,
                 description: `# Your model name \n\n Please enter a description of the model`,
                 parameters: {
-                    schema: JsonFormUtils.generateSchema([
-                        {name: 'name', type: ParameterType.STRING}
-                    ]),
+                    schema: JsonFormUtils.generateSchema(parameterDetails),
                     uischema: {
                         type: 'VerticalLayout',
                         elements: [{
@@ -34,6 +35,7 @@ export default function CreateModelInfo() {
                     data: {}
                 }
             } as ModelUploadData);
+            setParameterDetails(parameterDetails);
         }
     }, []);
 

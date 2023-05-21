@@ -1,19 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import {useDropzone} from "react-dropzone";
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
-import {
-    ModelInputType,
-    ModelOutputType,
-    RegionEntityData,
-    SitePaths
-} from "../../../../types/chameleon-platform.common";
+import {ModelInputType, ModelOutputType, SitePaths} from "../../../../types/chameleon-platform.common";
 import {FileUtils} from "../../../../utils/FileUtils";
 import {ModelFileType} from "../../../../types/chameleon-client.enum";
 import tar from "../../../../assets/images/upload/tar.png";
 import dockerfile from "../../../../assets/images/upload/dockerfile.png";
 import useGlobalContext from "../../../../contexts/hook/useGlobalContext";
-import {ModelUploadData} from "../../../../types/chameleon-client";
 
 const tabsData = {
     [ModelFileType.IMAGE]: {image: tar, label: 'Tar file'},
@@ -90,7 +84,10 @@ export default function CreateModelTab() {
                     <h1 className="mx-2 text-gray-500">{label}</h1>
                 </div>
                 <div className="flex gap-3 float-right">
-                    <Link to={SitePaths.MY_MODELS}>
+                    <Link to={SitePaths.MY_MODELS} onClick={() => {
+                        setModelData(undefined as any);
+
+                    }}>
                         <button className="white-btn w-16 p-2">back</button>
                     </Link>
                     <button onClick={handleClick} className="submit-btn w-16">next</button>

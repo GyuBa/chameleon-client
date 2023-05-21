@@ -1,22 +1,19 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import ErrorBoundary from "../error/ErrorBoundary";
-import {ParameterBuilderProps, ParameterDetail} from "../../../../types/chameleon-client";
+import {ParameterDetail} from "../../../../types/chameleon-client";
 import {JsonFormUtils} from "../../../../utils/JsonFormUtils";
-import {ParameterType} from "../../../../types/chameleon-client.enum";
+import useGlobalContext from "../../../../contexts/hook/useGlobalContext";
 
-export default function SimpleParameterBuilder({parameters, setParameters}: ParameterBuilderProps) {
-    const [simpleBuilderData, setSimpleBuilderData] = useState({
-        parameterDetails: [{
-            name: 'name',
-            type: ParameterType.STRING
-        }]
-    });
+export default function SimpleParameterBuilder() {
+
+    const {modelData, setModelData, parameterDetails, setParameterDetails} = useGlobalContext();
+    const parameters = modelData?.parameters;
 
     useEffect(() => {
-        setParameters(JsonFormUtils.generateParameters(simpleBuilderData.parameterDetails));
-    }, [simpleBuilderData]);
+        setModelData({...modelData, parameters: JsonFormUtils.generateParameters([...parameterDetails])});
+    }, [parameterDetails]);
 
     return <div>
         <div>
@@ -24,13 +21,13 @@ export default function SimpleParameterBuilder({parameters, setParameters}: Para
                 className="gap-3 grid md:grid-cols-1 md:px-5 md:my-2 xl:grid-cols-1 xl:gap-3 2xl:grid-cols-2">
                 <div className="array-jsonform">
                     <JsonForms
-                        data={simpleBuilderData}
+                        data={{parameterDetails}}
                         schema={JsonFormUtils.builderSchema}
                         uischema={JsonFormUtils.builderUISchema}
                         renderers={materialRenderers}
                         cells={materialCells}
                         onChange={({data}: { data: { parameterDetails: ParameterDetail[] } }) => {
-                            setSimpleBuilderData(data);
+                            setParameterDetails([...data.parameterDetails]);
                         }}
                     />
                 </div>

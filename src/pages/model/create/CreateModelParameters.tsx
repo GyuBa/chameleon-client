@@ -4,10 +4,9 @@ import "../../../styles/hide-form-name.css"
 import {PlatformAPI} from "../../../platform/PlatformAPI";
 import {RiErrorWarningFill} from "react-icons/ri";
 import LoadingCircle from "../../../components/static/LoadingCircle";
-import {ModelParameters, SitePaths} from "../../../types/chameleon-platform.common";
+import {SitePaths} from "../../../types/chameleon-platform.common";
 import useGlobalContext from "../../../contexts/hook/useGlobalContext";
-import {BuilderType, ModelFileType, ParameterType} from "../../../types/chameleon-client.enum";
-import {JsonFormUtils} from "../../../utils/JsonFormUtils";
+import {BuilderType, ModelFileType} from "../../../types/chameleon-client.enum";
 import SimpleParameterBuilder from "./builder/SimpleParameterBuilder";
 import ComplexParameterBuilder from "./builder/ComplexParameterBuilder";
 
@@ -48,6 +47,7 @@ export default function CreateModelParameters() {
                 await PlatformAPI.uploadModelWithDockerfile(modelData);
             }
             setIsLoading(false);
+            setModelData(undefined as any);
             navigate(SitePaths.MY_MODELS);
         } catch (error: any) {
             setIsLoading(false);
@@ -99,10 +99,7 @@ export default function CreateModelParameters() {
                     </div>
                     <div className="tab-content tab-space">
                         {builderType === BuilderType.SIMPLE ?
-                            <SimpleParameterBuilder parameters={modelData?.parameters}
-                                                    setParameters={(parameters: ModelParameters) => {
-                                                        setModelData({...modelData, parameters});
-                                                    }}/> :
+                            <SimpleParameterBuilder/> :
                             <ComplexParameterBuilder/>}
                     </div>
                 </div>

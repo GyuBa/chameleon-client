@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {Link, Navigate, useLocation, useNavigate} from "react-router-dom";
+import React from "react";
+import {Link, Navigate, useNavigate} from "react-router-dom";
 import MDEditor from '@uiw/react-md-editor';
 import {SitePaths} from "../../../types/chameleon-platform.common";
 import useGlobalContext from "../../../contexts/hook/useGlobalContext";
@@ -7,7 +7,7 @@ import useGlobalContext from "../../../contexts/hook/useGlobalContext";
 export default function CreateModelDescription() {
     const navigate = useNavigate();
     const {modelData, setModelData} = useGlobalContext();
-    const [description, setDescription] = useState<string>(modelData ? modelData.description : '');
+
     if (!modelData) {
         return <Navigate to={SitePaths.CREATE_MODEL}/>;
     }
@@ -33,9 +33,9 @@ export default function CreateModelDescription() {
                     </div>
                 </div>
                 <div data-color-mode="light" className="container pt-5 max-w-full">
-                    <MDEditor value={description}
+                    <MDEditor value={modelData.description}
                               onChange={value => {
-                                  setDescription(value as string)
+                                  setModelData({...modelData, description: value as string});
                               }} height={500}/>
                 </div>
             </div>
