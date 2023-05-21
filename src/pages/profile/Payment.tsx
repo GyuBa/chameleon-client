@@ -3,57 +3,52 @@ import kakao from '../../assets/images/payment/kakao.png'
 import payco from '../../assets/images/payment/payco.png'
 import toss from '../../assets/images/payment/toss.png'
 import {PlatformAPI} from "../../platform/PlatformAPI";
+import {SitePaths} from "../../types/chameleon-platform.common";
 
 export default function Payment() {
     const [chargeUnit, setChargeUnit] = useState('');
     const [pgType, setPGType] = useState('');
+
     const handleChange = (e: any) => {
         setChargeUnit(e.target.value);
         setPGType(e.target.name);
     }
+
     const {IMP} = window;
     IMP?.init('imp55065412');
 
-    let kakaoMoney = (document.querySelector('input[name="kakao_money"]:checked') as HTMLInputElement | null)?.value;
-    let paycoMoney = (document.querySelector('input[name="payco_money"]:checked') as HTMLInputElement | null)?.value;
-    let tossMoney = (document.querySelector('input[name="toss_money"]:checked') as HTMLInputElement | null)?.value;
-
     const kakapPayInfo = {
         pg: 'kakaopay', // PG사
-        amount: kakaoMoney, // 결제금액
-        name: `Chameleon Platform Point ${kakaoMoney}P`, // 주문명
+        amount: chargeUnit, // 결제금액
+        name: `Chameleon Platform Point ${chargeUnit}P`, // 주문명
     };
 
     const paycoPayInfo = {
         pg: 'payco', // PG사
         pay_method: 'card', // 결제수단
         merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
-        amount: paycoMoney, // 결제금액
-        name: `Chameleon Platform Point ${paycoMoney}P`, // 주문명
+        amount: chargeUnit, // 결제금액
+        name: `Chameleon Platform Point ${chargeUnit}P`, // 주문명
     };
 
     const tossPayInfo = {
         pg: 'tosspay', // PG사
         pay_method: 'card', // 결제수단
         merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
-        amount: tossMoney, // 결제금액
-        name: `Chameleon Platform Point ${tossMoney}P`, // 주문명
+        amount: chargeUnit, // 결제금액
+        name: `Chameleon Platform Point ${chargeUnit}P`, // 주문명
     };
-
-    console.log(kakapPayInfo);
 
     async function callback(response: any) {
         const {error_msg} = response;
         if (response.success) {
-            // TODO: 비동기 처리 등 개선 필요
-            console.log(response);
-            await PlatformAPI.chargePoint(response);
-            alert(Number(kakaoMoney) + Number(tossMoney) + Number(paycoMoney));
+            const chargedPoint = await PlatformAPI.chargePoint(response);
+            console.log(chargedPoint)
+            alert(`${response.paid_amount} points charged!`);
         } else {
-            alert(`결제 실패: ${error_msg}`);
+            alert(`Error: ${error_msg}`);
         }
-
-        // document.location.href = SitePaths.PAYMENT;
+        document.location.href = SitePaths.PAYMENT;
     }
 
     return (

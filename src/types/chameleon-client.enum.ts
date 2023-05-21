@@ -32,16 +32,3 @@ export enum JsonFormPropertyType {
     UI_SCHEMA,
     DATA
 }
-
-export enum PGType {
-    KAKAO='kakao',
-    PAYCO='payco',
-    TOSSPAY='tosspay',
-    NONE=''
-}
-
-export enum PGTypeKorean {
-    KAKAO='카카오페이',
-    PAYCO='페이코',
-    TOSSPAY='토스페이'
-}
