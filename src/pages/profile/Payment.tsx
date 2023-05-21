@@ -42,12 +42,14 @@ export default function Payment() {
     async function callback(response: any) {
         const {error_msg} = response;
         if (response.success) {
-            const chargedPoint = await PlatformAPI.chargePoint(response);
-            console.log(chargedPoint)
+            console.log(response);
+            await PlatformAPI.chargePoint(response);
             alert(`${response.paid_amount} points charged!`);
+
         } else {
             alert(`Error: ${error_msg}`);
         }
+
         document.location.href = SitePaths.PAYMENT;
     }
 
