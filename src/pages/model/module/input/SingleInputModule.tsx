@@ -4,17 +4,15 @@ import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import {FileUtils} from "../../../../utils/FileUtils"
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
-import {HistoryEntityData, ModelInputType, ModelParameters} from "../../../../types/chameleon-platform.common";
+import {ModelInputType} from "../../../../types/chameleon-platform.common";
 import {DownloadUtils} from "../../../../utils/DownloadUtils"
-import {InputModelInfo} from "../../../../types/chameleon-client";
-import {PageType} from "../../../../types/chameleon-client.enum";
+import {ModuleData} from "../../../../types/chameleon-client";
 import videojs from "video.js";
-// import * as zip from "@zip.js/zip.js";
 
 const binaryIconURL = '/images/binary-code'
 type IFile = File & { preview?: string };
 
-export default function SingleInputModule(type: PageType, parameters: ModelParameters, modelData: InputModelInfo, executeData: HistoryEntityData) {
+export default function SingleInputModule(moduleData : ModuleData) {
     const [files, setFiles] = useState<IFile[]>([]);
     const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [uploadExplain, setUploadExplain] = useState<string>('');
@@ -22,14 +20,15 @@ export default function SingleInputModule(type: PageType, parameters: ModelParam
     const [inputText, setInputText] = useState<string>('');
     const videoRef = useRef<HTMLVideoElement>(null);
 
-    let extension = modelData?.inputType
     let accept: any = {};
-    let modelId = modelData?.id
-    let inputPath = executeData?.inputPath
+    let extension = moduleData?.model?.inputType
+    let modelId = moduleData?.model?.id!
+    let parameters = moduleData?.parameters
+    let inputPath = moduleData?.history?.inputPath
 
-    if (modelData?.inputType === ModelInputType.SOUND) {
+    if (moduleData?.model?.inputType === ModelInputType.SOUND) {
         accept = {[`audio/*`]: []};
-    } else if (modelData?.inputType === ModelInputType.BINARY) {
+    } else if (moduleData?.model?.inputType === ModelInputType.BINARY) {
         accept = {['']: []};
     } else {
         accept = {[`${extension}/*`]: []};
@@ -43,7 +42,7 @@ export default function SingleInputModule(type: PageType, parameters: ModelParam
             setFiles(acceptedFiles.map(file => Object.assign(file, {
                 preview: URL.createObjectURL(file)
             })));
-            modelData?.inputType === ModelInputType.TEXT && readTextFile(acceptedFiles[0]);
+            moduleData?.model?.inputType === ModelInputType.TEXT && readTextFile(acceptedFiles[0]);
 
             try {
                 const executeInfo = await PlatformAPI.executeModel({
@@ -82,7 +81,7 @@ export default function SingleInputModule(type: PageType, parameters: ModelParam
     const thumbs = files.map(file => (
         <div key={file.name}>
             <div>
-                {modelData?.inputType === ModelInputType.IMAGE &&
+                {moduleData?.model?.inputType === ModelInputType.IMAGE &&
                     (<img className="block w-auto h-full"
                           src={file.preview}
                           alt="file"
@@ -91,7 +90,7 @@ export default function SingleInputModule(type: PageType, parameters: ModelParam
                           }}
                     />)
                 }
-                {modelData?.inputType === ModelInputType.VIDEO &&
+                {moduleData?.model?.inputType === ModelInputType.VIDEO &&
                     (<video className="block w-auto h-full"
                             src={file.preview}
                             onLoad={() => {
@@ -99,17 +98,17 @@ export default function SingleInputModule(type: PageType, parameters: ModelParam
                             }}
                     />)
                 }
-                {modelData?.inputType === ModelInputType.TEXT &&
+                {moduleData?.model?.inputType === ModelInputType.TEXT &&
                     (<p style={{whiteSpace: 'pre-wrap'}}>{thumbsText}</p>)
                 }
-                {modelData?.inputType === ModelInputType.SOUND &&
+                {moduleData?.model?.inputType === ModelInputType.SOUND &&
                     (<AudioPlayer
                         src={file.preview}
                         onPlay={e => console.log("onPlay")}
                         // other props here
                     />)
                 }
-                {modelData?.inputType === ModelInputType.BINARY &&
+                {moduleData?.model?.inputType === ModelInputType.BINARY &&
                     (<img style={{width: '70%'}}
                           className="object-cover w-full"
                           src={binaryIconURL}
@@ -148,37 +147,37 @@ export default function SingleInputModule(type: PageType, parameters: ModelParam
             </div>
             <div className="overflow-auto max-h-[213px] h-full">
                 <section className="container h-full">
-                    {executeData?.status !== undefined ? (
+                    {(moduleData.history && moduleData?.history.status !== undefined) ? (
                         <div>
                             <br/>
                             <p><span
-                                className="pl-5 pt-2 font-semibold">FileName : </span>{executeData?.inputInfo?.fileName}
+                                className="pl-5 pt-2 font-semibold">FileName : </span>{moduleData?.history?.inputInfo?.fileName}
                             </p>
-                            <p><span className="pl-5 pt-2 font-semibold">Type : </span>{executeData?.inputInfo?.mimeType}
+                            <p><span className="pl-5 pt-2 font-semibold">Type : </span>{moduleData?.history?.inputInfo?.mimeType}
                             </p>
                             <p><span
-                                className="pl-5 pt-2 font-semibold">Size : </span>{FileUtils.formatBytes(executeData?.inputInfo?.fileSize)}
+                                className="pl-5 pt-2 font-semibold">Size : </span>{FileUtils.formatBytes(moduleData?.history?.inputInfo?.fileSize)}
                             </p>
                             <div className="pl-5 pt-2 overflow-x-auto"
                                  style={{overflow: 'hidden', display: 'flex'}}>
                                 <div>
-                                    {executeData?.inputInfo?.mimeType?.startsWith('image') &&
+                                    {moduleData?.history?.inputInfo?.mimeType?.startsWith('image') &&
                                         <a href='#' onClick={e => {
-                                            DownloadUtils.download('/' + executeData?.inputPath, executeData?.inputInfo?.fileName);
+                                            DownloadUtils.download('/' + moduleData?.history?.inputPath, moduleData?.history?.inputInfo?.fileName);
                                         }}>
-                                            {executeData?.inputInfo?.mimeType?.startsWith('image') ?
-                                                <img src={'/' + executeData?.inputPath} style={{
+                                            {moduleData?.history?.inputInfo?.mimeType?.startsWith('image') ?
+                                                <img src={'/' + moduleData?.history?.inputPath} style={{
                                                     objectFit: 'contain',
                                                     maxWidth: '100%',
                                                     maxHeight: '100%',
                                                 }} alt="single-input"/> : <></>}
                                         </a>}
-                                    {executeData?.inputInfo?.mimeType?.startsWith('text') &&
+                                    {moduleData?.history?.inputInfo?.mimeType?.startsWith('text') &&
                                         <div>
                                             <br/>
                                             <p style={{whiteSpace: 'pre-wrap'}}>{inputText}</p>
                                         </div>}
-                                    {executeData?.inputInfo?.mimeType?.startsWith('video') &&
+                                    {moduleData?.history?.inputInfo?.mimeType?.startsWith('video') &&
                                         <div>
                                             <br/>
                                             <video
@@ -192,7 +191,7 @@ export default function SingleInputModule(type: PageType, parameters: ModelParam
                                         </div>}
                                 </div>
                             </div>
-                            {executeData?.inputInfo?.mimeType?.startsWith('audio') &&
+                            {moduleData?.history?.inputInfo?.mimeType?.startsWith('audio') &&
                                 <div>
                                     <br/>
                                     <AudioPlayer src={'/' + inputPath} onPlay={e => console.log("onPlay")}/>

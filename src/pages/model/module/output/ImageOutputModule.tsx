@@ -6,10 +6,12 @@ import {HistoryEntityData, ModelOutputType} from "../../../../types/chameleon-pl
 export default function ImageOutputModule(executeData: HistoryEntityData) {
     let outputInformation = executeData?.outputInfo?.fileName
     let outputType = executeData?.outputType
-    const extension = (outputType === ModelOutputType.BINARY) ? outputType : outputInformation.split('.').pop();
+    let extension = outputInformation ? outputInformation.split('.').pop() : undefined;
     let outputPath = executeData?.outputPath
     let outputSize = executeData?.outputInfo?.fileSize
     let outputName = executeData?.outputInfo?.fileName
+
+    if (outputType === ModelOutputType.BINARY) extension = outputType
 
     return (
         <div>

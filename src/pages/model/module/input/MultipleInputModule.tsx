@@ -2,22 +2,23 @@ import React, {useEffect, useState} from "react";
 import {useDropzone} from "react-dropzone";
 import {FileUtils} from "../../../../utils/FileUtils"
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
-import {HistoryEntityData, ModelInputType, ModelParameters} from "../../../../types/chameleon-platform.common";
-import {InputModelInfo} from "../../../../types/chameleon-client";
+import {ModelInputType} from "../../../../types/chameleon-platform.common";
+import {ModuleData} from "../../../../types/chameleon-client";
 import {PageType} from "../../../../types/chameleon-client.enum";
 import JSZip from 'jszip';
 
 type IFile = File & { preview?: string };
 
-export default function MultiInputModule(type: PageType, parameters: ModelParameters, modelData: InputModelInfo, executeData: HistoryEntityData) {
+export default function MultiInputModule(moduleData : ModuleData) {
     const [files, setFiles] = useState<IFile[]>([]);
     const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [uploadExplain, setUploadExplain] = useState<string>('');
 
     let accept: any = {};
-    let modelId = modelData?.id
+    let modelId = moduleData?.model?.id!
+    let parameters = moduleData?.parameters
 
-    if (modelData?.inputType === ModelInputType.ZIP) {
+    if (moduleData?.model?.inputType === ModelInputType.ZIP) {
         accept = {[`image/*`]: []};
     }
 
@@ -89,17 +90,17 @@ export default function MultiInputModule(type: PageType, parameters: ModelParame
                  style={{backgroundColor: '#F6F6F6'}}>
                 <p className="text-xl font-semibold">Input Upload</p>
                 {
-                    type === PageType.EXECUTE ? (
+                    moduleData?.type === PageType.EXECUTE ? (
                         <div className="flex items-center gap-4">
                             <button onClick={removeFile}
                                     className="submit-btn text-sm py-1 px-1.5 border border-gray border-solid
                                               rounded-md hover:bg-white bg-white"
-                                    disabled={executeData !== undefined}>remove
+                                    disabled={moduleData?.history !== undefined}>remove
                             </button>
                             <button onClick={handleSubmit}
                                     className="submit-btn text-sm py-1 px-1.5 border border-gray border-solid
                                               rounded-md hover:bg-white bg-white"
-                                    disabled={executeData !== undefined}>start
+                                    disabled={moduleData?.history !== undefined}>start
                             </button>
                         </div>
                     ) : ('')
@@ -107,16 +108,16 @@ export default function MultiInputModule(type: PageType, parameters: ModelParame
             </div>
             <div className="overflow-auto max-h-[213px] h-full">
                 <section className="container h-full">
-                    {executeData?.status !== undefined ? (
+                    {moduleData?.history?.status !== undefined ? (
                         <div>
                             <br/>
                             <p><span
-                                className="pl-5 pt-2 font-semibold">FileName : </span>{executeData?.inputInfo?.fileName}
+                                className="pl-5 pt-2 font-semibold">FileName : </span>{moduleData?.history?.inputInfo?.fileName}
                             </p>
-                            <p><span className="pl-5 pt-2 font-semibold">Type : </span>{executeData?.inputInfo?.mimeType}
+                            <p><span className="pl-5 pt-2 font-semibold">Type : </span>{moduleData?.history?.inputInfo?.mimeType}
                             </p>
                             <p><span
-                                className="pl-5 pt-2 font-semibold">Size : </span>{FileUtils.formatBytes(executeData?.inputInfo?.fileSize)}
+                                className="pl-5 pt-2 font-semibold">Size : </span>{FileUtils.formatBytes(moduleData?.history?.inputInfo?.fileSize)}
                             </p>
                             <div className="px-2 pt-2"
                                  style={{overflow: 'hidden', display: 'flex', justifyContent: 'center'}}>

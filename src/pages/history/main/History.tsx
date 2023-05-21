@@ -4,7 +4,7 @@ import OutputDescriptionModule from "../../model/module/description/OutputDescri
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonViewer} from "@textea/json-viewer";
-import {InputModelInfo} from "../../../types/chameleon-client";
+import {InputModelInfo, ModuleData} from "../../../types/chameleon-client";
 import {PageType} from "../../../types/chameleon-client.enum";
 import {SitePaths} from "../../../types/chameleon-platform.common";
 import InputModule from "../../model/module/core/InputModule";
@@ -17,6 +17,13 @@ export default function History() {
 
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const inputModelData: InputModelInfo = {id: -1, inputType: historyData.inputType};
+
+    const moduleData: ModuleData = {
+        history: historyData!,
+        model: inputModelData!,
+        type: PageType.EXECUTE,
+        parameters : parameter
+    };
 
     return (
         <div className="contents">
@@ -70,7 +77,7 @@ export default function History() {
                             </div>
                         </div>
                     </div>
-                    {InputModule(PageType.HISTORY, parameter, inputModelData!, historyData!)}
+                    {InputModule(moduleData)}
                     {OutputModule(historyData!)}
                     {OutputDescriptionModule(historyData!)}
                 </div>

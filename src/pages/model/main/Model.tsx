@@ -17,6 +17,7 @@ import {
 import {PlatformAPI} from "../../../platform/PlatformAPI"
 import useWebSocket from "react-use-websocket";
 import {PageType} from "../../../types/chameleon-client.enum";
+import {ModuleData} from "../../../types/chameleon-client"
 import InputModule from "../module/core/InputModule"
 import OutputModule from "../module/core/OutputModule";
 
@@ -81,6 +82,13 @@ export default function Model() {
     const schema = modelData?.parameters?.schema
     const uiSchema = modelData?.parameters?.uischema
 
+    const moduleData: ModuleData = {
+        history: executeData!,
+        model: modelData!,
+        type: PageType.EXECUTE,
+        parameters
+    };
+
     return (
         <div className="contents">
             <div className="w-full m-2 md:m-10 mt-24">
@@ -140,7 +148,7 @@ export default function Model() {
                             </div>
                         </div>
                     </div>
-                    {InputModule(PageType.EXECUTE, parameters, modelData!, executeData!)}
+                    {InputModule(moduleData!)}
                     {OutputModule(executeData!)}
                     {OutputDescriptionModule(executeData!)}
                 </div>

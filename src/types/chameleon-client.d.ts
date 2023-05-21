@@ -7,7 +7,14 @@ import {
     ModelParameters,
     RegionEntityData
 } from "./chameleon-platform.common";
-import {ModelFileType, ParameterType} from "./chameleon-client.enum";
+import {ModelFileType, ParameterType, PageType} from "./chameleon-client.enum";
+
+export type ModuleData = {
+    history: HistoryEntityData,
+    model?: InputModelInfo,
+    type: PageType,
+    parameters: ModelParameters
+}
 
 export type HeaderData = {
     category?: string;
