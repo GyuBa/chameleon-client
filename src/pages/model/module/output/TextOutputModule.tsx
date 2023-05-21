@@ -36,9 +36,9 @@ export default function TextOutputModule(executeData: HistoryEntityData) {
             </div>
             <div className="overflow-y-auto max-h-[352px]">
                 <br/>
-                <p><span className="pl-5 pb-5 font-semibold">Output Format :</span>{extension} </p>
-                <p><span className="pl-5 pt-2 font-semibold">Size :</span>{FileUtils.formatBytes(outputSize)} </p>
-                <p><span className="pl-5 pt-2 font-semibold">Output :</span></p>
+                <p><span className="pl-5 pb-5 font-semibold">Output Format : </span>{extension} </p>
+                <p><span className="pl-5 pt-2 font-semibold">Size : </span>{FileUtils.formatBytes(outputSize)} </p>
+                <p><span className="pl-5 pt-2 font-semibold">Output : </span></p>
                 <br/>
                 <p className="pl-5 pt-2" style={{whiteSpace: 'pre-wrap'}}>{text}</p>
             </div>

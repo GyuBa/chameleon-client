@@ -159,7 +159,7 @@ export default function SingleInputModule(type: PageType, parameters: ModelParam
                             <p><span
                                 className="pl-5 pt-2 font-semibold">Size : </span>{FileUtils.formatBytes(executeData?.inputInfo?.fileSize)}
                             </p>
-                            <div className="pl-5 pt-2"
+                            <div className="pl-5 pt-2 overflow-x-auto"
                                  style={{overflow: 'hidden', display: 'flex'}}>
                                 <div>
                                     {executeData?.inputInfo?.mimeType?.startsWith('image') &&
@@ -180,13 +180,14 @@ export default function SingleInputModule(type: PageType, parameters: ModelParam
                                         </div>}
                                     {executeData?.inputInfo?.mimeType?.startsWith('video') &&
                                         <div>
+                                            <br/>
                                             <video
                                                 src={'/' + inputPath}
                                                 className="video-js vjs-theme-city"
                                                 controls
                                                 autoPlay={false}
                                                 ref={videoRef}
-                                                style={{ maxWidth: '100%', maxHeight : '70%'}}
+                                                style={{ objectFit: 'contain', maxWidth: '90%', maxHeight : '100%'}}
                                             />
                                         </div>}
                                 </div>
