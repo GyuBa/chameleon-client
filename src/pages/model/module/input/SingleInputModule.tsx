@@ -1,28 +1,40 @@
-import React, {useEffect, useState} from "react";
-
+import React, {useEffect, useRef, useState} from "react";
 import {useDropzone} from "react-dropzone";
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 import {FileUtils} from "../../../../utils/FileUtils"
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
-import {HistoryEntityData, ModelParameters} from "../../../../types/chameleon-platform.common";
+import {HistoryEntityData, ModelInputType, ModelParameters} from "../../../../types/chameleon-platform.common";
 import {DownloadUtils} from "../../../../utils/DownloadUtils"
 import {InputModelInfo} from "../../../../types/chameleon-client";
 import {PageType} from "../../../../types/chameleon-client.enum";
+import videojs from "video.js";
 // import * as zip from "@zip.js/zip.js";
 
+const binaryIconURL = '/images/binary-code'
 type IFile = File & { preview?: string };
 
 export default function SingleInputModule(type: PageType, parameters: ModelParameters, modelData: InputModelInfo, executeData: HistoryEntityData) {
     const [files, setFiles] = useState<IFile[]>([]);
     const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [uploadExplain, setUploadExplain] = useState<string>('');
-    const extension = modelData?.inputType
+    const [thumbsText, setThumbsText] = useState<string>('');
+    const [inputText, setInputText] = useState<string>('');
+    const videoRef = useRef<HTMLVideoElement>(null);
 
+    let extension = modelData?.inputType
     let accept: any = {};
-    if (extension) {
-        accept = {[`${extension}/*`]: []};
+    let modelId = modelData?.id
+    let inputPath = executeData?.inputPath
+
+    if (modelData?.inputType === ModelInputType.SOUND) {
+        accept = {[`audio/*`]: []};
+    } else if (modelData?.inputType === ModelInputType.BINARY) {
+        accept = {['']: []};
     } else {
-        accept = {'image/*': []};
+        accept = {[`${extension}/*`]: []};
     }
+
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
         accept,
         onDrop: async acceptedFiles => {
@@ -31,13 +43,26 @@ export default function SingleInputModule(type: PageType, parameters: ModelParam
             setFiles(acceptedFiles.map(file => Object.assign(file, {
                 preview: URL.createObjectURL(file)
             })));
+            modelData?.inputType === ModelInputType.TEXT && readTextFile(acceptedFiles[0]);
+
+            try {
+                const executeInfo = await PlatformAPI.executeModel({
+                    modelId,
+                    parameters,
+                    input: acceptedFiles[0]
+                });
+                console.log(executeInfo);
+                setUploadExplain('Upload Done');
+                console.log('Upload done!');
+
+            } catch (error) {
+                setFiles([]);
+                setHideDrop(false);
+                setUploadExplain('Upload error..');
+                console.log('Upload error...');
+            }
         }
     });
-
-    const removeFile = () => {
-        setFiles([]);
-        setHideDrop(false);
-    }
 
     const acceptedFileItems = acceptedFiles.map(file => (
         <li key={file.name}>
@@ -45,67 +70,81 @@ export default function SingleInputModule(type: PageType, parameters: ModelParam
         </li>
     ));
 
+    const readTextFile = (file: File) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const fileText = e.target?.result as string;
+            setThumbsText(fileText); // 텍스트 상태로 저장
+        };
+        reader.readAsText(file);
+    };
+
     const thumbs = files.map(file => (
         <div key={file.name}>
-            <img className="block w-auto h-full"
-                 src={file.preview}
-                 alt="file"
-                 onLoad={() => {
-                     URL.revokeObjectURL(file.preview as string)
-                 }}
-            />
+            <div>
+                {modelData?.inputType === ModelInputType.IMAGE &&
+                    (<img className="block w-auto h-full"
+                          src={file.preview}
+                          alt="file"
+                          onLoad={() => {
+                              URL.revokeObjectURL(file.preview as string)
+                          }}
+                    />)
+                }
+                {modelData?.inputType === ModelInputType.VIDEO &&
+                    (<video className="block w-auto h-full"
+                            src={file.preview}
+                            onLoad={() => {
+                                URL.revokeObjectURL(file.preview as string)
+                            }}
+                    />)
+                }
+                {modelData?.inputType === ModelInputType.TEXT &&
+                    (<p style={{whiteSpace: 'pre-wrap'}}>{thumbsText}</p>)
+                }
+                {modelData?.inputType === ModelInputType.SOUND &&
+                    (<AudioPlayer
+                        src={file.preview}
+                        onPlay={e => console.log("onPlay")}
+                        // other props here
+                    />)
+                }
+                {modelData?.inputType === ModelInputType.BINARY &&
+                    (<img style={{width: '70%'}}
+                          className="object-cover w-full"
+                          src={binaryIconURL}
+                          alt="chameleon"/>)
+                }
+            </div>
         </div>
     ));
+
+    useEffect(() => {
+        if (inputPath) {
+            (async () => {
+                let text = await fetch('/' + inputPath).then(r => r.text());
+                setInputText(text);
+            })();
+        }
+    }, [inputPath]);
 
     useEffect(() => {
         return () => files.forEach(file => URL.revokeObjectURL(file.preview as string));
     });
 
-    const modelId = modelData?.id
-
-    const handleSubmit = async (event: React.FormEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-
-        try {
-            const executeInfo = await PlatformAPI.executeModel({
-                modelId,
-                parameters,
-                input: files[0]
+    useEffect(() => {
+        if (videoRef.current) {
+            const player = videojs(videoRef.current, {}, () => {
             });
-            console.log(executeInfo);
-            setUploadExplain('Upload Done');
-            console.log('Upload done!');
-
-        } catch (error) {
-            setFiles([]);
-            setHideDrop(false);
-            setUploadExplain('Upload error..');
-            console.log('Upload error...');
+            player.play();
         }
-    }
+    })
 
     return (
         <div>
-            <div className="md:p-2 space-x-3 flex justify-between items-center border-b border-gray-300"
+            <div className="md:px-5 md:py-2 space-x-3 flex justify-between items-center border-b border-gray-300"
                  style={{backgroundColor: '#F6F6F6'}}>
                 <p className="text-xl font-semibold">Input Upload</p>
-                {
-                    type === PageType.EXECUTE ? (
-                        <div className="flex items-center gap-4">
-                            <button onClick={removeFile}
-                                    className="submit-btn text-sm py-1 px-1.5 border border-gray border-solid
-                                              rounded-md hover:bg-white bg-white"
-                                    disabled={executeData !== undefined}>remove
-                            </button>
-                            <button onClick={handleSubmit}
-                                    className="submit-btn text-sm py-1 px-1.5 border border-gray border-solid
-                                              rounded-md hover:bg-white bg-white"
-                                    disabled={executeData !== undefined}>start
-                            </button>
-                        </div>
-                    ) : ('')
-                }
-
             </div>
             <div className="overflow-auto max-h-[213px] h-full">
                 <section className="container h-full">
@@ -113,26 +152,50 @@ export default function SingleInputModule(type: PageType, parameters: ModelParam
                         <div>
                             <br/>
                             <p><span
-                                className="px-2 pt-2 font-semibold">FileName :</span>{executeData?.inputInfo?.fileName}
+                                className="pl-5 pt-2 font-semibold">FileName : </span>{executeData?.inputInfo?.fileName}
                             </p>
-                            <p><span className="px-2 pt-2 font-semibold">Type :</span>{executeData?.inputInfo?.mimeType}
+                            <p><span className="pl-5 pt-2 font-semibold">Type : </span>{executeData?.inputInfo?.mimeType}
                             </p>
                             <p><span
-                                className="px-2 pt-2 font-semibold">Size :</span>{FileUtils.formatBytes(executeData?.inputInfo?.fileSize)}
+                                className="pl-5 pt-2 font-semibold">Size : </span>{FileUtils.formatBytes(executeData?.inputInfo?.fileSize)}
                             </p>
-                            <div className="px-2 pt-2"
-                                 style={{overflow: 'hidden', display: 'flex', justifyContent: 'center'}}>
-                                {executeData?.inputInfo?.mimeType?.startsWith('image') ? <a href='#' onClick={e => {
-                                    DownloadUtils.download('/' + executeData?.inputPath, executeData?.inputInfo?.fileName);
-                                }}>
-                                    {executeData?.inputInfo?.mimeType?.startsWith('image') ?
-                                        <img src={'/' + executeData?.inputPath} style={{
-                                            objectFit: 'contain',
-                                            maxWidth: '100%',
-                                            maxHeight: '100%',
-                                        }}/> : <></>}
-                                </a> : <></>}
+                            <div className="pl-5 pt-2"
+                                 style={{overflow: 'hidden', display: 'flex'}}>
+                                <div>
+                                    {executeData?.inputInfo?.mimeType?.startsWith('image') &&
+                                        <a href='#' onClick={e => {
+                                            DownloadUtils.download('/' + executeData?.inputPath, executeData?.inputInfo?.fileName);
+                                        }}>
+                                            {executeData?.inputInfo?.mimeType?.startsWith('image') ?
+                                                <img src={'/' + executeData?.inputPath} style={{
+                                                    objectFit: 'contain',
+                                                    maxWidth: '100%',
+                                                    maxHeight: '100%',
+                                                }} alt="single-input"/> : <></>}
+                                        </a>}
+                                    {executeData?.inputInfo?.mimeType?.startsWith('text') &&
+                                        <div>
+                                            <br/>
+                                            <p style={{whiteSpace: 'pre-wrap'}}>{inputText}</p>
+                                        </div>}
+                                    {executeData?.inputInfo?.mimeType?.startsWith('video') &&
+                                        <div>
+                                            <video
+                                                src={'/' + inputPath}
+                                                className="video-js vjs-theme-city"
+                                                controls
+                                                autoPlay={false}
+                                                ref={videoRef}
+                                                style={{ maxWidth: '100%', maxHeight : '70%'}}
+                                            />
+                                        </div>}
+                                </div>
                             </div>
+                            {executeData?.inputInfo?.mimeType?.startsWith('audio') &&
+                                <div>
+                                    <br/>
+                                    <AudioPlayer src={'/' + inputPath} onPlay={e => console.log("onPlay")}/>
+                                </div>}
                         </div>
                     ) : (
                         <div>
@@ -147,9 +210,9 @@ export default function SingleInputModule(type: PageType, parameters: ModelParam
                             </div>
                             {hideDrop && (
                                 <div>
-                                    <aside className="px-5 py-2 w-48">{thumbs}</aside>
+                                    <aside className="px-5 py-2">{thumbs}</aside>
                                     <ul className="px-5 py-2">{acceptedFileItems}</ul>
-                                    <span>{uploadExplain}</span>
+                                    <span className="px-5">{uploadExplain}</span>
                                 </div>
                             )}
                         </div>

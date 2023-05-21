@@ -1,14 +1,15 @@
+import React from "react";
 import {HistoryEntityData, HistoryStatus, ModelOutputType} from "../../../../types/chameleon-platform.common";
 import ImageOutputModule from "../output/ImageOutputModule"
 import TextOutputModule from "../output/TextOutputModule";
 import VideoOutputModule from "../output/VideoOutputModule";
-import React from "react";
+import SoundOutputModule from "../output/SoundOutputModule";
 import EmptyOutputModule from "../output/EmptyOutputModule";
+import ZipGalleryOutputModule from "../output/ZipGalleryOutputModule";
 
 export default function OutputModule(executeData: HistoryEntityData) {
     let outputType = executeData?.outputType;
     let status = executeData?.status
-
     let Module;
 
     if (status === HistoryStatus.FINISHED && (outputType === ModelOutputType.IMAGE || outputType === ModelOutputType.BINARY)) {
@@ -17,7 +18,11 @@ export default function OutputModule(executeData: HistoryEntityData) {
         Module = (executeData) ? () => TextOutputModule(executeData) : EmptyOutputModule;
     } else if (status === HistoryStatus.FINISHED && outputType === ModelOutputType.VIDEO) {
         Module = (executeData) ? () => VideoOutputModule(executeData) : EmptyOutputModule;
-    } else
+    } else if (status === HistoryStatus.FINISHED && outputType === ModelOutputType.SOUND) {
+        Module = (executeData) ? () => SoundOutputModule(executeData) : EmptyOutputModule;
+    } else if (status === HistoryStatus.FINISHED && outputType === ModelOutputType.ZIP) {
+        Module = (executeData) ? () => ZipGalleryOutputModule(executeData) : EmptyOutputModule;
+    }else
         Module = EmptyOutputModule
 
     return (

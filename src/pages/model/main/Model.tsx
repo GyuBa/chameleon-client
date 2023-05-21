@@ -17,10 +17,11 @@ import {
 import {PlatformAPI} from "../../../platform/PlatformAPI"
 import useWebSocket from "react-use-websocket";
 import {PageType} from "../../../types/chameleon-client.enum";
-import InputModule from "../module/core/InputModule";
+import InputModule from "../module/core/InputModule"
 import OutputModule from "../module/core/OutputModule";
 
 const initialData: ModelParameters = {} as ModelParameters;
+
 export default function Model() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const [parameters, setParameters] = useState<ModelParameters>(initialData);
@@ -29,6 +30,7 @@ export default function Model() {
     const {username, uniqueName} = useParams();
 
     let path = useLocation().pathname.slice(1);
+
     useEffect(() => {
         (async function () {
             try {
@@ -54,7 +56,7 @@ export default function Model() {
     });
 
     useEffect(() => {
-        sendJsonMessage({msg: WSMessageType.PATH, path: path});
+        sendJsonMessage({msg: WSMessageType.PATH, path});
     }, [sendJsonMessage, path]);
 
     useEffect(() => {
@@ -83,14 +85,10 @@ export default function Model() {
         <div className="contents">
             <div className="w-full m-2 md:m-10 mt-24">
                 <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
-                    <div className="flex justify-between items-end">
-                        <p className='head-text'>Model</p>
-                        <h1 className="mx-2 text-gray-500">{modelData?.name}</h1>
-                        <div>
+                    <div className="flex justify-between">
+                        <p className='head-text'>{modelData?.name}</p>
+                        <div className="flex items-center md:px-2">
                             <div>
-                                {executeData?.status === undefined && (
-                                    <h1 className="rounded-lg text-xs p-1.5 bg-blue-900 text-white">Stand By</h1>
-                                )}
                                 {executeData?.status === HistoryStatus.RUNNING && (
                                     <h1 className="rounded-lg text-xs p-1.5 bg-yellow-500 text-white">Running...</h1>
                                 )}
@@ -107,7 +105,7 @@ export default function Model() {
                 <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
                     <div className="row-span-2 rounded-lg border-1 border-gray-300 overflow-auto">
                         <div className="border-b border-gray-300" style={{backgroundColor: '#F6F6F6'}}>
-                            <div className="flex md:p-2 space-x-3 rounded-lg">
+                            <div className="flex md:px-5 md:py-2 space-x-3 rounded-lg">
                                 {['Parameters', 'Parameters (JSON)'].map((label, idx) => {
                                     return (
                                         <button
@@ -124,7 +122,7 @@ export default function Model() {
                                 })}
                             </div>
                         </div>
-                        <div className="tab-content tab-space overflow-y-auto max-h-[212px] md:p-2">
+                        <div className="tab-content tab-space overflow-y-auto max-h-[212px] md:px-5">
                             <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
                                 <JsonForms
                                     schema={schema}

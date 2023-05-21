@@ -7,8 +7,6 @@
     "@jsonforms/material-renderers": "^3.0.0",
     "@jsonforms/react": "^3.0.0",
     "@monaco-editor/react": "^4.4.6",
-    "@mui/icons-material": "^5.11.11",
-    "@mui/x-date-pickers": "^6.0.2",
     "@rjsf/core": "^5.1.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -24,7 +22,8 @@
     "@types/react-responsive": "^8.0.5",
     "@types/video.js": "^7.3.51",
     "@uiw/react-md-editor": "^3.20.5",
-    "@zip.js/zip.js": "^2.6.81",
+    "@videojs/themes": "^1.0.1",
+    "@zip.js/zip.js": "^2.7.14",
     "axios": "^1.3.4",
     "bootstrap": "^5.2.3",
     "dom-to-image": "^2.6.0",
@@ -35,6 +34,7 @@
     "http-proxy-middleware": "^2.0.6",
     "jquery": "^3.6.3",
     "json-schema": "^0.4.0",
+    "jszip": "^3.10.1",
     "katex": "^0.16.4",
     "mermaid": "^9.3.0",
     "node-sass": "^8.0.0",
@@ -47,6 +47,7 @@
     "react-error-boundary": "^3.1.4",
     "react-final-form": "^6.5.9",
     "react-grid-gallery": "^1.0.0",
+    "react-h5-audio-player": "^3.8.6",
     "react-icons": "^4.7.1",
     "react-loader-spinner": "^5.3.4",
     "react-player": "^2.12.0",
@@ -56,7 +57,7 @@
     "react-use-websocket": "^4.2.0",
     "typescript": "^4.9.4",
     "web-vitals": "^2.1.4",
-    "yet-another-react-lightbox": "^3.1.0"
+    "yet-another-react-lightbox": "^3.8.3"
   },
   "scripts": {
     "postinstall": "patch-package",

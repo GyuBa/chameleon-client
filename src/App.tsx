@@ -37,13 +37,13 @@ export default function App() {
     useEffect(() => {
         let message = lastJsonMessage as any;
         if (lastJsonMessage && message.msg === WSMessageType.READY) {
-            sendJsonMessage({msg: WSMessageType.PATH, path: path});
+            sendJsonMessage({msg: WSMessageType.PATH, path});
         }
-    }, [sendJsonMessage, lastJsonMessage, path]);
+    }, [lastJsonMessage, path]);
 
     useEffect(() => {
-        sendJsonMessage({msg: WSMessageType.PATH, path: path});
-    }, [sendJsonMessage, path]);
+        sendJsonMessage({msg: WSMessageType.PATH, path});
+    }, [path]);
 
     const [activeMenu, setActiveMenu] = useState<boolean>(true);
     const [modelData, setModelData] = useState<ModelUploadData>(undefined!);
