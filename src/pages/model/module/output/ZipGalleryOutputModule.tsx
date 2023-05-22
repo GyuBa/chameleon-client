@@ -117,7 +117,7 @@ export default function ZipGalleryOutputModule(executeData: HistoryEntityData) {
 
     return (
         <div>
-            <div className="pb-1 flex justify-between items-center border-b">
+            <div className="md:px-5 md:py-2 space-x-3 flex justify-between items-center border-b">
                 <p className="text-xl font-semibold">Output</p>
                 <div className="flex items-center rounded-lg hover:bg-light-gray focus:bg-gray">
                     <button className="submit-btn text-sm"

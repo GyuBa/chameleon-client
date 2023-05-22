@@ -1,3 +1,32 @@
+import {ModelInputType, ModelOutputType} from "./chameleon-platform.common"
+import EmptyInputModule from "../pages/model/module/input/EmptyInputModule"
+import SingleInputModule from "../pages/model/module/input/SingleInputModule"
+import MultiInputModule from "../pages/model/module/input/MultipleInputModule";
+import ImageOutputModule from "../pages/model/module/output/ImageOutputModule";
+import ZipGalleryOutputModule from "../pages/model/module/output/ZipGalleryOutputModule";
+import TextOutputModule from "../pages/model/module/output/TextOutputModule";
+import SoundOutputModule from "../pages/model/module/output/SoundOutputModule";
+import VideoOutputModule from "../pages/model/module/output/VideoOutputModule";
+
+export const InputModuleMap = {
+    [ModelInputType.EMPTY]: EmptyInputModule,
+    [ModelInputType.ZIP] : MultiInputModule,
+    [ModelInputType.IMAGE] : SingleInputModule,
+    [ModelInputType.TEXT] :SingleInputModule,
+    [ModelInputType.SOUND]: SingleInputModule,
+    [ModelInputType.VIDEO] : SingleInputModule,
+    [ModelInputType.BINARY] : SingleInputModule
+};
+
+export const OutputModuleMap = {
+    [ModelOutputType.BINARY]: ImageOutputModule,
+    [ModelOutputType.IMAGE] : ImageOutputModule,
+    [ModelOutputType.ZIP] : ZipGalleryOutputModule,
+    [ModelOutputType.TEXT] : TextOutputModule,
+    [ModelOutputType.SOUND] : SoundOutputModule,
+    [ModelOutputType.VIDEO] : VideoOutputModule
+};
+
 export enum PageType {
     HISTORY = 'history',
     EXECUTE = 'execute',

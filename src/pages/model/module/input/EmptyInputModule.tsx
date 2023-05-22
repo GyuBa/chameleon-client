@@ -1,12 +1,12 @@
 import React from "react";
 import {PlatformAPI} from "../../../../platform/PlatformAPI";
-import {HistoryEntityData, ModelParameters} from "../../../../types/chameleon-platform.common";
-import {InputModelInfo} from "../../../../types/chameleon-client";
+import {ModuleData} from "../../../../types/chameleon-client";
 import {PageType} from "../../../../types/chameleon-client.enum";
 
-export default function EmptyInputModule(type: PageType, parameters: ModelParameters, modelData: InputModelInfo, executeData: HistoryEntityData) {
+export default function EmptyInputModule(moduleData : ModuleData) {
     let file = new File(["{}"], "empty");
-    const modelId = modelData?.id;
+    const modelId = moduleData?.model?.id!;
+    const parameters = moduleData?.parameters
     const handleModelStart = async (event: React.FormEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
@@ -28,10 +28,10 @@ export default function EmptyInputModule(type: PageType, parameters: ModelParame
             </div>
             <div className="flex justify-center items-center mt-20">
                 {
-                    type === PageType.EXECUTE ? (
+                    moduleData.type === PageType.EXECUTE ? (
                         <button onClick={handleModelStart} className="submit-btn text-2xl py-1 border border-gray
                         border-solid rounded-md hover:border-black"
-                                disabled={executeData !== undefined}>Start Model</button>
+                                disabled={moduleData.history !== undefined}>Start Model</button>
                     ) : (
                         ''
                     )

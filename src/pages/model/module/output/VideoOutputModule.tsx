@@ -42,13 +42,11 @@ export default function VideoOutputModule(executeData: HistoryEntityData) {
                 </div>
             </div>
             <div className="overflow-y-auto max-h-[352px]">
-                <br />
-                <p>
-                    <span className="pl-5">Output Format :</span> {extension}
-                </p>
-                <p>
-                    <span className="pl-5">Size :</span> {FileUtils.formatBytes(outputSize)}
-                </p>
+                <br/>
+                <p><span className="pl-5 pt-2 font-semibold">Output Format : </span>{extension} </p>
+                <p><span className="pl-5 pt-2 font-semibold">Size : </span>{FileUtils.formatBytes(outputSize)} </p>
+                <p><span className="pl-5 pt-2 font-semibold">Output : </span></p>
+                <br/>
                 <div className="px-5">
                     <video
                         src={'/'+ outputPath}
@@ -56,7 +54,7 @@ export default function VideoOutputModule(executeData: HistoryEntityData) {
                         controls
                         autoPlay={false}
                         ref={videoRef}
-                        style={{ maxWidth: '100%', maxHeight : '70%'}}
+                        style={{ objectFit: 'contain', maxWidth: '100%', maxHeight : '100%'}}
                     />
                 </div>
             </div>
