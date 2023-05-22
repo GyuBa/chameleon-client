@@ -95,12 +95,12 @@ export default function MultiInputModule(moduleData : ModuleData) {
                             <button onClick={removeFile}
                                     className="submit-btn text-sm py-1 px-1.5 border border-gray border-solid
                                               rounded-md hover:bg-white bg-white"
-                                    disabled={moduleData?.history !== undefined}>remove
+                                    disabled={moduleData.history !== undefined}>remove
                             </button>
                             <button onClick={handleSubmit}
                                     className="submit-btn text-sm py-1 px-1.5 border border-gray border-solid
                                               rounded-md hover:bg-white bg-white"
-                                    disabled={moduleData?.history !== undefined}>start
+                                    disabled={moduleData.history !== undefined}>start
                             </button>
                         </div>
                     ) : ('')
