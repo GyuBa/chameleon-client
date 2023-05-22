@@ -108,7 +108,7 @@ export default function MultiInputModule(moduleData : ModuleData) {
             </div>
             <div className="overflow-auto max-h-[213px] h-full">
                 <section className="container h-full">
-                    {moduleData?.history.status !== undefined ? (
+                    {moduleData.history && moduleData?.history.status !== undefined ? (
                         <div>
                             <br/>
                             <p><span
