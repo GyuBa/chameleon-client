@@ -3,7 +3,7 @@ import {Badge} from "flowbite-react";
 import {ModelsLayoutProps} from "../../../../types/chameleon-client";
 import {TimeUtils} from "../../../../utils/TimeUtils";
 
-export default function ModelsGridLayout({models, onModelSelect}: ModelsLayoutProps) {
+export default function ModelsGridLayout({models, onModelSelect, onDelete}: ModelsLayoutProps) {
     return <div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 gap-4">
         {models.map((modelData) => (
             <div key={modelData.id} onClick={() => onModelSelect(modelData)}

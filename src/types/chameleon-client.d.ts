@@ -80,6 +80,7 @@ export interface ModelsProps {
 export interface ModelsLayoutProps {
     models: ModelEntityData[];
     onModelSelect: (modelData: ModelEntityData) => void;
+    onDelete: boolean;
 }
 
 export interface ParameterBuilderProps {
