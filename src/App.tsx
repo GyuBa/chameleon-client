@@ -21,6 +21,7 @@ import GlobalContextProvider from "./contexts/GlobalContextProvider";
 import CreateModelDescription from "./pages/model/create/CreateModelDescription";
 import {CookieUtils} from "./utils/CookieUtils";
 import {PlatformAPI} from "./platform/PlatformAPI";
+import PaymentDetails from "./pages/profile/PaymentDetails";
 
 export default function App() {
 
@@ -77,6 +78,7 @@ export default function App() {
                         <Route path={SitePaths.ACCOUNT} element={<Account/>}/>
                         <Route path={SitePaths.CHANGE_PASSWORD} element={<ChangePassword/>}/>
                         <Route path={SitePaths.PAYMENT} element={<Payment/>}/>
+                        <Route path={SitePaths.PAYMENT_DETAILS} element={<PaymentDetails/>}/>
                         <Route path={SitePaths.MODELS} element={<Navigate to={SitePaths.ALL_MODELS} replace/>}/>
                         <Route path={SitePaths.ALL_MODELS} element={<Models/>}/>
                         <Route path={SitePaths.MY_MODELS} element={<Models ownOnly={true}/>}/>

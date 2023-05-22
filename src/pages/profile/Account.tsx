@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import {GrMoney} from "react-icons/gr";
 import {SitePaths} from "../../types/chameleon-platform.common";
 import useGlobalContext from "../../contexts/hook/useGlobalContext";
+import {MdPayment} from "react-icons/md";
 
 export default function Account() {
     const {user} = useGlobalContext();
@@ -34,6 +35,23 @@ export default function Account() {
                             </div>
                             <p className="text-gray-600 font-semibold">₩{user.point.toLocaleString('ko-KR')}</p>
                         </div>
+                    </div>
+                </div>
+                <div className="my-4 border-gray-400 rounded-3xl border-1 p-6">
+                    <p className="text-xs text-gray-600 mb-1 pb-2">Payment Details</p>
+                    <div className="flex items-center">
+                        <MdPayment className="mx-4 w-10 h-10"/>
+                        <div className="w-full pl-2">
+                            <div className="font-semibold text-left">Image output model</div>
+                            <div className="text-xs text-gray-600 text-left">2023.05.22 08:09:21</div>
+                        </div>
+                        <div className="my-2 mr-4">
+                            <div className="font-semibold text-red-500 text-right">-500</div>
+                            <div className="text-xs text-gray-600 text-right">116,446</div>
+                        </div>
+                        <Link to={SitePaths.PAYMENT_DETAILS}>
+                            <button className="blue-btn text-sm p-2">more</button>
+                        </Link>
                     </div>
                 </div>
                 <div className="border-gray-400 rounded-3xl border-1 p-6">
