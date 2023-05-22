@@ -21,7 +21,6 @@ export default function History() {
         (async function () {
             try {
                 const history = await PlatformAPI.getHistory(Number(historyId) - 1);
-                console.log(history);
                 setHistoryData(history);
             } catch (error) {
                 console.error(error);
