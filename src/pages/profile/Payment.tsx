@@ -171,7 +171,6 @@ export default function Payment() {
                         <br/> <br/>
                         <p className="text-center text-red-500 margin-top: 30px text-align = center">The minimum charge
                             amount for TossPay is 5,000₩<br/>and the maximum charge amount is 50,000₩</p><br/>
-                        <br/>
                         <button onClick={() => IMP?.request_pay(tossPayInfo, callback)}
                                 className={`black-btn text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
                         >charge
