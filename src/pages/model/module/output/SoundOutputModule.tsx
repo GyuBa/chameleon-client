@@ -13,7 +13,7 @@ export default function SoundOutputModule(executeData: HistoryEntityData) {
 
     return (
         <div>
-            <div className="md:px-5 md:py-2 flex justify-between items-center border-b border-gray-300"
+            <div className="md:px-5 md:py-2 space-x-3 flex justify-between items-center border-b border-gray-300"
                  style={{backgroundColor: '#F6F6F6'}}>
                 <p className="text-xl font-semibold">Output</p>
                 <div className="flex items-center rounded-lg hover:drop-shadow-xl focus:bg-white bg-white">
@@ -26,9 +26,9 @@ export default function SoundOutputModule(executeData: HistoryEntityData) {
             </div>
             <div className="overflow-y-auto max-h-[352px]">
                 <br/>
-                <p><span className="pl-5 pt-2 font-semibold">Output Format :</span>{extension} </p>
-                <p><span className="pl-5 pt-2 font-semibold">Size :</span>{FileUtils.formatBytes(outputSize)} </p>
-                <p><span className="pl-5 pt-2 font-semibold">Output :</span></p>
+                <p><span className="pl-5 pt-2 font-semibold">Output Format : </span>{extension} </p>
+                <p><span className="pl-5 pt-2 font-semibold">Size : </span>{FileUtils.formatBytes(outputSize)} </p>
+                <p><span className="pl-5 pt-2 font-semibold">Output : </span></p>
                 <br/>
                 <AudioPlayer className="px-5 pt-2" src={'/' + outputPath} onPlay={e => console.log("onPlay")}/>
             </div>
