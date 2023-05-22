@@ -5,7 +5,7 @@ import {
     ModelEntityData,
     ModelInputType,
     ModelParameters,
-    RegionEntityData
+    RegionEntityData, UserEntityData
 } from "./chameleon-platform.common";
 import {ModelFileType, ParameterType, PageType} from "./chameleon-client.enum";
 
@@ -51,6 +51,8 @@ export type GlobalContextData = {
     setRegions: React.Dispatch<React.SetStateAction<RegionEntityData[]>>
     parameterDetails: ParameterDetail[]
     setParameterDetails: React.Dispatch<React.SetStateAction<ParameterDetail[]>>
+    user: UserEntityData;
+    setUser: React.Dispatch<React.SetStateAction<UserEntityData>>
 };
 
 export type IFile = File & { preview?: string };
@@ -89,4 +91,11 @@ export type ParameterEditorTabProps = {
     isVisible: boolean
     value: string,
     onChange: (value: string | undefined) => void
+}
+
+export type ModuleData = {
+    parameters: ModelParameters
+    history: HistoryEntityData,
+    model?: ModelEntityData,
+    type: PageType,
 }

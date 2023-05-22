@@ -149,4 +149,9 @@ export class PlatformAPI {
         const response = await this.instance.post('/points/update', {amount}, this.defaultConfig);
         return response?.data;
     }
+
+    public static async chargePoint(paymentResponse: any): Promise<ResponseData> {
+        const response = await this.instance.post('/points/charge', {paymentResponse}, this.defaultConfig);
+        return response?.data;
+    }
 }

@@ -2,12 +2,12 @@ import React from 'react';
 import {BsPersonCircle} from "react-icons/bs";
 import {HiOutlineLockClosed, HiOutlineMail} from "react-icons/hi";
 import {Link} from "react-router-dom";
-import useGetUserInfo from "../../service/authentication/UserInfoService";
 import {GrMoney} from "react-icons/gr";
 import {SitePaths} from "../../types/chameleon-platform.common";
+import useGlobalContext from "../../contexts/hook/useGlobalContext";
 
 export default function Account() {
-    const {user} = useGetUserInfo();
+    const {user} = useGlobalContext();
 
     return (
         <div className="contents">

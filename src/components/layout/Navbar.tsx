@@ -2,7 +2,6 @@ import React, {useRef, useEffect, useState} from 'react';
 import {AiOutlineMenu} from 'react-icons/ai';
 import {BsFillPersonFill} from 'react-icons/bs';
 import {MdKeyboardArrowDown} from 'react-icons/md';
-import useGetUserInfo from "../../service/authentication/UserInfoService";
 import UserProfile from "./UserProfile";
 import {GrMoney} from "react-icons/gr";
 import {Link} from "react-router-dom";
@@ -11,7 +10,7 @@ import useGlobalContext from "../../contexts/hook/useGlobalContext";
 
 export default function Navbar() {
     const {activeMenu, setActiveMenu} = useGlobalContext();
-    const {user} = useGetUserInfo();
+    const {user} = useGlobalContext();
     const [isUserProfileOpen, setUserProfileOpen] = useState(false);
     const userProfileRef = useRef<HTMLDivElement>(null);
 

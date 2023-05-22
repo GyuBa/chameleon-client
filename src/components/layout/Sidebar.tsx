@@ -7,8 +7,6 @@ import {MdOutlineAccountCircle, MdOutlineCancel} from 'react-icons/md';
 import useGlobalContext from "../../contexts/hook/useGlobalContext";
 import {GiChameleonGlyph} from "react-icons/gi";
 
-const imageURL = '/logo1.png'
-
 const links = [
     {
         title: 'Models',
@@ -59,7 +57,7 @@ export default function Sidebar() {
                     <div className="flex justify-between items-center">
                         <Link to={SitePaths.ALL_MODELS} onClick={handleCloseSideBar}
                               className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight text-slate-900">
-                            <img style={{width: '10%'}} className="object-cover w-full" src={imageURL} alt="chameleon"/><span>Chameleon</span>
+                            <GiChameleonGlyph/><span>Chameleon Platform</span>
                         </Link>
                         <button
                             type="button"

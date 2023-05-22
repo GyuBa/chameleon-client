@@ -12,14 +12,15 @@ import CreateModelInfo from "./pages/model/create/CreateModelInfo";
 import CreateModelParameters from "./pages/model/create/CreateModelParameters";
 import SignIn from "./pages/auth/SignIn";
 import SignUp from "./pages/auth/SignUp";
-import {RegionEntityData, SitePaths, WSMessageType} from "./types/chameleon-platform.common";
+import {RegionEntityData, SitePaths, UserEntityData, WSMessageType} from "./types/chameleon-platform.common";
 import Histories from "./pages/history/board/Histories";
 import Models from "./pages/model/board/Models";
 import History from "./pages/history/main/History";
-import useGetUserInfo from "./service/authentication/UserInfoService";
 import {ModelUploadData, ParameterDetail} from "./types/chameleon-client";
 import GlobalContextProvider from "./contexts/GlobalContextProvider";
 import CreateModelDescription from "./pages/model/create/CreateModelDescription";
+import {CookieUtils} from "./utils/CookieUtils";
+import {PlatformAPI} from "./platform/PlatformAPI";
 
 export default function App() {
 
@@ -32,7 +33,6 @@ export default function App() {
     });
 
     let path = useLocation().pathname.slice(1);
-    const {getCookieValue} = useGetUserInfo();
 
     useEffect(() => {
         let message = lastJsonMessage as any;
@@ -49,6 +49,14 @@ export default function App() {
     const [modelData, setModelData] = useState<ModelUploadData>(undefined!);
     const [regions, setRegions] = useState<RegionEntityData[]>([]);
     const [parameterDetails, setParameterDetails] = useState<ParameterDetail[]>([]);
+    const [user, setUser] = useState<UserEntityData>({id: -1, username: "", email: "", point: 0});
+
+    const isSignedIn = CookieUtils.getCookieValue('connect.sid');
+    useEffect(() => {
+        if (isSignedIn && user.id === -1) {
+            setTimeout(async () => setUser(await PlatformAPI.getLoginUser()));
+        }
+    }, [isSignedIn]);
 
     return (
         <GlobalContextProvider value={{
@@ -59,10 +67,12 @@ export default function App() {
             regions,
             setRegions,
             parameterDetails,
-            setParameterDetails
+            setParameterDetails,
+            user,
+            setUser
         }}>
             <Routes>
-                {getCookieValue('connect.sid') ? (
+                {isSignedIn ? (
                     <Route path="/" element={(<Layout/>)}>
                         <Route path={SitePaths.ACCOUNT} element={<Account/>}/>
                         <Route path={SitePaths.CHANGE_PASSWORD} element={<ChangePassword/>}/>
