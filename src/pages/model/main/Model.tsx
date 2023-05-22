@@ -9,7 +9,7 @@ import {
     HistoryEntityData,
     HistoryStatus,
     ModelEntityData,
-    ModelParameters,
+    ModelExecutionParameters,
     SitePaths,
     WSMessageType,
     WSUpdateHistoryMessage
@@ -21,11 +21,9 @@ import {ModuleData} from "../../../types/chameleon-client"
 import InputModule from "../module/core/InputModule"
 import OutputModule from "../module/core/OutputModule";
 
-const initialData: ModelParameters = {} as ModelParameters;
-
 export default function Model() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
-    const [parameters, setParameters] = useState<ModelParameters>(initialData);
+    const [parameters, setParameters] = useState<ModelExecutionParameters>({});
     const [modelData, setModelData] = useState<ModelEntityData>();
     const [executeData, setExecuteData] = useState<HistoryEntityData>();
     const {username, uniqueName} = useParams();
