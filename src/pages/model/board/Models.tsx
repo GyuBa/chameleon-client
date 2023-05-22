@@ -24,6 +24,10 @@ export default function Models(props: ModelsProps) {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchOption, setSearchOption] = useState(ModelSearchOption.NAME);
 
+    const [isDelete, setDelete] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [selectedModelName, setSelectedModelName] = useState('');
+
     useEffect(() => {
         setSelectedModelId(-1);
         let completed = false;
@@ -47,6 +51,20 @@ export default function Models(props: ModelsProps) {
         setSelectedModelId(modelData.id);
     };
 
+    const onBinClick = (modelName: string) => {
+        setModalOpen(true)
+        setSelectedModelName(modelName);
+    }
+
+    const onModalDeleteClick = async () => {
+        setModalOpen(false);
+        try {
+            const uploadResult = await PlatformAPI.deleteModelById(selectedModelId);
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
     const ArrangeMenu = () => (
         <div className="flex items-center gap-2">
             <Link to={SitePaths.CREATE_MODEL}
@@ -55,11 +73,11 @@ export default function Models(props: ModelsProps) {
                 <span
                     className="text-gray-700 flex justify-between w-full px-1 py-1 text-sm leading-5 text-left">Create Model</span>
             </Link>
-            <Link to="/" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
+            <button className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray" onClick={() => setDelete(!isDelete)}>
                 <BiTrash size="25" color="#484848" className="pl-1"/>
                 <span
                     className="text-gray-700 flex justify-between w-full px-1 py-1 text-sm leading-5 text-left">Delete Model</span>
-            </Link>
+            </button>
         </div>
     );
 
@@ -191,8 +209,8 @@ export default function Models(props: ModelsProps) {
                 </div>
                 <div className="mt-10 max-h-screen overflow-auto">
                     {currentLayout === ModelsLayout.GRID_LAYOUT ?
-                        <ModelsGridLayout models={models} onModelSelect={onModelSelect}/> :
-                        <ModelsListLayout models={models} onModelSelect={onModelSelect}/>}
+                        <ModelsGridLayout models={models} onModelSelect={onModelSelect} onDelete={isDelete}/> :
+                        <ModelsListLayout models={models} onModelSelect={onModelSelect} onDelete={isDelete}/>}
                 </div>
             </div>
             {selectedModelId > 0 ?
