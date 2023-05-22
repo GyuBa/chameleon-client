@@ -77,7 +77,7 @@ export default function App() {
                         <Route path={SitePaths.CREATE_MODEL_DESCRIPTION} element={<CreateModelDescription/>}/>
                         <Route path={SitePaths.CREATE_MODEL_PARAMETERS} element={<CreateModelParameters/>}/>
                         <Route path={SitePaths.HISTORIES} element={<Histories/>}/>
-                        <Route path={SitePaths.HISTORY('detail')} element={<History/>}/>
+                        <Route path={SitePaths.HISTORY(':historyId')} element={<History/>}/>
                     </Route>
                 ) : (<Route path="/*" element={<Navigate to={SitePaths.SIGN_IN} replace/>}/>)}
                 <Route path={SitePaths.SIGN_IN} element={(<SignIn/>)}/>
