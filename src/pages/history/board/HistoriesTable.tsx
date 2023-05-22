@@ -1,6 +1,6 @@
 import {Badge, Table} from "flowbite-react";
 import React from "react";
-import {HistoryEntityData, HistoryStatus, SitePaths} from "../../../types/chameleon-platform.common";
+import {HistoryStatus, SitePaths} from "../../../types/chameleon-platform.common";
 import {TimeUtils} from "../../../utils/TimeUtils";
 import {useNavigate} from "react-router-dom";
 import {HistoriesProps} from "../../../types/chameleon-client";
@@ -26,7 +26,7 @@ export function HistoriesTable({histories}: HistoriesProps) {
         <div>
             <Table hoverable={true}>
                 <Table.Head>
-                    {['ID', 'Model Name', 'Stated Time', 'Ended Time', 'Executor', 'Status'].map((item, index) => (
+                    {['History ID', 'Model Name', 'Stated Time', 'Ended Time', 'Executor', 'Status'].map((item, index) => (
                         <Table.HeadCell key={index}>{item}</Table.HeadCell>
                     ))}
                 </Table.Head>
@@ -34,7 +34,7 @@ export function HistoriesTable({histories}: HistoriesProps) {
                     {
                         histories.length !== 0 ? histories.map((historyData, index) => (
                             <Table.Row key={historyData.id} className="bg-white"
-                                       onClick={() => navigate(SitePaths.HISTORY('detail'), {state: histories[index]})}>
+                                       onClick={() => navigate(SitePaths.HISTORY(historyData.id), {state: histories[index]})}>
                                 <Table.Cell>{historyData.id}</Table.Cell>
                                 <Table.Cell>{historyData.model ? (
                                     historyData.model.name) : (
