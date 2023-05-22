@@ -26,7 +26,7 @@ export function HistoriesTable({histories}: HistoriesProps) {
         <div>
             <Table hoverable={true}>
                 <Table.Head>
-                    {['History ID', 'Model Name', 'Stated Time', 'Ended Time', 'Executor', 'Status'].map((item, index) => (
+                    {['History ID', 'Parent ID', 'Model Name', 'Stated Time', 'Ended Time', 'Executor', 'Status'].map((item, index) => (
                         <Table.HeadCell key={index}>{item}</Table.HeadCell>
                     ))}
                 </Table.Head>
@@ -36,6 +36,15 @@ export function HistoriesTable({histories}: HistoriesProps) {
                             <Table.Row key={historyData.id} className="bg-white"
                                        onClick={() => navigate(SitePaths.HISTORY(historyData.id), {state: histories[index]})}>
                                 <Table.Cell>{historyData.id}</Table.Cell>
+                                {
+                                    <Table.Cell>{
+                                        historyData.numberOfParents == 0 ? (
+                                            <Badge color={"gray"}>None</Badge>
+                                        ) : (
+                                            historyData.numberOfParents
+                                        )
+                                    }</Table.Cell>
+                                }
                                 <Table.Cell>{historyData.model ? (
                                     historyData.model.name) : (
                                     <p className="text-red">deleted</p>
