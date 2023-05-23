@@ -45,20 +45,19 @@ export default function History() {
         history: historyData!,
         model: inputModelData!,
         type: PageType.EXECUTE,
-        parameters : historyData.parameters
+        parameters: historyData.parameters
     };
     return (
         <div className="contents">
             <div className="w-full m-2 md:m-10 mt-24">
                 <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
                     <div className="flex justify-between items-end">
-                        <p className='head-text'>History</p>
-                        <h1 className="mx-2 text-gray-500">{historyData.model ? (
+                        <p className='head-text'>{historyData.model ? (
                             historyData.model.name
                         ) : (
                             'Deleted'
-                        )}
-                        </h1>
+                        )}</p>
+                        <h1 className="mx-2 text-gray-500">History</h1>
                     </div>
                     <Link to={SitePaths.HISTORIES}>
                         <button className="blue-btn text-sm w-full p-1.5">back</button>
