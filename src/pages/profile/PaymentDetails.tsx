@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {MdPayment} from "react-icons/md";
 import {Link} from "react-router-dom";
-import {PointHistoryEntityData, SitePaths} from "../../types/chameleon-platform.common";
-import {FaRegPauseCircle} from "react-icons/fa";
+import {PointHistoryEntityData, PointHistoryType, SitePaths} from "../../types/chameleon-platform.common";
 import {PlatformAPI} from "../../platform/PlatformAPI";
+import {HiChip} from "react-icons/hi";
+import {TimeUtils} from "../../utils/TimeUtils";
 
 export default function PaymentDetails() {
 	const [pointHistoryData, setPointHistoryData] = useState<PointHistoryEntityData[]>();
@@ -32,8 +33,27 @@ export default function PaymentDetails() {
 						</Link>
 					</div>
 					<div className="px-3 h-[480px] overflow-auto">
+						{pointHistoryData?.reverse().map((history) => (
+							<div className="flex items-center">
+								{history.type === PointHistoryType.USE_PAID_MODEL ? (
+									<HiChip className="mx-1 w-10 h-10"/>
+								) : (
+									<MdPayment className="mx-1 w-10 h-10"/>
+								)}
+								<div className="w-full pl-2">
+									<div className="font-semibold text-left">{history.modelHistory?.name}</div>
+									<div className="text-xs text-gray-600 text-left">{TimeUtils.formatTime(history.createdTime)}</div>
+								</div>
+								<div className="my-2">
+									<div className={history.type === PointHistoryType.USE_PAID_MODEL
+										? `font-semibold text-red-500 text-right`
+										: `font-semibold text-green-500 text-right`}>{history.delta}</div>
+									<div className="text-xs text-gray-600 text-right">{history.leftPoint}</div>
+								</div>
+							</div>
+						))}
 						<div className="flex items-center">
-							<FaRegPauseCircle className="mx-2 w-10 h-10"/>
+							<HiChip className="mx-1 w-10 h-10"/>
 							<div className="w-full pl-2">
 								<div className="font-semibold text-left">Image output model</div>
 								<div className="text-xs text-gray-600 text-left">2023.05.22 08:09:21</div>
@@ -44,7 +64,7 @@ export default function PaymentDetails() {
 							</div>
 						</div>
 						<div className="flex items-center">
-							<MdPayment className="mx-2 w-10 h-10"/>
+							<MdPayment className="mx-1 w-10 h-10"/>
 							<div className="w-full pl-2">
 								<div className="font-semibold text-left">Charge Points</div>
 								<div className="text-xs text-gray-600 text-left">2023.05.22 08:09:21</div>
