@@ -2,6 +2,7 @@ import React from 'react';
 import {Badge, Table} from "flowbite-react";
 import {ModelsLayoutProps} from "../../../../types/chameleon-client";
 import {TimeUtils} from "../../../../utils/TimeUtils";
+import {RiDeleteBinLine} from "react-icons/ri";
 
 export default function ModelsListLayout({models, onModelSelect, onDelete, onBinClicked}: ModelsLayoutProps) {
     return <div>
@@ -9,6 +10,13 @@ export default function ModelsListLayout({models, onModelSelect, onDelete, onBin
             <Table.Head>
                 {['Model Name', 'Input Type', 'Output Type', 'Region', 'Register', 'Created Time', 'Category', 'Price'].map((item) => (
                     <Table.HeadCell key={item}>{item}</Table.HeadCell>))}
+                {
+                    onDelete ? (
+                    <Table.HeadCell key={'delete'}>{'DELETE'}</Table.HeadCell>
+                    ) : (
+                        ''
+                    )
+                }
             </Table.Head>
             <Table.Body className="divide-y">
                 {models.map((modelData) => (
@@ -35,6 +43,15 @@ export default function ModelsListLayout({models, onModelSelect, onDelete, onBin
                             <Table.Cell>
                                 <div className="text-red-600">￦{modelData.price.toLocaleString('ko-KR')}</div>
                             </Table.Cell>)}
+                        {
+                            onDelete ? (
+                                <Table.Cell>
+                                    <RiDeleteBinLine style={{cursor: 'pointer'}} size="25" color="#484848" className="pl-1" onClick={() => onBinClicked()}/>
+                                </Table.Cell>
+                            ) : (
+                                ''
+                            )
+                        }
                     </Table.Row>
                 ))}
             </Table.Body>
