@@ -4,7 +4,7 @@ import {ModelsLayoutProps} from "../../../../types/chameleon-client";
 import {TimeUtils} from "../../../../utils/TimeUtils";
 import {RiDeleteBinLine} from "react-icons/ri";
 
-export default function ModelsGridLayout({models, onModelSelect, onDelete}: ModelsLayoutProps) {
+export default function ModelsGridLayout({models, onModelSelect, onDelete, onBinClicked}: ModelsLayoutProps) {
     return <div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 gap-4">
         {models.map((modelData) => (
             <div key={modelData.id} onClick={() => onModelSelect(modelData)}
@@ -32,7 +32,7 @@ export default function ModelsGridLayout({models, onModelSelect, onDelete}: Mode
                 </div>
                 <div style={{minHeight:'25px', display:'flex', justifyContent:'flex-end'}} >
                     {
-                        onDelete ? (<RiDeleteBinLine size={'25'} color="#484848" className="pl-1"/>) : ''
+                        onDelete ? (<RiDeleteBinLine size={'25'} color="#484848" className="pl-1" onClick={() => onBinClicked()}/>) : ''
                     }
                 </div>
             </div>

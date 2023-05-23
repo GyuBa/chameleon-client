@@ -81,6 +81,7 @@ export interface ModelsLayoutProps {
     models: ModelEntityData[];
     onModelSelect: (modelData: ModelEntityData) => void;
     onDelete: boolean;
+    onBinClicked: Function;
 }
 
 export interface ParameterBuilderProps {

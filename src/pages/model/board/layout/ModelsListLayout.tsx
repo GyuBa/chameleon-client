@@ -3,7 +3,7 @@ import {Badge, Table} from "flowbite-react";
 import {ModelsLayoutProps} from "../../../../types/chameleon-client";
 import {TimeUtils} from "../../../../utils/TimeUtils";
 
-export default function ModelsListLayout({models, onModelSelect, onDelete}: ModelsLayoutProps) {
+export default function ModelsListLayout({models, onModelSelect, onDelete, onBinClicked}: ModelsLayoutProps) {
     return <div>
         <Table hoverable={true}>
             <Table.Head>
