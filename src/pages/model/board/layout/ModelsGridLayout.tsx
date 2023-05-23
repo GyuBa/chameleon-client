@@ -2,6 +2,7 @@ import React from 'react';
 import {Badge} from "flowbite-react";
 import {ModelsLayoutProps} from "../../../../types/chameleon-client";
 import {TimeUtils} from "../../../../utils/TimeUtils";
+import {RiDeleteBinLine} from "react-icons/ri";
 
 export default function ModelsGridLayout({models, onModelSelect, onDelete}: ModelsLayoutProps) {
     return <div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-2 gap-4">
@@ -28,6 +29,11 @@ export default function ModelsGridLayout({models, onModelSelect, onDelete}: Mode
                     <div
                         className="text-sm text-gray-500 py-3">{TimeUtils.timeSince(modelData.createdTime)} · {modelData.register.username}</div>
                     <div className="py-3"><Badge color="gray">{modelData.image.region.name}</Badge></div>
+                </div>
+                <div style={{minHeight:'25px', display:'flex', justifyContent:'flex-end'}} >
+                    {
+                        onDelete ? (<RiDeleteBinLine size={'25'} color="#484848" className="pl-1"/>) : ''
+                    }
                 </div>
             </div>
         ))}
