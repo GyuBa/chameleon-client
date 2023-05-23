@@ -39,7 +39,9 @@ export function HistoriesTable({histories}: HistoriesProps) {
                                 {
                                     <Table.Cell>{
                                         historyData.numberOfParents == 0 ? (
-                                            <Badge color={"gray"}>None</Badge>
+                                            <div className="flex"><Badge
+                                                color={'gray'}>{'None'}</Badge>
+                                            </div>
                                         ) : (
                                             historyData.numberOfParents
                                         )
