@@ -224,18 +224,18 @@ export default function Models(props: ModelsProps) {
                 </div>
                 <div className="mt-10 max-h-screen overflow-auto">
                     {currentLayout === ModelsLayout.GRID_LAYOUT ?
-                        <ModelsGridLayout models={models} onModelSelect={onModelSelect} onDelete={isDelete} onBinClicked={onBinClick}/> :
-                        <ModelsListLayout models={models} onModelSelect={onModelSelect} onDelete={isDelete} onBinClicked={onBinClick}/>}
+                        <ModelsGridLayout models={models} onModelSelect={onModelSelect} /> :
+                        <ModelsListLayout models={models} onModelSelect={onModelSelect} />}
                 </div>
             </div>
             {selectedModelId > 0 && !modalOpen ?
                 <div className="w-[700px] ease-in-out duration-300 translate-x-0">
-                    <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId}/>
+                    <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId} setModalOpen={setModalOpen}/>
                 </div>
                 :
                 <div className="w-0 ease-in-out duration-300 translate-x-full">
                     <div className="hidden">
-                        <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId}/>
+                        <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId} setModalOpen={setModalOpen}/>
                     </div>
                 </div>
             }

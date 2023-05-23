@@ -62,6 +62,7 @@ export type ModelUploadData = ModelCommonUploadData & { files: IFile[], file: IF
 export interface DescriptionProps {
     modelId: number;
     setSelectedModelId: React.Dispatch<React.SetStateAction<number>>;
+    setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface InputModelInfo {
@@ -80,8 +81,6 @@ export interface ModelsProps {
 export interface ModelsLayoutProps {
     models: ModelEntityData[];
     onModelSelect: (modelData: ModelEntityData) => void;
-    onDelete: boolean;
-    onBinClicked: Function;
 }
 
 export interface ParameterBuilderProps {
