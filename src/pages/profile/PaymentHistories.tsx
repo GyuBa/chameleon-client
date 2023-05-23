@@ -32,7 +32,8 @@ export default function PaymentHistories() {
 						</Link>
 					</div>
 					<div className="px-3 h-[560px] overflow-auto">
-						{pointHistoriesData?.slice(0).reverse().map((history) => (
+						{pointHistoriesData?.length ? (
+							pointHistoriesData?.slice(0).reverse().map((history) => (
 							<div className="flex items-center">
 								{history.type === PointHistoryType.USE_PAID_MODEL ? (
 									<HiChip className="mx-1 w-10 h-10"/>
@@ -50,7 +51,9 @@ export default function PaymentHistories() {
 									<div className="text-xs text-gray-600 text-right">{history.leftPoint.toLocaleString('ko-KR')}</div>
 								</div>
 							</div>
-						))}
+							))) : (
+							<p className="text-center text-gray-700">No payment histories found.</p>
+						)}
 					</div>
 				</div>
 			</div>

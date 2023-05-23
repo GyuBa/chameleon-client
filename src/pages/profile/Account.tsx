@@ -58,7 +58,8 @@ export default function Account() {
                             <button className="blue-btn text-sm p-2">more</button>
                         </Link>
                     </div>
-                    {pointHistoriesData?.slice(-3).reverse().map((history) => (
+                    {pointHistoriesData?.length ? (
+                        pointHistoriesData?.slice(-3).reverse().map((history) => (
                         <div className="flex items-center">
                             {history.type === PointHistoryType.USE_PAID_MODEL ? (
                                 <HiChip className="mx-1 w-10 h-10"/>
@@ -76,7 +77,9 @@ export default function Account() {
                                 <div className="text-xs text-gray-600 text-right">{history.leftPoint.toLocaleString('ko-KR')}</div>
                             </div>
                         </div>
-                    ))}
+                        ))) : (
+                        <p className="text-center text-gray-700">No payment histories found.</p>
+                    )}
                 </div>
                 <div className="border-gray-400 rounded-3xl border-1 p-6">
                     <p className="text-xs text-gray-600 mb-1 pb-2">Security Setting</p>
