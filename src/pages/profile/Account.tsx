@@ -1,18 +1,32 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {BsPersonCircle} from "react-icons/bs";
-import {HiOutlineLockClosed, HiOutlineMail} from "react-icons/hi";
+import {HiChip, HiOutlineLockClosed, HiOutlineMail} from "react-icons/hi";
 import {Link} from "react-router-dom";
 import {GrMoney} from "react-icons/gr";
-import {SitePaths} from "../../types/chameleon-platform.common";
+import {PointHistoryEntityData, PointHistoryType, SitePaths} from "../../types/chameleon-platform.common";
 import useGlobalContext from "../../contexts/hook/useGlobalContext";
 import {MdPayment} from "react-icons/md";
+import {PlatformAPI} from "../../platform/PlatformAPI";
+import {TimeUtils} from "../../utils/TimeUtils";
 
 export default function Account() {
     const {user} = useGlobalContext();
+    const [pointHistoryData, setPointHistoryData] = useState<PointHistoryEntityData[] | null>(null);
+
+    useEffect(() => {
+        (async function () {
+            try {
+                const result = await PlatformAPI.getPointsHistories();
+                setPointHistoryData(result || []);
+            } catch (error) {
+                console.error(error);
+            }
+        })();
+    }, []);
 
     return (
         <div className="contents">
-            <div className="w-2/3 m-2 md:m-10 mt-24 md:p-10">
+            <div className="w-2/3 m-2 md:m-10 mt-24">
                 <p className='head-text'>Account</p>
                 <div className="my-4 border-gray-400 rounded-3xl border-1 p-6">
                     <p className="text-xs text-gray-600 mb-1 pb-2">User Info</p>
@@ -38,21 +52,31 @@ export default function Account() {
                     </div>
                 </div>
                 <div className="my-4 border-gray-400 rounded-3xl border-1 p-6">
-                    <p className="text-xs text-gray-600 mb-1 pb-2">Payment Details</p>
-                    <div className="flex items-center">
-                        <MdPayment className="mx-4 w-10 h-10"/>
-                        <div className="w-full pl-2">
-                            <div className="font-semibold text-left">Image output model</div>
-                            <div className="text-xs text-gray-600 text-left">2023.05.22 08:09:21</div>
-                        </div>
-                        <div className="my-2 mr-4">
-                            <div className="font-semibold text-red-500 text-right">-500</div>
-                            <div className="text-xs text-gray-600 text-right">116,446</div>
-                        </div>
-                        <Link to={SitePaths.PAYMENT_DETAILS}>
+                    <div className="flex justify-between mb-2">
+                        <p className="text-xs text-gray-600 mb-1 pb-2">Payment Histories</p>
+                        <Link to={SitePaths.PAYMENT_HISTORIES}>
                             <button className="blue-btn text-sm p-2">more</button>
                         </Link>
                     </div>
+                    {pointHistoryData?.slice(-3).reverse().map((history) => (
+                        <div className="flex items-center">
+                            {history.type === PointHistoryType.USE_PAID_MODEL ? (
+                                <HiChip className="mx-1 w-10 h-10"/>
+                            ) : (
+                                <MdPayment className="mx-1 w-10 h-10"/>
+                            )}
+                            <div className="w-full pl-2">
+                                <div className="font-semibold text-left">{history.modelHistory?.name}</div>
+                                <div className="text-xs text-gray-600 text-left">{TimeUtils.formatTime(new Date(history.createdTime))}</div>
+                            </div>
+                            <div className="my-2 mr-4">
+                                <div className={history.type === PointHistoryType.USE_PAID_MODEL
+                                    ? `font-semibold text-red-500 text-right`
+                                    : `font-semibold text-green-500 text-right`}>{history.delta.toLocaleString('ko-KR')}</div>
+                                <div className="text-xs text-gray-600 text-right">{history.leftPoint.toLocaleString('ko-KR')}</div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
                 <div className="border-gray-400 rounded-3xl border-1 p-6">
                     <p className="text-xs text-gray-600 mb-1 pb-2">Security Setting</p>
