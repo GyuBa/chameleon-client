@@ -1,8 +1,31 @@
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import {SitePaths} from "../../types/chameleon-platform.common";
-import React from "react";
+import {PlatformAPI} from "../../platform/PlatformAPI";
 
 export default function ChangePassword() {
+    const [currentPassword, setCurrentPassword] = useState<string>('');
+    const [newPassword, setNewPassword] = useState<string>('');
+    const [confirmPassword, setConfirmPassword] = useState<string>('');
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const handlePasswordChange = async () => {
+        console.log(currentPassword);
+        console.log(newPassword);
+        console.log(confirmPassword);
+        if (newPassword === confirmPassword) {
+            try {
+                setErrorMessage('');
+                await PlatformAPI.modifyPassword(newPassword);
+                window.location.href = SitePaths.ACCOUNT;
+            } catch (error) {
+                console.error(error);
+            }
+        } else {
+            setErrorMessage("New Password and Confirm New Password do not match.");
+            return;
+        }
+    };
 
     return (
         <div className="contents">
@@ -10,6 +33,9 @@ export default function ChangePassword() {
                 <p className='head-text'>Change Password</p>
                 <p className="m-2 text-sm text-gray-500 whitespace-nowrap">* More than 8 of digits Number + English +
                     Special Characters</p>
+                {errorMessage && (
+                    <p className="text-red-500 m-4">{errorMessage}</p>
+                )}
                 <div className="m-4">
                     <input
                         type="password"
@@ -18,6 +44,8 @@ export default function ChangePassword() {
                   rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
                   focus:border-blue-600 focus:outline-none"
                         id="pw-1"
+                        value={currentPassword}
+                        onChange={(e) => setCurrentPassword(e.target.value)}
                         placeholder="Current Password"/>
                 </div>
                 <div className="m-4">
@@ -28,6 +56,8 @@ export default function ChangePassword() {
                   rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
                   focus:border-blue-600 focus:outline-none"
                         id="pw-2"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
                         placeholder="New Password"/>
                 </div>
                 <div className="m-4">
@@ -38,15 +68,15 @@ export default function ChangePassword() {
                   rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
                   focus:border-blue-600 focus:outline-none"
                         id="pw-3"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
                         placeholder="Confirm New Password"/>
                 </div>
                 <div className="flex gap-3 float-right">
                     <Link to={SitePaths.ACCOUNT}>
                         <button className="white-btn text-sm p-2">cancel</button>
                     </Link>
-                    <Link to={SitePaths.ACCOUNT}>
-                        <button className="blue-btn text-sm p-2">change</button>
-                    </Link>
+                    <button className="blue-btn text-sm p-2" onClick={handlePasswordChange}>change</button>
                 </div>
             </div>
         </div>

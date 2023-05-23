@@ -7,13 +7,13 @@ import {HiChip} from "react-icons/hi";
 import {TimeUtils} from "../../utils/TimeUtils";
 
 export default function PaymentHistories() {
-	const [pointHistoryData, setPointHistoryData] = useState<PointHistoryEntityData[] | null>(null);
+	const [pointHistoriesData, setPointHistoriesData] = useState<PointHistoryEntityData[] | null>(null);
 
 	useEffect(() => {
 		(async function () {
 			try {
 				const result = await PlatformAPI.getPointsHistories();
-				setPointHistoryData(result || []);
+				setPointHistoriesData(result || []);
 			} catch (error) {
 				console.error(error);
 			}
@@ -32,7 +32,7 @@ export default function PaymentHistories() {
 						</Link>
 					</div>
 					<div className="px-3 h-[560px] overflow-auto">
-						{pointHistoryData?.slice(0).reverse().map((history) => (
+						{pointHistoriesData?.slice(0).reverse().map((history) => (
 							<div className="flex items-center">
 								{history.type === PointHistoryType.USE_PAID_MODEL ? (
 									<HiChip className="mx-1 w-10 h-10"/>
