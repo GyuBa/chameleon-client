@@ -49,7 +49,7 @@ export default function ModelsDescriptionPanel({modelId, setSelectedModelId, set
                         <button className="submit-btn text-sm w-full p-1.5" onClick={handleStart}>start</button>
                         {
                             user.id === modelData?.register.id ? (
-                                <button className="submit-btn text-sm w-full p-1.5"
+                                <button className="delete-btn text-sm w-full p-1.5"
                                         onClick={() => {
                                             setDeleteModalContext({
                                                currentModel: modelData,

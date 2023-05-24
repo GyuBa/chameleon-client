@@ -91,7 +91,7 @@ export default function Payment() {
                                                                   onChange={handleChange}/><span> 50,000 ₩ </span></label>
                         <br/> <br/>
                         <p className="text-center text-red-500 margin-top: 30px text-align = center">The minimum charge
-                            amount for KakaoPay is 5,000₩<br/>and the maximum charge amount is 50,000₩</p>
+                            amount for KakaoPay is 5,000 ₩<br/>and the maximum charge amount is 50,000 ₩</p>
                         <br/>
                         <button onClick={() => IMP?.request_pay(kakapPayInfo, callback)}
                                 className={`black-btn text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
@@ -131,7 +131,7 @@ export default function Payment() {
                                                                   onChange={handleChange}/><span> 50,000 ₩ </span></label>
                         <br/> <br/>
                         <p className="text-center text-red-500 margin-top: 30px text-align = center">The minimum charge
-                            amount for PAYCO is 5,000₩<br/>and the maximum charge amount is 50,000₩</p><br/>
+                            amount for PAYCO is 5,000 ₩<br/>and the maximum charge amount is 50,000 ₩</p><br/>
                         <button onClick={() => IMP?.request_pay(paycoPayInfo, callback)}
                                 className={`black-btn text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
                         >charge
@@ -170,7 +170,7 @@ export default function Payment() {
                                                                   onChange={handleChange}/><span> 50,000 ₩ </span></label>
                         <br/> <br/>
                         <p className="text-center text-red-500 margin-top: 30px text-align = center">The minimum charge
-                            amount for TossPay is 5,000₩<br/>and the maximum charge amount is 50,000₩</p><br/>
+                            amount for TossPay is 5,000 ₩<br/>and the maximum charge amount is 50,000 ₩</p><br/>
                         <button onClick={() => IMP?.request_pay(tossPayInfo, callback)}
                                 className={`black-btn text-sm p-2 hover:drop-shadow-xl whitespace-nowrap`}
                         >charge

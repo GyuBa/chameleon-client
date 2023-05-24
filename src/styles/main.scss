@@ -24,6 +24,10 @@
     @apply default-btn bg-black text-white rounded-md;
   }
 
+  .red-btn {
+    @apply default-btn bg-red-600 text-white rounded-md;
+  }
+
   .submit-btn {
     &:disabled {
       @apply disabled-btn whitespace-nowrap p-2
@@ -31,6 +35,16 @@
 
     &:enabled {
       @apply blue-btn hover:drop-shadow-xl whitespace-nowrap p-2
+    }
+  }
+
+  .delete-btn {
+    &:disabled {
+      @apply disabled-btn whitespace-nowrap p-2
+    }
+
+    &:enabled {
+      @apply red-btn hover:drop-shadow-xl whitespace-nowrap p-2
     }
   }
 
