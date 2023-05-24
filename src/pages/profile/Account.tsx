@@ -61,18 +61,13 @@ export default function Account() {
                     {pointHistoriesData?.length ? (
                         pointHistoriesData?.slice(-3).reverse().map((history) => (
                         <div className="flex items-center">
-                            {history.type === PointHistoryType.USE_PAID_MODEL ? (
-                                <HiChip className="mx-4 w-10 h-10"/>
-                            ) : (
-                                <MdPayment className="mx-4 w-10 h-10"/>
-                            )}
+                            {history.type === PointHistoryType.USE_PAID_MODEL
+                                ? <HiChip className="mx-4 w-10 h-10"/> : <MdPayment className="mx-4 w-10 h-10"/>}
                             <div className="w-full pl-2">
                                 <div className="font-semibold text-left">
                                     {history.modelHistory?.model?.name == null ? (
                                         history.type === PointHistoryType.USE_PAID_MODEL ? 'Delete Model' : 'Charge Points'
-                                    ) : (
-                                        history.modelHistory?.model?.name
-                                    )}
+                                    ) : history.modelHistory?.model?.name}
                                 </div>
                                 <div className="text-xs text-gray-600 text-left">{TimeUtils.formatTime(new Date(history.createdTime))}</div>
                             </div>

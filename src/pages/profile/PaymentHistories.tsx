@@ -35,11 +35,8 @@ export default function PaymentHistories() {
 						{pointHistoriesData?.length ? (
 							pointHistoriesData?.slice(0).reverse().map((history) => (
 							<div className="flex items-center">
-								{history.type === PointHistoryType.USE_PAID_MODEL ? (
-									<HiChip className="mx-1 w-10 h-10"/>
-								) : (
-									<MdPayment className="mx-1 w-10 h-10"/>
-								)}
+								{history.type === PointHistoryType.USE_PAID_MODEL
+									? <HiChip className="mx-1 w-10 h-10"/> : <MdPayment className="mx-1 w-10 h-10"/>}
 								<div className="w-full pl-2">
 									<div className="font-semibold text-left">
 										{history.modelHistory?.model?.name == null ? (
