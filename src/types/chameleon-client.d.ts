@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {
     HistoryEntityData,
     ModelCommonUploadData,
@@ -14,11 +14,6 @@ export type ModuleData = {
     model?: InputModelInfo,
     type: PageType,
     parameters: ModelParameters
-}
-
-export type HeaderData = {
-    category?: string;
-    title?: string;
 }
 
 export type ParameterDetail = {

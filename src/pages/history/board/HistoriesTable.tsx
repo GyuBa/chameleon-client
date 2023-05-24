@@ -26,11 +26,11 @@ export function HistoriesTable({histories}: HistoriesProps) {
         <div>
             <Table hoverable={true}>
                 <Table.Head>
-                    {['History ID', 'Parent ID', 'Model Name', 'Stated Time', 'Ended Time', 'Executor', 'Status'].map((item, index) => (
+                    {['History ID', 'Parent ID', 'Model Name', 'Started Time', 'Ended Time', 'Executor', 'Status'].map((item, index) => (
                         <Table.HeadCell key={index}>{item}</Table.HeadCell>
                     ))}
                 </Table.Head>
-                <Table.Body className="bg-white">
+                <Table.Body className="bg-white cursor-pointer">
                     {
                         histories.length !== 0 ? histories.map((historyData, index) => (
                             <Table.Row key={historyData.id} className="bg-white"
