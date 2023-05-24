@@ -30,7 +30,7 @@ export function HistoriesTable({histories}: HistoriesProps) {
                         <Table.HeadCell key={index}>{item}</Table.HeadCell>
                     ))}
                 </Table.Head>
-                <Table.Body className="bg-white">
+                <Table.Body className="bg-white cursor-pointer">
                     {
                         histories.length !== 0 ? histories.map((historyData, index) => (
                             <Table.Row key={historyData.id} className="bg-white"
