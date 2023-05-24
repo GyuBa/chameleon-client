@@ -10,9 +10,9 @@ export default function ChangePassword() {
     const [errorMessage, setErrorMessage] = useState('');
 
     const handlePasswordChange = async () => {
-        console.log(currentPassword);
-        console.log(newPassword);
-        console.log(confirmPassword);
+        // console.log(currentPassword);
+        // console.log(newPassword);
+        // console.log(confirmPassword);
         if (newPassword === confirmPassword) {
             try {
                 setErrorMessage('');
