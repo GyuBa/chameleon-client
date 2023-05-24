@@ -34,8 +34,8 @@ export default function ChangePassword() {
         <div className="contents">
             <div className="w-3/5 m-2 md:m-10 mt-24 md:p-10">
                 <p className='head-text'>Change Password</p>
-                <p className="m-2 text-sm text-gray-500 whitespace-nowrap">* More than 8 of digits Number + English +
-                    Special Characters</p>
+                <p className="m-2 text-sm text-gray-500 whitespace-nowrap">
+                    * More than 8 of digits Number + English + Special Characters</p>
                 {errorMessage && (
                     <p className="text-red-500 m-4">{errorMessage}</p>
                 )}
