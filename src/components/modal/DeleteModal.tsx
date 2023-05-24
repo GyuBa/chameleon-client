@@ -9,7 +9,7 @@ export default function DeleteModal({header, close, submit}: {header: string, cl
         submit();
     }
     return (
-        <div className='modal'>
+        <div className={'modal'}>
             <section>
                 <header>
                     {header}
