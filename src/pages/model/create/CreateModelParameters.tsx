@@ -86,8 +86,7 @@ export default function CreateModelParameters() {
                                     className={`flex px-3 py-2 text-red-800 justify-center items-center rounded-lg bg-red-50 ${
                                         showError ? 'opacity-100 ease-in duration-150' : 'opacity-0 ease-out duration-150'}`}>
                                     <RiErrorWarningFill size={20}/>
-                                    <div className="ml-2 text-sm font-medium">Warning: Upload Error! Check if there are
-                                        any blanks.
+                                    <div className="ml-2 text-sm font-medium">Warning: Upload Error! Check if there are any blanks.
                                     </div>
                                 </div>
                             )}

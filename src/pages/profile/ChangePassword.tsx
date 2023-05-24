@@ -10,20 +10,23 @@ export default function ChangePassword() {
     const [errorMessage, setErrorMessage] = useState('');
 
     const handlePasswordChange = async () => {
-        // console.log(currentPassword);
-        // console.log(newPassword);
-        // console.log(confirmPassword);
-        if (newPassword === confirmPassword) {
-            try {
+        console.log(currentPassword);
+        console.log(newPassword);
+        console.log(confirmPassword);
+        try {
+            if (currentPassword === '' || newPassword === '' || confirmPassword === '') {
+                setErrorMessage("Check if there are any blanks.");
+                return;
+            } else if (newPassword !== confirmPassword) {
+                setErrorMessage("New Password and Confirm New Password do not match.");
+                return;
+            } else if (newPassword === confirmPassword) {
                 setErrorMessage('');
-                await PlatformAPI.modifyPassword(newPassword);
+                await PlatformAPI.modifyPassword(newPassword, currentPassword);
                 window.location.href = SitePaths.ACCOUNT;
-            } catch (error) {
-                console.error(error);
             }
-        } else {
-            setErrorMessage("New Password and Confirm New Password do not match.");
-            return;
+        } catch (error) {
+            console.error(error);
         }
     };
 
