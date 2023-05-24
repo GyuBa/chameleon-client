@@ -1,42 +1,63 @@
-import React, {useState} from 'react';
-import {Link, useLocation} from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import {Link, useParams} from "react-router-dom";
 import OutputDescriptionModule from "../../model/module/description/OutputDescriptionModule";
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonViewer} from "@textea/json-viewer";
 import {InputModelInfo, ModuleData} from "../../../types/chameleon-client";
 import {PageType} from "../../../types/chameleon-client.enum";
-import {SitePaths} from "../../../types/chameleon-platform.common";
+import {HistoryEntityData, SitePaths} from "../../../types/chameleon-platform.common";
 import InputModule from "../../model/module/core/InputModule";
 import OutputModule from "../../model/module/core/OutputModule";
+import {PlatformAPI} from "../../../platform/PlatformAPI";
+import {Oval} from "react-loader-spinner";
 
 export default function History() {
-    const location = useLocation();
-    const historyData = location.state;
-    const parameter = historyData.parameters.parameter;
-
+    const {historyId} = useParams();
     const [activeTabIndex, setActiveTabIndex] = useState(0);
+    const [historyData, setHistoryData] = useState<HistoryEntityData>();
+
+    useEffect(() => {
+        (async function () {
+            try {
+                const history = await PlatformAPI.getHistory(Number(historyId) - 1);
+                setHistoryData(history);
+            } catch (error) {
+                console.error(error);
+            }
+        })();
+    }, []);
+
+    if (historyData === undefined) {
+        return (
+            <div className="contents">
+                <div className="flex justify-center items-center h-screen">
+                    <div className="text-center">
+                        <Oval color="#00BFFF" height={80} width={80}/>
+                    </div>
+                </div>
+            </div>
+        );
+    }
     const inputModelData: InputModelInfo = {id: -1, inputType: historyData.inputType};
 
     const moduleData: ModuleData = {
         history: historyData!,
         model: inputModelData!,
         type: PageType.EXECUTE,
-        parameters : parameter
+        parameters: historyData.parameters
     };
-
     return (
         <div className="contents">
             <div className="w-full m-2 md:m-10 mt-24">
                 <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
                     <div className="flex justify-between items-end">
-                        <p className='head-text'>History</p>
-                        <h1 className="mx-2 text-gray-500">{historyData.model ? (
+                        <p className='head-text'>{historyData.model ? (
                             historyData.model.name
                         ) : (
                             'Deleted'
-                        )}
-                        </h1>
+                        )}</p>
+                        <h1 className="mx-2 text-gray-500">History</h1>
                     </div>
                     <Link to={SitePaths.HISTORIES}>
                         <button className="blue-btn text-sm w-full p-1.5">back</button>
@@ -46,7 +67,7 @@ export default function History() {
                     <div className="row-span-2 rounded-lg border-1 border-gray-300 overflow-auto">
                         <div className="border-b border-gray-300" style={{backgroundColor: '#F6F6F6'}}>
                             <div className="flex md:p-2 space-x-3 rounded-lg">
-                                // TODO: History Model 페이지 중복 코드 제거
+                                {/*// TODO: History Model 페이지 중복 코드 제거*/}
                                 {['Parameters', 'Parameters (JSON)'].map((label, idx) => {
                                     return (
                                         <button
@@ -66,14 +87,14 @@ export default function History() {
                         <div className="tab-content tab-space overflow-y-auto max-h-[212px] md:p-2">
                             <div className={activeTabIndex === 0 ? "block" : "hidden"}>
                                 <JsonForms
-                                    data={parameter}
+                                    data={historyData.parameters}
                                     renderers={materialRenderers}
                                     cells={materialCells}
                                     readonly
                                 />
                             </div>
                             <div className={activeTabIndex === 1 ? "block" : "hidden"}>
-                                <JsonViewer value={parameter ? parameter : {}}/>
+                                <JsonViewer value={historyData?.parameters ? historyData.parameters : {}}/>
                             </div>
                         </div>
                     </div>
