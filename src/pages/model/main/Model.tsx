@@ -104,7 +104,7 @@ export default function Model() {
 
     return (
         <div className="contents">
-            <div className="w-full m-2 md:m-10 mt-24 overflow-auto">
+            <div className="w-full m-2 md:m-10 mt-24">
                 <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
                     <div className="flex justify-between">
                         <p className='head-text'>{modelData?.name}</p>
