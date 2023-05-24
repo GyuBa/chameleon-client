@@ -55,7 +55,7 @@ export default function History() {
                         <p className='head-text'>{historyData.model ? (
                             historyData.model.name
                         ) : (
-                            'Deleted'
+                            'Deleted Model'
                         )}</p>
                         <h1 className="mx-2 text-gray-500">History</h1>
                     </div>
