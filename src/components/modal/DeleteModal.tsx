@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/DeleteModal.css';
+import '../../styles/delete-modal.css';
 export default function DeleteModal({header, close, submit}: {header: string, close: Function, submit: Function}) {
     const onClose = () => {
         close()
