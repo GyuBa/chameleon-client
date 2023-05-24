@@ -49,7 +49,7 @@ export default function ModelsDescriptionPanel({modelId, setSelectedModelId, set
                         {
                             user.id == modelData?.register.id ? (
                                 <button className="submit-btn text-sm w-full p-1.5" onClick={() => setModalOpen(true)}>delete</button>
-                            ) : ('')
+                            ) : <></>
                         }
 
                         <button className="text-gray-500 text-2xl rounded-full hover:text-black hover:bg-light-gray"
