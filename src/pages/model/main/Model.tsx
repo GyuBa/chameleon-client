@@ -4,7 +4,7 @@ import OutputDescriptionModule from "../module/description/OutputDescriptionModu
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonForms} from "@jsonforms/react";
 import {JsonViewer} from "@textea/json-viewer";
-import {FiChevronsRight} from "react-icons/fi";
+import {FiInfo} from "react-icons/fi";
 import {Oval} from "react-loader-spinner";
 import {
     HistoryEntityData,
@@ -125,7 +125,7 @@ export default function Model() {
                 </div>
                 <div className = "flex justify-end items-center">
                     <button onClick={handleButtonClick}>
-                        <FiChevronsRight size="32" color="#484848" className="my-1" />
+                        <FiInfo size="32" color="#484848" className="my-1" />
                     </button>
                 </div>
                 <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2">
