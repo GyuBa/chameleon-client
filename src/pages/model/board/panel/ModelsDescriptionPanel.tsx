@@ -6,11 +6,12 @@ import {PlatformAPI} from "../../../../platform/PlatformAPI";
 import {ModelEntityData, SitePaths} from "../../../../types/chameleon-platform.common";
 import {DescriptionProps} from "../../../../types/chameleon-client";
 import {MdOutlineCancel} from "react-icons/md";
+import useGlobalContext from "../../../../contexts/hook/useGlobalContext";
 
-export default function ModelsDescriptionPanel({modelId, setSelectedModelId, setModalOpen, own}: DescriptionProps) {
+export default function ModelsDescriptionPanel({modelId, setSelectedModelId, setModalOpen}: DescriptionProps) {
     const [modelData, setModelData] = useState<ModelEntityData>();
     const navigate = useNavigate();
-
+    const {user} = useGlobalContext();
     useEffect(() => {
         let completed = false;
 
@@ -46,7 +47,7 @@ export default function ModelsDescriptionPanel({modelId, setSelectedModelId, set
                     <div className="flex gap-2 items-center">
                         <button className="submit-btn text-sm w-full p-1.5" onClick={handleStart}>start</button>
                         {
-                            own ? (
+                            user.id == modelData?.register.id ? (
                                 <button className="submit-btn text-sm w-full p-1.5" onClick={() => setModalOpen(true)}>delete</button>
                             ) : ('')
                         }

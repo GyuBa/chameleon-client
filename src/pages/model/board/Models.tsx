@@ -221,12 +221,12 @@ export default function Models(props: ModelsProps) {
             </div>
             {selectedModelId > 0 && !modalOpen ?
                 <div className="w-[700px] ease-in-out duration-300 translate-x-0">
-                    <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId} setModalOpen={setModalOpen} own={props.ownOnly}/>
+                    <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId} setModalOpen={setModalOpen}/>
                 </div>
                 :
                 <div className="w-0 ease-in-out duration-300 translate-x-full">
                     <div className="hidden">
-                        <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId} setModalOpen={setModalOpen} own={props.ownOnly}/>
+                        <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId} setModalOpen={setModalOpen}/>
                     </div>
                 </div>
             }
