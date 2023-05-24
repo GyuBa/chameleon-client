@@ -93,4 +93,24 @@
   .head-text {
     @apply text-3xl font-extrabold tracking-tight text-slate-900
   }
+
+  .terminal-container {
+    @apply bg-black flex
+  }
+}
+
+.main-content-container {
+  overflow: hidden;
+
+  .row {
+    margin: 0;
+  }
+}
+
+.contents-area-wrapper {
+  height: calc(100vh - 52px);
+}
+
+.contents-area {
+  height: 100%;
 }

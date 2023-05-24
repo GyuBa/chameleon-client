@@ -20,6 +20,7 @@ import {PageType} from "../../../types/chameleon-client.enum";
 import {ModuleData} from "../../../types/chameleon-client"
 import InputModule from "../module/core/InputModule"
 import OutputModule from "../module/core/OutputModule";
+import TerminalSplitContainer from "../../../components/terminal/container/TerminalSplitContainer";
 
 export default function Model() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -27,8 +28,6 @@ export default function Model() {
     const [modelData, setModelData] = useState<ModelEntityData>();
     const [executeData, setExecuteData] = useState<HistoryEntityData>();
     const {username, uniqueName} = useParams();
-
-    let path = useLocation().pathname.slice(1);
 
     useEffect(() => {
         (async function () {
@@ -42,7 +41,6 @@ export default function Model() {
     }, [username, uniqueName]);
 
     const {
-        sendJsonMessage,
         lastJsonMessage
     } = useWebSocket((window.location.protocol.startsWith('https') ? 'wss://' : 'ws://') + window.location.host + '/websocket ', {
         shouldReconnect: (closeEvent) => true,
@@ -53,10 +51,6 @@ export default function Model() {
             }
         }
     });
-
-    useEffect(() => {
-        sendJsonMessage({msg: WSMessageType.PATH, path});
-    }, [sendJsonMessage, path]);
 
     useEffect(() => {
         let message = lastJsonMessage as unknown as WSUpdateHistoryMessage;
@@ -89,68 +83,71 @@ export default function Model() {
 
     return (
         <div className="contents">
-            <div className="w-full m-2 md:m-10 mt-24">
-                <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
-                    <div className="flex justify-between">
-                        <p className='head-text'>{modelData?.name}</p>
-                        <div className="flex items-center md:px-2">
-                            <div>
-                                {executeData?.status === HistoryStatus.RUNNING && (
-                                    <h1 className="rounded-lg text-xs p-1.5 bg-yellow-500 text-white">Running...</h1>
-                                )}
-                                {executeData?.status === HistoryStatus.FINISHED && (
-                                    <h1 className="rounded-lg text-xs p-1.5 bg-green-500 text-white">Finished</h1>
-                                )}
+            <TerminalSplitContainer>
+                <div className="m-2 md:m-10 mt-24">
+                    <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
+                        <div className="flex justify-between">
+                            <p className='head-text'>{modelData?.name}</p>
+                            <div className="flex items-center md:px-2">
+                                <div>
+                                    {executeData?.status === HistoryStatus.RUNNING && (
+                                        <h1 className="rounded-lg text-xs p-1.5 bg-yellow-500 text-white">Running...</h1>
+                                    )}
+                                    {executeData?.status === HistoryStatus.FINISHED && (
+                                        <h1 className="rounded-lg text-xs p-1.5 bg-green-500 text-white">Finished</h1>
+                                    )}
+                                </div>
                             </div>
                         </div>
+                        <Link to={SitePaths.ALL_MODELS}>
+                            <button className="blue-btn text-sm w-full p-1.5">back</button>
+                        </Link>
                     </div>
-                    <Link to={SitePaths.ALL_MODELS}>
-                        <button className="blue-btn text-sm w-full p-1.5">back</button>
-                    </Link>
-                </div>
-                <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
-                    <div className="row-span-2 rounded-lg border-1 border-gray-300 overflow-auto">
-                        <div className="border-b border-gray-300" style={{backgroundColor: '#F6F6F6'}}>
-                            <div className="flex md:px-5 md:py-2 space-x-3 rounded-lg">
-                                {['Parameters', 'Parameters (JSON)'].map((label, idx) => {
-                                    return (
-                                        <button
-                                            key={idx}
-                                            className={`text-xl font-semibold pb-2 border-b-4 transition-colors duration-300 ${
-                                                idx === activeTabIndex
-                                                    ? "border-teal-500"
-                                                    : "border-transparent hover:border-gray-200"
-                                            }`}
-                                            onClick={() => setActiveTabIndex(idx)}>
-                                            {label}
-                                        </button>
-                                    );
-                                })}
+                    <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
+                        <div className="row-span-2 rounded-lg border-1 border-gray-300 overflow-auto">
+                            <div className="border-b border-gray-300" style={{backgroundColor: '#F6F6F6'}}>
+                                <div className="flex md:px-5 md:py-2 space-x-3 rounded-lg">
+                                    {['Parameters', 'Parameters (JSON)'].map((label, idx) => {
+                                        return (
+                                            <button
+                                                key={idx}
+                                                className={`text-xl font-semibold pb-2 border-b-4 transition-colors duration-300 ${
+                                                    idx === activeTabIndex
+                                                        ? "border-teal-500"
+                                                        : "border-transparent hover:border-gray-200"
+                                                }`}
+                                                onClick={() => setActiveTabIndex(idx)}>
+                                                {label}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                            <div className="tab-content tab-space overflow-y-auto max-h-[212px] md:px-5">
+                                <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
+                                    <JsonForms
+                                        schema={schema}
+                                        uischema={uiSchema}
+                                        data={parameters}
+                                        renderers={materialRenderers}
+                                        cells={materialCells}
+                                        onChange={({data}) => {
+                                            setParameters(data);
+                                        }}
+                                    />
+                                </div>
+                                <div className={activeTabIndex === 1 ? "block" : "hidden"} id="link2">
+                                    <JsonViewer value={parameters ? parameters : {}}/>
+                                </div>
                             </div>
                         </div>
-                        <div className="tab-content tab-space overflow-y-auto max-h-[212px] md:px-5">
-                            <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
-                                <JsonForms
-                                    schema={schema}
-                                    uischema={uiSchema}
-                                    data={parameters}
-                                    renderers={materialRenderers}
-                                    cells={materialCells}
-                                    onChange={({data}) => {
-                                        setParameters(data);
-                                    }}
-                                />
-                            </div>
-                            <div className={activeTabIndex === 1 ? "block" : "hidden"} id="link2">
-                                <JsonViewer value={parameters ? parameters : {}}/>
-                            </div>
-                        </div>
+                        {InputModule(moduleData!)}
+                        {OutputModule(executeData!)}
+                        {OutputDescriptionModule(executeData!)}
                     </div>
-                    {InputModule(moduleData!)}
-                    {OutputModule(executeData!)}
-                    {OutputDescriptionModule(executeData!)}
                 </div>
-            </div>
+            </TerminalSplitContainer>
+
         </div>
     );
 };

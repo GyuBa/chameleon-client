@@ -53,6 +53,8 @@ export type GlobalContextData = {
     setParameterDetails: React.Dispatch<React.SetStateAction<ParameterDetail[]>>
     user: UserEntityData;
     setUser: React.Dispatch<React.SetStateAction<UserEntityData>>
+    enableFooter: boolean;
+    setEnableFooter: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 export type IFile = File & { preview?: string };
