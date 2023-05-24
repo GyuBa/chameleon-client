@@ -49,7 +49,7 @@ export function HistoriesTable({histories}: HistoriesProps) {
                                 }
                                 <Table.Cell>{historyData.model ? (
                                     historyData.model.name) : (
-                                    <p className="text-red">deleted</p>
+                                    <p className="text-red">deleted model</p>
                                 )}</Table.Cell>
                                 <Table.Cell>{TimeUtils.formatTime(historyData.startedTime)}</Table.Cell>
                                 <Table.Cell>{historyData.endedTime ? TimeUtils.formatTime(historyData.endedTime) : '-'}</Table.Cell>
