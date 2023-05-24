@@ -37,7 +37,7 @@ export default function Model() {
     const handleButtonClick = () => {
         setIsPanelVisible(true);
 
-        if(isPanelVisible == true)
+        if(isPanelVisible === true)
             setIsPanelVisible(false)
     };
 

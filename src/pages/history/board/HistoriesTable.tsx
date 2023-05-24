@@ -38,7 +38,7 @@ export function HistoriesTable({histories}: HistoriesProps) {
                                 <Table.Cell>{historyData.id}</Table.Cell>
                                 {
                                     <Table.Cell>{
-                                        historyData.numberOfParents == 0 ? (
+                                        historyData.numberOfParents === 0 ? (
                                             <div className="flex"><Badge
                                                 color={'gray'}>{'None'}</Badge>
                                             </div>
