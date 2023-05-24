@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {HiOutlineSearch, HiViewGrid} from "react-icons/hi";
 import {FiList} from "react-icons/fi";
 import {RiDeleteBinLine} from "react-icons/ri";
@@ -14,6 +14,7 @@ import ModelsGridLayout from "./layout/ModelsGridLayout";
 import ModelsListLayout from "./layout/ModelsListLayout";
 import {MdKeyboardArrowDown} from "react-icons/md";
 import DeleteModal from "../../../components/modal/DeleteModal";
+import LoadingCircle from "../../../components/static/LoadingCircle";
 
 export default function Models(props: ModelsProps) {
     const [currentLayout, setCurrentLayout] = useState<ModelsLayout>(ModelsLayout.GRID_LAYOUT);
@@ -28,7 +29,9 @@ export default function Models(props: ModelsProps) {
     const [isDelete, setDelete] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedModelName, setSelectedModelName] = useState('');
+    const [deleteLoading, setDeleteLoading] = useState(false);
 
+    const navigate = useNavigate()
     useEffect(() => {
         setSelectedModelId(-1);
         let completed = false;
@@ -46,25 +49,25 @@ export default function Models(props: ModelsProps) {
         return () => {
             completed = true;
         };
-    }, [props.ownOnly, searchOption, searchTerm]);
+    }, [props.ownOnly, searchOption, searchTerm, deleteLoading]);
 
     const onModelSelect = (modelData: ModelEntityData) => {
         setSelectedModelId(modelData.id);
         setSelectedModelName(modelData.name);
     };
 
-    const onBinClick = () => {
-        setModalOpen(true);
-    }
-
     const onModalDeleteClick = async () => {
         setModalOpen(false);
         try {
-            const uploadResult = await PlatformAPI.deleteModelById(selectedModelId);
+            setDeleteLoading(true)
+            await PlatformAPI.deleteModelById(selectedModelId);
             setSelectedModelId(-1);
         } catch (e) {
             console.error(e)
         }
+
+        setDeleteLoading(false);
+        navigate(SitePaths.MY_MODELS);
     }
 
     const onModalClose = () => {
@@ -239,6 +242,7 @@ export default function Models(props: ModelsProps) {
                     </div>
                 </div>
             }
+            {deleteLoading && <LoadingCircle/>}
         </div>
     );
 };
