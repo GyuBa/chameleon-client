@@ -13,20 +13,21 @@ export default function ChangePassword() {
         // console.log(currentPassword);
         // console.log(newPassword);
         // console.log(confirmPassword);
-        try {
-            if (currentPassword === '' || newPassword === '' || confirmPassword === '') {
-                setErrorMessage("Check if there are any blanks.");
-                return;
-            } else if (newPassword !== confirmPassword) {
-                setErrorMessage("New Password and Confirm New Password do not match.");
-                return;
-            } else if (newPassword === confirmPassword) {
+
+        if (currentPassword === '' || newPassword === '' || confirmPassword === '') {
+            setErrorMessage("Check if there are any blanks.");
+            return;
+        } else if (newPassword !== confirmPassword) {
+            setErrorMessage("New Password and Confirm New Password do not match.");
+            return;
+        } else if (newPassword === confirmPassword) {
+            try {
                 setErrorMessage('');
                 await PlatformAPI.modifyPassword(newPassword, currentPassword);
                 window.location.href = SitePaths.ACCOUNT;
+            } catch (error) {
+                console.error(error);
             }
-        } catch (error) {
-            console.error(error);
         }
     };
 
