@@ -67,7 +67,13 @@ export default function Account() {
                                 <MdPayment className="mx-1 w-10 h-10"/>
                             )}
                             <div className="w-full pl-2">
-                                <div className="font-semibold text-left">{history.modelHistory?.model.name}</div>
+                                <div className="font-semibold text-left">
+                                    {history.modelHistory?.model.name == null ? (
+                                        history.type === PointHistoryType.USE_PAID_MODEL ? 'Delete Model' : 'Charge Points'
+                                    ) : (
+                                        history.modelHistory?.model.name
+                                    )}
+                                </div>
                                 <div className="text-xs text-gray-600 text-left">{TimeUtils.formatTime(new Date(history.createdTime))}</div>
                             </div>
                             <div className="my-2 mr-4">
