@@ -57,6 +57,7 @@ export type ModelUploadData = ModelCommonUploadData & { files: IFile[], file: IF
 export interface DescriptionProps {
     modelId: number;
     setSelectedModelId: React.Dispatch<React.SetStateAction<number>>;
+    setDeleteModalContext: React.Dispatch<React.SetStateAction<DeleteModalContext>>;
 }
 
 export interface InputModelInfo {
@@ -93,4 +94,9 @@ export type ModuleData = {
     history: HistoryEntityData,
     model?: ModelEntityData,
     type: PageType,
+}
+
+export type DeleteModalContext = {
+    currentModel: ModelEntityData;
+    open: boolean;
 }

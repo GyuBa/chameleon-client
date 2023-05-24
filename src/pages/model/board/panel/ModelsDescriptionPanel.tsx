@@ -6,10 +6,12 @@ import {PlatformAPI} from "../../../../platform/PlatformAPI";
 import {ModelEntityData, SitePaths} from "../../../../types/chameleon-platform.common";
 import {DescriptionProps} from "../../../../types/chameleon-client";
 import {MdOutlineCancel} from "react-icons/md";
+import useGlobalContext from "../../../../contexts/hook/useGlobalContext";
 
-export default function ModelsDescriptionPanel({modelId, setSelectedModelId}: DescriptionProps) {
+export default function ModelsDescriptionPanel({modelId, setSelectedModelId, setDeleteModalContext}: DescriptionProps) {
     const [modelData, setModelData] = useState<ModelEntityData>();
     const navigate = useNavigate();
+    const {user} = useGlobalContext();
 
     useEffect(() => {
         let completed = false;
@@ -45,6 +47,18 @@ export default function ModelsDescriptionPanel({modelId, setSelectedModelId}: De
                     <p className="text-3xl font-extrabold tracking-tight text-slate-900">{modelData?.name}</p>
                     <div className="flex gap-2 items-center">
                         <button className="submit-btn text-sm w-full p-1.5" onClick={handleStart}>start</button>
+                        {
+                            user.id === modelData?.register.id ? (
+                                <button className="submit-btn text-sm w-full p-1.5"
+                                        onClick={() => {
+                                            setDeleteModalContext({
+                                               currentModel: modelData,
+                                               open: true
+                                            });
+                                        }}>delete</button>
+                            ) : <></>
+                        }
+
                         <button className="text-gray-500 text-2xl rounded-full hover:text-black hover:bg-light-gray"
                                 onClick={() => setSelectedModelId(-1)}><MdOutlineCancel/></button>
                     </div>
