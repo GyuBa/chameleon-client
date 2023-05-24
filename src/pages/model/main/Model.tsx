@@ -162,7 +162,8 @@ export default function Model() {
                                 />
                             </div>
                             <div className={activeTabIndex === 1 ? "block" : "hidden"} id="link2">
-                                <JsonViewer value={parameters ? parameters : {}}/>
+                                <br/>
+                                <JsonViewer className="text-lg" value={parameters ? parameters : {}} />
                             </div>
                         </div>
                     </div>
