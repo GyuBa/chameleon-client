@@ -49,6 +49,7 @@ export default function SignIn() {
                     <div className="flex justify-center my-10">
                         <img style={{width: '70%'}} className="object-cover w-full" src={imageURL} alt="chameleon"/>
                     </div>
+                    <div className="text-4xl font-bold text-center">Chameleon Platform</div>
                     <div className="w-auto my-10">
                         <form>
                             <div className="flex flex-row items-center justify-center lg:justify-start">
