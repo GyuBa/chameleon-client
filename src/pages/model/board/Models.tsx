@@ -8,7 +8,7 @@ import {ModelEntityData, ModelSearchOption, SitePaths} from "../../../types/cham
 import {PlatformAPI} from "../../../platform/PlatformAPI";
 import {useMediaQuery} from "react-responsive";
 import {ModelsLayout} from "../../../types/chameleon-client.enum";
-import {ModelsProps} from "../../../types/chameleon-client";
+import {DeleteModalContext, ModelsProps} from "../../../types/chameleon-client";
 import ModelsGridLayout from "./layout/ModelsGridLayout";
 import ModelsListLayout from "./layout/ModelsListLayout";
 import {MdKeyboardArrowDown} from "react-icons/md";
@@ -24,19 +24,18 @@ export default function Models(props: ModelsProps) {
     const isDesktopOrMobile = useMediaQuery({query: '(max-width:767px)'});
     const [searchTerm, setSearchTerm] = useState('');
     const [searchOption, setSearchOption] = useState(ModelSearchOption.NAME);
-
-    const [modalOpen, setModalOpen] = useState(false);
-    const [selectedModelName, setSelectedModelName] = useState('');
-    const [deleteLoading, setDeleteLoading] = useState(false);
+    const [deleteModalContext, setDeleteModalContext] = useState<DeleteModalContext>({} as DeleteModalContext);
 
     useEffect(() => {
-        setSelectedModelId(-1);
         let completed = false;
         (async function () {
             try {
                 const models = props.ownOnly
                     ? await PlatformAPI.getMyModels({searchOption, searchTerm})
                     : await PlatformAPI.getModels({searchOption, searchTerm});
+                if (!models.some(m => selectedModelId === m.id)) {
+                    setSelectedModelId(-1);
+                }
                 if (!completed) setModels(models);
             } catch (error) {
                 console.error(error);
@@ -46,31 +45,11 @@ export default function Models(props: ModelsProps) {
         return () => {
             completed = true;
         };
-    }, [props.ownOnly, searchOption, searchTerm, deleteLoading]);
+    }, [props.ownOnly, searchOption, searchTerm, deleteModalContext.open]);
 
     const onModelSelect = (modelData: ModelEntityData) => {
         setSelectedModelId(modelData.id);
-        setSelectedModelName(modelData.name);
     };
-
-    const onModalDeleteClick = async () => {
-        setModalOpen(false);
-        try {
-            setDeleteLoading(true)
-            await PlatformAPI.deleteModelById(selectedModelId);
-            setSelectedModelId(-1);
-        } catch (e) {
-            console.error(e)
-        }
-
-        setDeleteLoading(false);
-    }
-
-    const onModalClose = () => {
-        setModalOpen(false);
-        setSelectedModelId(-1);
-        setSelectedModelName('');
-    }
 
     const ArrangeMenu = () => (
         <div className="flex items-center gap-2">
@@ -186,13 +165,8 @@ export default function Models(props: ModelsProps) {
         <div className="contents">
             <div className="w-full m-2 md:m-10 mt-24">
                 <div className="flex justify-between items-center">
-                    {
-                        modalOpen ? (
-                            <DeleteModal header={selectedModelName + '를 삭제하시겠습니까?'} close={onModalClose} submit={onModalDeleteClick} />
-                        ) : (
-                            ''
-                        )
-                    }
+                    <DeleteModal modalData={deleteModalContext} setModalData={setDeleteModalContext}
+                                 setSelectedModelId={setSelectedModelId}/>
                     <div className="flex">
                         {(location.pathname === '/models/my') ?
                             <p className='head-text'>My Models</p> : <p className='head-text'>All Models</p>
@@ -213,22 +187,23 @@ export default function Models(props: ModelsProps) {
                 </div>
                 <div className="mt-10 max-h-screen overflow-auto">
                     {currentLayout === ModelsLayout.GRID_LAYOUT ?
-                        <ModelsGridLayout models={models} onModelSelect={onModelSelect} /> :
-                        <ModelsListLayout models={models} onModelSelect={onModelSelect} />}
+                        <ModelsGridLayout models={models} onModelSelect={onModelSelect}/> :
+                        <ModelsListLayout models={models} onModelSelect={onModelSelect}/>}
                 </div>
             </div>
-            {selectedModelId > 0 && !modalOpen ?
+            {selectedModelId > 0 ?
                 <div className="w-[700px] ease-in-out duration-300 translate-x-0">
-                    <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId} setModalOpen={setModalOpen}/>
+                    <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId}
+                                            setDeleteModalContext={setDeleteModalContext}/>
                 </div>
                 :
                 <div className="w-0 ease-in-out duration-300 translate-x-full">
                     <div className="hidden">
-                        <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId} setModalOpen={setModalOpen}/>
+                        <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId}
+                                                setDeleteModalContext={setDeleteModalContext}/>
                     </div>
                 </div>
             }
-            {deleteLoading && <LoadingCircle/>}
         </div>
     );
 };
