@@ -29,7 +29,6 @@ export default function Models(props: ModelsProps) {
     const [selectedModelName, setSelectedModelName] = useState('');
     const [deleteLoading, setDeleteLoading] = useState(false);
 
-    const navigate = useNavigate()
     useEffect(() => {
         setSelectedModelId(-1);
         let completed = false;
@@ -65,7 +64,6 @@ export default function Models(props: ModelsProps) {
         }
 
         setDeleteLoading(false);
-        navigate(SitePaths.MY_MODELS);
     }
 
     const onModalClose = () => {
