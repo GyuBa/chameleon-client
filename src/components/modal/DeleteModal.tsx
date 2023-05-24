@@ -1,6 +1,5 @@
 import React from 'react';
-import './DeleteModal.css';
-//TODO : add open, close, onSubmit to normalization
+import '../../styles/DeleteModal.css';
 export default function DeleteModal({header, close, submit}: {header: string, close: Function, submit: Function}) {
     const onClose = () => {
         close()
