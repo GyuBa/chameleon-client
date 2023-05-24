@@ -1,12 +1,10 @@
 import React, {useCallback, useState} from 'react';
 import {Link} from 'react-router-dom';
-
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {AxiosError} from "axios";
 import {SitePaths} from "../../types/chameleon-platform.common";
 
 const imageURL = '/logo1.png'
-
 export default function SignUp() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");

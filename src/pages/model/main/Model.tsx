@@ -4,6 +4,7 @@ import OutputDescriptionModule from "../module/description/OutputDescriptionModu
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonForms} from "@jsonforms/react";
 import {JsonViewer} from "@textea/json-viewer";
+import {FiInfo} from "react-icons/fi";
 import {Oval} from "react-loader-spinner";
 import {
     HistoryEntityData,
@@ -20,6 +21,7 @@ import {PageType} from "../../../types/chameleon-client.enum";
 import {ModuleData} from "../../../types/chameleon-client"
 import InputModule from "../module/core/InputModule"
 import OutputModule from "../module/core/OutputModule";
+import ExecuteDescriptionPanel from "../board/panel/ExecuteDescriptionPanel";
 
 export default function Model() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -29,6 +31,16 @@ export default function Model() {
     const {username, uniqueName} = useParams();
 
     let path = useLocation().pathname.slice(1);
+
+    const [isPanelVisible, setIsPanelVisible] = useState(false);
+
+    const handleButtonClick = () => {
+        setIsPanelVisible(true);
+
+        if(isPanelVisible == true)
+            setIsPanelVisible(false)
+    };
+
 
     useEffect(() => {
         (async function () {
@@ -79,6 +91,7 @@ export default function Model() {
 
     const schema = modelData?.parameters?.schema
     const uiSchema = modelData?.parameters?.uischema
+    const modelDescription = modelData?.description
 
     const moduleData: ModuleData = {
         history: executeData!,
@@ -108,7 +121,12 @@ export default function Model() {
                         <button className="blue-btn text-sm w-full p-1.5">back</button>
                     </Link>
                 </div>
-                <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
+                <div className = "flex justify-end items-center">
+                    <button onClick={handleButtonClick}>
+                        <FiInfo size="32" color="#484848" className="my-1" />
+                    </button>
+                </div>
+                <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2">
                     <div className="row-span-2 rounded-lg border-1 border-gray-300 overflow-auto">
                         <div className="border-b border-gray-300" style={{backgroundColor: '#F6F6F6'}}>
                             <div className="flex md:px-5 md:py-2 space-x-3 rounded-lg">
@@ -142,7 +160,8 @@ export default function Model() {
                                 />
                             </div>
                             <div className={activeTabIndex === 1 ? "block" : "hidden"} id="link2">
-                                <JsonViewer value={parameters ? parameters : {}}/>
+                                <br/>
+                                <JsonViewer className="text-lg" value={parameters ? parameters : {}} />
                             </div>
                         </div>
                     </div>
@@ -151,6 +170,11 @@ export default function Model() {
                     {OutputDescriptionModule(executeData!)}
                 </div>
             </div>
+            {isPanelVisible && (
+                <div className="w-[700px] ease-in-out duration-300 translate-x-0">
+                    {ExecuteDescriptionPanel(modelData?.name, modelDescription)}
+                </div>
+            )}
         </div>
     );
 };
