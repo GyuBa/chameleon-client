@@ -2,8 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {HiOutlineSearch, HiViewGrid} from "react-icons/hi";
 import {FiList} from "react-icons/fi";
-import {RiDeleteBinLine} from "react-icons/ri";
-import {BiAddToQueue, BiDotsVerticalRounded, BiTrash} from "react-icons/bi";
+import {BiAddToQueue, BiDotsVerticalRounded} from "react-icons/bi";
 import ModelsDescriptionPanel from "./panel/ModelsDescriptionPanel";
 import {ModelEntityData, ModelSearchOption, SitePaths} from "../../../types/chameleon-platform.common";
 import {PlatformAPI} from "../../../platform/PlatformAPI";
@@ -26,7 +25,6 @@ export default function Models(props: ModelsProps) {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchOption, setSearchOption] = useState(ModelSearchOption.NAME);
 
-    const [isDelete, setDelete] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedModelName, setSelectedModelName] = useState('');
     const [deleteLoading, setDeleteLoading] = useState(false);
@@ -84,11 +82,6 @@ export default function Models(props: ModelsProps) {
                 <span
                     className="text-gray-700 flex justify-between w-full px-1 py-1 text-sm leading-5 text-left">Create Model</span>
             </Link>
-            <button className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray" onClick={() => setDelete(!isDelete)}>
-                <BiTrash size="25" color="#484848" className="pl-1"/>
-                <span
-                    className="text-gray-700 flex justify-between w-full px-1 py-1 text-sm leading-5 text-left">Delete Model</span>
-            </button>
         </div>
     );
 
@@ -111,11 +104,6 @@ export default function Models(props: ModelsProps) {
                 <BiAddToQueue size="25" color="#484848" className="pl-1"/>
                 <span
                     className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Create Model</span>
-            </Link>
-            <Link to={SitePaths.ROOT} className="flex gap-1 hover:bg-gray-100 items-center">
-                <RiDeleteBinLine size="25" color="#484848" className="pl-1"/>
-                <span
-                    className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Delete Model</span>
             </Link>
         </div>
     );
@@ -233,12 +221,12 @@ export default function Models(props: ModelsProps) {
             </div>
             {selectedModelId > 0 && !modalOpen ?
                 <div className="w-[700px] ease-in-out duration-300 translate-x-0">
-                    <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId} setModalOpen={setModalOpen}/>
+                    <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId} setModalOpen={setModalOpen} own={props.ownOnly}/>
                 </div>
                 :
                 <div className="w-0 ease-in-out duration-300 translate-x-full">
                     <div className="hidden">
-                        <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId} setModalOpen={setModalOpen}/>
+                        <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId} setModalOpen={setModalOpen} own={props.ownOnly}/>
                     </div>
                 </div>
             }

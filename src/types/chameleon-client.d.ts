@@ -63,6 +63,7 @@ export interface DescriptionProps {
     modelId: number;
     setSelectedModelId: React.Dispatch<React.SetStateAction<number>>;
     setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    own: boolean | undefined;
 
 }
 

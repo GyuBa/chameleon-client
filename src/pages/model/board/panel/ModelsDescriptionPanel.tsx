@@ -7,7 +7,7 @@ import {ModelEntityData, SitePaths} from "../../../../types/chameleon-platform.c
 import {DescriptionProps} from "../../../../types/chameleon-client";
 import {MdOutlineCancel} from "react-icons/md";
 
-export default function ModelsDescriptionPanel({modelId, setSelectedModelId, setModalOpen}: DescriptionProps) {
+export default function ModelsDescriptionPanel({modelId, setSelectedModelId, setModalOpen, own}: DescriptionProps) {
     const [modelData, setModelData] = useState<ModelEntityData>();
     const navigate = useNavigate();
 
@@ -45,7 +45,12 @@ export default function ModelsDescriptionPanel({modelId, setSelectedModelId, set
                     <p className="text-3xl font-extrabold tracking-tight text-slate-900">{modelData?.name}</p>
                     <div className="flex gap-2 items-center">
                         <button className="submit-btn text-sm w-full p-1.5" onClick={handleStart}>start</button>
-                        <button className="submit-btn text-sm w-full p-1.5" onClick={() => setModalOpen(true)}>delete</button>
+                        {
+                            own ? (
+                                <button className="submit-btn text-sm w-full p-1.5" onClick={() => setModalOpen(true)}>delete</button>
+                            ) : ('')
+                        }
+
                         <button className="text-gray-500 text-2xl rounded-full hover:text-black hover:bg-light-gray"
                                 onClick={() => setSelectedModelId(-1)}><MdOutlineCancel/></button>
                     </div>
