@@ -1,6 +1,5 @@
 import React from "react";
 import MDEditor from "@uiw/react-md-editor";
-import {MdOutlineCancel} from "react-icons/md";
 
 export default function ExecuteDescriptionPanel(modelName : string, modelDescription: string) {
 
