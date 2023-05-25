@@ -55,7 +55,7 @@ export default function Payment() {
 
     return (
         <div className="contents">
-            <div className="m-2 md:m-10 mt-24">
+            <div className="m-2 md:m-10 mt-24 overflow-auto">
                 <p className='head-text'>Charge Points</p>
                 <div className="my-4 border-gray-400 rounded-3xl border-1 p-6 grid grid-cols-3 divide-x">
                     <div className="text-center">
