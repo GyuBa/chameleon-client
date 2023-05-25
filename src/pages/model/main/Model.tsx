@@ -6,6 +6,7 @@ import {JsonForms} from "@jsonforms/react";
 import {JsonViewer} from "@textea/json-viewer";
 import {FiInfo} from "react-icons/fi";
 import {Oval} from "react-loader-spinner";
+
 import {
     HistoryEntityData,
     HistoryStatus,
@@ -30,17 +31,11 @@ export default function Model() {
     const [executeData, setExecuteData] = useState<HistoryEntityData>();
     const {username, uniqueName} = useParams();
 
-    let path = useLocation().pathname.slice(1);
-
     const [isPanelVisible, setIsPanelVisible] = useState(false);
 
     const handleButtonClick = () => {
-        setIsPanelVisible(true);
-
-        if(isPanelVisible === true)
-            setIsPanelVisible(false)
+        setIsPanelVisible(!isPanelVisible);
     };
-
 
     useEffect(() => {
         (async function () {
@@ -54,7 +49,6 @@ export default function Model() {
     }, [username, uniqueName]);
 
     const {
-        sendJsonMessage,
         lastJsonMessage
     } = useWebSocket((window.location.protocol.startsWith('https') ? 'wss://' : 'ws://') + window.location.host + '/websocket ', {
         shouldReconnect: (closeEvent) => true,
@@ -65,10 +59,6 @@ export default function Model() {
             }
         }
     });
-
-    useEffect(() => {
-        sendJsonMessage({msg: WSMessageType.PATH, path});
-    }, [sendJsonMessage, path]);
 
     useEffect(() => {
         let message = lastJsonMessage as unknown as WSUpdateHistoryMessage;

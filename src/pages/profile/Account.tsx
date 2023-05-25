@@ -26,7 +26,7 @@ export default function Account() {
 
     return (
         <div className="contents">
-            <div className="w-2/3 m-2 md:m-10 mt-24">
+            <div className="w-2/3 m-2 md:m-10 mt-24 md:p-10 overflow-auto">
                 <p className='head-text'>Account</p>
                 <div className="my-4 border-gray-400 rounded-3xl border-1 p-6">
                     <p className="text-xs text-gray-600 mb-1 pb-2">User Info</p>

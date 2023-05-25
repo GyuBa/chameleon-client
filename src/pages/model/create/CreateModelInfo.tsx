@@ -41,7 +41,7 @@ export default function CreateModelInfo() {
 
     return (
         <div className="contents">
-            <div className="w-full m-2 md:my-7 md:mx-10 mt-12">
+            <div className="w-full m-2 md:my-7 md:mx-10 mt-12 overflow-auto">
                 <div>
                     <div className="flex space-x-3 border-b">
                         <button

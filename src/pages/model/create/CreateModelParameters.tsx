@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Link, Navigate, useNavigate} from "react-router-dom";
-import "../../../styles/hide-form-name.css"
 import {PlatformAPI} from "../../../platform/PlatformAPI";
 import {RiErrorWarningFill} from "react-icons/ri";
 import LoadingCircle from "../../../components/static/LoadingCircle";

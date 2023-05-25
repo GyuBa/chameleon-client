@@ -107,4 +107,36 @@
   .head-text {
     @apply text-3xl font-extrabold tracking-tight text-slate-900
   }
+
+  .terminal-container {
+    @apply bg-black flex
+  }
+}
+
+.main-content-container {
+  overflow: auto;
+
+  .row {
+    margin: 0;
+  }
+}
+
+.contents-area {
+  height: calc(100vh - 52px - 40px);;
+}
+
+.contents-area-disable-footer {
+  height: calc(100vh - 52px);;
+}
+
+.contents-area > div {
+  height: 100%;
+}
+
+.models-main-contents {
+  height: calc(100% - 52px - 41.6px);
+}
+
+.description-main-contents {
+  height: calc(100% - 52px - 72px);
 }
