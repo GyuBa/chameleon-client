@@ -6,6 +6,7 @@ import {JsonForms} from "@jsonforms/react";
 import {JsonViewer} from "@textea/json-viewer";
 import {FiInfo} from "react-icons/fi";
 import {Oval} from "react-loader-spinner";
+
 import {
     HistoryEntityData,
     HistoryStatus,
@@ -30,8 +31,6 @@ export default function Model() {
     const [modelData, setModelData] = useState<ModelEntityData>();
     const [executeData, setExecuteData] = useState<HistoryEntityData>();
     const {username, uniqueName} = useParams();
-
-    let path = useLocation().pathname.slice(1);
 
     const [isPanelVisible, setIsPanelVisible] = useState(false);
 
