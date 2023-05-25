@@ -13,7 +13,6 @@ import ModelsGridLayout from "./layout/ModelsGridLayout";
 import ModelsListLayout from "./layout/ModelsListLayout";
 import {MdKeyboardArrowDown} from "react-icons/md";
 import DeleteModal from "../../../components/modal/DeleteModal";
-import LoadingCircle from "../../../components/static/LoadingCircle";
 
 export default function Models(props: ModelsProps) {
     const [currentLayout, setCurrentLayout] = useState<ModelsLayout>(ModelsLayout.GRID_LAYOUT);

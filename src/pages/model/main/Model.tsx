@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useLocation, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import OutputDescriptionModule from "../module/description/OutputDescriptionModule"
 import {FiInfo} from "react-icons/fi";
 import {Oval} from "react-loader-spinner";
