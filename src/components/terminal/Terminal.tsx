@@ -48,7 +48,9 @@ export default function Terminal({moduleData: {model, type, history}}: { moduleD
 
         const resizeObserver = new ResizeObserver(entries => {
             try {
-                global?.fitTerminal();
+                setTimeout(_ => {
+                    global?.fitTerminal();
+                }, 100);
             } catch (err) {
                 console.log(err);
             }
