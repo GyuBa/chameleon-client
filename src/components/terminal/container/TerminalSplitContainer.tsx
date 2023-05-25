@@ -1,8 +1,13 @@
 import React, {useRef} from 'react';
 import Split from 'react-split'
+import Terminal from "../Terminal";
+import {ModuleData} from "../../../types/chameleon-client";
 
-type Props = { children?: React.ReactElement };
-export default function TerminalSplitContainer({children}: Props) {
+type Props = {};
+export default function TerminalSplitContainer({children, moduleData}: {
+    children?: React.ReactElement,
+    moduleData: ModuleData
+}) {
     let previousSize = [75, 25];
     let previousCardHeight = -1;
     const splitRef = useRef<any>();
@@ -10,7 +15,7 @@ export default function TerminalSplitContainer({children}: Props) {
     let fitTerminal = global?.fitTerminal;
 
     const onDrag = (sizes: number[]) => {
-        fitTerminal?.();
+        /*fitTerminal?.();
         let targetCardBody = document.querySelector('.card-upload > .card-body') as HTMLElement;
         let cardHeight = targetCardBody.clientHeight;
         if (cardHeight === 0) {
@@ -18,16 +23,15 @@ export default function TerminalSplitContainer({children}: Props) {
         } else {
             previousSize = sizes;
             previousCardHeight = cardHeight;
-        }
+        }*/
     };
 
-    return <Split ref={splitRef} className="split-container" sizes={[75, 25]} direction="vertical" onDrag={onDrag}
+    return <Split ref={splitRef} className="split-container" sizes={[75, 25]} direction="vertical"
                   onDragEnd={() => fitTerminal?.()}
                   onDragExit={() => fitTerminal?.()}>
         <div className="main-content-container">
             {children}
         </div>
-        <div className='bg-black text-white'>asdfasf</div>
-        {/*<Terminal context={context}/>*/}
+        <Terminal moduleData={moduleData}/>
     </Split>;
 }

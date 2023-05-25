@@ -83,7 +83,7 @@ export default function Model() {
 
     return (
         <div className="contents">
-            <TerminalSplitContainer>
+            <TerminalSplitContainer moduleData={moduleData}>
                 <div className="m-2 md:m-10 mt-24">
                     <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
                         <div className="flex justify-between">
@@ -100,7 +100,7 @@ export default function Model() {
                             </div>
                         </div>
                         <Link to={SitePaths.ALL_MODELS}>
-                            <button className="blue-btn text-sm w-full p-1.5">back</button>
+                            <button className="blue-btn text-sm w-full p-1.5">back</button>`
                         </Link>
                     </div>
                     <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">

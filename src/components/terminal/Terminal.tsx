@@ -2,16 +2,24 @@ import React, {useEffect} from 'react';
 import {FitAddon} from "xterm-addon-fit";
 import {Terminal as XTerm} from 'xterm';
 import 'xterm/css/xterm.css';
-import {WSMessageType} from "../../types/chameleon-platform.common";
+import {HistoryStatus, WSMessageType, WSUpdateHistoryMessage} from "../../types/chameleon-platform.common";
+import {ModuleData} from "../../types/chameleon-client";
+import useWebSocket from "react-use-websocket";
 
 let terminal: XTerm;
 let lastResize: string;
 let global: any = window;
 
-export default function Terminal() {
+export default function Terminal({moduleData: {model, type, history}}: { moduleData: ModuleData }) {
+    const {
+        sendJsonMessage,
+        lastJsonMessage,
+    } = useWebSocket<any>((window.location.protocol.startsWith('https') ? 'wss://' : 'ws://') + window.location.host + '/websocket', {
+        shouldReconnect: (closeEvent) => true,
+        share: true
+    });
 
-// export default function Terminal({context}: AppProps) {
-    /*useEffect(() => {
+    useEffect(() => {
         // WARNING: ref hook로 수정 가능한지 알아볼 것
         global.terminal?.dispose();
         terminal = new XTerm({cursorBlink: false, allowProposedApi: true});
@@ -34,7 +42,7 @@ export default function Terminal() {
             if (lastResize !== resize) {
                 lastResize = resize;
                 // enum, sender로 리팩토링할 것
-                context.sendJsonMessage({msg: WSMessageType.TERMINAL_RESIZE, ...event});
+                sendJsonMessage({msg: WSMessageType.TERMINAL_RESIZE, ...event});
             }
         });
 
@@ -58,11 +66,11 @@ export default function Terminal() {
         // Strict mode 해제
         let terminalQueue: string[] = global.terminalQueue = [];
         let isWorking = false;
-        let message = context.lastJsonMessage as any;
+        let message = lastJsonMessage;
         // enum으로 리팩토링할 것
-        if (message?.msg === WSMessageType.UpdateModel && message?.model?.status === ModelStatus.DEPLOYING) {
+        if (message?.msg === WSMessageType.UPDATE_HISTORY && message?.history?.status === HistoryStatus.INITIALIZING) {
             terminal.clear();
-        } else if (message?.msg === WSMessageType.Terminal) {
+        } else if (message?.msg === WSMessageType.TERMINAL) {
             terminalQueue.push(message.data);
             if (isWorking) {
                 return;
@@ -84,25 +92,23 @@ export default function Terminal() {
                 isWorking = false;
             });
         }
-    }, [context.lastJsonMessage]);*/
+    }, [lastJsonMessage]);
 
-/*
-    let history = context.history;
-    let terminalData = context.path.startsWith('model') ? context.model?.lastHistory?.terminal as string : history?.terminal;
-    useEffect(() => {
-        if (terminal) {
-            terminal.clear();
-            if (terminalData) {
-                // WARNING: 임시 조치
-                terminal.write(terminalData, () => {
-                    setTimeout(() => {
-                        terminal.scrollToBottom();
-                    }, 100);
-                });
+
+    /*    let terminalData = context.path.startsWith('model') ? context.model?.lastHistory?.terminal as string : history?.terminal;
+        useEffect(() => {
+            if (terminal) {
+                terminal.clear();
+                if (terminalData) {
+                    // WARNING: 임시 조치
+                    terminal.write(terminalData, () => {
+                        setTimeout(() => {
+                            terminal.scrollToBottom();
+                        }, 100);
+                    });
+                }
             }
-        }
-    }, [context.model?.uniqueName, history]);
-*/
+        }, [context.model?.uniqueName, history]);*/
 
     return <div className="terminal-container"/>;
 }
