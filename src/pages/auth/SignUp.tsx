@@ -1,12 +1,10 @@
 import React, {useCallback, useState} from 'react';
 import {Link} from 'react-router-dom';
-
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {AxiosError} from "axios";
 import {SitePaths} from "../../types/chameleon-platform.common";
 
 const imageURL = '/logo1.png'
-
 export default function SignUp() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -87,10 +85,10 @@ export default function SignUp() {
         <div className="h-screen" onKeyDown={handleKeyDown}>
             <div className="flex justify-center px-6 mt-10 text-gray-800">
                 <div className="mt-10 g-6">
-                    <div
-                        className="flex justify-center my-10">
+                    <div className="flex justify-center my-10">
                         <img style={{width: '70%'}} className="object-cover w-full" src={imageURL} alt="chameleon"/>
                     </div>
+                    <div className="text-4xl font-bold text-center">Chameleon Platform</div>
                     <div className="w-auto my-10">
                         <form>
                             <div className="flex flex-row items-center justify-center lg:justify-start">

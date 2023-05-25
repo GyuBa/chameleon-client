@@ -1,13 +1,28 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {BsPersonCircle} from "react-icons/bs";
-import {HiOutlineLockClosed, HiOutlineMail} from "react-icons/hi";
+import {HiChip, HiOutlineLockClosed, HiOutlineMail} from "react-icons/hi";
 import {Link} from "react-router-dom";
 import {GrMoney} from "react-icons/gr";
-import {SitePaths} from "../../types/chameleon-platform.common";
+import {PointHistoryEntityData, PointHistoryType, SitePaths} from "../../types/chameleon-platform.common";
 import useGlobalContext from "../../contexts/hook/useGlobalContext";
+import {MdPayment} from "react-icons/md";
+import {PlatformAPI} from "../../platform/PlatformAPI";
+import {TimeUtils} from "../../utils/TimeUtils";
 
 export default function Account() {
     const {user} = useGlobalContext();
+    const [pointHistoriesData, setPointHistoriesData] = useState<PointHistoryEntityData[] | null>(null);
+
+    useEffect(() => {
+        (async function () {
+            try {
+                const result = await PlatformAPI.getPointsHistories();
+                setPointHistoriesData(result || []);
+            } catch (error) {
+                console.error(error);
+            }
+        })();
+    }, []);
 
     return (
         <div className="contents">
@@ -35,6 +50,37 @@ export default function Account() {
                             <p className="text-gray-600 font-semibold">₩{user.point.toLocaleString('ko-KR')}</p>
                         </div>
                     </div>
+                </div>
+                <div className="my-4 border-gray-400 rounded-3xl border-1 p-6">
+                    <div className="flex justify-between mb-2">
+                        <p className="text-xs text-gray-600 mb-1 pb-2">Payment Histories</p>
+                        <Link to={SitePaths.PAYMENT_HISTORIES}>
+                            <button className="blue-btn text-sm p-2">more</button>
+                        </Link>
+                    </div>
+                    {pointHistoriesData?.length ? (
+                        pointHistoriesData?.slice(-3).reverse().map((history) => (
+                        <div className="flex items-center">
+                            {history.type === PointHistoryType.USE_PAID_MODEL
+                                ? <HiChip className="mx-4 w-10 h-10"/> : <MdPayment className="mx-4 w-10 h-10"/>}
+                            <div className="w-full pl-2">
+                                <div className="font-semibold text-left">
+                                    {history.modelHistory?.model?.name == null ? (
+                                        history.type === PointHistoryType.USE_PAID_MODEL ? 'Deleted Model' : 'Charge Points'
+                                    ) : history.modelHistory?.model?.name}
+                                </div>
+                                <div className="text-xs text-gray-600 text-left">{TimeUtils.formatTime(new Date(history.createdTime))}</div>
+                            </div>
+                            <div className="my-2 mr-4">
+                                <div className={history.type === PointHistoryType.USE_PAID_MODEL
+                                    ? `font-semibold text-red-500 text-right`
+                                    : `font-semibold text-green-500 text-right`}>{history.delta.toLocaleString('ko-KR')}</div>
+                                <div className="text-xs text-gray-600 text-right">{history.leftPoint.toLocaleString('ko-KR')}</div>
+                            </div>
+                        </div>
+                        ))) : (
+                        <p className="text-center text-gray-700">No payment histories found.</p>
+                    )}
                 </div>
                 <div className="border-gray-400 rounded-3xl border-1 p-6">
                     <p className="text-xs text-gray-600 mb-1 pb-2">Security Setting</p>

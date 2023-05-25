@@ -20,6 +20,7 @@ import GlobalContextProvider from "./contexts/GlobalContextProvider";
 import CreateModelDescription from "./pages/model/create/CreateModelDescription";
 import {CookieUtils} from "./utils/CookieUtils";
 import {PlatformAPI} from "./platform/PlatformAPI";
+import PaymentHistories from "./pages/profile/PaymentHistories";
 
 export default function App() {
 
@@ -84,6 +85,7 @@ export default function App() {
                         <Route path={SitePaths.ACCOUNT} element={<Account/>}/>
                         <Route path={SitePaths.CHANGE_PASSWORD} element={<ChangePassword/>}/>
                         <Route path={SitePaths.PAYMENT} element={<Payment/>}/>
+                        <Route path={SitePaths.PAYMENT_HISTORIES} element={<PaymentHistories/>}/>
                         <Route path={SitePaths.MODELS} element={<Navigate to={SitePaths.ALL_MODELS} replace/>}/>
                         <Route path={SitePaths.ALL_MODELS} element={<Models/>}/>
                         <Route path={SitePaths.MY_MODELS} element={<Models ownOnly={true}/>}/>
@@ -94,7 +96,7 @@ export default function App() {
                         <Route path={SitePaths.CREATE_MODEL_DESCRIPTION} element={<CreateModelDescription/>}/>
                         <Route path={SitePaths.CREATE_MODEL_PARAMETERS} element={<CreateModelParameters/>}/>
                         <Route path={SitePaths.HISTORIES} element={<Histories/>}/>
-                        <Route path={SitePaths.HISTORY('detail')} element={<History/>}/>
+                        <Route path={SitePaths.HISTORY(':historyId')} element={<History/>}/>
                     </Route>
                 ) : (<Route path="/*" element={<Navigate to={SitePaths.SIGN_IN} replace/>}/>)}
                 <Route path={SitePaths.SIGN_IN} element={(<SignIn/>)}/>

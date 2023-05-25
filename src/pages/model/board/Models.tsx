@@ -2,17 +2,18 @@ import React, {useEffect, useState} from 'react';
 import {Link, useLocation} from "react-router-dom";
 import {HiOutlineSearch, HiViewGrid} from "react-icons/hi";
 import {FiList} from "react-icons/fi";
-import {RiDeleteBinLine} from "react-icons/ri";
-import {BiAddToQueue, BiDotsVerticalRounded, BiTrash} from "react-icons/bi";
+import {BiAddToQueue, BiDotsVerticalRounded} from "react-icons/bi";
 import ModelsDescriptionPanel from "./panel/ModelsDescriptionPanel";
 import {ModelEntityData, ModelSearchOption, SitePaths} from "../../../types/chameleon-platform.common";
 import {PlatformAPI} from "../../../platform/PlatformAPI";
 import {useMediaQuery} from "react-responsive";
 import {ModelsLayout} from "../../../types/chameleon-client.enum";
-import {ModelsProps} from "../../../types/chameleon-client";
+import {DeleteModalContext, ModelsProps} from "../../../types/chameleon-client";
 import ModelsGridLayout from "./layout/ModelsGridLayout";
 import ModelsListLayout from "./layout/ModelsListLayout";
 import {MdKeyboardArrowDown} from "react-icons/md";
+import DeleteModal from "../../../components/modal/DeleteModal";
+import LoadingCircle from "../../../components/static/LoadingCircle";
 
 export default function Models(props: ModelsProps) {
     const [currentLayout, setCurrentLayout] = useState<ModelsLayout>(ModelsLayout.GRID_LAYOUT);
@@ -23,15 +24,18 @@ export default function Models(props: ModelsProps) {
     const isDesktopOrMobile = useMediaQuery({query: '(max-width:767px)'});
     const [searchTerm, setSearchTerm] = useState('');
     const [searchOption, setSearchOption] = useState(ModelSearchOption.NAME);
+    const [deleteModalContext, setDeleteModalContext] = useState<DeleteModalContext>({} as DeleteModalContext);
 
     useEffect(() => {
-        setSelectedModelId(-1);
         let completed = false;
         (async function () {
             try {
                 const models = props.ownOnly
                     ? await PlatformAPI.getMyModels({searchOption, searchTerm})
                     : await PlatformAPI.getModels({searchOption, searchTerm});
+                if (!models.some(m => selectedModelId === m.id)) {
+                    setSelectedModelId(-1);
+                }
                 if (!completed) setModels(models);
             } catch (error) {
                 console.error(error);
@@ -41,7 +45,7 @@ export default function Models(props: ModelsProps) {
         return () => {
             completed = true;
         };
-    }, [props.ownOnly, searchOption, searchTerm]);
+    }, [props.ownOnly, searchOption, searchTerm, deleteModalContext.open]);
 
     const onModelSelect = (modelData: ModelEntityData) => {
         setSelectedModelId(modelData.id);
@@ -54,11 +58,6 @@ export default function Models(props: ModelsProps) {
                 <BiAddToQueue size="25" color="#484848" className="pl-1"/>
                 <span
                     className="text-gray-700 flex justify-between w-full px-1 py-1 text-sm leading-5 text-left">Create Model</span>
-            </Link>
-            <Link to="/" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
-                <BiTrash size="25" color="#484848" className="pl-1"/>
-                <span
-                    className="text-gray-700 flex justify-between w-full px-1 py-1 text-sm leading-5 text-left">Delete Model</span>
             </Link>
         </div>
     );
@@ -82,11 +81,6 @@ export default function Models(props: ModelsProps) {
                 <BiAddToQueue size="25" color="#484848" className="pl-1"/>
                 <span
                     className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Create Model</span>
-            </Link>
-            <Link to={SitePaths.ROOT} className="flex gap-1 hover:bg-gray-100 items-center">
-                <RiDeleteBinLine size="25" color="#484848" className="pl-1"/>
-                <span
-                    className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Delete Model</span>
             </Link>
         </div>
     );
@@ -171,6 +165,8 @@ export default function Models(props: ModelsProps) {
         <div className="contents">
             <div className="w-full m-2 md:m-10 mt-24 md:mb-0">
                 <div className="flex justify-between items-center">
+                    <DeleteModal modalData={deleteModalContext} setModalData={setDeleteModalContext}
+                                 setSelectedModelId={setSelectedModelId}/>
                     <div className="flex">
                         {(location.pathname === '/models/my') ?
                             <p className='head-text'>My Models</p> : <p className='head-text'>All Models</p>
@@ -197,12 +193,14 @@ export default function Models(props: ModelsProps) {
             </div>
             {selectedModelId > 0 ?
                 <div className="w-[700px] ease-in-out duration-300 translate-x-0">
-                    <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId}/>
+                    <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId}
+                                            setDeleteModalContext={setDeleteModalContext}/>
                 </div>
                 :
                 <div className="w-0 ease-in-out duration-300 translate-x-full">
                     <div className="hidden">
-                        <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId}/>
+                        <ModelsDescriptionPanel modelId={selectedModelId} setSelectedModelId={setSelectedModelId}
+                                                setDeleteModalContext={setDeleteModalContext}/>
                     </div>
                 </div>
             }
