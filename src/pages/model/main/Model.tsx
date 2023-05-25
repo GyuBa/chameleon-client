@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useLocation, useParams} from "react-router-dom";
 import OutputDescriptionModule from "../module/description/OutputDescriptionModule"
-import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
-import {JsonForms} from "@jsonforms/react";
-import {JsonViewer} from "@textea/json-viewer";
 import {FiInfo} from "react-icons/fi";
 import {Oval} from "react-loader-spinner";
 import {
@@ -18,20 +15,19 @@ import {
 import {PlatformAPI} from "../../../platform/PlatformAPI"
 import useWebSocket from "react-use-websocket";
 import {PageType} from "../../../types/chameleon-client.enum";
-import {ModuleData} from "../../../types/chameleon-client"
+import {ModuleData, ParametersData} from "../../../types/chameleon-client"
+import ParametersModule from "../module/core/ParametersModule"
 import InputModule from "../module/core/InputModule"
 import OutputModule from "../module/core/OutputModule";
 import ExecuteDescriptionPanel from "../board/panel/ExecuteDescriptionPanel";
 
 export default function Model() {
-    const [activeTabIndex, setActiveTabIndex] = useState(0);
     const [parameters, setParameters] = useState<ModelExecutionParameters>({});
     const [modelData, setModelData] = useState<ModelEntityData>();
     const [executeData, setExecuteData] = useState<HistoryEntityData>();
     const {username, uniqueName} = useParams();
-
+    const [activeTabIndex, setActiveTabIndex] = useState(0);
     let path = useLocation().pathname.slice(1);
-
     const [isPanelVisible, setIsPanelVisible] = useState(false);
 
     const handleButtonClick = () => {
@@ -89,8 +85,6 @@ export default function Model() {
         );
     }
 
-    const schema = modelData?.parameters?.schema
-    const uiSchema = modelData?.parameters?.uischema
     const modelDescription = modelData?.description
 
     const moduleData: ModuleData = {
@@ -99,6 +93,15 @@ export default function Model() {
         type: PageType.EXECUTE,
         parameters
     };
+
+    const parameterData : ParametersData = {
+        history : executeData!,
+        modelData : modelData!,
+        parameters : parameters,
+        setParameters : setParameters,
+        activeTabIndex : activeTabIndex,
+        setActiveTabIndex : setActiveTabIndex
+    }
 
     return (
         <div className="contents">
@@ -127,44 +130,7 @@ export default function Model() {
                     </button>
                 </div>
                 <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2">
-                    <div className="row-span-2 rounded-lg border-1 border-gray-300 overflow-auto">
-                        <div className="border-b border-gray-300" style={{backgroundColor: '#F6F6F6'}}>
-                            <div className="flex md:px-5 md:py-2 space-x-3 rounded-lg">
-                                {['Parameters', 'Parameters (JSON)'].map((label, idx) => {
-                                    return (
-                                        <button
-                                            key={idx}
-                                            className={`text-xl font-semibold pb-2 border-b-4 transition-colors duration-300 ${
-                                                idx === activeTabIndex
-                                                    ? "border-teal-500"
-                                                    : "border-transparent hover:border-gray-200"
-                                            }`}
-                                            onClick={() => setActiveTabIndex(idx)}>
-                                            {label}
-                                        </button>
-                                    );
-                                })}
-                            </div>
-                        </div>
-                        <div className="tab-content tab-space overflow-y-auto max-h-[212px] md:px-5">
-                            <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
-                                <JsonForms
-                                    schema={schema}
-                                    uischema={uiSchema}
-                                    data={parameters}
-                                    renderers={materialRenderers}
-                                    cells={materialCells}
-                                    onChange={({data}) => {
-                                        setParameters(data);
-                                    }}
-                                />
-                            </div>
-                            <div className={activeTabIndex === 1 ? "block" : "hidden"} id="link2">
-                                <br/>
-                                <JsonViewer className="text-lg" value={parameters ? parameters : {}} />
-                            </div>
-                        </div>
-                    </div>
+                    {ParametersModule(parameterData)}
                     {InputModule(moduleData!)}
                     {OutputModule(executeData!)}
                     {OutputDescriptionModule(executeData!)}
