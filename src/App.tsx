@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Navigate, Route, Routes, useLocation} from 'react-router-dom';
 import './App.css';
-import './styles/dropzone.css';
 import useWebSocket from "react-use-websocket";
 import Layout from "./components/layout/Layout";
 import Account from "./pages/profile/Account";
@@ -51,6 +50,12 @@ export default function App() {
     const [regions, setRegions] = useState<RegionEntityData[]>([]);
     const [parameterDetails, setParameterDetails] = useState<ParameterDetail[]>([]);
     const [user, setUser] = useState<UserEntityData>({id: -1, username: "", email: "", point: 0});
+    const [enableFooter, setEnableFooter] = useState<boolean>(true);
+
+    useEffect(() => {
+        const mainPath = '/' + path.split('/').shift();
+        setEnableFooter(!(mainPath === SitePaths.MODEL_RAW || mainPath === SitePaths.MODEL_RAW));
+    }, [path]);
 
     const isSignedIn = CookieUtils.getCookieValue('connect.sid');
     useEffect(() => {
@@ -70,7 +75,9 @@ export default function App() {
             parameterDetails,
             setParameterDetails,
             user,
-            setUser
+            setUser,
+            enableFooter,
+            setEnableFooter
         }}>
             <Routes>
                 {isSignedIn ? (
