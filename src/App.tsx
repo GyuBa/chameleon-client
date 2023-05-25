@@ -51,10 +51,10 @@ export default function App() {
     const [user, setUser] = useState<UserEntityData>({id: -1, username: "", email: "", point: 0});
     const [enableFooter, setEnableFooter] = useState<boolean>(true);
 
-/*    useEffect(() => {
-        setEnableFooter(!(`/${path}`.startsWith(SitePaths.MODEL_RAW) || `/${path}`.startsWith(SitePaths.HISTORY_RAW)));
-        // TODO: SitePath랑 통일할 필요
-    }, [path]);*/
+    useEffect(() => {
+        const mainPath = '/' + path.split('/').shift();
+        setEnableFooter(!(mainPath === SitePaths.MODEL_RAW || mainPath === SitePaths.MODEL_RAW));
+    }, [path]);
 
     const isSignedIn = CookieUtils.getCookieValue('connect.sid');
     useEffect(() => {
