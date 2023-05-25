@@ -390,6 +390,7 @@ export type ExecutionData = {
 export const SitePaths = {
     ROOT: '/',
     PAYMENT: '/payment',
+    PAYMENT_HISTORIES: '/payment-histories',
     MODEL: (username: string, uniqueName: string) => `/model/${username}/${uniqueName}`,
     MODEL_RAW: '/model',
     MODELS: '/models',

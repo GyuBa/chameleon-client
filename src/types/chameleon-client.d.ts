@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {
     HistoryEntityData,
     ModelCommonUploadData,
@@ -14,11 +14,6 @@ export type ModuleData = {
     model?: InputModelInfo,
     type: PageType,
     parameters: ModelParameters
-}
-
-export type HeaderData = {
-    category?: string;
-    title?: string;
 }
 
 export type ParameterDetail = {
@@ -64,6 +59,7 @@ export type ModelUploadData = ModelCommonUploadData & { files: IFile[], file: IF
 export interface DescriptionProps {
     modelId: number;
     setSelectedModelId: React.Dispatch<React.SetStateAction<number>>;
+    setDeleteModalContext: React.Dispatch<React.SetStateAction<DeleteModalContext>>;
 }
 
 export interface InputModelInfo {
@@ -100,4 +96,9 @@ export type ModuleData = {
     history: HistoryEntityData,
     model?: ModelEntityData,
     type: PageType,
+}
+
+export type DeleteModalContext = {
+    currentModel: ModelEntityData;
+    open: boolean;
 }

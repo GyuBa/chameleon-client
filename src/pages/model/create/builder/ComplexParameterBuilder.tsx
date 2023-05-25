@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import ErrorBoundary from "../error/ErrorBoundary";
 import {JsonFormPropertyType} from "../../../../types/chameleon-client.enum";
-import MonaCoEditor from "@monaco-editor/react";
-import {ParameterBuilderProps} from "../../../../types/chameleon-client";
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import ParameterEditorTab from "./tab/ParameterEditorTab";
