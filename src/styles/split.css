@@ -23,7 +23,7 @@
     grid-column: 2;
 }
 
-
 .split-container {
+    height: 100%;
     width: 100%;
 }
