@@ -3,6 +3,7 @@ import {Link, useLocation, useParams} from "react-router-dom";
 import OutputDescriptionModule from "../module/description/OutputDescriptionModule"
 import {FiInfo} from "react-icons/fi";
 import {Oval} from "react-loader-spinner";
+
 import {
     HistoryEntityData,
     HistoryStatus,
@@ -19,24 +20,22 @@ import {ModuleData, ParametersData} from "../../../types/chameleon-client"
 import ParametersModule from "../module/core/ParametersModule"
 import InputModule from "../module/core/InputModule"
 import OutputModule from "../module/core/OutputModule";
+import TerminalSplitContainer from "../../../components/terminal/container/TerminalSplitContainer";
 import ExecuteDescriptionPanel from "../board/panel/ExecuteDescriptionPanel";
 
 export default function Model() {
+    const [activeTabIndex, setActiveTabIndex] = useState(0);
     const [parameters, setParameters] = useState<ModelExecutionParameters>({});
     const [modelData, setModelData] = useState<ModelEntityData>();
     const [executeData, setExecuteData] = useState<HistoryEntityData>();
     const {username, uniqueName} = useParams();
-    const [activeTabIndex, setActiveTabIndex] = useState(0);
+
     let path = useLocation().pathname.slice(1);
     const [isPanelVisible, setIsPanelVisible] = useState(false);
 
     const handleButtonClick = () => {
-        setIsPanelVisible(true);
-
-        if(isPanelVisible === true)
-            setIsPanelVisible(false)
+        setIsPanelVisible(!isPanelVisible);
     };
-
 
     useEffect(() => {
         (async function () {
@@ -50,7 +49,6 @@ export default function Model() {
     }, [username, uniqueName]);
 
     const {
-        sendJsonMessage,
         lastJsonMessage
     } = useWebSocket((window.location.protocol.startsWith('https') ? 'wss://' : 'ws://') + window.location.host + '/websocket ', {
         shouldReconnect: (closeEvent) => true,
@@ -61,10 +59,6 @@ export default function Model() {
             }
         }
     });
-
-    useEffect(() => {
-        sendJsonMessage({msg: WSMessageType.PATH, path});
-    }, [sendJsonMessage, path]);
 
     useEffect(() => {
         let message = lastJsonMessage as unknown as WSUpdateHistoryMessage;
@@ -105,6 +99,7 @@ export default function Model() {
 
     return (
         <div className="contents">
+            <TerminalSplitContainer moduleData={moduleData}>
             <div className="w-full m-2 md:m-10 mt-24">
                 <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
                     <div className="flex justify-between">
@@ -141,6 +136,7 @@ export default function Model() {
                     {ExecuteDescriptionPanel(modelData?.name, modelDescription)}
                 </div>
             )}
+            </TerminalSplitContainer>
         </div>
     );
 };

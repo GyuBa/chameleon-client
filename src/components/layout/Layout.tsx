@@ -4,8 +4,9 @@ import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import useGlobalContext from "../../contexts/hook/useGlobalContext";
+
 export default function Layout() {
-    const {activeMenu} = useGlobalContext();
+    const {activeMenu, enableFooter} = useGlobalContext();
 
     return (
         <div className="flex relative">
@@ -21,15 +22,17 @@ export default function Layout() {
             <div
                 className={`w-full min-h-screen ${activeMenu ? 'md:ml-72' : ''}`}
             >
-                <div className="fixed md:static navbar w-full">
+                <div className="h-[52px] fixed md:static navbar w-full">
                     <Navbar/>
                 </div>
-                <div>
-                    <div className="contents_area flex justify-center">
+                <div className={enableFooter ? 'contents-area' : 'contents-area-disable-footer'}>
+                    <div className="flex justify-center h-full">
                         <Outlet/>
                     </div>
                 </div>
-                <Footer/>
+                {enableFooter ?
+                    <Footer/>
+                    : <></>}
             </div>
         </div>
     );

@@ -31,6 +31,7 @@ export enum PageType {
     HISTORY = 'history',
     EXECUTE = 'execute',
 }
+// TODO: MODEL, EXECUTE가 더 직관적
 
 export enum ModelsLayout {
     GRID_LAYOUT,
