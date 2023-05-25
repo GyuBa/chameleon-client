@@ -101,7 +101,7 @@ export default function Model() {
         <div className="contents">
             <TerminalSplitContainer moduleData={moduleData}>
             <>
-            <div className="w-full m-2 md:m-10 mt-24">
+            <div className="m-2 md:m-10 mt-24">
                 <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
                     <div className="flex justify-between">
                         <p className='head-text'>{modelData?.name}</p>
