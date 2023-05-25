@@ -100,17 +100,29 @@
 }
 
 .main-content-container {
-  overflow: hidden;
+  overflow: auto;
 
   .row {
     margin: 0;
   }
 }
 
-.contents-area-wrapper {
-  height: calc(100vh - 52px);
+.contents-area {
+  height: calc(100vh - 52px - 40px);;
 }
 
-.contents-area {
+.contents-area-disable-footer {
+  height: calc(100vh - 52px);;
+}
+
+.contents-area > div {
   height: 100%;
+}
+
+.models-main-contents {
+  height: calc(100% - 52px - 41.6px);
+}
+
+.description-main-contents {
+  height: calc(100% - 52px - 72px);
 }
