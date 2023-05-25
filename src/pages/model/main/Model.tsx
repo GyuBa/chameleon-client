@@ -20,8 +20,8 @@ import {ModuleData, ParametersData} from "../../../types/chameleon-client"
 import ParametersModule from "../module/core/ParametersModule"
 import InputModule from "../module/core/InputModule"
 import OutputModule from "../module/core/OutputModule";
-import TerminalSplitContainer from "../../../components/terminal/container/TerminalSplitContainer";
 import ExecuteDescriptionPanel from "../board/panel/ExecuteDescriptionPanel";
+import TerminalSplitContainer from "../../../components/terminal/container/TerminalSplitContainer";
 
 export default function Model() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -29,8 +29,6 @@ export default function Model() {
     const [modelData, setModelData] = useState<ModelEntityData>();
     const [executeData, setExecuteData] = useState<HistoryEntityData>();
     const {username, uniqueName} = useParams();
-
-    let path = useLocation().pathname.slice(1);
     const [isPanelVisible, setIsPanelVisible] = useState(false);
 
     const handleButtonClick = () => {

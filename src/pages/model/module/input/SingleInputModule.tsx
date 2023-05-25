@@ -28,8 +28,6 @@ export default function SingleInputModule(moduleData : ModuleData) {
 
     if (moduleData?.model?.inputType === ModelInputType.SOUND) {
         accept = {[`audio/*`]: []};
-    } else if (moduleData?.model?.inputType === ModelInputType.BINARY) {
-        accept = {['']: []};
     } else {
         accept = {[`${extension}/*`]: []};
     }
