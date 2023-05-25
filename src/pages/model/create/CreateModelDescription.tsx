@@ -19,7 +19,7 @@ export default function CreateModelDescription() {
 
     return (
         <div className="contents">
-            <div className="w-full m-2 md:my-7 md:mx-10 mt-12">
+            <div className="w-full m-2 md:my-7 md:mx-10 mt-12 overflow-auto">
                 <div className="flex space-x-3">
                     <div className="py-2 pt-[36.5px]"/>
                 </div>
@@ -32,11 +32,11 @@ export default function CreateModelDescription() {
                         <button onClick={handleClick} className="blue-btn w-16">next</button>
                     </div>
                 </div>
-                <div data-color-mode="light" className="container pt-5 max-w-full">
+                <div data-color-mode="light" className="container pt-5 p-2 max-w-full description-main-contents">
                     <MDEditor value={modelData.description}
                               onChange={value => {
                                   setModelData({...modelData, description: value as string});
-                              }} height={500}/>
+                              }} height={"100%"}/>
                 </div>
             </div>
         </div>
