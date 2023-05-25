@@ -25,8 +25,8 @@ export default function Layout() {
                 <div className="h-[52px] fixed md:static navbar w-full">
                     <Navbar/>
                 </div>
-                <div className="contents-area-wrapper">
-                    <div className="contents-area flex justify-center">
+                <div className={enableFooter ? 'contents-area' : 'contents-area-disable-footer'}>
+                    <div className="flex justify-center h-full">
                         <Outlet/>
                     </div>
                 </div>
