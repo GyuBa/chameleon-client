@@ -169,7 +169,7 @@ export default function Models(props: ModelsProps) {
 
     return (
         <div className="contents">
-            <div className="w-full m-2 md:m-10 mt-24">
+            <div className="w-full m-2 md:m-10 mt-24 md:mb-0">
                 <div className="flex justify-between items-center">
                     <div className="flex">
                         {(location.pathname === '/models/my') ?
@@ -189,7 +189,7 @@ export default function Models(props: ModelsProps) {
                         {<SearchBar/>}
                     </div>
                 </div>
-                <div className="mt-10 max-h-screen overflow-auto">
+                <div className="models-main-contents mt-10 overflow-auto">
                     {currentLayout === ModelsLayout.GRID_LAYOUT ?
                         <ModelsGridLayout models={models} onModelSelect={onModelSelect}/> :
                         <ModelsListLayout models={models} onModelSelect={onModelSelect}/>}
