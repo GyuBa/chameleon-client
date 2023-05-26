@@ -4,8 +4,9 @@ import {FileUtils} from "../../../../utils/FileUtils";
 import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
 
 export default function TextOutputModule(executeData: HistoryEntityData) {
-    let outputInformation = executeData?.outputInfo?.fileName
-    const extension = outputInformation?.split('.').pop();
+    let outputFilename = executeData?.outputInfo?.fileName
+    let outputType = executeData?.outputType
+    const extension = outputFilename?.split('.').pop() !== 'txt' ? outputType : outputFilename?.split('.').pop();
     let outputPath = executeData?.outputPath
     let outputSize = executeData?.outputInfo?.fileSize
     let outputName = executeData?.outputInfo?.fileName

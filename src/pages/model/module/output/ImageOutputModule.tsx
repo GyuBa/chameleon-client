@@ -5,7 +5,8 @@ import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
 
 export default function ImageOutputModule(executeData: HistoryEntityData) {
     let outputInformation = executeData?.outputInfo?.fileName
-    let extension = outputInformation ? outputInformation.split('.').pop() : undefined;
+    let outputType = executeData?.outputType
+    let extension = outputInformation ? outputInformation.split('.').pop() : outputType;
     let outputPath = executeData?.outputPath
     let outputSize = executeData?.outputInfo?.fileSize
     let outputName = executeData?.outputInfo?.fileName
