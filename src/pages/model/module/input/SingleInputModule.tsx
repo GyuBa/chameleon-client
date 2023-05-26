@@ -106,12 +106,6 @@ export default function SingleInputModule(moduleData : ModuleData) {
                         // other props here
                     />)
                 }
-                {moduleData?.model?.inputType === ModelInputType.BINARY &&
-                    (<img style={{width: '70%'}}
-                          className="object-cover w-full"
-                          src={binaryIconURL}
-                          alt="chameleon"/>)
-                }
             </div>
         </div>
     ));
@@ -151,7 +145,9 @@ export default function SingleInputModule(moduleData : ModuleData) {
                             <p><span
                                 className="pl-5 pt-2 font-semibold">FileName : </span>{moduleData?.history?.inputInfo?.fileName}
                             </p>
-                            <p><span className="pl-5 pt-2 font-semibold">Type : </span>{moduleData?.history?.inputInfo?.mimeType}
+                            <p><span
+                                className="pl-5 pt-2 font-semibold">Type : </span>{moduleData?.history?.inputType == ModelInputType.BINARY ?
+                                ModelInputType.BINARY : moduleData?.history?.inputInfo.mimeType}
                             </p>
                             <p><span
                                 className="pl-5 pt-2 font-semibold">Size : </span>{FileUtils.formatBytes(moduleData?.history?.inputInfo?.fileSize)}
@@ -159,7 +155,7 @@ export default function SingleInputModule(moduleData : ModuleData) {
                             <div className="pl-5 pt-2 overflow-x-auto"
                                  style={{overflow: 'hidden', display: 'flex'}}>
                                 <div>
-                                    {moduleData?.history?.inputInfo?.mimeType?.startsWith('image') &&
+                                    {moduleData?.history?.inputType.startsWith('image') &&
                                         <a href='#' onClick={e => {
                                             DownloadUtils.download('/' + moduleData?.history?.inputPath, moduleData?.history?.inputInfo?.fileName);
                                         }}>
@@ -170,12 +166,12 @@ export default function SingleInputModule(moduleData : ModuleData) {
                                                     maxHeight: '100%',
                                                 }} alt="single-input"/> : <></>}
                                         </a>}
-                                    {moduleData?.history?.inputInfo?.mimeType?.startsWith('text') &&
+                                    {moduleData?.history?.inputType.startsWith('text') &&
                                         <div>
                                             <br/>
                                             <p style={{whiteSpace: 'pre-wrap'}}>{inputText}</p>
                                         </div>}
-                                    {moduleData?.history?.inputInfo?.mimeType?.startsWith('video') &&
+                                    {moduleData?.history?.inputType.startsWith('video') &&
                                         <div>
                                             <br/>
                                             <video
