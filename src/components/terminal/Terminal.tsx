@@ -96,20 +96,20 @@ export default function Terminal({moduleData: {model, type, history}}: { moduleD
         }
     }, [lastJsonMessage]);
 
-    /*    let terminalData = context.path.startsWith('model') ? context.model?.lastHistory?.terminal as string : history?.terminal;
-        useEffect(() => {
-            if (terminal) {
-                terminal.clear();
-                if (terminalData) {
-                    // WARNING: 임시 조치
-                    terminal.write(terminalData, () => {
-                        setTimeout(() => {
-                            terminal.scrollToBottom();
-                        }, 100);
-                    });
-                }
+    const terminalData = history?.terminal;
+    useEffect(() => {
+        if (terminal) {
+            terminal.clear();
+            if (terminalData) {
+                // WARNING: 임시 조치
+                terminal.write(terminalData, () => {
+                    setTimeout(() => {
+                        terminal.scrollToBottom();
+                    }, 100);
+                });
             }
-        }, [context.model?.uniqueName, history]);*/
+        }
+    }, [terminalData]);
 
     return <div className="terminal-container"/>;
 }
