@@ -10,12 +10,12 @@ import {
 import {ModelFileType, ParameterType, PageType} from "./chameleon-client.enum";
 
 export type ParametersData = {
-    history : HistoryEntityData,
+    history: HistoryEntityData,
     modelData?: ModelEntityData,
-    parameters : ModelExecutionParameters,
-    setParameters? : React.Dispatch<React.SetStateAction<any>>
-    activeTabIndex : number,
-    setActiveTabIndex : React.Dispatch<React.SetStateAction<number>>
+    parameters: ModelExecutionParameters,
+    setParameters?: React.Dispatch<React.SetStateAction<any>>
+    activeTabIndex: number,
+    setActiveTabIndex: React.Dispatch<React.SetStateAction<number>>
 }
 
 export type ModuleData = {
@@ -92,6 +92,10 @@ export interface ModelsLayoutProps {
 export interface ParameterBuilderProps {
     parameters: ModelParameters;
     setParameters: Function;
+}
+
+export interface ExecuteDescriptionPanelProps {
+    modelDescription: string;
 }
 
 export type ParameterEditorTabProps = {
