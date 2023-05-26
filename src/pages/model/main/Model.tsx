@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useLocation, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import OutputDescriptionModule from "../module/description/OutputDescriptionModule"
 import {FiInfo} from "react-icons/fi";
 import {Oval} from "react-loader-spinner";
@@ -10,6 +10,7 @@ import {
     ModelEntityData,
     ModelExecutionParameters,
     SitePaths,
+    WSMessage,
     WSMessageType,
     WSUpdateHistoryMessage
 } from "../../../types/chameleon-platform.common";
@@ -48,20 +49,17 @@ export default function Model() {
 
     const {
         lastJsonMessage
-    } = useWebSocket((window.location.protocol.startsWith('https') ? 'wss://' : 'ws://') + window.location.host + '/websocket ', {
+    } = useWebSocket<WSMessage>((window.location.protocol.startsWith('https') ? 'wss://' : 'ws://') + window.location.host + '/websocket', {
         shouldReconnect: (closeEvent) => true,
-        onMessage: (message) => {
-            let data = JSON.parse(message.data);
-            if (data?.msg === WSMessageType.UPDATE_HISTORY) {
-                console.log(data);
-            }
-        }
+        share: true
     });
 
     useEffect(() => {
         let message = lastJsonMessage as unknown as WSUpdateHistoryMessage;
+
         if (message?.msg === WSMessageType.UPDATE_HISTORY) {
-            setExecuteData(message?.history)
+            setExecuteData(message.history);
+            console.log(message?.history)
         }
     }, [lastJsonMessage]);
 
@@ -86,56 +84,56 @@ export default function Model() {
         parameters
     };
 
-    const parameterData : ParametersData = {
-        history : executeData!,
-        modelData : modelData!,
-        parameters : parameters,
-        setParameters : setParameters,
-        activeTabIndex : activeTabIndex,
-        setActiveTabIndex : setActiveTabIndex
-    }
+    const parameterData: ParametersData = {
+        history: executeData!,
+        modelData,
+        parameters,
+        setParameters,
+        activeTabIndex,
+        setActiveTabIndex
+    };
 
     return (
         <div className="contents">
             <TerminalSplitContainer moduleData={moduleData}>
-            <>
-            <div className="m-2 md:m-10 mt-24">
-                <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
-                    <div className="flex justify-between">
-                        <p className='head-text'>{modelData?.name}</p>
-                        <div className="flex items-center md:px-2">
-                            <div>
-                                {executeData?.status === HistoryStatus.RUNNING && (
-                                    <h1 className="rounded-lg text-xs p-1.5 bg-yellow-500 text-white">Running...</h1>
-                                )}
-                                {executeData?.status === HistoryStatus.FINISHED && (
-                                    <h1 className="rounded-lg text-xs p-1.5 bg-green-500 text-white">Finished</h1>
-                                )}
+                <>
+                    <div className="flex justify-center h-full">
+                        <div className="w-full m-2 md:m-10 mt-24">
+                            <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
+                                <div className="flex justify-between">
+                                    <p className='head-text'>{modelData?.name}</p>
+                                    <div className="flex items-center md:px-2">
+                                        <div>
+                                            {executeData?.status === HistoryStatus.RUNNING && (
+                                                <h1 className="rounded-lg text-xs p-1.5 bg-yellow-500 text-white">Running...</h1>
+                                            )}
+                                            {executeData?.status === HistoryStatus.FINISHED && (
+                                                <h1 className="rounded-lg text-xs p-1.5 bg-green-500 text-white">Finished</h1>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                                <Link to={SitePaths.ALL_MODELS}>
+                                    <button className="blue-btn text-sm w-full p-1.5">back</button>
+                                </Link>
+                            </div>
+                            <div className="flex justify-end items-center">
+                                <button onClick={handleButtonClick}>
+                                    <FiInfo size="32" color="#484848" className="my-1"/>
+                                </button>
+                            </div>
+                            <div style={{height: '630px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2">
+                                {ParametersModule(parameterData)}
+                                {InputModule(moduleData!)}
+                                {OutputModule(executeData!)}
+                                {OutputDescriptionModule(executeData!)}
                             </div>
                         </div>
+                        {isPanelVisible && (
+                            <ExecuteDescriptionPanel modelDescription={modelDescription}/>
+                        )}
                     </div>
-                    <Link to={SitePaths.ALL_MODELS}>
-                        <button className="blue-btn text-sm w-full p-1.5">back</button>
-                    </Link>
-                </div>
-                <div className = "flex justify-end items-center">
-                    <button onClick={handleButtonClick}>
-                        <FiInfo size="32" color="#484848" className="my-1" />
-                    </button>
-                </div>
-                <div style={{height: '550px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2">
-                    {ParametersModule(parameterData)}
-                    {InputModule(moduleData!)}
-                    {OutputModule(executeData!)}
-                    {OutputDescriptionModule(executeData!)}
-                </div>
-            </div>
-            {isPanelVisible && (
-                <div className="w-[700px] ease-in-out duration-300 translate-x-0">
-                    {ExecuteDescriptionPanel(modelData?.name, modelDescription)}
-                </div>
-            )}
-            </>
+                </>
             </TerminalSplitContainer>
         </div>
     );
