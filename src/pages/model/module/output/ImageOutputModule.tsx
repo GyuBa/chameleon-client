@@ -1,11 +1,10 @@
 import React from "react";
 import {DownloadUtils} from "../../../../utils/DownloadUtils";
 import {FileUtils} from "../../../../utils/FileUtils";
-import {HistoryEntityData, ModelOutputType} from "../../../../types/chameleon-platform.common";
+import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
 
 export default function ImageOutputModule(executeData: HistoryEntityData) {
     let outputInformation = executeData?.outputInfo?.fileName
-    let outputType = executeData?.outputType
     let extension = outputInformation ? outputInformation.split('.').pop() : undefined;
     let outputPath = executeData?.outputPath
     let outputSize = executeData?.outputInfo?.fileSize
@@ -25,7 +24,7 @@ export default function ImageOutputModule(executeData: HistoryEntityData) {
                     </button>
                 </div>
             </div>
-            <div className="max-h-[352px]">
+            <div className="overflow-x-hidden max-h-[400px]">
                 <br/>
                 <p><span className="pl-5 pt-2 font-semibold">Output Format : </span>{extension} </p>
                 <p><span className="pl-5 pt-2 font-semibold">Size : </span>{FileUtils.formatBytes(outputSize)} </p>

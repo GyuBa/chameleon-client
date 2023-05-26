@@ -23,7 +23,7 @@ export default function BinaryOutputModule(executeData: HistoryEntityData) {
                     </button>
                 </div>
             </div>
-            <div className="max-h-[352px]">
+            <div className="overflow-x-hidden max-h-[400px]">
                 <br/>
                 <p><span className="pl-5 pt-2 font-semibold">Output Format : </span>{outputType} </p>
                 <p><span className="pl-5 pt-2 font-semibold">Size : </span>{FileUtils.formatBytes(outputSize)} </p>

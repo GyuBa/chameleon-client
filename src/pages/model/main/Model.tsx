@@ -122,7 +122,7 @@ export default function Model() {
                                     <FiInfo size="32" color="#484848" className="my-1"/>
                                 </button>
                             </div>
-                            <div style={{height: '630px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2">
+                            <div className="h-[630px] grid grid-rows-4 grid-cols-2 grid-flow-col gap-2">
                                 {ParametersModule(parameterData)}
                                 {InputModule(moduleData!)}
                                 {OutputModule(executeData!)}
