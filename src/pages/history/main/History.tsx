@@ -9,6 +9,7 @@ import InputModule from "../../model/module/core/InputModule";
 import OutputModule from "../../model/module/core/OutputModule";
 import {PlatformAPI} from "../../../platform/PlatformAPI";
 import {Oval} from "react-loader-spinner";
+import TerminalSplitContainer from '../../../components/terminal/container/TerminalSplitContainer';
 
 export default function History() {
     const {historyId} = useParams();
@@ -46,35 +47,37 @@ export default function History() {
         parameters: historyData.parameters
     };
 
-    const parametersData : ParametersData = {
+    const parametersData: ParametersData = {
         history: historyData!,
-        parameters : historyData!.parameters,
-        activeTabIndex : activeTabIndex,
-        setActiveTabIndex : setActiveTabIndex
+        parameters: historyData!.parameters,
+        activeTabIndex: activeTabIndex,
+        setActiveTabIndex: setActiveTabIndex
     }
     return (
         <div className="contents">
-            <div className="w-full m-2 md:m-10 mt-24">
-                <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
-                    <div className="flex justify-between items-end">
-                        <p className='head-text'>{historyData.model ? (
-                            historyData.model.name
-                        ) : (
-                            'Deleted Model'
-                        )}</p>
-                        <h1 className="mx-2 text-gray-500">History</h1>
+            <TerminalSplitContainer moduleData={moduleData}>
+                <div className="m-2 md:m-10 mt-24">
+                    <div className="flex justify-between items-center pb-2 border-b-1 border-gray-300">
+                        <div className="flex justify-between items-end">
+                            <p className='head-text'>{historyData.model ? (
+                                historyData.model.name
+                            ) : (
+                                'Deleted Model'
+                            )}</p>
+                            <h1 className="mx-2 text-gray-500">History</h1>
+                        </div>
+                        <Link to={SitePaths.HISTORIES}>
+                            <button className="blue-btn text-sm w-full p-1.5">back</button>
+                        </Link>
                     </div>
-                    <Link to={SitePaths.HISTORIES}>
-                        <button className="blue-btn text-sm w-full p-1.5">back</button>
-                    </Link>
+                    <div className="h-[550px] grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
+                        {ParametersModule(parametersData)}
+                        {InputModule(moduleData)}
+                        {OutputModule(historyData!)}
+                        {OutputDescriptionModule(historyData!)}
+                    </div>
                 </div>
-                <div className="h-[550px] grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
-                    {ParametersModule(parametersData)}
-                    {InputModule(moduleData)}
-                    {OutputModule(historyData!)}
-                    {OutputDescriptionModule(historyData!)}
-                </div>
-            </div>
+            </TerminalSplitContainer>
         </div>
     );
 }
