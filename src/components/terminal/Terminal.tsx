@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {FitAddon} from "xterm-addon-fit";
 import {Terminal as XTerm} from 'xterm';
 import 'xterm/css/xterm.css';
-import {HistoryStatus, WSMessageType, WSUpdateHistoryMessage} from "../../types/chameleon-platform.common";
+import {HistoryStatus, WSMessage, WSMessageType, WSUpdateHistoryMessage} from "../../types/chameleon-platform.common";
 import {ModuleData} from "../../types/chameleon-client";
 import useWebSocket from "react-use-websocket";
 
@@ -14,7 +14,7 @@ export default function Terminal({moduleData: {model, type, history}}: { moduleD
     const {
         sendJsonMessage,
         lastJsonMessage,
-    } = useWebSocket<any>((window.location.protocol.startsWith('https') ? 'wss://' : 'ws://') + window.location.host + '/websocket', {
+    } = useWebSocket<WSMessage>((window.location.protocol.startsWith('https') ? 'wss://' : 'ws://') + window.location.host + '/websocket', {
         shouldReconnect: (closeEvent) => true,
         share: true
     });
@@ -95,7 +95,6 @@ export default function Terminal({moduleData: {model, type, history}}: { moduleD
             });
         }
     }, [lastJsonMessage]);
-
 
     /*    let terminalData = context.path.startsWith('model') ? context.model?.lastHistory?.terminal as string : history?.terminal;
         useEffect(() => {

@@ -2,12 +2,21 @@ import React from "react";
 import {
     HistoryEntityData,
     ModelCommonUploadData,
-    ModelEntityData,
+    ModelEntityData, ModelExecutionParameters,
     ModelInputType,
     ModelParameters,
     RegionEntityData, UserEntityData
 } from "./chameleon-platform.common";
 import {ModelFileType, ParameterType, PageType} from "./chameleon-client.enum";
+
+export type ParametersData = {
+    history: HistoryEntityData,
+    modelData?: ModelEntityData,
+    parameters: ModelExecutionParameters,
+    setParameters?: React.Dispatch<React.SetStateAction<any>>
+    activeTabIndex: number,
+    setActiveTabIndex: React.Dispatch<React.SetStateAction<number>>
+}
 
 export type ModuleData = {
     history: HistoryEntityData,
@@ -83,6 +92,10 @@ export interface ModelsLayoutProps {
 export interface ParameterBuilderProps {
     parameters: ModelParameters;
     setParameters: Function;
+}
+
+export interface ExecuteDescriptionPanelProps {
+    modelDescription: string;
 }
 
 export type ParameterEditorTabProps = {
