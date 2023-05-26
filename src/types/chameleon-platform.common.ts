@@ -200,6 +200,10 @@ export enum WSMessageType {
     UPDATE_HISTORIES = 'UpdateHistories'
 }
 
+export type WSMessage = {
+    msg: string;
+} & any;
+
 export type WSPathMessage = {
     msg: WSMessageType.PATH;
     path: string;
