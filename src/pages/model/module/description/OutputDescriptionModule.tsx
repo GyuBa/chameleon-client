@@ -15,7 +15,7 @@ export default function OutputDescriptionModule(executeData: HistoryEntityData) 
                 <br/>
                 {(status === HistoryStatus.FINISHED && executeData) && (
                     <p>
-                        <span className="px-2 pt-2 font-semibold">{description}</span>
+                        <span className="pl-5 pt-2 font-semibold">{description}</span>
                     </p>
                 )}
             </div>
