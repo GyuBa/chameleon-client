@@ -122,11 +122,15 @@
 }
 
 .contents-area {
-  height: calc(100vh - 52px - 40px);;
+  height: calc(100vh - 52px - 40px);
 }
 
 .contents-area-disable-footer {
   height: calc(100vh - 52px);
+}
+
+.contents-area-description {
+  height: calc(100vh - 240px);
 }
 
 .contents-area > div {

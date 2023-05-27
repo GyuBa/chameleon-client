@@ -40,7 +40,7 @@ export default function ModelsDescriptionPanel({modelId, setSelectedModelId, set
     };
 
     return (
-        <div className="m-2 md:mt-5 mt-10 md:pr-5 md:pt-10 overflow-auto max-h-full">
+        <div className="m-2 md:mt-5 mt-10 md:pr-5 md:pt-10 h-auto">
             <div className="flex justify-between pb-6 border-b-1 border-gray-300">
                 <p className="text-3xl font-extrabold tracking-tight text-slate-900">{modelData?.name}</p>
                 <div className="flex gap-2 items-center">
@@ -61,40 +61,38 @@ export default function ModelsDescriptionPanel({modelId, setSelectedModelId, set
                             onClick={() => setSelectedModelId(-1)}><MdOutlineCancel/></button>
                 </div>
             </div>
-            <div className="overflow-auto max-h-full">
-                <div className="mt-4">
+            <div className="mt-4 overflow-auto contents-area-description">
+                <div className="flex my-2 items-center gap-2">
+                    <p className="text-lg font-bold">Name:</p>
+                    <p className="font-medium">{modelData?.name}</p>
+                </div>
+                <div className="flex my-2 items-center gap-2">
+                    <p className="text-lg font-bold">Register:</p>
+                    <p className="font-medium">{modelData?.register?.username}</p>
+                </div>
+                <div className="flex my-2 items-center gap-2">
+                    <p className="text-lg font-bold">Region:</p>
+                    <p className="font-medium">{modelData?.image?.region?.name}</p>
+                </div>
+                {modelData?.price !== 0 && (
                     <div className="flex my-2 items-center gap-2">
-                        <p className="text-lg font-bold">Name:</p>
-                        <p className="font-medium">{modelData?.name}</p>
+                        <p className="text-lg font-bold">Price:</p>
+                        <p className="font-medium">￦{modelData?.price.toLocaleString('ko-KR')}</p>
                     </div>
-                    <div className="flex my-2 items-center gap-2">
-                        <p className="text-lg font-bold">Register:</p>
-                        <p className="font-medium">{modelData?.register?.username}</p>
-                    </div>
-                    <div className="flex my-2 items-center gap-2">
-                        <p className="text-lg font-bold">Region:</p>
-                        <p className="font-medium">{modelData?.image?.region?.name}</p>
-                    </div>
-                    {modelData?.price !== 0 && (
-                        <div className="flex my-2 items-center gap-2">
-                            <p className="text-lg font-bold">Price:</p>
-                            <p className="font-medium">￦{modelData?.price.toLocaleString('ko-KR')}</p>
-                        </div>
-                    )}
+                )}
+                <div className="flex my-2 justify-items-start gap-2">
+                    <div className="pt-3"><Badge color="indigo">Input: {modelData?.inputType}</Badge></div>
+                    <div className="pt-3"><Badge color="purple">Output: {modelData?.outputType}</Badge></div>
+                </div>
+                {modelData?.category !== null && (
                     <div className="flex my-2 justify-items-start gap-2">
-                        <div className="pt-3"><Badge color="indigo">Input: {modelData?.inputType}</Badge></div>
-                        <div className="pt-3"><Badge color="purple">Output: {modelData?.outputType}</Badge></div>
+                        <div className="pt-3"><Badge
+                            className="bg-teal-100 text-teal-500">{modelData?.category}</Badge></div>
                     </div>
-                    {modelData?.category !== null && (
-                        <div className="flex my-2 justify-items-start gap-2">
-                            <div className="pt-3"><Badge
-                                className="bg-teal-100 text-teal-500">{modelData?.category}</Badge></div>
-                        </div>
-                    )}
-                    <div data-color-mode="light" className="my-4 whitespace-pre-wrap">
-                        <MDEditor.Markdown className="py-2" source={modelData?.description}
-                                           style={{whiteSpace: 'pre-wrap'}}/>
-                    </div>
+                )}
+                <div data-color-mode="light" className="my-4 whitespace-pre-wrap">
+                    <MDEditor.Markdown className="py-2" source={modelData?.description}
+                                       style={{whiteSpace: 'pre-wrap'}}/>
                 </div>
             </div>
         </div>
