@@ -17,7 +17,7 @@ export default function ParametersModule(parametersData: ParametersData) {
     const tabLabel = (parametersData?.modelData === undefined && historyData !== undefined) ? ['Parameters (JSON)'] : ['Parameters', 'Parameters (JSON)']
 
     if (!jsonTabChoose && parametersData?.modelData && historyData && activeTabIndex !== 1) {
-        setActiveTabIndex(1); // 1번 탭을 클릭
+        setActiveTabIndex(1);
         setJsonTabChoose!(true)
     }
 
@@ -53,16 +53,18 @@ export default function ParametersModule(parametersData: ParametersData) {
                         {historyData === undefined ?
                             <div>
                                 <br/>
-                                <JsonForms
-                                    schema={schema}
-                                    uischema={uiSchema}
-                                    data={parameters}
-                                    renderers={materialRenderers}
-                                    cells={materialCells}
-                                    onChange={({data}) => {
-                                        setParameters!(data);
-                                    }}
-                                />
+                                {parameters !== null && (
+                                    <JsonForms
+                                        schema={schema}
+                                        uischema={uiSchema}
+                                        data={parameters}
+                                        renderers={materialRenderers}
+                                        cells={materialCells}
+                                        onChange={({ data }) => {
+                                            setParameters!(data);
+                                        }}
+                                    />
+                                )}
                             </div> : <div>
                                 <br/>
                                 <JsonForms
