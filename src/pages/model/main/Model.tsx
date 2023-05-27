@@ -23,6 +23,7 @@ import InputModule from "../module/core/InputModule"
 import OutputModule from "../module/core/OutputModule";
 import ExecuteDescriptionPanel from "../board/panel/ExecuteDescriptionPanel";
 import TerminalSplitContainer from "../../../components/terminal/container/TerminalSplitContainer";
+import useGlobalContext from "../../../contexts/hook/useGlobalContext";
 
 export default function Model() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -32,7 +33,7 @@ export default function Model() {
     const [executeData, setExecuteData] = useState<HistoryEntityData>();
     const {username, uniqueName} = useParams();
     const [isPanelVisible, setIsPanelVisible] = useState(false);
-
+    const {setUser} = useGlobalContext();
     const handleButtonClick = () => {
         setIsPanelVisible(!isPanelVisible);
     };
@@ -57,10 +58,11 @@ export default function Model() {
 
     useEffect(() => {
         let message = lastJsonMessage as unknown as WSUpdateHistoryMessage;
-
         if (message?.msg === WSMessageType.UPDATE_HISTORY) {
             setExecuteData(message.history);
-            console.log(message?.history)
+            setTimeout(async () => {
+                setUser(await PlatformAPI.getLoginUser());
+            });
         }
     }, [lastJsonMessage]);
 
