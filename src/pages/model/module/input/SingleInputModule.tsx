@@ -185,7 +185,7 @@ export default function SingleInputModule(moduleData: ModuleData) {
                             <div className="pl-5 pt-2">
                                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                     {moduleData?.history?.inputType.startsWith('text') &&
-                                        <div style={{justifyContent: ''}}>
+                                        <div>
                                             <br/>
                                             <p style={{whiteSpace: 'pre-wrap'}}>{inputText}</p>
                                         </div>}
