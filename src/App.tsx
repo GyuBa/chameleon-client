@@ -49,7 +49,7 @@ export default function App() {
     const [modelData, setModelData] = useState<ModelUploadData>(undefined!);
     const [regions, setRegions] = useState<RegionEntityData[]>([]);
     const [parameterDetails, setParameterDetails] = useState<ParameterDetail[]>([]);
-    const [user, setUser] = useState<UserEntityData>({id: -1, username: "", email: "", point: 0});
+    const [user, setUser] = useState<UserEntityData>({id: -1, username: "", email: "", point: 0, earnedPoint: 0});
     const [enableFooter, setEnableFooter] = useState<boolean>(true);
 
     useEffect(() => {
