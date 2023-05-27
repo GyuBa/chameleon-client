@@ -26,6 +26,7 @@ import TerminalSplitContainer from "../../../components/terminal/container/Termi
 
 export default function Model() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
+    const [jsonTabChoose, setJsonTabChoose] = useState(false);
     const [parameters, setParameters] = useState<ModelExecutionParameters>({});
     const [modelData, setModelData] = useState<ModelEntityData>();
     const [executeData, setExecuteData] = useState<HistoryEntityData>();
@@ -90,7 +91,9 @@ export default function Model() {
         parameters,
         setParameters,
         activeTabIndex,
-        setActiveTabIndex
+        setActiveTabIndex,
+        jsonTabChoose,
+        setJsonTabChoose
     };
 
     return (
@@ -122,7 +125,7 @@ export default function Model() {
                                     <FiInfo size="32" color="#484848" className="my-1"/>
                                 </button>
                             </div>
-                            <div style={{height: '630px'}} className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-2">
+                            <div className="h-[630px] grid grid-rows-4 grid-cols-2 grid-flow-col gap-2">
                                 {ParametersModule(parameterData)}
                                 {InputModule(moduleData!)}
                                 {OutputModule(executeData!)}

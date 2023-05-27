@@ -106,10 +106,10 @@ export default function MultiInputModule(moduleData : ModuleData) {
                     ) : ('')
                 }
             </div>
-            <div className="overflow-auto max-h-[213px] h-full">
-                <section className="container h-full">
+            <div className="h-full">
+                <section>
                     {moduleData.history && moduleData?.history.status !== undefined ? (
-                        <div>
+                        <div className="overflow-auto max-h-[243px]">
                             <br/>
                             <p><span
                                 className="pl-5 pt-2 font-semibold">FileName : </span>{moduleData?.history?.inputInfo?.fileName}
@@ -128,7 +128,7 @@ export default function MultiInputModule(moduleData : ModuleData) {
                         <div>
                             <div {...getRootProps()}
                                  className={hideDrop ? "hidden" : "dropzone cursor-pointer justify-center"}
-                                 style={{height: '200px'}}>
+                                 style={{height: '243px'}}>
                                 <input {...getInputProps()}/>
                                 {files &&
                                 Array.isArray(files) &&
@@ -145,7 +145,7 @@ export default function MultiInputModule(moduleData : ModuleData) {
                                 )}
                             </div>
                             {hideDrop && (
-                                <div>
+                                <div className="overflow-auto max-h-[243px]">
                                     <aside className="px-5 py-2">{thumbs}</aside>
                                     <ul className="px-5 py-2">{acceptedFileItems}</ul>
                                     <span>{uploadExplain}</span>

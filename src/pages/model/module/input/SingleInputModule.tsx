@@ -9,10 +9,9 @@ import {DownloadUtils} from "../../../../utils/DownloadUtils"
 import {ModuleData} from "../../../../types/chameleon-client";
 import videojs from "video.js";
 
-const binaryIconURL = '/images/binary-code'
 type IFile = File & { preview?: string };
 
-export default function SingleInputModule(moduleData : ModuleData) {
+export default function SingleInputModule(moduleData: ModuleData) {
     const [files, setFiles] = useState<IFile[]>([]);
     const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [uploadExplain, setUploadExplain] = useState<string>('');
@@ -89,11 +88,13 @@ export default function SingleInputModule(moduleData : ModuleData) {
                     />)
                 }
                 {moduleData?.model?.inputType === ModelInputType.VIDEO &&
-                    (<video className="block w-auto h-full"
-                            src={file.preview}
-                            onLoad={() => {
-                                URL.revokeObjectURL(file.preview as string)
-                            }}
+                    (<video
+                        src={file.preview}
+                        className="video-js vjs-theme-city"
+                        controls
+                        autoPlay={false}
+                        ref={videoRef}
+                        style={{objectFit: 'contain', maxWidth: '90%', maxHeight: '100%'}}
                     />)
                 }
                 {moduleData?.model?.inputType === ModelInputType.TEXT &&
@@ -105,12 +106,6 @@ export default function SingleInputModule(moduleData : ModuleData) {
                         onPlay={e => console.log("onPlay")}
                         // other props here
                     />)
-                }
-                {moduleData?.model?.inputType === ModelInputType.BINARY &&
-                    (<img style={{width: '70%'}}
-                          className="object-cover w-full"
-                          src={binaryIconURL}
-                          alt="chameleon"/>)
                 }
             </div>
         </div>
@@ -143,23 +138,25 @@ export default function SingleInputModule(moduleData : ModuleData) {
                  style={{backgroundColor: '#F6F6F6'}}>
                 <p className="text-xl font-semibold">Input Upload</p>
             </div>
-            <div className="overflow-auto h-full">
-                <section className="container h-full">
+            <div className="h-full">
+                <section>
                     {(moduleData.history && moduleData?.history.status !== undefined) ? (
-                        <div>
+                        <div className="overflow-auto max-h-[243px]">
                             <br/>
                             <p><span
                                 className="pl-5 pt-2 font-semibold">FileName : </span>{moduleData?.history?.inputInfo?.fileName}
                             </p>
-                            <p><span className="pl-5 pt-2 font-semibold">Type : </span>{moduleData?.history?.inputInfo?.mimeType}
+                            <p><span
+                                className="pl-5 pt-2 font-semibold">Type : </span>{moduleData?.history?.inputType == ModelInputType.BINARY ?
+                                ModelInputType.BINARY : moduleData?.history?.inputInfo.mimeType}
                             </p>
                             <p><span
                                 className="pl-5 pt-2 font-semibold">Size : </span>{FileUtils.formatBytes(moduleData?.history?.inputInfo?.fileSize)}
                             </p>
-                            <div className="pl-5 pt-2 overflow-x-auto"
+                            <div className="pl-5 pt-2"
                                  style={{overflow: 'hidden', display: 'flex'}}>
                                 <div>
-                                    {moduleData?.history?.inputInfo?.mimeType?.startsWith('image') &&
+                                    {moduleData?.history?.inputType.startsWith('image') &&
                                         <a href='#' onClick={e => {
                                             DownloadUtils.download('/' + moduleData?.history?.inputPath, moduleData?.history?.inputInfo?.fileName);
                                         }}>
@@ -170,12 +167,12 @@ export default function SingleInputModule(moduleData : ModuleData) {
                                                     maxHeight: '100%',
                                                 }} alt="single-input"/> : <></>}
                                         </a>}
-                                    {moduleData?.history?.inputInfo?.mimeType?.startsWith('text') &&
+                                    {moduleData?.history?.inputType.startsWith('text') &&
                                         <div>
                                             <br/>
                                             <p style={{whiteSpace: 'pre-wrap'}}>{inputText}</p>
                                         </div>}
-                                    {moduleData?.history?.inputInfo?.mimeType?.startsWith('video') &&
+                                    {moduleData?.history?.inputType.startsWith('video') &&
                                         <div>
                                             <br/>
                                             <video
@@ -184,7 +181,7 @@ export default function SingleInputModule(moduleData : ModuleData) {
                                                 controls
                                                 autoPlay={false}
                                                 ref={videoRef}
-                                                style={{ objectFit: 'contain', maxWidth: '90%', maxHeight : '100%'}}
+                                                style={{objectFit: 'contain', maxWidth : '80%', maxHeight : '100%'}}
                                             />
                                         </div>}
                                 </div>
@@ -207,7 +204,7 @@ export default function SingleInputModule(moduleData : ModuleData) {
                                     Support format : {extension}</p>
                             </div>
                             {hideDrop && (
-                                <div>
+                                <div className="overflow-auto max-h-[243px]">
                                     <aside className="px-5 py-2">{thumbs}</aside>
                                     <ul className="px-5 py-2">{acceptedFileItems}</ul>
                                     <span className="px-5">{uploadExplain}</span>

@@ -7,7 +7,7 @@ export default function InputModule(moduleData : ModuleData) {
     const Module = InputModuleMap[moduleData.model?.inputType!]
 
     return (
-        <div className="row-span-2 rounded-lg border-1 border-gray-300 overflow-auto">
+        <div className="row-span-2 rounded-lg border-1 border-gray-300">
             <Module {...moduleData}/>
         </div>
     );

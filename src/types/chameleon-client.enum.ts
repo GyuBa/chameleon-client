@@ -7,6 +7,7 @@ import ZipGalleryOutputModule from "../pages/model/module/output/ZipGalleryOutpu
 import TextOutputModule from "../pages/model/module/output/TextOutputModule";
 import SoundOutputModule from "../pages/model/module/output/SoundOutputModule";
 import VideoOutputModule from "../pages/model/module/output/VideoOutputModule";
+import BinaryOutputModule from "../pages/model/module/output/BinaryOutputModule";
 
 export const InputModuleMap = {
     [ModelInputType.EMPTY]: EmptyInputModule,
@@ -19,7 +20,7 @@ export const InputModuleMap = {
 };
 
 export const OutputModuleMap = {
-    [ModelOutputType.BINARY]: ImageOutputModule,
+    [ModelOutputType.BINARY]: BinaryOutputModule,
     [ModelOutputType.IMAGE] : ImageOutputModule,
     [ModelOutputType.ZIP_GALLERY] : ZipGalleryOutputModule,
     [ModelOutputType.TEXT] : TextOutputModule,

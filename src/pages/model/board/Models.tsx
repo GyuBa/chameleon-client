@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useLocation} from "react-router-dom";
-import {HiOutlineSearch, HiViewGrid} from "react-icons/hi";
+import {HiViewGrid} from "react-icons/hi";
 import {FiList} from "react-icons/fi";
 import {BiAddToQueue, BiDotsVerticalRounded} from "react-icons/bi";
 import ModelsDescriptionPanel from "./panel/ModelsDescriptionPanel";

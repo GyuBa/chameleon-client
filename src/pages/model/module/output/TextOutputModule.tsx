@@ -4,8 +4,9 @@ import {FileUtils} from "../../../../utils/FileUtils";
 import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
 
 export default function TextOutputModule(executeData: HistoryEntityData) {
-    let outputInformation = executeData?.outputInfo?.fileName
-    const extension = outputInformation?.split('.').pop();
+    let outputFilename = executeData?.outputInfo?.fileName
+    let outputType = executeData?.outputType
+    const extension = outputFilename?.split('.').pop() !== 'txt' ? outputType : outputFilename?.split('.').pop();
     let outputPath = executeData?.outputPath
     let outputSize = executeData?.outputInfo?.fileSize
     let outputName = executeData?.outputInfo?.fileName
@@ -34,7 +35,7 @@ export default function TextOutputModule(executeData: HistoryEntityData) {
                     </button>
                 </div>
             </div>
-            <div className="overflow-y-auto max-h-[352px]">
+            <div className="overflow-x-hidden max-h-[400px]">
                 <br/>
                 <p><span className="pl-5 pb-5 font-semibold">Output Format : </span>{extension} </p>
                 <p><span className="pl-5 pt-2 font-semibold">Size : </span>{FileUtils.formatBytes(outputSize)} </p>

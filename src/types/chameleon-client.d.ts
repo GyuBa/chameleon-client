@@ -17,6 +17,8 @@ export type ParametersData = {
     setParameters?: React.Dispatch<React.SetStateAction<any>>
     activeTabIndex: number,
     setActiveTabIndex: React.Dispatch<React.SetStateAction<number>>
+    jsonTabChoose? : boolean,
+    setJsonTabChoose? : React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export type ModuleData = {
