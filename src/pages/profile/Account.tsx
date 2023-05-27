@@ -41,7 +41,7 @@ export default function Account() {
         <div className="contents">
             <div className="w-2/3 m-2 md:m-10 mt-24 md:p-10 overflow-auto">
                 <p className='head-text'>Account</p>
-                <div className="my-4 border-gray-400 rounded-3xl border-1 p-6">
+                <div className="my-4 border-gray-400 rounded-3xl border-1 p-5">
                     <p className="text-xs text-gray-600 mb-1 pb-2">User Info</p>
                     <div className="flex items-center border-b-1 border-gray-300 mx-4 pb-4 mb-4 gap-5">
                         <BsPersonCircle className="w-10 h-10"/>
@@ -64,7 +64,7 @@ export default function Account() {
                         </div>
                     </div>
                 </div>
-                <div className="my-4 border-gray-400 rounded-3xl border-1 p-6">
+                <div className="my-4 border-gray-400 rounded-3xl border-1 p-5">
                     <div className="flex justify-between">
                         <p className="text-xs text-gray-600 mb-1 pb-2">Payment Histories</p>
                         <Link to={SitePaths.PAYMENT_HISTORIES}>
@@ -133,7 +133,7 @@ export default function Account() {
                         )
                     )}
                 </div>
-                <div className="border-gray-400 rounded-3xl border-1 p-6">
+                <div className="border-gray-400 rounded-3xl border-1 p-5">
                     <p className="text-xs text-gray-600 mb-1 pb-2">Security Setting</p>
                     <div className="flex items-center">
                         <HiOutlineLockClosed className="mx-4 w-10 h-10"/>
