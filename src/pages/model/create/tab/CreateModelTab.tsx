@@ -17,7 +17,6 @@ const tabsData = {
 export default function CreateModelTab() {
     const navigate = useNavigate();
     const {modelData, setModelData, regions, setRegions} = useGlobalContext();
-
     useEffect(() => {
         let completed = false;
         (async () => {
@@ -39,9 +38,8 @@ export default function CreateModelTab() {
     }, [modelData]);
 
     const handleClick = () => {
-        navigate(SitePaths.CREATE_MODEL_DESCRIPTION, {
-            state: modelData
-        });
+        setModelData({...modelData});
+        navigate(SitePaths.CREATE_MODEL_DESCRIPTION);
     };
 
     const {getRootProps, getInputProps} = useDropzone({
@@ -112,6 +110,7 @@ export default function CreateModelTab() {
                         <select
                             className="model-info-input"
                             defaultValue={modelData?.inputType}
+                            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => modelData.inputType = event.target.value as ModelInputType}
                         >
                             {Object.values(ModelInputType).map(type => <option key={type} value={type}>{type}</option>)}
                         </select>
