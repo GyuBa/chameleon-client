@@ -17,7 +17,6 @@ const tabsData = {
 export default function CreateModelTab() {
     const navigate = useNavigate();
     const {modelData, setModelData, regions, setRegions} = useGlobalContext();
-
     useEffect(() => {
         let completed = false;
         (async () => {
@@ -39,9 +38,8 @@ export default function CreateModelTab() {
     }, [modelData]);
 
     const handleClick = () => {
-        navigate(SitePaths.CREATE_MODEL_DESCRIPTION, {
-            state: modelData
-        });
+        setModelData({...modelData});
+        navigate(SitePaths.CREATE_MODEL_DESCRIPTION);
     };
 
     const {getRootProps, getInputProps} = useDropzone({
