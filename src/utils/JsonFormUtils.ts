@@ -180,7 +180,19 @@ export class JsonFormUtils {
                         description,
                         default: parameterDetail.defaultString,
                     };
-                    if (parameterDetail.stringEnum) {
+                    if (parameterDetail.stringEnum && parameterDetail.stringEnum?.length) {
+                        for (let i = 0; i < parameterDetail.stringEnum?.length; i++) {
+                            if (typeof parameterDetail.stringEnum[i] === 'undefined') {
+                                parameterDetail.stringEnum[i] = 'name';
+                            }
+                        }
+                        for (let i = 0; i < parameterDetail.stringEnum?.length; i++) {
+                            for(let j = 0; j < i; j++) {
+                                if(parameterDetail.stringEnum[i] === parameterDetail.stringEnum[j])
+                                    parameterDetail.stringEnum[i] = parameterDetail.stringEnum[i] + 1
+                            }
+                        }
+
                         properties[name].enum = parameterDetail.stringEnum;
                     }
                     break;
@@ -192,8 +204,20 @@ export class JsonFormUtils {
                         maximum: parameterDetail.maxNumber,
                         default: parameterDetail.defaultNumber,
                     };
-                    if (parameterDetail.numberEnum) {
-                        properties[name].enum = parameterDetail.numberEnum;
+                    if (parameterDetail.numberEnum && parameterDetail.numberEnum?.length) {
+                        for (let i = 0; i < parameterDetail.numberEnum.length; i++) {
+                            if (typeof parameterDetail.numberEnum[i] === 'undefined') {
+                                parameterDetail.numberEnum[i] = 7;
+                            }
+                        }
+
+                        for (let i = 0; i < parameterDetail.numberEnum?.length; i++) {
+                            for(let j = 0; j < i; j++) {
+                                if(parameterDetail.numberEnum[i] === parameterDetail.numberEnum[j])
+                                    parameterDetail.numberEnum[i] = parameterDetail.numberEnum[i] + 1
+                            }
+                        }
+                        properties[name].enum= parameterDetail.numberEnum;
                     }
                     break;
                 case ParameterType.INTEGER:
@@ -204,7 +228,20 @@ export class JsonFormUtils {
                         maximum: parameterDetail.maxInteger,
                         default: parameterDetail.defaultInteger,
                     };
-                    if (parameterDetail.integerEnum) {
+                    if (parameterDetail.integerEnum && parameterDetail.integerEnum?.length) {
+                        for (let i = 0; i < parameterDetail.integerEnum?.length; i++) {
+                            if (typeof parameterDetail.integerEnum[i] === 'undefined') {
+                                parameterDetail.integerEnum[i] = 7;
+                            }
+                        }
+
+                        for (let i = 0; i < parameterDetail.integerEnum?.length; i++) {
+                            for(let j = 0; j < i; j++) {
+                                if(parameterDetail.integerEnum[i] === parameterDetail.integerEnum[j])
+                                    parameterDetail.integerEnum[i] = parameterDetail.integerEnum[i] + 1
+                            }
+                        }
+
                         properties[name].enum = parameterDetail.integerEnum;
                     }
                     break;
