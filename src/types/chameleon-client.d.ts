@@ -1,14 +1,13 @@
 import React from "react";
 import {
-    EarnedPointHistoryEntityData,
     HistoryEntityData,
     ModelCommonUploadData,
     ModelEntityData, ModelExecutionParameters,
     ModelInputType,
-    ModelParameters, PointHistoryEntityData,
+    ModelParameters,
     RegionEntityData, UserEntityData
 } from "./chameleon-platform.common";
-import {ModelFileType, ParameterType, PageType, PaymentHistoriesType} from "./chameleon-client.enum";
+import {ModelFileType, ParameterType, PageType} from "./chameleon-client.enum";
 import {Image} from "react-grid-gallery";
 
 export type ParametersData = {
