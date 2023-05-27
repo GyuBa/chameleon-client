@@ -4,9 +4,7 @@ import {FileUtils} from "../../../../utils/FileUtils";
 import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
 
 export default function ImageOutputModule(executeData: HistoryEntityData) {
-    let outputInformation = executeData?.outputInfo?.fileName
     let outputType = executeData?.outputType
-    let extension = outputInformation ? outputInformation.split('.').pop() : outputType;
     let outputPath = executeData?.outputPath
     let outputSize = executeData?.outputInfo?.fileSize
     let outputName = executeData?.outputInfo?.fileName
@@ -27,7 +25,7 @@ export default function ImageOutputModule(executeData: HistoryEntityData) {
             </div>
             <div className="overflow-x-hidden max-h-[400px]">
                 <br/>
-                <p><span className="pl-5 pt-2 font-semibold">Output Format : </span>{extension} </p>
+                <p><span className="pl-5 pt-2 font-semibold">Output Format : </span>{outputType} </p>
                 <p><span className="pl-5 pt-2 font-semibold">Size : </span>{FileUtils.formatBytes(outputSize)} </p>
                 <div className="pl-5 pt-2"
                      style={{overflow: 'hidden', display: 'flex', justifyContent: 'center'}}>
