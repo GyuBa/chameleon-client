@@ -153,36 +153,41 @@ export default function SingleInputModule(moduleData: ModuleData) {
                             <p><span
                                 className="pl-5 pt-2 font-semibold">Size : </span>{FileUtils.formatBytes(moduleData?.history?.inputInfo?.fileSize)}
                             </p>
-                            <div className="pl-5 pt-2"
-                                 style={{overflow: 'hidden', display: 'flex'}}>
+                            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                {moduleData?.history?.inputType.startsWith('video') &&
                                 <div>
-                                    {moduleData?.history?.inputType.startsWith('image') &&
-                                        <a href='#' onClick={e => {
-                                            DownloadUtils.download('/' + moduleData?.history?.inputPath, moduleData?.history?.inputInfo?.fileName);
-                                        }}>
-                                            {moduleData?.history?.inputInfo?.mimeType?.startsWith('image') ?
-                                                <img src={'/' + moduleData?.history?.inputPath} style={{
-                                                    objectFit: 'contain',
-                                                    maxWidth: '100%',
-                                                    maxHeight: '100%',
-                                                }} alt="single-input"/> : <></>}
-                                        </a>}
+                                    <br/>
+                                    <video
+                                        src={'/' + inputPath}
+                                        className="video-js vjs-theme-city"
+                                        controls
+                                        autoPlay={false}
+                                        ref={videoRef}
+                                        width={500}
+                                        height={300}
+                                        style={{objectFit: 'contain'}}
+                                    />
+                                </div>}
+                                {moduleData?.history?.inputType.startsWith('image') &&
+                                    <a href='#' onClick={e => {
+                                        DownloadUtils.download('/' + moduleData?.history?.inputPath, moduleData?.history?.inputInfo?.fileName);
+                                    }}>
+                                        {moduleData?.history?.inputInfo?.mimeType?.startsWith('image') ?
+                                            <img src={'/' + moduleData?.history?.inputPath} style={{
+                                                alignItems: 'center',
+                                                objectFit: 'contain',
+                                                maxWidth: '100%',
+                                                maxHeight: '100%',
+                                                justifyContent: 'center'
+                                            }} alt="single-input"/> : <></>}
+                                    </a>}
+                            </div>
+                            <div className="pl-5 pt-2">
+                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                     {moduleData?.history?.inputType.startsWith('text') &&
-                                        <div>
+                                        <div style={{justifyContent: ''}}>
                                             <br/>
                                             <p style={{whiteSpace: 'pre-wrap'}}>{inputText}</p>
-                                        </div>}
-                                    {moduleData?.history?.inputType.startsWith('video') &&
-                                        <div>
-                                            <br/>
-                                            <video
-                                                src={'/' + inputPath}
-                                                className="video-js vjs-theme-city"
-                                                controls
-                                                autoPlay={false}
-                                                ref={videoRef}
-                                                style={{objectFit: 'contain', maxWidth : '80%', maxHeight : '100%'}}
-                                            />
                                         </div>}
                                 </div>
                             </div>
