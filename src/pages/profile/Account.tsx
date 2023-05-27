@@ -1,14 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {BsPersonCircle} from "react-icons/bs";
 import {HiChip, HiOutlineLockClosed, HiOutlineMail} from "react-icons/hi";
 import {Link} from "react-router-dom";
 import {GrMoney} from "react-icons/gr";
-import {
-    EarnedPointHistoryEntityData,
-    PointHistoryEntityData,
-    PointHistoryType,
-    SitePaths
-} from "../../types/chameleon-platform.common";
+import {PointHistoryType, SitePaths} from "../../types/chameleon-platform.common";
 import useGlobalContext from "../../contexts/hook/useGlobalContext";
 import {MdPayment} from "react-icons/md";
 import {PlatformAPI} from "../../platform/PlatformAPI";
@@ -16,10 +11,15 @@ import {TimeUtils} from "../../utils/TimeUtils";
 import {PaymentHistoriesType} from "../../types/chameleon-client.enum";
 
 export default function Account() {
-    const {user} = useGlobalContext();
-    const [pointHistoriesData, setPointHistoriesData] = useState<PointHistoryEntityData[] | null>(null);
-    const [earnedPointHistoryData, setEarnedPointHistoryData] = useState<EarnedPointHistoryEntityData[] | null>(null);
-    const [activeTab, setActiveTab] = useState<PaymentHistoriesType>(PaymentHistoriesType.USAGE);
+    const {
+        user,
+        pointHistoriesData,
+        setPointHistoriesData,
+        earnedPointHistoriesData,
+        setEarnedPointHistoriesData,
+        activeTab,
+        setActiveTab
+    } = useGlobalContext();
 
     useEffect(() => {
         (async function () {
@@ -29,7 +29,7 @@ export default function Account() {
                     setPointHistoriesData(result || []);
                 } else if (activeTab === PaymentHistoriesType.REVENUE) {
                     const result = await PlatformAPI.getEarnedPointsHistories();
-                    setEarnedPointHistoryData(result || []);
+                    setEarnedPointHistoriesData(result || []);
                 }
             } catch (error) {
                 console.error(error);
@@ -109,8 +109,8 @@ export default function Account() {
                         )
                     )}
                     {activeTab === PaymentHistoriesType.REVENUE && (
-                        earnedPointHistoryData?.length ? (
-                            earnedPointHistoryData?.slice(-3).reverse().map((index) => (
+                        earnedPointHistoriesData?.length ? (
+                            earnedPointHistoriesData?.slice(-3).reverse().map((index) => (
                                 <div className="flex items-center">
                                     <HiChip className="mx-4 w-10 h-10"/>
                                     <div className="w-full pl-2">

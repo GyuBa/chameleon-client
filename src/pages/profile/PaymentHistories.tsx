@@ -1,21 +1,22 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {MdPayment} from "react-icons/md";
 import {Link} from "react-router-dom";
-import {
-	EarnedPointHistoryEntityData,
-	PointHistoryEntityData,
-	PointHistoryType,
-	SitePaths
-} from "../../types/chameleon-platform.common";
+import {PointHistoryType, SitePaths} from "../../types/chameleon-platform.common";
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {HiChip} from "react-icons/hi";
 import {TimeUtils} from "../../utils/TimeUtils";
 import {PaymentHistoriesType} from "../../types/chameleon-client.enum";
+import useGlobalContext from "../../contexts/hook/useGlobalContext";
 
 export default function PaymentHistories() {
-	const [pointHistoriesData, setPointHistoriesData] = useState<PointHistoryEntityData[] | null>(null);
-	const [earnedPointHistoryData, setEarnedPointHistoryData] = useState<EarnedPointHistoryEntityData[] | null>(null);
-	const [activeTab, setActiveTab] = useState<PaymentHistoriesType>(PaymentHistoriesType.USAGE);
+	const {
+		pointHistoriesData,
+		setPointHistoriesData,
+		earnedPointHistoriesData,
+		setEarnedPointHistoriesData,
+		activeTab,
+		setActiveTab
+	} = useGlobalContext();
 
 	useEffect(() => {
 		(async function () {
@@ -25,7 +26,7 @@ export default function PaymentHistories() {
 					setPointHistoriesData(result || []);
 				} else if (activeTab === PaymentHistoriesType.REVENUE) {
 					const result = await PlatformAPI.getEarnedPointsHistories();
-					setEarnedPointHistoryData(result || []);
+					setEarnedPointHistoriesData(result || []);
 				}
 			} catch (error) {
 				console.error(error);
@@ -44,7 +45,7 @@ export default function PaymentHistories() {
 							<button className="blue-btn text-sm p-2">back</button>
 						</Link>
 					</div>
-					<div className="pr-2 mb-2 ml-4 flex space-x-3 border-b">
+					<div className="flex space-x-3 border-b mb-2 ml-4 pr-2">
 						<button
 							className={activeTab === PaymentHistoriesType.USAGE ? "default-tab-active" : "default-tab-inactive"}
 							onClick={() => setActiveTab(PaymentHistoriesType.USAGE)}
@@ -83,8 +84,8 @@ export default function PaymentHistories() {
 							)
 						)}
 						{activeTab === PaymentHistoriesType.REVENUE && (
-							earnedPointHistoryData?.length ? (
-								earnedPointHistoryData?.slice(0).reverse().map((index) => (
+							earnedPointHistoriesData?.length ? (
+								earnedPointHistoriesData?.slice(0).reverse().map((index) => (
 									<div className="flex items-center">
 										<HiChip className="w-10 h-10"/>
 										<div className="w-full pl-2">
