@@ -43,13 +43,13 @@ export default function ParametersModule(parametersData: ParametersData) {
             </div>
             {parametersData?.modelData === undefined && historyData !== undefined ?
                 <div className="tab-content tab-space overflow-y-auto max-h-[243px] md:px-5">
-                    <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
+                    <div className={activeTabIndex === 0 ? "block" : "hidden"}>
                         <br/>
                         <JsonViewer className="text-lg" value={parameters ? parameters : {}}/>
                     </div>
                 </div> :
                 <div className="tab-content tab-space overflow-y-auto max-h-[243px] md:px-5">
-                    <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
+                    <div className={activeTabIndex === 0 ? "block" : "hidden"}>
                         {historyData === undefined ?
                             <div>
                                 <br/>
