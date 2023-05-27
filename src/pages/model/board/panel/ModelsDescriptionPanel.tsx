@@ -40,30 +40,29 @@ export default function ModelsDescriptionPanel({modelId, setSelectedModelId, set
     };
 
     return (
-        <div className="contents">
-            <div className="m-2 md:my-10 mt-24 p-2 md:pr-5 md:py-10">
-                <div
-                    className="flex justify-between items-center pb-6 border-b-1 border-gray-300 overflow-auto max-h-screen">
-                    <p className="text-3xl font-extrabold tracking-tight text-slate-900">{modelData?.name}</p>
-                    <div className="flex gap-2 items-center">
-                        <button className="submit-btn text-sm w-full p-1.5" onClick={handleStart}>start</button>
-                        {
-                            user.id === modelData?.register.id ? (
-                                <button className="delete-btn text-sm w-full p-1.5"
-                                        onClick={() => {
-                                            setDeleteModalContext({
-                                               currentModel: modelData,
-                                               open: true
-                                            });
-                                        }}>delete</button>
-                            ) : <></>
-                        }
+        <div className="m-2 md:mt-5 mt-10 md:pr-5 md:pt-10 overflow-auto max-h-full">
+            <div className="flex justify-between pb-6 border-b-1 border-gray-300">
+                <p className="text-3xl font-extrabold tracking-tight text-slate-900">{modelData?.name}</p>
+                <div className="flex gap-2 items-center">
+                    <button className="submit-btn text-sm w-full p-1.5" onClick={handleStart}>start</button>
+                    {
+                        user.id === modelData?.register.id ? (
+                            <button className="delete-btn text-sm w-full p-1.5"
+                                    onClick={() => {
+                                        setDeleteModalContext({
+                                           currentModel: modelData,
+                                           open: true
+                                        });
+                                    }}>delete</button>
+                        ) : <></>
+                    }
 
-                        <button className="text-gray-500 text-2xl rounded-full hover:text-black hover:bg-light-gray"
-                                onClick={() => setSelectedModelId(-1)}><MdOutlineCancel/></button>
-                    </div>
+                    <button className="text-gray-500 text-2xl rounded-full hover:text-black hover:bg-light-gray"
+                            onClick={() => setSelectedModelId(-1)}><MdOutlineCancel/></button>
                 </div>
-                <div className="mt-4 overflow-auto max-h-screen">
+            </div>
+            <div className="overflow-auto max-h-full">
+                <div className="mt-4">
                     <div className="flex my-2 items-center gap-2">
                         <p className="text-lg font-bold">Name:</p>
                         <p className="font-medium">{modelData?.name}</p>
@@ -92,8 +91,6 @@ export default function ModelsDescriptionPanel({modelId, setSelectedModelId, set
                                 className="bg-teal-100 text-teal-500">{modelData?.category}</Badge></div>
                         </div>
                     )}
-                </div>
-                <div className="flex items-center">
                     <div data-color-mode="light" className="my-4 whitespace-pre-wrap">
                         <MDEditor.Markdown className="py-2" source={modelData?.description}
                                            style={{whiteSpace: 'pre-wrap'}}/>
