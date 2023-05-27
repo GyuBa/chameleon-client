@@ -8,6 +8,7 @@ import {
     RegionEntityData, UserEntityData
 } from "./chameleon-platform.common";
 import {ModelFileType, ParameterType, PageType} from "./chameleon-client.enum";
+import {Image} from "react-grid-gallery";
 
 export type ParametersData = {
     history: HistoryEntityData,
@@ -91,9 +92,9 @@ export interface ModelsLayoutProps {
     onModelSelect: (modelData: ModelEntityData) => void;
 }
 
-export interface ParameterBuilderProps {
-    parameters: ModelParameters;
-    setParameters: Function;
+export interface TerminalSplitContainerProps  {
+    children?: React.ReactElement,
+    moduleData: ModuleData
 }
 
 export interface ExecuteDescriptionPanelProps {
@@ -116,4 +117,9 @@ export type ModuleData = {
 export type DeleteModalContext = {
     currentModel: ModelEntityData;
     open: boolean;
+}
+
+export interface CustomImage extends Image {
+    original: string;
+    fileName: string;
 }

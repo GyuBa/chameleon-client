@@ -6,14 +6,6 @@ import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import ParameterEditorTab from "./tab/ParameterEditorTab";
 import useGlobalContext from "../../../../contexts/hook/useGlobalContext";
 
-const editorOptions = {
-    minimap: {
-        enabled: false,
-    },
-    automaticLayout: true,
-    fontSize: 17,
-    scrollBeyondLastLine: false,
-};
 export default function ComplexParameterBuilder() {
     const {modelData, setModelData} = useGlobalContext();
     const [propertyType, setPropertyType] = useState<JsonFormPropertyType>(JsonFormPropertyType.SCHEMA);
