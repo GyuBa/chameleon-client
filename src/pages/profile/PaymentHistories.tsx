@@ -92,7 +92,10 @@ export default function PaymentHistories() {
 											<div className="font-semibold text-left">
 												{index.model?.name == null ? 'Deleted Model' : index.model?.name}
 											</div>
-											<div className="text-xs text-gray-600 text-left">{TimeUtils.formatTime(new Date(index.createdTime))}</div>
+											<div className="flex gap-2">
+												<div className="text-xs text-gray-600 text-left border-r-1 border-gray-300 pr-2">{index.executor?.username}</div>
+												<div className="text-xs text-gray-600 text-left">{TimeUtils.formatTime(new Date(index.createdTime))}</div>
+											</div>
 										</div>
 										<div className="my-2 mr-2">
 											<div className="font-semibold text-green-500 text-right">{index.delta.toLocaleString('ko-KR')}</div>
