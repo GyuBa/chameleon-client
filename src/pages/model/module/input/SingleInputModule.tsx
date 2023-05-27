@@ -90,11 +90,10 @@ export default function SingleInputModule(moduleData: ModuleData) {
                 {moduleData?.model?.inputType === ModelInputType.VIDEO &&
                     (<video
                         src={file.preview}
-                        className="video-js vjs-theme-city"
+                        className="video-js vjs-theme-city object-contain max-w-90 max-h-full"
                         controls
                         autoPlay={false}
                         ref={videoRef}
-                        style={{objectFit: 'contain', maxWidth: '90%', maxHeight: '100%'}}
                     />)
                 }
                 {moduleData?.model?.inputType === ModelInputType.TEXT &&
@@ -153,19 +152,18 @@ export default function SingleInputModule(moduleData: ModuleData) {
                             <p><span
                                 className="pl-5 pt-2 font-semibold">Size : </span>{FileUtils.formatBytes(moduleData?.history?.inputInfo?.fileSize)}
                             </p>
-                            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                            <div className="flex justify-center items-center">
                                 {moduleData?.history?.inputType.startsWith('video') &&
                                 <div>
                                     <br/>
                                     <video
                                         src={'/' + inputPath}
-                                        className="video-js vjs-theme-city"
+                                        className="video-js vjs-theme-city object-contain"
                                         controls
                                         autoPlay={false}
                                         ref={videoRef}
                                         width={500}
                                         height={300}
-                                        style={{objectFit: 'contain'}}
                                     />
                                 </div>}
                                 {moduleData?.history?.inputType.startsWith('image') &&
@@ -173,17 +171,15 @@ export default function SingleInputModule(moduleData: ModuleData) {
                                         DownloadUtils.download('/' + moduleData?.history?.inputPath, moduleData?.history?.inputInfo?.fileName);
                                     }}>
                                         {moduleData?.history?.inputInfo?.mimeType?.startsWith('image') ?
-                                            <img src={'/' + moduleData?.history?.inputPath} style={{
-                                                alignItems: 'center',
-                                                objectFit: 'contain',
-                                                maxWidth: '100%',
-                                                maxHeight: '100%',
-                                                justifyContent: 'center'
-                                            }} alt="single-input"/> : <></>}
+                                            <img
+                                                src={'/' + moduleData?.history?.inputPath}
+                                                className="mx-auto object-contain max-w-full max-h-full"
+                                                alt="single-input"
+                                            /> : <></>}
                                     </a>}
                             </div>
                             <div className="pl-5 pt-2">
-                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                <div className="flex justify-between">
                                     {moduleData?.history?.inputType.startsWith('text') &&
                                         <div>
                                             <br/>
@@ -200,8 +196,7 @@ export default function SingleInputModule(moduleData: ModuleData) {
                     ) : (
                         <div>
                             <div {...getRootProps()}
-                                 className={hideDrop ? "hidden" : "dropzone cursor-pointer justify-center"}
-                                 style={{height: '243px'}}>
+                                 className={` ${hideDrop ? 'hidden' : 'dropzone cursor-pointer justify-center'} h-64`}>
                                 <input {...getInputProps()}/>
                                 <p className="inline-block px-1 text-gray-500 hover:text-gray-700">
                                     Drag & drop some files here, or click to select files</p>

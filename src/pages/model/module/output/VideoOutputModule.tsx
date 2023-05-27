@@ -46,16 +46,15 @@ export default function VideoOutputModule(executeData: HistoryEntityData) {
                 <p><span className="pl-5 pt-2 font-semibold">Size : </span>{FileUtils.formatBytes(outputSize)} </p>
                 <p><span className="pl-5 pt-2 font-semibold">Output : </span></p>
                 <br/>
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <div className="flex justify-center items-center">
                     <video
                         src={'/'+ outputPath}
-                        className="video-js vjs-theme-city"
+                        className="video-js vjs-theme-city object-contain"
                         controls
                         autoPlay={false}
                         ref={videoRef}
                         width={500}
                         height={300}
-                        style={{ objectFit: 'contain'}}
                     />
                 </div>
             </div>
