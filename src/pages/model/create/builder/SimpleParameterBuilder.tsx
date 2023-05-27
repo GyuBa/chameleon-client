@@ -7,7 +7,6 @@ import {JsonFormUtils} from "../../../../utils/JsonFormUtils";
 import useGlobalContext from "../../../../contexts/hook/useGlobalContext";
 
 export default function SimpleParameterBuilder() {
-
     const {modelData, setModelData, parameterDetails, setParameterDetails} = useGlobalContext();
     const parameters = modelData?.parameters;
 

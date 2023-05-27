@@ -5,7 +5,6 @@ import {JsonViewer} from "@textea/json-viewer";
 import {ParametersData} from "../../../../types/chameleon-client"
 
 export default function ParametersModule(parametersData : ParametersData) {
-
     const schema = parametersData.modelData?.parameters.schema
     const uiSchema = parametersData.modelData?.parameters.uischema
     const parameters = parametersData?.parameters
