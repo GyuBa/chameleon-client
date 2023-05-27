@@ -23,7 +23,7 @@ export default function ParametersModule(parametersData: ParametersData) {
     }
 
     return (
-        <div className="row-span-2 rounded-lg border-1 border-gray-300 overflow-auto">
+        <div className="row-span-2 rounded-lg border-1 border-gray-300">
             <div className="border-b border-gray-300" style={{backgroundColor: '#F6F6F6'}}>
                 <div className="flex md:px-5 md:py-2 space-x-3 rounded-lg">
                     {tabLabel.map((label, idx) => {
@@ -43,13 +43,13 @@ export default function ParametersModule(parametersData: ParametersData) {
                 </div>
             </div>
             {parametersData?.modelData === undefined && historyData !== undefined ?
-                <div className="tab-content tab-space overflow-y-auto max-h-[212px] md:px-5">
+                <div className="tab-content tab-space overflow-y-auto max-h-[243px] md:px-5">
                     <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
                         <br/>
                         <JsonViewer className="text-lg" value={parameters ? parameters : {}}/>
                     </div>
                 </div> :
-                <div className="tab-content tab-space overflow-y-auto max-h-[212px] md:px-5">
+                <div className="tab-content tab-space overflow-y-auto max-h-[243px] md:px-5">
                     <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
                         {historyData === undefined ?
                             <div>
