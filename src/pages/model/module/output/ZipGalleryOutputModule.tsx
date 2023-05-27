@@ -39,7 +39,6 @@ export default function ZipGalleryOutputModule(executeData: HistoryEntityData) {
     const fileSize = executeData?.outputInfo?.fileSize;
     const [index, setIndex] = useState<number>(-1);
     const handleClick = (index: number, item: CustomImage) => setIndex(index);
-    let fileSizeExist = fileSize !== undefined;
 
     useEffect(() => {
         if (outputPath && fileSize !== 0 && !isCalledRef.current) {
