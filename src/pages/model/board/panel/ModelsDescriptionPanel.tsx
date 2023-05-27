@@ -40,7 +40,7 @@ export default function ModelsDescriptionPanel({modelId, setSelectedModelId, set
     };
 
     return (
-        <div className="m-2 md:mt-5 mt-10 md:pr-5 md:pt-10 h-auto">
+        <div className="m-2 md:mt-5 mt-10 md:pr-5 md:pt-10">
             <div className="flex justify-between pb-6 border-b-1 border-gray-300">
                 <p className="text-3xl font-extrabold tracking-tight text-slate-900">{modelData?.name}</p>
                 <div className="flex gap-2 items-center">
