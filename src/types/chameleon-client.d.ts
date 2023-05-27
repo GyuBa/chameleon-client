@@ -1,13 +1,14 @@
 import React from "react";
 import {
+    EarnedPointHistoryEntityData,
     HistoryEntityData,
     ModelCommonUploadData,
     ModelEntityData, ModelExecutionParameters,
     ModelInputType,
-    ModelParameters,
+    ModelParameters, PointHistoryEntityData,
     RegionEntityData, UserEntityData
 } from "./chameleon-platform.common";
-import {ModelFileType, ParameterType, PageType} from "./chameleon-client.enum";
+import {ModelFileType, ParameterType, PageType, PaymentHistoriesType} from "./chameleon-client.enum";
 import {Image} from "react-grid-gallery";
 
 export type ParametersData = {
@@ -54,6 +55,8 @@ export type GlobalContextData = {
     setActiveMenu: React.Dispatch<React.SetStateAction<boolean>>
     modelData: ModelUploadData;
     setModelData: React.Dispatch<React.SetStateAction<ModelUploadData>>
+    paymentData: PaymentHistoriesData;
+    setPaymentData: React.Dispatch<React.SetStateAction<PaymentHistoriesData>>
     regions: RegionEntityData[];
     setRegions: React.Dispatch<React.SetStateAction<RegionEntityData[]>>
     parameterDetails: ParameterDetail[]
@@ -67,6 +70,8 @@ export type GlobalContextData = {
 export type IFile = File & { preview?: string };
 
 export type ModelUploadData = ModelCommonUploadData & { files: IFile[], file: IFile, fileType: ModelFileType };
+
+export type PaymentHistoriesData = (PointHistoryEntityData[] | EarnedPointHistoryEntityData[]) & { paymentType: PaymentHistoriesType };
 
 export interface DescriptionProps {
     modelId: number;

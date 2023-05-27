@@ -44,6 +44,11 @@ export enum ModelFileType {
     DOCKERFILE
 }
 
+export enum PaymentHistoriesType {
+    USAGE ,
+    REVENUE
+}
+
 export enum ParameterType {
     STRING = "string",
     NUMBER = "number",

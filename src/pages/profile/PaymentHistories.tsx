@@ -25,7 +25,7 @@ export default function PaymentHistories() {
 			<div className="w-2/3 m-2 md:m-10 mt-24 md:px-10">
 				<p className='head-text'>Payment Histories</p>
 				<div className="my-4 border-gray-400 rounded-3xl border-1 p-6">
-					<div className="flex justify-between mb-2">
+					<div className="flex justify-between">
 						<p className="text-xs text-gray-600 mb-1 pb-2">Payment Histories</p>
 						<Link to={SitePaths.ACCOUNT}>
 							<button className="blue-btn text-sm p-2">back</button>
@@ -53,7 +53,7 @@ export default function PaymentHistories() {
 								</div>
 							</div>
 							))) : (
-							<p className="text-center text-gray-700">No payment histories found.</p>
+							<p className="mt-2 text-center text-gray-700">No payment histories found.</p>
 						)}
 					</div>
 				</div>
