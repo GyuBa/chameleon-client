@@ -1,24 +1,37 @@
 import React, {useEffect, useState} from 'react';
 import {MdPayment} from "react-icons/md";
 import {Link} from "react-router-dom";
-import {PointHistoryEntityData, PointHistoryType, SitePaths} from "../../types/chameleon-platform.common";
+import {
+	EarnedPointHistoryEntityData,
+	PointHistoryEntityData,
+	PointHistoryType,
+	SitePaths
+} from "../../types/chameleon-platform.common";
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {HiChip} from "react-icons/hi";
 import {TimeUtils} from "../../utils/TimeUtils";
+import {PaymentHistoriesType} from "../../types/chameleon-client.enum";
 
 export default function PaymentHistories() {
 	const [pointHistoriesData, setPointHistoriesData] = useState<PointHistoryEntityData[] | null>(null);
+	const [earnedPointHistoryData, setEarnedPointHistoryData] = useState<EarnedPointHistoryEntityData[] | null>(null);
+	const [activeTab, setActiveTab] = useState<PaymentHistoriesType>(PaymentHistoriesType.USAGE);
 
 	useEffect(() => {
 		(async function () {
 			try {
-				const result = await PlatformAPI.getPointsHistories();
-				setPointHistoriesData(result || []);
+				if (activeTab === PaymentHistoriesType.USAGE) {
+					const result = await PlatformAPI.getPointsHistories();
+					setPointHistoriesData(result || []);
+				} else if (activeTab === PaymentHistoriesType.REVENUE) {
+					const result = await PlatformAPI.getEarnedPointsHistories();
+					setEarnedPointHistoryData(result || []);
+				}
 			} catch (error) {
 				console.error(error);
 			}
 		})();
-	}, []);
+	}, [activeTab]);
 
 	return (
 		<div className="contents">
@@ -31,29 +44,64 @@ export default function PaymentHistories() {
 							<button className="blue-btn text-sm p-2">back</button>
 						</Link>
 					</div>
-					<div className="px-3 h-[560px] overflow-auto">
-						{pointHistoriesData?.length ? (
-							pointHistoriesData?.slice(0).reverse().map((history) => (
-							<div className="flex items-center">
-								{history.type === PointHistoryType.USE_PAID_MODEL
-									? <HiChip className="mx-1 w-10 h-10"/> : <MdPayment className="mx-1 w-10 h-10"/>}
-								<div className="w-full pl-2">
-									<div className="font-semibold text-left">
-										{history.modelHistory?.model?.name == null ? (
-											history.type === PointHistoryType.USE_PAID_MODEL ? 'Deleted Model' : 'Charge Points'
-										) : history.modelHistory?.model?.name}
+					<div className="pr-2 mb-2 ml-4 flex space-x-3 border-b">
+						<button
+							className={activeTab === PaymentHistoriesType.USAGE ? "default-tab-active" : "default-tab-inactive"}
+							onClick={() => setActiveTab(PaymentHistoriesType.USAGE)}
+						>Usage Histories
+						</button>
+						<button
+							className={activeTab === PaymentHistoriesType.REVENUE ? "default-tab-active" : "default-tab-inactive"}
+							onClick={() => setActiveTab(PaymentHistoriesType.REVENUE)}
+						>Revenue Histories
+						</button>
+					</div>
+					<div className="pl-3 h-[560px] overflow-auto">
+						{activeTab === PaymentHistoriesType.USAGE && (
+							pointHistoriesData?.length ? (
+								pointHistoriesData?.slice(0).reverse().map((index) => (
+									<div className="flex items-center">
+										{index.type === PointHistoryType.USE_PAID_MODEL
+											? <HiChip className="w-10 h-10"/> : <MdPayment className="w-10 h-10"/>}
+										<div className="w-full pl-2">
+											<div className="font-semibold text-left">
+												{index.modelHistory?.model?.name == null ? (
+													index.type === PointHistoryType.USE_PAID_MODEL ? 'Deleted Model' : 'Charge Points'
+												) : index.modelHistory?.model?.name}
+											</div>
+											<div className="text-xs text-gray-600 text-left">{TimeUtils.formatTime(new Date(index.createdTime))}</div>
+										</div>
+										<div className="my-2 mr-2">
+											<div className={index.type === PointHistoryType.USE_PAID_MODEL
+												? `font-semibold text-red-500 text-right`
+												: `font-semibold text-green-500 text-right`}>{index.delta.toLocaleString('ko-KR')}</div>
+											<div className="text-xs text-gray-600 text-right">{index.leftPoint.toLocaleString('ko-KR')}</div>
+										</div>
 									</div>
-									<div className="text-xs text-gray-600 text-left">{TimeUtils.formatTime(new Date(history.createdTime))}</div>
-								</div>
-								<div className="my-2">
-									<div className={history.type === PointHistoryType.USE_PAID_MODEL
-										? `font-semibold text-red-500 text-right`
-										: `font-semibold text-green-500 text-right`}>{history.delta.toLocaleString('ko-KR')}</div>
-									<div className="text-xs text-gray-600 text-right">{history.leftPoint.toLocaleString('ko-KR')}</div>
-								</div>
-							</div>
-							))) : (
-							<p className="mt-2 text-center text-gray-700">No payment histories found.</p>
+								))) : (
+								<p className="mt-2 text-center text-gray-700">No payment histories found.</p>
+							)
+						)}
+						{activeTab === PaymentHistoriesType.REVENUE && (
+							earnedPointHistoryData?.length ? (
+								earnedPointHistoryData?.slice(0).reverse().map((index) => (
+									<div className="flex items-center">
+										<HiChip className="w-10 h-10"/>
+										<div className="w-full pl-2">
+											<div className="font-semibold text-left">
+												{index.model?.name == null ? 'Deleted Model' : index.model?.name}
+											</div>
+											<div className="text-xs text-gray-600 text-left">{TimeUtils.formatTime(new Date(index.createdTime))}</div>
+										</div>
+										<div className="my-2 mr-2">
+											<div className="font-semibold text-green-500 text-right">{index.delta.toLocaleString('ko-KR')}</div>
+											<div className="text-xs text-gray-600 text-right">{index.leftEarnedPoint.toLocaleString('ko-KR')}</div>
+										</div>
+									</div>
+								))
+							) : (
+								<p className="mt-2 text-center text-gray-700">No payment histories found.</p>
+							)
 						)}
 					</div>
 				</div>

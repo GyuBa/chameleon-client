@@ -55,8 +55,6 @@ export type GlobalContextData = {
     setActiveMenu: React.Dispatch<React.SetStateAction<boolean>>
     modelData: ModelUploadData;
     setModelData: React.Dispatch<React.SetStateAction<ModelUploadData>>
-    paymentData: PaymentHistoriesData;
-    setPaymentData: React.Dispatch<React.SetStateAction<PaymentHistoriesData>>
     regions: RegionEntityData[];
     setRegions: React.Dispatch<React.SetStateAction<RegionEntityData[]>>
     parameterDetails: ParameterDetail[]
@@ -70,8 +68,6 @@ export type GlobalContextData = {
 export type IFile = File & { preview?: string };
 
 export type ModelUploadData = ModelCommonUploadData & { files: IFile[], file: IFile, fileType: ModelFileType };
-
-export type PaymentHistoriesData = (PointHistoryEntityData[] | EarnedPointHistoryEntityData[]) & { paymentType: PaymentHistoriesType };
 
 export interface DescriptionProps {
     modelId: number;
