@@ -25,7 +25,6 @@ export default function DeleteModal({modalData, setModalData, setSelectedModelId
                 <footer>
                     <button className="submit" onClick={async () => {
                         try {
-                            console.log('HELLO');
                             await PlatformAPI.deleteModelById(modalData.currentModel.id);
                             setModalData({...modalData, open: false});
                             setSelectedModelId(-1);
