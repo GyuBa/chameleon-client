@@ -18,7 +18,7 @@ export default function VideoOutputModule(executeData: HistoryEntityData) {
         if (videoRef.current) {
             const player = videojs(videoRef.current, {}, () => {
             });
-            player.play();
+            player.pause();
         }
     })
 

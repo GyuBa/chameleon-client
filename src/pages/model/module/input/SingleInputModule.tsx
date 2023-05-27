@@ -90,10 +90,12 @@ export default function SingleInputModule(moduleData: ModuleData) {
                 {moduleData?.model?.inputType === ModelInputType.VIDEO &&
                     (<video
                         src={file.preview}
-                        className="video-js vjs-theme-city object-contain max-w-90 max-h-full"
+                        className="video-js vjs-theme-city object-contain"
                         controls
                         autoPlay={false}
                         ref={videoRef}
+                        width={500}
+                        height={300}
                     />)
                 }
                 {moduleData?.model?.inputType === ModelInputType.TEXT &&
@@ -127,7 +129,7 @@ export default function SingleInputModule(moduleData: ModuleData) {
         if (videoRef.current) {
             const player = videojs(videoRef.current, {}, () => {
             });
-            player.play();
+            player.pause();
         }
     })
 
