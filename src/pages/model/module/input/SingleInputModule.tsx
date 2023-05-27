@@ -196,7 +196,8 @@ export default function SingleInputModule(moduleData: ModuleData) {
                     ) : (
                         <div>
                             <div {...getRootProps()}
-                                 className={` ${hideDrop ? 'hidden' : 'dropzone cursor-pointer justify-center'} h-64`}>
+                                 className={hideDrop ? "hidden" : "dropzone cursor-pointer justify-center"}
+                                 style={{height: '243px'}}>
                                 <input {...getInputProps()}/>
                                 <p className="inline-block px-1 text-gray-500 hover:text-gray-700">
                                     Drag & drop some files here, or click to select files</p>
