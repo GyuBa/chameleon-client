@@ -54,13 +54,20 @@ export default function App() {
 
     useEffect(() => {
         const mainPath = '/' + path.split('/').shift();
-        setEnableFooter(!(mainPath === SitePaths.MODEL_RAW || mainPath === SitePaths.MODEL_RAW));
+        setEnableFooter(!(mainPath === SitePaths.MODEL_RAW || mainPath === SitePaths.HISTORY_RAW));
     }, [path]);
 
-    const isSignedIn = CookieUtils.getCookieValue('connect.sid');
+    let isSignedIn = CookieUtils.getCookieValue('connect.sid');
     useEffect(() => {
         if (isSignedIn && user.id === -1) {
-            setTimeout(async () => setUser(await PlatformAPI.getLoginUser()));
+            setTimeout(async () => {
+                try {
+                    const loginUser = await PlatformAPI.getLoginUser();
+                    setUser(loginUser);
+                } catch (e) {
+                    CookieUtils.removeCookieValue('connect.sid');
+                }
+            });
         }
     }, [isSignedIn]);
 

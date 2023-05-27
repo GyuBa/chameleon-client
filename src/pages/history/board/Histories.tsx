@@ -34,7 +34,7 @@ export default function Histories() {
                         <p className='head-text'>Histories</p>
                     </div>
                 </div>
-                <div className="mt-10 max-h-screen overflow-auto">
+                <div className="mt-10 h-full overflow-auto">
                     <HistoriesTable histories={histories}/>
                 </div>
             </div>
