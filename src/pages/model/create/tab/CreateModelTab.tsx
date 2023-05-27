@@ -112,6 +112,7 @@ export default function CreateModelTab() {
                         <select
                             className="model-info-input"
                             defaultValue={modelData?.inputType}
+                            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => modelData.inputType = event.target.value as ModelInputType}
                         >
                             {Object.values(ModelInputType).map(type => <option key={type} value={type}>{type}</option>)}
                         </select>

@@ -70,7 +70,7 @@ export default function History() {
                             <button className="blue-btn text-sm w-full p-1.5">back</button>
                         </Link>
                     </div>
-                    <div className="h-[550px] grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
+                    <div className="h-[630px] grid grid-rows-4 grid-cols-2 grid-flow-col gap-2 mt-10">
                         {ParametersModule(parametersData)}
                         {InputModule(moduleData)}
                         {OutputModule(historyData!)}

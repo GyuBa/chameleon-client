@@ -4,7 +4,7 @@ import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonViewer} from "@textea/json-viewer";
 import {ParametersData} from "../../../../types/chameleon-client"
 
-export default function ParametersModule(parametersData : ParametersData) {
+export default function ParametersModule(parametersData: ParametersData) {
 
     const schema = parametersData.modelData?.parameters.schema
     const uiSchema = parametersData.modelData?.parameters.uischema
@@ -13,12 +13,20 @@ export default function ParametersModule(parametersData : ParametersData) {
     const activeTabIndex = parametersData?.activeTabIndex
     const setActiveTabIndex = parametersData?.setActiveTabIndex
     const historyData = parametersData?.history
+    const jsonTabChoose = parametersData?.jsonTabChoose
+    const setJsonTabChoose = parametersData?.setJsonTabChoose
+    const tabLabel = (parametersData?.modelData === undefined && historyData !== undefined) ? ['Parameters (JSON)'] : ['Parameters', 'Parameters (JSON)']
+
+    if (!jsonTabChoose && parametersData?.modelData && historyData && activeTabIndex !== 1) {
+        setActiveTabIndex(1); // 1번 탭을 클릭
+        setJsonTabChoose!(true)
+    }
 
     return (
         <div className="row-span-2 rounded-lg border-1 border-gray-300 overflow-auto">
             <div className="border-b border-gray-300" style={{backgroundColor: '#F6F6F6'}}>
                 <div className="flex md:px-5 md:py-2 space-x-3 rounded-lg">
-                    {['Parameters', 'Parameters (JSON)'].map((label, idx) => {
+                    {tabLabel.map((label, idx) => {
                         return (
                             <button
                                 key={idx}
@@ -34,30 +42,44 @@ export default function ParametersModule(parametersData : ParametersData) {
                     })}
                 </div>
             </div>
-            <div className="tab-content tab-space overflow-y-auto max-h-[212px] md:px-5">
-                <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
-                    {historyData === undefined ?
-                    <JsonForms
-                        schema={schema}
-                        uischema={uiSchema}
-                        data={parameters}
-                        renderers={materialRenderers}
-                        cells={materialCells}
-                        onChange={({data}) => {
-                            setParameters!(data);
-                        }}
-                    /> : <JsonForms
-                            data={historyData.parameters}
-                            renderers={materialRenderers}
-                            cells={materialCells}
-                            readonly
-                        />}
-                </div>
-                <div className={activeTabIndex === 1 ? "block" : "hidden"} id="link2">
-                    <br/>
-                    <JsonViewer className="text-lg" value={parameters ? parameters : {}} />
-                </div>
-            </div>
+            {parametersData?.modelData === undefined && historyData !== undefined ?
+                <div className="tab-content tab-space overflow-y-auto max-h-[212px] md:px-5">
+                    <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
+                        <br/>
+                        <JsonViewer className="text-lg" value={parameters ? parameters : {}}/>
+                    </div>
+                </div> :
+                <div className="tab-content tab-space overflow-y-auto max-h-[212px] md:px-5">
+                    <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
+                        {historyData === undefined ?
+                            <div>
+                                <br/>
+                                <JsonForms
+                                    schema={schema}
+                                    uischema={uiSchema}
+                                    data={parameters}
+                                    renderers={materialRenderers}
+                                    cells={materialCells}
+                                    onChange={({data}) => {
+                                        setParameters!(data);
+                                    }}
+                                />
+                            </div> : <div>
+                                <br/>
+                                <JsonForms
+                                    data={historyData.parameters}
+                                    renderers={materialRenderers}
+                                    cells={materialCells}
+                                    readonly
+                                />
+                            </div>
+                        }
+                    </div>
+                    <div className={activeTabIndex === 1 ? "block" : "hidden"} id="link2">
+                        <br/>
+                        <JsonViewer className="text-lg" value={parameters ? parameters : {}}/>
+                    </div>
+                </div>}
         </div>
     );
 }
