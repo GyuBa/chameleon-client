@@ -21,7 +21,7 @@ export const InputModuleMap = {
 export const OutputModuleMap = {
     [ModelOutputType.BINARY]: ImageOutputModule,
     [ModelOutputType.IMAGE] : ImageOutputModule,
-    [ModelOutputType.ZIP] : ZipGalleryOutputModule,
+    [ModelOutputType.ZIP_GALLERY] : ZipGalleryOutputModule,
     [ModelOutputType.TEXT] : TextOutputModule,
     [ModelOutputType.SOUND] : SoundOutputModule,
     [ModelOutputType.VIDEO] : VideoOutputModule

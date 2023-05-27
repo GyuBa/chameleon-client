@@ -89,10 +89,10 @@ export interface ModelsLayoutProps {
     onModelSelect: (modelData: ModelEntityData) => void;
 }
 
-export interface ParameterBuilderProps {
-    parameters: ModelParameters;
-    setParameters: Function;
-}
+export interface TerminalSplitContainerProps  {
+    children?: React.ReactElement,
+    moduleData: ModuleData
+};
 
 export interface ExecuteDescriptionPanelProps {
     modelDescription: string;
