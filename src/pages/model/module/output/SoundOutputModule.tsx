@@ -5,8 +5,7 @@ import {HistoryEntityData} from "../../../../types/chameleon-platform.common";
 import AudioPlayer from "react-h5-audio-player";
 
 export default function SoundOutputModule(executeData: HistoryEntityData) {
-    let outputInformation = executeData?.outputInfo?.fileName
-    const extension = outputInformation?.split('.').pop();
+    let outputType = executeData?.outputType
     let outputPath = executeData?.outputPath
     let outputSize = executeData?.outputInfo?.fileSize
     let outputName = executeData?.outputInfo?.fileName
@@ -26,7 +25,7 @@ export default function SoundOutputModule(executeData: HistoryEntityData) {
             </div>
             <div className="overflow-x-hidden max-h-[400px]">
                 <br/>
-                <p><span className="pl-5 pt-2 font-semibold">Output Format : </span>{extension} </p>
+                <p><span className="pl-5 pt-2 font-semibold">Output Format : </span>{outputType} </p>
                 <p><span className="pl-5 pt-2 font-semibold">Size : </span>{FileUtils.formatBytes(outputSize)} </p>
                 <p><span className="pl-5 pt-2 font-semibold">Output : </span></p>
                 <br/>
