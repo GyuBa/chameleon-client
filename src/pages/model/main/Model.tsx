@@ -26,6 +26,7 @@ import TerminalSplitContainer from "../../../components/terminal/container/Termi
 
 export default function Model() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
+    const [jsonTabChoose, setJsonTabChoose] = useState(false);
     const [parameters, setParameters] = useState<ModelExecutionParameters>({});
     const [modelData, setModelData] = useState<ModelEntityData>();
     const [executeData, setExecuteData] = useState<HistoryEntityData>();
@@ -90,7 +91,9 @@ export default function Model() {
         parameters,
         setParameters,
         activeTabIndex,
-        setActiveTabIndex
+        setActiveTabIndex,
+        jsonTabChoose,
+        setJsonTabChoose
     };
 
     return (

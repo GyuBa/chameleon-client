@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonViewer} from "@textea/json-viewer";
@@ -13,10 +13,13 @@ export default function ParametersModule(parametersData: ParametersData) {
     const activeTabIndex = parametersData?.activeTabIndex
     const setActiveTabIndex = parametersData?.setActiveTabIndex
     const historyData = parametersData?.history
+    const jsonTabChoose = parametersData?.jsonTabChoose
+    const setJsonTabChoose = parametersData?.setJsonTabChoose
     const tabLabel = (parametersData?.modelData === undefined && historyData !== undefined) ? ['Parameters (JSON)'] : ['Parameters', 'Parameters (JSON)']
 
-    if (historyData && activeTabIndex !== 1) {
+    if (!jsonTabChoose && parametersData?.modelData && historyData && activeTabIndex !== 1) {
         setActiveTabIndex(1); // 1번 탭을 클릭
+        setJsonTabChoose!(true)
     }
 
     return (
@@ -49,16 +52,19 @@ export default function ParametersModule(parametersData: ParametersData) {
                 <div className="tab-content tab-space overflow-y-auto max-h-[212px] md:px-5">
                     <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
                         {historyData === undefined ?
-                            <JsonForms
-                                schema={schema}
-                                uischema={uiSchema}
-                                data={parameters}
-                                renderers={materialRenderers}
-                                cells={materialCells}
-                                onChange={({data}) => {
-                                    setParameters!(data);
-                                }}
-                            /> : <div>
+                            <div>
+                                <br/>
+                                <JsonForms
+                                    schema={schema}
+                                    uischema={uiSchema}
+                                    data={parameters}
+                                    renderers={materialRenderers}
+                                    cells={materialCells}
+                                    onChange={({data}) => {
+                                        setParameters!(data);
+                                    }}
+                                />
+                            </div> : <div>
                                 <br/>
                                 <JsonForms
                                     data={historyData.parameters}
