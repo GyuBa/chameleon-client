@@ -39,7 +39,7 @@ export default function Account() {
 
     return (
         <div className="contents">
-            <div className="w-2/3 m-2 md:m-10 mt-24 md:p-10 overflow-auto">
+            <div className="w-2/3 md:m-10 md:px-10 overflow-auto">
                 <p className='head-text'>Account</p>
                 <div className="my-4 border-gray-400 rounded-3xl border-1 p-5">
                     <p className="text-xs text-gray-600 mb-1 pb-2">User Info</p>
@@ -64,7 +64,7 @@ export default function Account() {
                         </div>
                     </div>
                 </div>
-                <div className="my-4 border-gray-400 rounded-3xl border-1 p-5">
+                <div className="my-4 border-gray-400 rounded-3xl border-1 px-5 pt-5 pb-2">
                     <div className="flex justify-between">
                         <p className="text-xs text-gray-600 mb-1 pb-2">Payment Histories</p>
                         <Link to={SitePaths.PAYMENT_HISTORIES}>
@@ -85,7 +85,7 @@ export default function Account() {
                     </div>
                     {activeTab === PaymentHistoriesType.USAGE && (
                         pointHistoriesData?.length ? (
-                            pointHistoriesData?.slice(-3).reverse().map((index) => (
+                            pointHistoriesData?.slice(-4).reverse().map((index) => (
                                 <div className="flex items-center">
                                     {index.type === PointHistoryType.USE_PAID_MODEL
                                         ? <HiChip className="mx-4 w-10 h-10"/> : <MdPayment className="mx-4 w-10 h-10"/>}
@@ -105,7 +105,7 @@ export default function Account() {
                                     </div>
                                 </div>
                             ))) : (
-                            <p className="mt-2 text-center text-gray-700">No payment histories found.</p>
+                            <p className="mt-2 text-center text-gray-700">No usage histories found.</p>
                         )
                     )}
                     {activeTab === PaymentHistoriesType.REVENUE && (
@@ -129,8 +129,14 @@ export default function Account() {
                                 </div>
                             ))
                         ) : (
-                            <p className="mt-2 text-center text-gray-700">No payment histories found.</p>
+                            <p className="mt-2 text-center text-gray-700">No revenue histories found.</p>
                         )
+                    )}
+                    {activeTab === PaymentHistoriesType.REVENUE && (
+                        <div className="flex border-t mx-4 mt-3 justify-between box-border h-[44px] items-center">
+                            <div className="font-semibold">Total Revenue:</div>
+                            <div className="font-semibold">￦{user?.earnedPoint.toLocaleString('ko-KR')}</div>
+                        </div>
                     )}
                 </div>
                 <div className="border-gray-400 rounded-3xl border-1 p-5">
