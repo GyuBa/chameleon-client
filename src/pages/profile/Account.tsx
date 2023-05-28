@@ -83,55 +83,50 @@ export default function Account() {
                         >Revenue Histories
                         </button>
                     </div>
-                    {activeTab === PaymentHistoriesType.USAGE && (
-                        pointHistoriesData?.length ? (
-                            pointHistoriesData?.slice(-4).reverse().map((index) => (
-                                <div className="flex items-center">
-                                    {index.type === PointHistoryType.USE_PAID_MODEL
-                                        ? <HiChip className="mx-4 w-10 h-10"/> : <MdPayment className="mx-4 w-10 h-10"/>}
-                                    <div className="w-full pl-2">
-                                        <div className="font-semibold text-left">
-                                            {index.modelHistory?.model?.name == null ? (
-                                                index.type === PointHistoryType.USE_PAID_MODEL ? 'Deleted Model' : 'Charge Points'
-                                            ) : index.modelHistory?.model?.name}
-                                        </div>
+                    {activeTab === PaymentHistoriesType.USAGE && ( pointHistoriesData?.length ? (
+                        pointHistoriesData?.slice(-4).reverse().map((index) => (
+                            <div className="flex items-center">
+                                {index.type === PointHistoryType.USE_PAID_MODEL
+                                    ? <HiChip className="mx-4 w-10 h-10"/> : <MdPayment className="mx-4 w-10 h-10"/>}
+                                <div className="w-full pl-2">
+                                    <div className="font-semibold text-left">
+                                        {index.modelHistory?.model?.name == null ? (
+                                            index.type === PointHistoryType.USE_PAID_MODEL ? 'Deleted Model' : 'Charge Points'
+                                        ) : index.modelHistory?.model?.name}
+                                    </div>
+                                    <div className="text-xs text-gray-600 text-left">{TimeUtils.formatTime(new Date(index.createdTime))}</div>
+                                </div>
+                                <div className="my-2 mr-4">
+                                    <div className={index.type === PointHistoryType.USE_PAID_MODEL
+                                        ? `font-semibold text-red-500 text-right`
+                                        : `font-semibold text-green-500 text-right`}>{index.delta.toLocaleString('ko-KR')}</div>
+                                    <div className="text-xs text-gray-600 text-right">{index.leftPoint.toLocaleString('ko-KR')}</div>
+                                </div>
+                            </div>
+                        ))) : (
+                        <p className="mt-2 text-center text-gray-700">No usage histories found.</p>
+                    ))}
+                    {activeTab === PaymentHistoriesType.REVENUE && ( earnedPointHistoriesData?.length ? (
+                        earnedPointHistoriesData?.slice(-3).reverse().map((index) => (
+                            <div className="flex items-center">
+                                <HiChip className="mx-4 w-10 h-10"/>
+                                <div className="w-full pl-2">
+                                    <div className="font-semibold text-left">
+                                        {index.model?.name == null ? 'Deleted Model' : index.model?.name}
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <div className="text-xs text-gray-600 text-left border-r-1 border-gray-300 pr-2">{index.executor?.username}</div>
                                         <div className="text-xs text-gray-600 text-left">{TimeUtils.formatTime(new Date(index.createdTime))}</div>
                                     </div>
-                                    <div className="my-2 mr-4">
-                                        <div className={index.type === PointHistoryType.USE_PAID_MODEL
-                                            ? `font-semibold text-red-500 text-right`
-                                            : `font-semibold text-green-500 text-right`}>{index.delta.toLocaleString('ko-KR')}</div>
-                                        <div className="text-xs text-gray-600 text-right">{index.leftPoint.toLocaleString('ko-KR')}</div>
-                                    </div>
                                 </div>
-                            ))) : (
-                            <p className="mt-2 text-center text-gray-700">No usage histories found.</p>
-                        )
-                    )}
-                    {activeTab === PaymentHistoriesType.REVENUE && (
-                        earnedPointHistoriesData?.length ? (
-                            earnedPointHistoriesData?.slice(-3).reverse().map((index) => (
-                                <div className="flex items-center">
-                                    <HiChip className="mx-4 w-10 h-10"/>
-                                    <div className="w-full pl-2">
-                                        <div className="font-semibold text-left">
-                                            {index.model?.name == null ? 'Deleted Model' : index.model?.name}
-                                        </div>
-                                        <div className="flex gap-2">
-                                            <div className="text-xs text-gray-600 text-left border-r-1 border-gray-300 pr-2">{index.executor?.username}</div>
-                                            <div className="text-xs text-gray-600 text-left">{TimeUtils.formatTime(new Date(index.createdTime))}</div>
-                                        </div>
-                                    </div>
-                                    <div className="my-2 mr-4">
-                                        <div className="font-semibold text-green-500 text-right">{index.delta.toLocaleString('ko-KR')}</div>
-                                        <div className="text-xs text-gray-600 text-right">{index.leftEarnedPoint.toLocaleString('ko-KR')}</div>
-                                    </div>
+                                <div className="my-2 mr-4">
+                                    <div className="font-semibold text-green-500 text-right">{index.delta.toLocaleString('ko-KR')}</div>
+                                    <div className="text-xs text-gray-600 text-right">{index.leftEarnedPoint.toLocaleString('ko-KR')}</div>
                                 </div>
-                            ))
-                        ) : (
-                            <p className="mt-2 text-center text-gray-700">No revenue histories found.</p>
-                        )
-                    )}
+                            </div>
+                        ))) : (
+                        <p className="mt-2 text-center text-gray-700">No revenue histories found.</p>
+                    ))}
                     {activeTab === PaymentHistoriesType.REVENUE && (
                         <div className="flex border-t mx-4 mt-3 justify-between box-border h-[44px] items-center">
                             <div className="font-semibold">Total Revenue:</div>
