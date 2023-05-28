@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {FitAddon} from "xterm-addon-fit";
 import {Terminal as XTerm} from 'xterm';
 import 'xterm/css/xterm.css';
-import {HistoryStatus, WSMessage, WSMessageType, WSUpdateHistoryMessage} from "../../types/chameleon-platform.common";
+import {HistoryStatus, WSMessage, WSMessageType, WSTerminalResizeMessage} from "../../types/chameleon-platform.common";
 import {ModuleData} from "../../types/chameleon-client";
 import useWebSocket from "react-use-websocket";
 
@@ -39,10 +39,10 @@ export default function Terminal({moduleData: {model, type, history}}: { moduleD
         terminal.open(document.querySelector('.terminal-container') as HTMLElement);
         terminal.onResize((event) => {
             let resize = JSON.stringify(event);
-            if (lastResize !== resize) {
+            if (lastResize !== resize && history?.id) {
                 lastResize = resize;
                 // enum, sender로 리팩토링할 것
-                sendJsonMessage({msg: WSMessageType.TERMINAL_RESIZE, ...event});
+                sendJsonMessage({msg: WSMessageType.TERMINAL_RESIZE, ...event, historyId: history?.id} as WSTerminalResizeMessage);
             }
         });
 
