@@ -10,7 +10,7 @@ export default function HTMLOutputModule(executeData: HistoryEntityData) {
     return (
         <div className='h-full'>
             <div
-                className="md:px-5 md:py-2 space-x-3 flex justify-between items-center border-b border-gray-300 bg-main-gray">
+                className="md:px-5 md:py-2 space-x-3 flex justify-between items-center rounded-t-lg border-b border-gray-300 bg-main-gray">
                 <p className="text-xl font-semibold">Output</p>
                 <div className="flex items-center rounded-lg hover:drop-shadow-xl focus:bg-white bg-white">
                     <button

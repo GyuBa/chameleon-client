@@ -18,9 +18,9 @@ export default function FilesInputModule(moduleData : ModuleData) {
     let modelId = moduleData?.model?.id!
     let parameters = moduleData?.parameters
 
-    /* if (moduleData?.model?.inputType === ModelInputType.FILES) {
-        accept = {[`image/!*`]: []};
-    } */
+   if (moduleData?.model?.inputType === ModelInputType.FILES) {
+        accept = {[`*/*`]: []};
+   }
 
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
         accept,
@@ -86,7 +86,7 @@ export default function FilesInputModule(moduleData : ModuleData) {
 
     return (
         <div>
-            <div className="md:p-2 space-x-3 flex justify-between items-center border-b border-gray-300"
+            <div className="md:px-5 md:py-2 space-x-3 flex justify-between items-center rounded-t-lg border-b border-gray-300"
                  style={{backgroundColor: '#F6F6F6'}}>
                 <p className="text-xl font-semibold">Input Upload</p>
                 {
@@ -140,7 +140,7 @@ export default function FilesInputModule(moduleData : ModuleData) {
                                     </div>
                                 ) : (<p className="text-gray-500 hover:text-gray-700 flex justify-center items-center flex-col text-center">
                                         Drag & drop some files here, or click to select files<br/>
-                                        <span>Support format: {ModelInputType.IMAGE}</span>
+                                        <span>Support format: {ModelInputType.FILES}</span>
                                     </p>
                                 )}
                             </div>
