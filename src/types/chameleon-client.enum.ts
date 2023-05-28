@@ -1,7 +1,7 @@
 import {ModelInputType, ModelOutputType} from "./chameleon-platform.common"
 import EmptyInputModule from "../pages/model/module/input/EmptyInputModule"
 import SingleInputModule from "../pages/model/module/input/SingleInputModule"
-import MultiInputModule from "../pages/model/module/input/MultipleInputModule";
+import FilesInputModule from "../pages/model/module/input/FilesInputModule";
 import ImageOutputModule from "../pages/model/module/output/ImageOutputModule";
 import ZipGalleryOutputModule from "../pages/model/module/output/ZipGalleryOutputModule";
 import TextOutputModule from "../pages/model/module/output/TextOutputModule";
@@ -12,7 +12,7 @@ import HTMLOutputModule from "../pages/model/module/output/HTMLOutputModule";
 
 export const InputModuleMap = {
     [ModelInputType.EMPTY]: EmptyInputModule,
-    [ModelInputType.ZIP] : MultiInputModule,
+    [ModelInputType.FILES] : FilesInputModule,
     [ModelInputType.IMAGE] : SingleInputModule,
     [ModelInputType.TEXT] :SingleInputModule,
     [ModelInputType.SOUND]: SingleInputModule,
