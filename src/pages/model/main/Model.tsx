@@ -137,7 +137,9 @@ export default function Model() {
                                     </div>
                                 </div>
                                 <div className="gap-3 flex">
-                                    <button className="rounded-lg text-sm bg-red-600 text-white p-1.5" onClick={handleReset}>reset</button>
+                                    {executeData?.status === HistoryStatus.FINISHED && (
+                                        <button className="rounded-lg text-sm bg-red-600 text-white p-1.5" onClick={handleReset}>reset</button>
+                                        )}
                                     <Link to={SitePaths.ALL_MODELS}>
                                         <button className="blue-btn text-sm p-1.5">back</button>
                                     </Link>
