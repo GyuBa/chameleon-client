@@ -133,6 +133,14 @@
   height: calc(100vh - 240px);
 }
 
+.contents-area-payment {
+  height: calc(100vh - 360px);
+}
+
+.contents-area-payment-scroll {
+  flex: 25;
+}
+
 .contents-area > div {
   height: 100%;
 }
