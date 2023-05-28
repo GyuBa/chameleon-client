@@ -59,7 +59,7 @@ export default function Payment() {
                 <p className='head-text'>Charge Points</p>
                 <div className="my-4 border-gray-400 rounded-3xl border-1 p-6 grid grid-cols-3 divide-x">
                     <div className="text-center">
-                        <img className="card-img-top" width="400" height="700" src={kakao} alt="kakao"/>
+                        <img className="card-img-top p-3" width="400" height="700" src={kakao} alt="kakao"/>
                         <p className="text-center font-extrabold text-xl">KakaoPay</p> <br/>
                         <label className="box-radio-input"><input type="radio" name="kakao_money" value="5000"
                                                                   checked={chargeUnit === "5000" && pgType === "kakao_money"}
@@ -99,7 +99,7 @@ export default function Payment() {
                         </button>
                     </div>
                     <div className="text-center">
-                        <img className="card-img-top" width="400" height="700" src={payco} alt="payco"/>
+                        <img className="card-img-top p-3" width="400" height="700" src={payco} alt="payco"/>
                         <p className="text-center font-extrabold text-xl">Payco</p> <br/>
                         <label className="box-radio-input"><input type="radio" name="payco_money" value="5000"
                                                                   checked={chargeUnit === "5000" && pgType === "payco_money"}
@@ -138,7 +138,7 @@ export default function Payment() {
                         </button>
                     </div>
                     <div className="text-center">
-                        <img className="card-img-top" width="400" height="1000" src={toss} alt="toss"/>
+                        <img className="card-img-top p-3" width="400" height="1000" src={toss} alt="toss"/>
                         <p className="text-center font-extrabold text-xl">Toss</p> <br/>
                         <label className="box-radio-input"><input type="radio" name="toss_money" value="5000"
                                                                   checked={chargeUnit === "5000" && pgType === "toss_money"}
