@@ -9,7 +9,7 @@ export default function ParameterEditorTab({isVisible, value, onChange}: Paramet
                 <MonaCoEditor
                     className="monaco-editor"
                     language="json"
-                    height='500px'
+                    height='60vh'
                     theme="vs-light"
                     options={{
                         minimap: {

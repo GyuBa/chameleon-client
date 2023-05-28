@@ -31,10 +31,12 @@ export default function Model() {
     const [modelData, setModelData] = useState<ModelEntityData>();
     const [executeData, setExecuteData] = useState<HistoryEntityData>();
     const [parameters, setParameters] = useState<ModelExecutionParameters>(null);
+    const [reset, setReset] = useState<boolean>(false)
     const {username, uniqueName} = useParams();
     const [isPanelVisible, setIsPanelVisible] = useState(false);
     const {setUser} = useGlobalContext();
-    const handleButtonClick = () => {
+
+    const handleDescriptionButtonClick = () => {
         setIsPanelVisible(!isPanelVisible);
     };
     useEffect(() => {
@@ -90,7 +92,9 @@ export default function Model() {
         history: executeData!,
         model: modelData!,
         type: PageType.EXECUTE,
-        parameters
+        parameters,
+        reset,
+        setReset
     };
 
     const parameterData: ParametersData = {
@@ -102,6 +106,14 @@ export default function Model() {
         setActiveTabIndex,
         jsonTabChoose,
         setJsonTabChoose
+    };
+
+    const handleReset = () => {
+        setExecuteData(undefined)
+        setParameters(modelData.parameters.data);
+        setActiveTabIndex(0)
+        setJsonTabChoose(false)
+        setReset(true)
     };
 
     return (
@@ -124,12 +136,17 @@ export default function Model() {
                                         </div>
                                     </div>
                                 </div>
-                                <Link to={SitePaths.ALL_MODELS}>
-                                    <button className="blue-btn text-sm w-full p-1.5">back</button>
-                                </Link>
+                                <div className="gap-3 flex">
+                                    {executeData?.status === HistoryStatus.FINISHED && (
+                                        <button className="rounded-lg text-sm bg-red-600 text-white p-1.5" onClick={handleReset}>reset</button>
+                                        )}
+                                    <Link to={SitePaths.ALL_MODELS}>
+                                        <button className="blue-btn text-sm p-1.5">back</button>
+                                    </Link>
+                                </div>
                             </div>
                             <div className="flex justify-end items-center">
-                                <button onClick={handleButtonClick}>
+                                <button onClick={handleDescriptionButtonClick}>
                                     <FiInfo size="32" color="#484848" className="my-1"/>
                                 </button>
                             </div>

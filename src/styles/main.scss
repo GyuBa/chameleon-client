@@ -141,6 +141,10 @@
   flex: 25;
 }
 
+.contents-area-parameter {
+  height: calc(100vh - 270px);
+}
+
 .contents-area > div {
   height: 100%;
 }

@@ -24,6 +24,7 @@ export default function SingleInputModule(moduleData: ModuleData) {
     let modelId = moduleData?.model?.id!
     let parameters = moduleData?.parameters
     let inputPath = moduleData?.history?.inputPath
+    let reset = moduleData?.reset
 
     if (moduleData?.model?.inputType === ModelInputType.SOUND) {
         accept = {[`audio/*`]: []};
@@ -133,9 +134,17 @@ export default function SingleInputModule(moduleData: ModuleData) {
         }
     })
 
+    useEffect(() => {
+        if (reset) {
+            moduleData.setReset!(false)
+            setFiles([]);
+            setHideDrop(false);
+        }
+    }, [reset])
+
     return (
         <div>
-            <div className="md:px-5 md:py-2 space-x-3 flex justify-between items-center border-b border-gray-300"
+            <div className="md:px-5 md:py-2 space-x-3 flex justify-between items-center rounded-t-lg border-b border-gray-300"
                  style={{backgroundColor: '#F6F6F6'}}>
                 <p className="text-xl font-semibold">Input Upload</p>
             </div>
