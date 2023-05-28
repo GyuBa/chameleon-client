@@ -160,3 +160,8 @@
 .html-output-content {
   height: calc(100% - 54.4px)
 }
+
+#webpack-dev-server-client-overlay {
+  display: none !important;
+  // TODO: 시연 위한 임시 조치
+}
