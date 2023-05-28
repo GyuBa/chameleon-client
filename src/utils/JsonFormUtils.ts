@@ -207,14 +207,14 @@ export class JsonFormUtils {
                     if (parameterDetail.numberEnum && parameterDetail.numberEnum?.length) {
                         for (let i = 0; i < parameterDetail.numberEnum.length; i++) {
                             if (typeof parameterDetail.numberEnum[i] === 'undefined') {
-                                parameterDetail.numberEnum[i] = 7;
+                                parameterDetail.numberEnum[i] = 0;
                             }
                         }
 
                         for (let i = 0; i < parameterDetail.numberEnum?.length; i++) {
                             for(let j = 0; j < i; j++) {
                                 if(parameterDetail.numberEnum[i] === parameterDetail.numberEnum[j])
-                                    parameterDetail.numberEnum[i] = parameterDetail.numberEnum[i] + 1
+                                    parameterDetail.numberEnum[i] += 1
                             }
                         }
                         properties[name].enum= parameterDetail.numberEnum;
@@ -231,14 +231,14 @@ export class JsonFormUtils {
                     if (parameterDetail.integerEnum && parameterDetail.integerEnum?.length) {
                         for (let i = 0; i < parameterDetail.integerEnum?.length; i++) {
                             if (typeof parameterDetail.integerEnum[i] === 'undefined') {
-                                parameterDetail.integerEnum[i] = 7;
+                                parameterDetail.integerEnum[i] = 0;
                             }
                         }
 
                         for (let i = 0; i < parameterDetail.integerEnum?.length; i++) {
                             for(let j = 0; j < i; j++) {
                                 if(parameterDetail.integerEnum[i] === parameterDetail.integerEnum[j])
-                                    parameterDetail.integerEnum[i] = parameterDetail.integerEnum[i] + 1
+                                    parameterDetail.integerEnum[i] += 1
                             }
                         }
 
