@@ -1,13 +1,14 @@
 import React from "react";
 import {
+    EarnedPointHistoryEntityData,
     HistoryEntityData,
     ModelCommonUploadData,
     ModelEntityData, ModelExecutionParameters,
     ModelInputType,
-    ModelParameters,
+    ModelParameters, PointHistoryEntityData,
     RegionEntityData, UserEntityData
 } from "./chameleon-platform.common";
-import {ModelFileType, ParameterType, PageType} from "./chameleon-client.enum";
+import {ModelFileType, ParameterType, PageType, PaymentHistoriesType} from "./chameleon-client.enum";
 import {Image} from "react-grid-gallery";
 
 export type ParametersData = {
@@ -56,12 +57,18 @@ export type GlobalContextData = {
     setModelData: React.Dispatch<React.SetStateAction<ModelUploadData>>
     regions: RegionEntityData[];
     setRegions: React.Dispatch<React.SetStateAction<RegionEntityData[]>>
-    parameterDetails: ParameterDetail[]
+    parameterDetails: ParameterDetail[];
     setParameterDetails: React.Dispatch<React.SetStateAction<ParameterDetail[]>>
     user: UserEntityData;
     setUser: React.Dispatch<React.SetStateAction<UserEntityData>>
     enableFooter: boolean;
     setEnableFooter: React.Dispatch<React.SetStateAction<boolean>>
+    pointHistoriesData: PointHistoryEntityData[] | null;
+    setPointHistoriesData: React.Dispatch<React.SetStateAction<PointHistoryEntityData[] | null>>
+    earnedPointHistoriesData: EarnedPointHistoryEntityData[] | null;
+    setEarnedPointHistoriesData: React.Dispatch<React.SetStateAction<EarnedPointHistoryEntityData[] | null>>
+    activeTab: PaymentHistoriesType
+    setActiveTab: React.Dispatch<React.SetStateAction<PaymentHistoriesType>>
 };
 
 export type IFile = File & { preview?: string };

@@ -11,7 +11,14 @@ import CreateModelInfo from "./pages/model/create/CreateModelInfo";
 import CreateModelParameters from "./pages/model/create/CreateModelParameters";
 import SignIn from "./pages/auth/SignIn";
 import SignUp from "./pages/auth/SignUp";
-import {RegionEntityData, SitePaths, UserEntityData, WSMessageType} from "./types/chameleon-platform.common";
+import {
+    EarnedPointHistoryEntityData,
+    PointHistoryEntityData,
+    RegionEntityData,
+    SitePaths,
+    UserEntityData,
+    WSMessageType
+} from "./types/chameleon-platform.common";
 import Histories from "./pages/history/board/Histories";
 import Models from "./pages/model/board/Models";
 import History from "./pages/history/main/History";
@@ -21,6 +28,7 @@ import CreateModelDescription from "./pages/model/create/CreateModelDescription"
 import {CookieUtils} from "./utils/CookieUtils";
 import {PlatformAPI} from "./platform/PlatformAPI";
 import PaymentHistories from "./pages/profile/PaymentHistories";
+import {PaymentHistoriesType} from "./types/chameleon-client.enum";
 
 export default function App() {
 
@@ -49,8 +57,11 @@ export default function App() {
     const [modelData, setModelData] = useState<ModelUploadData>(undefined!);
     const [regions, setRegions] = useState<RegionEntityData[]>([]);
     const [parameterDetails, setParameterDetails] = useState<ParameterDetail[]>([]);
-    const [user, setUser] = useState<UserEntityData>({id: -1, username: "", email: "", point: 0});
+    const [user, setUser] = useState<UserEntityData>({id: -1, username: "", email: "", point: 0, earnedPoint: 0});
     const [enableFooter, setEnableFooter] = useState<boolean>(true);
+    const [pointHistoriesData, setPointHistoriesData] = useState<PointHistoryEntityData[] | null>(null);
+    const [earnedPointHistoriesData, setEarnedPointHistoriesData] = useState<EarnedPointHistoryEntityData[] | null>(null);
+    const [activeTab, setActiveTab] = useState<PaymentHistoriesType>(PaymentHistoriesType.USAGE);
 
     useEffect(() => {
         const mainPath = '/' + path.split('/').shift();
@@ -84,7 +95,13 @@ export default function App() {
             user,
             setUser,
             enableFooter,
-            setEnableFooter
+            setEnableFooter,
+            pointHistoriesData,
+            setPointHistoriesData,
+            earnedPointHistoriesData,
+            setEarnedPointHistoriesData,
+            activeTab,
+            setActiveTab
         }}>
             <Routes>
                 {isSignedIn ? (

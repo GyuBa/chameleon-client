@@ -84,7 +84,6 @@ export default function CreateModelTab() {
                 <div className="flex gap-3 float-right">
                     <Link to={SitePaths.MY_MODELS} onClick={() => {
                         setModelData(undefined as any);
-
                     }}>
                         <button className="white-btn w-16 p-2">back</button>
                     </Link>
