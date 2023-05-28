@@ -46,6 +46,11 @@ export enum ModelFileType {
     DOCKERFILE
 }
 
+export enum PaymentHistoriesType {
+    USAGE ,
+    REVENUE
+}
+
 export enum ParameterType {
     STRING = "string",
     NUMBER = "number",
@@ -64,4 +69,11 @@ export enum JsonFormPropertyType {
     SCHEMA,
     UI_SCHEMA,
     DATA
+}
+
+export enum ParameterStatus {
+    HISTORY,
+    READY_EXECUTION,
+    AFTER_EXECUTION,
+    IMMEDIATE_AFTER_EXECUTION
 }

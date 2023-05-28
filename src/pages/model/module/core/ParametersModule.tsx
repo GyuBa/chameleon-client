@@ -3,10 +3,14 @@ import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import {JsonViewer} from "@textea/json-viewer";
 import {ParametersData} from "../../../../types/chameleon-client"
+import {ParameterStatus} from "../../../../types/chameleon-client.enum";
 
 export default function ParametersModule(parametersData: ParametersData) {
-    const schema = parametersData.modelData?.parameters.schema
-    const uiSchema = parametersData.modelData?.parameters.uischema
+
+    let status;
+    const modelData = parametersData.modelData
+    const schema = modelData?.parameters.schema
+    const uiSchema = modelData?.parameters.uischema
     const parameters = parametersData?.parameters
     const setParameters = parametersData?.setParameters
     const activeTabIndex = parametersData?.activeTabIndex
@@ -14,10 +18,21 @@ export default function ParametersModule(parametersData: ParametersData) {
     const historyData = parametersData?.history
     const jsonTabChoose = parametersData?.jsonTabChoose
     const setJsonTabChoose = parametersData?.setJsonTabChoose
-    const tabLabel = (parametersData?.modelData === undefined && historyData !== undefined) ? ['Parameters (JSON)'] : ['Parameters', 'Parameters (JSON)']
 
-    if (!jsonTabChoose && parametersData?.modelData && historyData && activeTabIndex !== 1) {
-        setActiveTabIndex(1); // 1번 탭을 클릭
+    if (!jsonTabChoose && modelData && historyData && activeTabIndex !== 1) {
+        status = ParameterStatus.IMMEDIATE_AFTER_EXECUTION;
+    } else if (!modelData && historyData) {
+        status = ParameterStatus.HISTORY;
+    } else if (historyData) {
+        status = ParameterStatus.AFTER_EXECUTION;
+    } else if (parameters) {
+        status = ParameterStatus.READY_EXECUTION
+    }
+
+    const tabLabel = (status === ParameterStatus.HISTORY) ? ['Parameters (JSON)'] : ['Parameters', 'Parameters (JSON)']
+
+    if (status === ParameterStatus.IMMEDIATE_AFTER_EXECUTION) {
+        setActiveTabIndex(1);
         setJsonTabChoose!(true)
     }
 
@@ -41,7 +56,7 @@ export default function ParametersModule(parametersData: ParametersData) {
                     })}
                 </div>
             </div>
-            {parametersData?.modelData === undefined && historyData !== undefined ?
+            {status === ParameterStatus.HISTORY ?
                 <div className="tab-content tab-space overflow-y-auto max-h-[243px] md:px-5">
                     <div className={activeTabIndex === 0 ? "block" : "hidden"}>
                         <br/>
@@ -49,21 +64,9 @@ export default function ParametersModule(parametersData: ParametersData) {
                     </div>
                 </div> :
                 <div className="tab-content tab-space overflow-y-auto max-h-[243px] md:px-5">
-                    <div className={activeTabIndex === 0 ? "block" : "hidden"}>
-                        {historyData === undefined ?
+                    <div className={activeTabIndex === 0 ? "block" : "hidden"} id="link1">
+                        {status === ParameterStatus.AFTER_EXECUTION ?
                             <div>
-                                <br/>
-                                <JsonForms
-                                    schema={schema}
-                                    uischema={uiSchema}
-                                    data={parameters}
-                                    renderers={materialRenderers}
-                                    cells={materialCells}
-                                    onChange={({data}) => {
-                                        setParameters!(data);
-                                    }}
-                                />
-                            </div> : <div>
                                 <br/>
                                 <JsonForms
                                     data={historyData.parameters}
@@ -71,6 +74,21 @@ export default function ParametersModule(parametersData: ParametersData) {
                                     cells={materialCells}
                                     readonly
                                 />
+                            </div>:
+                            <div>
+                                <br/>
+                                {(status === ParameterStatus.READY_EXECUTION) && (
+                                    <JsonForms
+                                        schema={schema}
+                                        uischema={uiSchema}
+                                        data={parameters}
+                                        renderers={materialRenderers}
+                                        cells={materialCells}
+                                        onChange={({data}) => {
+                                            setParameters!(data);
+                                        }}
+                                    />
+                                )}
                             </div>
                         }
                     </div>
