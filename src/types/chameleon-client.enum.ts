@@ -70,3 +70,10 @@ export enum JsonFormPropertyType {
     UI_SCHEMA,
     DATA
 }
+
+export enum ParameterStatus {
+    HISTORY,
+    READY_EXECUTION,
+    AFTER_EXECUTION,
+    IMMEDIATE_AFTER_EXECUTION
+}

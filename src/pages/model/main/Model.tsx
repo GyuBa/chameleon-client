@@ -28,15 +28,21 @@ import useGlobalContext from "../../../contexts/hook/useGlobalContext";
 export default function Model() {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const [jsonTabChoose, setJsonTabChoose] = useState(false);
-    const [parameters, setParameters] = useState<ModelExecutionParameters>({});
     const [modelData, setModelData] = useState<ModelEntityData>();
     const [executeData, setExecuteData] = useState<HistoryEntityData>();
+    const [parameters, setParameters] = useState<ModelExecutionParameters>(null);
     const {username, uniqueName} = useParams();
     const [isPanelVisible, setIsPanelVisible] = useState(false);
     const {setUser} = useGlobalContext();
     const handleButtonClick = () => {
         setIsPanelVisible(!isPanelVisible);
     };
+    useEffect(() => {
+        if (modelData && modelData.parameters) {
+            setParameters(modelData.parameters.data);
+        }
+    }, [modelData]);
+
 
     useEffect(() => {
         (async function () {
