@@ -90,9 +90,8 @@ export default function ModelsDescriptionPanel({modelId, setSelectedModelId, set
                             className="bg-teal-100 text-teal-500">{modelData?.category}</Badge></div>
                     </div>
                 )}
-                <div data-color-mode="light" className="my-4 whitespace-pre-wrap">
-                    <MDEditor.Markdown className="py-2" source={modelData?.description}
-                                       style={{whiteSpace: 'pre-wrap'}}/>
+                <div data-color-mode="light" className="my-4">
+                    <MDEditor.Markdown className="py-2" source={modelData?.description}/>
                 </div>
             </div>
         </div>
