@@ -38,7 +38,7 @@ export default function ParametersModule(parametersData: ParametersData) {
 
     return (
         <div className="row-span-2 rounded-lg border-1 border-gray-300">
-            <div className="border-b border-gray-300" style={{backgroundColor: '#F6F6F6'}}>
+            <div className="border-b border-gray-300 rounded-t-lg" style={{backgroundColor: '#F6F6F6'}}>
                 <div className="flex md:px-5 md:py-2 space-x-3 rounded-lg">
                     {tabLabel.map((label, idx) => {
                         return (

@@ -53,6 +53,7 @@ export default function History() {
         activeTabIndex: activeTabIndex,
         setActiveTabIndex: setActiveTabIndex
     }
+
     return (
         <div className="contents">
             <TerminalSplitContainer moduleData={moduleData}>

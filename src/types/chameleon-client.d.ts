@@ -26,7 +26,9 @@ export type ModuleData = {
     history: HistoryEntityData,
     model?: InputModelInfo,
     type: PageType,
-    parameters: ModelParameters
+    parameters: ModelParameters,
+    reset?: boolean,
+    setReset?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export type ParameterDetail = {
