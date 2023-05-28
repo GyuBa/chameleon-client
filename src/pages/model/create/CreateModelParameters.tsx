@@ -71,45 +71,43 @@ export default function CreateModelParameters() {
     return (
         <div className="contents">
             <div className="w-full m-2 md:my-7 md:mx-10 mt-12">
-                <div>
-                    <div className="flex space-x-3 border-b">
-                        <button
-                            className={builderType === BuilderType.SIMPLE ? 'default-tab-active' : 'default-tab-inactive'}
-                            onClick={() => setBuilderType(BuilderType.SIMPLE)}>
-                            Simple Builder
-                        </button>
-                        <button
-                            className={builderType === BuilderType.COMPLEX ? 'default-tab-active' : 'default-tab-inactive'}
-                            onClick={() => setBuilderType(BuilderType.COMPLEX)}>
-                            Complex Builder
-                        </button>
+                <div className="flex space-x-3 border-b">
+                    <button
+                        className={builderType === BuilderType.SIMPLE ? 'default-tab-active' : 'default-tab-inactive'}
+                        onClick={() => setBuilderType(BuilderType.SIMPLE)}>
+                        Simple Builder
+                    </button>
+                    <button
+                        className={builderType === BuilderType.COMPLEX ? 'default-tab-active' : 'default-tab-inactive'}
+                        onClick={() => setBuilderType(BuilderType.COMPLEX)}>
+                        Complex Builder
+                    </button>
+                </div>
+                <div className="pt-4 flex justify-between items-center">
+                    <div className="flex items-center">
+                        <p className='head-text'>Model Parameter</p>
                     </div>
-                    <div className="pt-4 flex justify-between items-center">
-                        <div className="flex items-center">
-                            <p className='head-text'>Model Parameter</p>
-                        </div>
-                        <div className="flex gap-3 float-right">
-                            {!isLoading && !isCompleted && (
-                                <div
-                                    className={`flex px-3 py-2 text-red-800 justify-center items-center rounded-lg bg-red-50 ${
-                                        showError ? 'opacity-100 ease-in duration-150' : 'opacity-0 ease-out duration-150'}`}>
-                                    <RiErrorWarningFill size={20}/>
-                                    <div className="ml-2 text-sm font-medium">Warning: Upload Error! Check if there are
-                                        any blanks.
-                                    </div>
+                    <div className="flex gap-3 float-right">
+                        {!isLoading && !isCompleted && (
+                            <div
+                                className={`flex px-3 py-2 text-red-800 justify-center items-center rounded-lg bg-red-50 ${
+                                    showError ? 'opacity-100 ease-in duration-150' : 'opacity-0 ease-out duration-150'}`}>
+                                <RiErrorWarningFill size={20}/>
+                                <div className="ml-2 text-sm font-medium">Warning: Upload Error! Check if there are
+                                    any blanks.
                                 </div>
-                            )}
-                            <Link to={SitePaths.CREATE_MODEL_DESCRIPTION}>
-                                <button className="white-btn w-16 p-2">back</button>
-                            </Link>
-                            <button className="blue-btn w-16" onClick={handleSubmit}>create</button>
-                        </div>
+                            </div>
+                        )}
+                        <Link to={SitePaths.CREATE_MODEL_DESCRIPTION}>
+                            <button className="white-btn w-16 p-2">back</button>
+                        </Link>
+                        <button className="blue-btn w-16" onClick={handleSubmit}>create</button>
                     </div>
-                    <div className="tab-content tab-space">
-                        {builderType === BuilderType.SIMPLE ?
-                            <SimpleParameterBuilder/> :
-                            <ComplexParameterBuilder/>}
-                    </div>
+                </div>
+                <div className="tab-content tab-space contents-area-parameter">
+                    {builderType === BuilderType.SIMPLE ?
+                        <SimpleParameterBuilder/> :
+                        <ComplexParameterBuilder/>}
                 </div>
             </div>
             {isLoading && <LoadingCircle loadingLabel={loadingLabel}/>}
