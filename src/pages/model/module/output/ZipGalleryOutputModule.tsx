@@ -68,7 +68,7 @@ export default function ZipGalleryOutputModule(executeData: HistoryEntityData) {
                         onprogress: async (index, max) => {
                             let loaded = currentLoaded + index;
                             let progress = total ? loaded / total : 0;
-                            setDecompressProgress({...decompressProgress, total, loaded, bytes: loaded, progress});
+                            setDecompressProgress({...decompressProgress, total, loaded, progress});
                             if (progress >= 1) {
                                 isCalledRef.current = false;
                             }
