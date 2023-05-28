@@ -9,7 +9,7 @@ import JSZip from 'jszip';
 
 type IFile = File & { preview?: string };
 
-export default function MultiInputModule(moduleData : ModuleData) {
+export default function FilesInputModule(moduleData : ModuleData) {
     const [files, setFiles] = useState<IFile[]>([]);
     const [hideDrop, setHideDrop] = useState<boolean>(false);
     const [uploadExplain, setUploadExplain] = useState<string>('');
@@ -18,9 +18,9 @@ export default function MultiInputModule(moduleData : ModuleData) {
     let modelId = moduleData?.model?.id!
     let parameters = moduleData?.parameters
 
-    if (moduleData?.model?.inputType === ModelInputType.ZIP) {
-        accept = {[`image/*`]: []};
-    }
+    /* if (moduleData?.model?.inputType === ModelInputType.FILES) {
+        accept = {[`image/!*`]: []};
+    } */
 
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
         accept,
