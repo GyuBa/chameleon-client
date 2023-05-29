@@ -189,7 +189,7 @@ export class JsonFormUtils {
                         for (let i = 0; i < parameterDetail.stringEnum?.length; i++) {
                             for(let j = 0; j < i; j++) {
                                 if(parameterDetail.stringEnum[i] === parameterDetail.stringEnum[j])
-                                    parameterDetail.stringEnum[i] = parameterDetail.stringEnum[i] + 1
+                                    parameterDetail.stringEnum[i] = parameterDetail.stringEnum[i] + ' '
                             }
                         }
 
@@ -214,7 +214,7 @@ export class JsonFormUtils {
                         for (let i = 0; i < parameterDetail.numberEnum?.length; i++) {
                             for(let j = 0; j < i; j++) {
                                 if(parameterDetail.numberEnum[i] === parameterDetail.numberEnum[j])
-                                    parameterDetail.numberEnum[i] += 1
+                                    parameterDetail.numberEnum[i] += 0.1
                             }
                         }
                         properties[name].enum= parameterDetail.numberEnum;
