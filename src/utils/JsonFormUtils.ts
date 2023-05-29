@@ -183,7 +183,7 @@ export class JsonFormUtils {
                     if (parameterDetail.stringEnum && parameterDetail.stringEnum?.length) {
                         for (let i = 0; i < parameterDetail.stringEnum?.length; i++) {
                             if (typeof parameterDetail.stringEnum[i] === 'undefined') {
-                                parameterDetail.stringEnum[i] = 'name';
+                                parameterDetail.stringEnum[i] = '';
                             }
                         }
                         for (let i = 0; i < parameterDetail.stringEnum?.length; i++) {
