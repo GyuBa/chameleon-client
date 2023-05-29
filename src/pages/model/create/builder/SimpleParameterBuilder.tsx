@@ -15,7 +15,7 @@ export default function SimpleParameterBuilder() {
     }, [parameterDetails]);
 
     return (
-        <div className="gap-3 grid grid-cols-1 xl:gap-3 2xl:grid-cols-2 mt-5 overflow-auto max-h-full">
+        <div className="gap-3 grid grid-cols-1 xl:gap-3 2xl:grid-cols-2 mt-5 overflow-x-hidden overflow-y-auto max-h-full pb-3">
             <div className="array-jsonform">
                 <JsonForms
                     data={{parameterDetails}}

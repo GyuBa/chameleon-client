@@ -29,7 +29,7 @@ export default function ComplexParameterBuilder() {
     }, [schemaString, uiSchemaString, dataString]);
 
     return (
-        <div className="gap-3 grid xl:grid-cols-1 md:px-5 md:my-2 2xl:grid-cols-2 mt-5 overflow-auto max-h-full">
+        <div className="gap-3 grid xl:grid-cols-1 md:px-5 md:my-2 2xl:grid-cols-2 mt-5 overflow-x-hidden overflow-y-auto max-h-full">
             <div>
                 <div className="flex space-x-3 border-b">
                     <button
