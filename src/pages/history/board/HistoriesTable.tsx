@@ -22,6 +22,7 @@ function getStatusColor(status: HistoryStatus): string {
 
 export function HistoriesTable({histories}: HistoriesProps) {
     const navigate = useNavigate();
+    console.log(histories)
     return (
         <div>
             <Table hoverable={true}>
@@ -38,13 +39,14 @@ export function HistoriesTable({histories}: HistoriesProps) {
                                 <Table.Cell>{historyData.id}</Table.Cell>
                                 {
                                     <Table.Cell>{
-                                        historyData.numberOfParents === 0 ? (
+                                        historyData?.parent?.id ? <div className="flex"><Badge
+                                                href={SitePaths.HISTORY(historyData?.parent?.id)}
+                                                color={'gray'}>{historyData?.parent?.id}</Badge>
+                                            </div>
+                                            :
                                             <div className="flex"><Badge
                                                 color={'gray'}>{'None'}</Badge>
                                             </div>
-                                        ) : (
-                                            historyData.numberOfParents
-                                        )
                                     }</Table.Cell>
                                 }
                                 <Table.Cell>{historyData.model ? (

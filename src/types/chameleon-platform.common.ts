@@ -431,7 +431,7 @@ export const SitePaths = {
     CREATE_MODEL_INFO: '/models/create/info',
     CREATE_MODEL_DESCRIPTION: '/models/create/description',
     CREATE_MODEL_PARAMETERS: '/models/create/parameters',
-    HISTORY: (historyId: number | string) => `/history/${Number.isInteger(historyId) ? (historyId as number + 1) : historyId}`,
+    HISTORY: (historyId: number | string) => `/history/${Number.isInteger(historyId) ? (historyId as number) : historyId}`,
     HISTORY_RAW: '/history',
     HISTORIES: '/histories',
     ACCOUNT: '/account',

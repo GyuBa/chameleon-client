@@ -19,7 +19,7 @@ export default function History() {
     useEffect(() => {
         (async function () {
             try {
-                const history = await PlatformAPI.getHistory(Number(historyId) - 1);
+                const history = await PlatformAPI.getHistory(Number(historyId));
                 setHistoryData(history);
             } catch (error) {
                 console.error(error);
