@@ -72,8 +72,8 @@ export default function Terminal({moduleData: {model, type, history}}: { moduleD
         // enum으로 리팩토링할 것
         if (message?.msg === WSMessageType.UPDATE_HISTORY && message?.history?.status === HistoryStatus.INITIALIZING) {
             terminal.clear();
-        } else if (message?.msg === WSMessageType.TERMINAL) {
-            terminalQueue.push(message.data);
+        } else if (message?.msg === WSMessageType.TERMINAL_BUFFER) {
+            terminalQueue = [terminalQueue, ...message.data];
             if (isWorking) {
                 return;
             }
