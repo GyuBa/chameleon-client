@@ -27,7 +27,7 @@ export default function ImageOutputModule(executeData: HistoryEntityData) {
                 <br/>
                 <p><span className="pl-5 pt-2 font-semibold">Output Format : </span>{outputType} </p>
                 <p><span className="pl-5 pt-2 font-semibold">Size : </span>{FileUtils.formatBytes(outputSize)} </p>
-                <div className="pl-5 pt-2 flex justify-center items-center">
+                <div className="pl-5 pr-5 pt-2 flex justify-center items-center">
                     {outputPath ?
                         <img className="w-full object-contain max-w-full max-h-full" src={'/' + outputPath} alt="single-output" /> : <></>}
                 </div>
