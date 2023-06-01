@@ -1,10 +1,17 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FitAddon} from "xterm-addon-fit";
 import {Terminal as XTerm} from 'xterm';
 import 'xterm/css/xterm.css';
-import {HistoryStatus, WSMessage, WSMessageType, WSTerminalResizeMessage} from "../../types/chameleon-platform.common";
+import {
+    HistoryStatus,
+    TerminalSizeOptions,
+    WSMessage,
+    WSMessageType,
+    WSTerminalResizeMessage
+} from "../../types/chameleon-platform.common";
 import {ModuleData} from "../../types/chameleon-client";
 import useWebSocket from "react-use-websocket";
+import useGlobalContext from "../../contexts/hook/useGlobalContext";
 
 let terminal: XTerm;
 let lastResize: string;
@@ -18,6 +25,16 @@ export default function Terminal({moduleData: {model, type, history}}: { moduleD
         shouldReconnect: (closeEvent) => true,
         share: true
     });
+
+    const [terminalSizeOptions, setTerminalSizeOptions] = useState<TerminalSizeOptions>({rows: -1, cols: -1});
+
+    useEffect(() => {
+        sendJsonMessage({
+            msg: WSMessageType.TERMINAL_RESIZE,
+            ...terminalSizeOptions,
+            historyId: history?.id
+        } as WSTerminalResizeMessage);
+    }, [terminalSizeOptions]);
 
     useEffect(() => {
         // WARNING: ref hook로 수정 가능한지 알아볼 것
@@ -34,15 +51,15 @@ export default function Terminal({moduleData: {model, type, history}}: { moduleD
                 }
                 width = currentWidth;
             }
+            if (terminalSizeOptions.cols !== terminal.cols || terminalSizeOptions.rows !== terminal.rows) {
+                setTerminalSizeOptions({cols: terminal.cols, rows: terminal.rows});
+            }
         };
         terminal.loadAddon(fitAddon);
         terminal.open(document.querySelector('.terminal-container') as HTMLElement);
         terminal.onResize((event) => {
-            let resize = JSON.stringify(event);
-            if (lastResize !== resize && history?.id) {
-                lastResize = resize;
-                // enum, sender로 리팩토링할 것
-                sendJsonMessage({msg: WSMessageType.TERMINAL_RESIZE, ...event, historyId: history?.id} as WSTerminalResizeMessage);
+            if (terminalSizeOptions.cols !== event.cols || terminalSizeOptions.rows !== event.rows) {
+                setTerminalSizeOptions({cols: event.cols, rows: event.rows});
             }
         });
 
@@ -73,7 +90,7 @@ export default function Terminal({moduleData: {model, type, history}}: { moduleD
         if (message?.msg === WSMessageType.UPDATE_HISTORY && message?.history?.status === HistoryStatus.INITIALIZING) {
             terminal.clear();
         } else if (message?.msg === WSMessageType.TERMINAL_BUFFER) {
-            terminalQueue = [terminalQueue, ...message.data];
+            terminalQueue.push(message.data);
             if (isWorking) {
                 return;
             }
@@ -81,6 +98,7 @@ export default function Terminal({moduleData: {model, type, history}}: { moduleD
             setTimeout(async () => {
                 function write(data: string) {
                     return new Promise(resolve => {
+                        console.log('Write', data);
                         terminal.write(data, () => {
                             terminal.scrollToBottom();
                             resolve(void 0);
@@ -110,6 +128,5 @@ export default function Terminal({moduleData: {model, type, history}}: { moduleD
             }
         }
     }, [terminalData]);
-
     return <div className="terminal-container"/>;
 }

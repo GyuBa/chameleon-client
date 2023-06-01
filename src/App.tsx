@@ -15,7 +15,7 @@ import {
     EarnedPointHistoryEntityData,
     PointHistoryEntityData,
     RegionEntityData,
-    SitePaths,
+    SitePaths, TerminalSizeOptions,
     UserEntityData,
     WSMessageType
 } from "./types/chameleon-platform.common";
@@ -62,6 +62,7 @@ export default function App() {
     const [pointHistoriesData, setPointHistoriesData] = useState<PointHistoryEntityData[] | null>(null);
     const [earnedPointHistoriesData, setEarnedPointHistoriesData] = useState<EarnedPointHistoryEntityData[] | null>(null);
     const [activeTab, setActiveTab] = useState<PaymentHistoriesType>(PaymentHistoriesType.USAGE);
+    const [terminalSizeOptions, setTerminalSizeOptions] = useState<TerminalSizeOptions>({cols: 181, rows: 14});
 
     useEffect(() => {
         const mainPath = '/' + path.split('/').shift();
@@ -101,7 +102,7 @@ export default function App() {
             earnedPointHistoriesData,
             setEarnedPointHistoriesData,
             activeTab,
-            setActiveTab
+            setActiveTab,
         }}>
             <Routes>
                 {isSignedIn ? (
